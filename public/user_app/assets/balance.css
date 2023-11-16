@@ -1,0 +1,64 @@
+img {
+    display: block;
+    vertical-align: middle;
+    margin: 0 auto;
+    width: 100%;
+}
+.font-green {
+    color: #ab0000;
+}
+/* .bg-green {
+    background: #1aacac;
+} */
+.font-13 {
+    font-size: 13px;
+}
+.time-box .col-3,
+.dream .col-3 {
+    background: #ab0000;
+    color: #fff;
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+.new {
+    position: absolute;
+    top: -14px;
+    right: -13px;
+    width: 29px;
+    transform: rotate(-33deg);
+}
+::placeholder {
+    font-size: 13px;
+  }
+
+.digit-box .digit {
+    width: 100%;
+    /* padding: 10px 5px; */
+    /* margin: 0 20px 10px 0; */
+    color: #000;
+    background: #a9a9a9a8;
+    box-shadow: 0 0 32px rgba(9,53,94,.17);
+    border-radius: 5px;
+    font-size: 13px;
+}
+/* .digit-box .digit:nth-child(5n) {
+    margin: 0 0 10px 0;
+} */
+.btn-delete {
+    color: #e83a3a;
+    margin-right: 30px;
+    font-size: 13px;
+}
+.btn-confirm {
+    background: #ab0000;
+    color: #fff;
+    font-size: 13px;
+}
+.progress {
+    height: 5px!important;
+}
+.progress-bar {
+    background-color: #95ff01 !important;
+}
