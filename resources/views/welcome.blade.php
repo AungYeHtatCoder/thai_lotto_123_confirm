@@ -1,12 +1,137 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-<body>
-  <h1>hello thai 123 site</h1>
-</body>
-</html>
+@extends('user_layout.app')
+
+@section('content')
+<div class="row">
+ <div class="col-lg-4 col-md-4 offset-lg-4 offset-md-4">
+  <!--start navbar -->
+  {{-- <div class="container-fluid fixed-top">
+   <div class="row">
+    <div class="col-lg-4 col-md-4 offset-lg-4 offset-md-4 navs">
+     <div class="px-3 py-3">
+      <div class="d-flex justify-content-between">
+       <h5 class="mx-auto">
+        <a href="index.html" class="text-white">Diamond 2D | 3D</a>
+       </h5>
+       <span>
+        <a class="material-icons text-white" href="index.html">refresh</a>
+       </span>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div> --}}
+
+  @include('user_layout.nav')
+  <!-- end navbar -->
+
+  <!-- start content -->
+  <div class="row content" style="height: 880px">
+   <div class="stick">
+    <div class="d-flex justify-content-between pt-4">
+     <div class="">
+      <i class="fa-regular fa-circle-user fa-2xl"></i>
+     </div>
+     <div>
+      <h2 class="ms-2"><a href="#">Login</a></h2>
+     </div>
+     <div>
+      <i class="fa-solid fa-bell fa-2xl"></i>
+     </div>
+    </div>
+
+    <div class="ticks mb-2">
+     <hr style="
+                    height: 20px;
+                    background-color: #ffffff;
+                    margin-top: 20px;
+                  " />
+    </div>
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+     <div class="carousel-inner">
+      <div class="carousel-item">
+       <img src="https://thailotto123.net/assets/img/banners/banner6551a36c29352.png" style="max-height: 500px"
+        class="d-block w-100" alt="..." />
+       <marquee behavior="" direction="" style="background-color: blue; color: aliceblue">
+        Thai 2D - 3D App သည် Thai နိုင်ငံ Official App ဖြစ်ပြီး ၂၄
+        နာရီ ကြားခံမလိုပဲ ငွေသွင်းငွေထုတ်လုပ်နိုင်ပါသည်။
+       </marquee>
+      </div>
+      <div class="carousel-item">
+       <img src="https://thailotto123.net/assets/img/banners/banner6551a35f3f8a0.png" style="max-height: 500px"
+        class="d-block w-100" alt="..." />
+       <marquee behavior="" direction="" style="background-color: blue; color: aliceblue">
+        Thai 2D - 3D App သည် Thai နိုင်ငံ Official App ဖြစ်ပြီး ၂၄
+        နာရီ ကြားခံမလိုပဲ ငွေသွင်းငွေထုတ်လုပ်နိုင်ပါသည်။
+       </marquee>
+      </div>
+      <div class="carousel-item">
+       <img src="https://thailotto123.net/assets/img/banners/banner6551a3505d2c9.png" style="max-height: 500px"
+        class="d-block w-100" alt="..." />
+       <marquee behavior="" direction="" style="background-color: blue; color: aliceblue">
+        Thai 2D - 3D App သည် Thai နိုင်ငံ Official App ဖြစ်ပြီး ၂၄
+        နာရီ ကြားခံမလိုပဲ ငွေသွင်းငွေထုတ်လုပ်နိုင်ပါသည်။
+       </marquee>
+      </div>
+      <div class="carousel-item active">
+       <img src="https://thailotto123.net/assets/img/banners/banner6551a3505d2c9.png" style="max-height: 500px"
+        class="d-block w-100" alt="..." />
+       <marquee behavior="" direction="" style="background-color: blue; color: aliceblue">
+        Thai 2D - 3D App သည် Thai နိုင်ငံ Official App ဖြစ်ပြီး ၂၄
+        နာရီ ကြားခံမလိုပဲ ငွေသွင်းငွေထုတ်လုပ်နိုင်ပါသည်။
+       </marquee>
+      </div>
+      <div class="carousel-item">
+       <img src="https://thailotto123.net/assets/img/banners/banner6551a3505d2c9.png" style="max-height: 500px"
+        class="d-block w-100" alt="..." />
+       <marquee behavior="" direction="" style="background-color: blue; color: aliceblue">
+        Thai 2D - 3D App သည် Thai နိုင်ငံ Official App ဖြစ်ပြီး ၂၄
+        နာရီ ကြားခံမလိုပဲ ငွေသွင်းငွေထုတ်လုပ်နိုင်ပါသည်။
+       </marquee>
+      </div>
+     </div>
+    </div>
+
+    <div class="d-flex justify-content-around mt-2">
+     <div>
+      <div class="buttons">
+       <a href="{{ url('/twod') }}" class="">2D PLAY</a>
+      </div>
+      <a href="{{ url('/twod') }}" class="text-dark text-decoration-none">
+       <p class="font-weight-bold text">2D</p>
+      </a>
+     </div>
+     <div>
+      <div class="buttons">
+       <a href="components/3d.html">3D PLAY</a>
+      </div>
+      <a href="#" class="text-dark text-decoration-none">
+       <p class="font-weight-bold text text-center">3D</p>
+      </a>
+     </div>
+    </div>
+
+    <div class="d-flex justify-content-around">
+     <div>
+      <div class="button">
+       <a href="#"><img class="w-100 buttons-img" src="images/logo1.jpg" alt="" /></a>
+      </div>
+      <a href="#" class="text-dark text-decoration-none">
+       <p class="font-weight-bold text">2D</p>
+      </a>
+     </div>
+     <div>
+      <div class="button">
+       <a href="#"><img class="buttons-img" src="images/logo1.jpg" alt="" /></a>
+      </div>
+      <a href="#" class="text-dark text-decoration-none">
+       <p class="text">2D</p>
+      </a>
+     </div>
+    </div>
+   </div>
+  </div>
+  <!-- end content -->
+ </div>
+</div>
+
+@endsection
