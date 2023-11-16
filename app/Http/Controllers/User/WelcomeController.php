@@ -141,6 +141,11 @@ class WelcomeController extends Controller
         return view('frontend.twod');
     }
 
+    public function twoDPlay()
+    {
+        return view('frontend.twodplay');
+    }
+
 
     public function inviteCode()
     {
