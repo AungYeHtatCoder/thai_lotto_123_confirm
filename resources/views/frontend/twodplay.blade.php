@@ -49,7 +49,7 @@
       <a class="btn mt-3" data-bs-toggle="modal" data-bs-target="#colorModal"><span class="material-icons">
           question_mark
         </span>အရောင်ရှင်းလင်းချက်</a>
-      <button class="fs-6">အမြန်ရွေးရန်</button>
+      <a href="{{ url('/twod-quick') }}" class="btn p-3 text-white" style="background-color: #2a576c">အမြန်ရွေးရန်</a>
     </div>
 
 

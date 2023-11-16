@@ -134,6 +134,8 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'App\Http\Cont
 
 
 
+
+
 Route::get('/wallet', [App\Http\Controllers\User\WelcomeController::class, 'wallet']);
 Route::get('/topUp', [App\Http\Controllers\User\WelcomeController::class, 'topUp']);
 Route::get('/topUpSubmit', [App\Http\Controllers\User\WelcomeController::class, 'topUpSubmit']);
@@ -147,6 +149,10 @@ Route::get('/service', [App\Http\Controllers\User\WelcomeController::class, 'ser
 
 Route::get('/twod', [App\Http\Controllers\User\WelcomeController::class, 'twoD']);
 Route::get('/twodplay', [App\Http\Controllers\User\WelcomeController::class, 'twoDPlay']);
+Route::get('/twod-quick', [App\Http\Controllers\User\WelcomeController::class, 'twoDQuick']);
+Route::get('/user-dashboard', [App\Http\Controllers\User\WelcomeController::class, 'user_dashboard']);
+Route::get('/user-dashboard/winningRecord', [App\Http\Controllers\User\WelcomeController::class, 'winningRecord']);
+
 
 Route::get('/threeD', [App\Http\Controllers\User\WelcomeController::class, 'threeD']);
 Route::get('/threed-bet', [App\Http\Controllers\User\WelcomeController::class, 'threedBet']);

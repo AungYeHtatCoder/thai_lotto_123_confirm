@@ -154,6 +154,11 @@ class WelcomeController extends Controller
         return view('frontend.twodplay');
     }
 
+    public function twoDQuick()
+    {
+        return view('frontend.twod-quick');
+    }
+
     public function threeD()
     {
         return view('frontend.threeD');
@@ -201,12 +206,12 @@ class WelcomeController extends Controller
 
     public function user_dashboard()
     {
-        return view('frontend.dashboard');
+        return view('frontend.user-dashboard');
     }
 
     public function winningRecord()
     {
-        return view('frontend.winningRecord');
+        return view('frontend.winning-record');
     }
 
     /**
