@@ -132,6 +132,14 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'App\Http\Cont
     */
 });
 
-Route::get('/twod', [App\Http\Controllers\User\WelcomeController::class, 'twoD']);
+
+
 Route::get('/wallet', [App\Http\Controllers\User\WelcomeController::class, 'wallet']);
 Route::get('/promotion', [App\Http\Controllers\User\WelcomeController::class, 'promo']);
+
+Route::get('/twod', [App\Http\Controllers\User\WelcomeController::class, 'twoD']);
+Route::get('/twodplay', [App\Http\Controllers\User\WelcomeController::class, 'twoDPlay']);
+
+
+
+
