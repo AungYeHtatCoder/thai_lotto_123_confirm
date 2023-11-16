@@ -1,4 +1,5 @@
 @include('user_layout.header')
+@yield('style')
 
 <body>
  <div class="container-fluid">
@@ -11,4 +12,5 @@
 
   <!-- end footer -->
  </div>
+ @yield('script')
  @include('user_layout.js')

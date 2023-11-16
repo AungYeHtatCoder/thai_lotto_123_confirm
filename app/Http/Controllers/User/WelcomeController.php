@@ -84,6 +84,12 @@ class WelcomeController extends Controller
         return view('frontend.topUp');
     }
 
+    public function topUpSubmit()
+    {
+        return view('frontend.topUpSubmit');
+    }
+
+
     public function withDraw()
     {
         return view('frontend.withDraw');
@@ -137,7 +143,7 @@ class WelcomeController extends Controller
     }
 
 
-   
+
     public function twoD()
     {
         return view('frontend.twod');
@@ -148,6 +154,40 @@ class WelcomeController extends Controller
         return view('frontend.twodplay');
     }
 
+    public function threeD()
+    {
+        return view('frontend.threeD');
+    }
+
+    public function threedBet()
+    {
+        return view('frontend.threed-bet');
+    }
+
+    public function threedNum()
+    {
+        return view('frontend.threed-num');
+    }
+
+    public function threedQuick()
+    {
+        return view('frontend.threed-quick');
+    }
+
+    public function threedConfirm()
+    {
+        return view('frontend.threed-confirm');
+    }
+
+    public function threedWinner()
+    {
+        return view('frontend.threed-winner');
+    }
+
+    public function threedHistory()
+    {
+        return view('frontend.threed-history');
+    }
 
     public function inviteCode()
     {

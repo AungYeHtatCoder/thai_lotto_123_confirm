@@ -20,7 +20,7 @@
     </a>
    </div>
    <div class="text-center">
-    <a href="./components/service.html" class="text-decoration-none">
+    <a href="{{ url('/service') }}" class="text-decoration-none">
      <i class="fas fa-phone"></i>
      <span class="d-block">ဝန်ဆောင်မှုဖုန်း</span>
     </a>
