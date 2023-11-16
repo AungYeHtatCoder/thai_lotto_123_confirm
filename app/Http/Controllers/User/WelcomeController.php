@@ -74,74 +74,91 @@ class WelcomeController extends Controller
         return view('welcome', compact('data', 'banners'));
     }
 
-    public function wallet(){
+    public function wallet()
+    {
         return view('frontend.wallet');
     }
 
-    public function topUp(){
+    public function topUp()
+    {
         return view('frontend.topUp');
     }
 
-    public function withDraw(){
+    public function withDraw()
+    {
         return view('frontend.withDraw');
     }
 
-    public function promo(){
+    public function promo()
+    {
         return view('frontend.promo');
     }
 
-    public function promoDetail(){
+    public function promoDetail()
+    {
         return view('frontend.promoDetail');
     }
 
-    public function servicePage(){
+    public function servicePage()
+    {
         return view('frontend.service');
     }
 
-    public function dashboard(){
+    public function dashboard()
+    {
         return view('frontend.dashboard');
     }
 
-    public function winnerDigit(){
+    public function winnerDigit()
+    {
         return view('frontend.winnerDigit');
     }
 
-    public function winnerPage(){
+    public function winnerPage()
+    {
         return view('frontend.winner_page');
     }
 
-    public function myDigit(){
+    public function myDigit()
+    {
         return view('frontend.myDigit');
     }
 
 
 
-    public function myBank(){
+    public function myBank()
+    {
         return view('frontend.myBank');
     }
 
-    public function changePassword(){
+    public function changePassword()
+    {
         return view('frontend.changePassword');
     }
 
-    public function twod(){
+    public function twoD()
+    {
         return view('frontend.twod');
     }
 
 
-    public function inviteCode(){
+    public function inviteCode()
+    {
         return view('frontend.inviteCode');
     }
 
-    public function comment(){
+    public function comment()
+    {
         return view('frontend.comment');
     }
 
-    public function user_dashboard(){
+    public function user_dashboard()
+    {
         return view('frontend.dashboard');
     }
 
-    public function winningRecord(){
+    public function winningRecord()
+    {
         return view('frontend.winningRecord');
     }
 
