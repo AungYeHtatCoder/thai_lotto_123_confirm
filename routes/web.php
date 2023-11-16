@@ -135,11 +135,23 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'App\Http\Cont
 
 
 Route::get('/wallet', [App\Http\Controllers\User\WelcomeController::class, 'wallet']);
+Route::get('/topUp', [App\Http\Controllers\User\WelcomeController::class, 'topUp']);
+Route::get('/topUpSubmit', [App\Http\Controllers\User\WelcomeController::class, 'topUpSubmit']);
+Route::get('/withDraw', [App\Http\Controllers\User\WelcomeController::class, 'withDraw']);
+
+
+
 Route::get('/promotion', [App\Http\Controllers\User\WelcomeController::class, 'promo']);
+Route::get('/service', [App\Http\Controllers\User\WelcomeController::class, 'servicePage']);
+
 
 Route::get('/twod', [App\Http\Controllers\User\WelcomeController::class, 'twoD']);
 Route::get('/twodplay', [App\Http\Controllers\User\WelcomeController::class, 'twoDPlay']);
 
-
-
-
+Route::get('/threeD', [App\Http\Controllers\User\WelcomeController::class, 'threeD']);
+Route::get('/threed-bet', [App\Http\Controllers\User\WelcomeController::class, 'threedBet']);
+Route::get('/threed-num', [App\Http\Controllers\User\WelcomeController::class, 'threedNum']);
+Route::get('/threed-quick', [App\Http\Controllers\User\WelcomeController::class, 'threedQuick']);
+Route::get('/threed-confirm', [App\Http\Controllers\User\WelcomeController::class, 'threedConfirm']);
+Route::get('/threed-winner', [App\Http\Controllers\User\WelcomeController::class, 'threedWinner']);
+Route::get('/threed-history', [App\Http\Controllers\User\WelcomeController::class, 'threedHistory']);

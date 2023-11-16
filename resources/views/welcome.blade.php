@@ -4,11 +4,7 @@
 <div class="row">
  <div class="col-lg-4 col-md-4 offset-lg-4 offset-md-4">
   <!--start navbar -->
-  @include('user_layout.nav')
-  </div>
-
-  <!-- end navbar -->
-
+  @include('user_layout.sub_nav')
   <!-- start content -->
   <div class="row content" style="height: 880px">
    <div class="stick">
@@ -87,9 +83,9 @@
      </div>
      <div>
       <div class="buttons">
-       <a href="components/3d.html">3D PLAY</a>
+       <a href="{{ url('/threeD') }}">3D PLAY</a>
       </div>
-      <a href="#" class="text-dark text-decoration-none">
+      <a href="{{ url('/threeD') }}" class="text-dark text-decoration-none">
        <p class="font-weight-bold text text-center">3D</p>
       </a>
      </div>
@@ -116,12 +112,17 @@
    </div>
   </div>
   <!-- end content -->
-</div>
+ </div>
+
+ <!-- end navbar -->
+
+
+
 </div>
 
 @include('user_layout.footer')
 
- </div>
+</div>
 </div>
 
 

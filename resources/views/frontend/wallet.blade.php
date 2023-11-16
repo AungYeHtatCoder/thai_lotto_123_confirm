@@ -23,13 +23,13 @@
   <div class="card child-div">
    <div class="row pt-2 text-center">
     <div class="col">
-     <a href="top-up.html" style="color: black; text-decoration: none">
+     <a href="{{ url('/topUp') }}" style="color: black; text-decoration: none">
       <i class="fa-solid fa-money-bill-1"></i>
       <p style="font-size: 11px">ငွေဖြည့်</p>
      </a>
     </div>
     <div class="col">
-     <a href="withdraw.html" style="color: black; text-decoration: none">
+     <a href="{{ url('/withDraw') }}" style="color: black; text-decoration: none">
       <i class="fa-solid fa-money-bill-transfer"></i>
       <p style="font-size: 11px">ငွေထုတ်</p>
      </a>
@@ -62,4 +62,6 @@
   </div>
  </div>
 </div>
+
+@include('user_layout.footer')
 @endsection
