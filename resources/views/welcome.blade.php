@@ -131,7 +131,9 @@
    </div>
   </div>
   <!-- end content -->
- </div>
 </div>
+</div>
+
+@include('user_layout.footer')
 
 @endsection

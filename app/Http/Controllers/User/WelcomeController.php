@@ -124,8 +124,15 @@ class WelcomeController extends Controller
         return view('frontend.changePassword');
     }
 
-    public function twod(){
+    
+    public function twoD()
+    {
         return view('frontend.twod');
+    }
+
+    public function twoDPlay()
+    {
+        return view('frontend.twodplay');
     }
 
 
