@@ -4,9 +4,9 @@
 <div class="row">
  <div class="col-lg-4 col-md-4 offset-lg-4 offset-md-4">
   <!--start navbar -->
-  @include('user_layout.sub_nav')
+  @include('user_layout.nav')
   <!-- start content -->
-  <div class="row content" style="height: 880px">
+  <div class="row content mt-2" style="height: 900px">
    <div class="stick">
     <div class="d-flex justify-content-between pt-4">
      <div class="">
