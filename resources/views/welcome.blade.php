@@ -67,7 +67,6 @@
           </div>
         </div>
 
-<<<<<<< HEAD
     <div class="d-flex justify-content-around mt-2">
      <div>
       <div class="buttons">
@@ -86,7 +85,6 @@
       </a>
      </div>
     </div>
-=======
         <div class="d-flex justify-content-around mt-2">
           <div>
             <div class="buttons">
@@ -105,7 +103,6 @@
             </a>
           </div>
         </div>
->>>>>>> 142fd1a46e8411853bf9ea92684fd89e87517120
 
         <div class="d-flex justify-content-around">
           <div>
