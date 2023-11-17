@@ -492,6 +492,9 @@ hr.my-custom-line {
   font-size: 30px;
 }
 
-.card morning-card {
-  background-color: red;
+/* invite code */
+.pw-btn {
+  width: 100%;
+  height: 40px;
+  background: linear-gradient(90deg, #428387, #336876, #265166 100%);
 }

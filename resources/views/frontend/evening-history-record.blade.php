@@ -8,6 +8,7 @@
       style="background-color: #b6c5d8;"
     >
     <p class="text-center mt-3">မှတ်တမ်း</p>
+    
     <div class="d-flex justify-content-between">
         <div class="card py-4 w-100 text-center bg-light shadow" id="twod">
             <i class="fas fa-calendar fa-2x mb-3 d-block" aria-hidden="true" style="color: #2a576c;"></i>
@@ -22,28 +23,36 @@
         </div>
     </div>
 
-    <div class="twod" style="padding-bottom: 300px">
+    <div class="twod" style="padding-bottom: 200px">
         <div class="card border border-1 p-3 my-3 text-center">
-            <div>
-                <p class="text-center text-green">12:01 PM</p>
+                                                    <div>
+                <p class="btn shadow rounded-lg" style="background-color: #1aacac; color: #fff;">10 Nov 2023 (Friday) (04:07 pm)</p>
                 <div class="d-flex justify-content-around">
                     <div>
                         
-                        <p>No MorningPrizeNo History</p>
+                        <p>12</p>
                     </div>
-                    
+                    <div>
+                        
+                        <p>evening</p>
+                    </div>
+                    <div>
+                        <p class="text-green">2D</p>
+                        
+                    </div>
                 </div>
                 <hr>
             </div>
-            
+                                
             
 
         </div>
         
     </div>
 
-    </div>
+    
 
+</div>
 </div>
 @include('user_layout.footer')
 

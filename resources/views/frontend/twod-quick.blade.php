@@ -1,7 +1,7 @@
 @extends('user_layout.app')
 
 @section('content')
-@include('user_layout.nav')
+@include('user_layout.sub_nav')
 <div class="row">
     <div
       class="col-lg-4 col-md-4 offset-lg-4 offset-md-4 mt-5 py-4"

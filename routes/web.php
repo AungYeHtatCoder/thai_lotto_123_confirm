@@ -156,6 +156,14 @@ Route::get('/user-dashboard/moriningPrize', [App\Http\Controllers\User\WelcomeCo
 Route::get('/user-dashboard/moriningRecord', [App\Http\Controllers\User\WelcomeController::class, 'moriningRecord']);
 Route::get('/user-dashboard/eveningRecord', [App\Http\Controllers\User\WelcomeController::class, 'eveningRecord']);
 Route::get('/user-dashboard/morningHistoryRecord', [App\Http\Controllers\User\WelcomeController::class, 'morningHistoryRecord']);
+Route::get('/user-dashboard/eveningHistoryRecord', [App\Http\Controllers\User\WelcomeController::class, 'eveningHistoryRecord']);
+Route::get('/user-dashboard/myBank', [App\Http\Controllers\User\WelcomeController::class, 'myBank']);
+Route::get('/user-dashboard/inviteCode', [App\Http\Controllers\User\WelcomeController::class, 'inviteCode']);
+Route::get('/user-dashboard/comment', [App\Http\Controllers\User\WelcomeController::class, 'comment']);
+Route::get('/user-dashboard/changePassword', [App\Http\Controllers\User\WelcomeController::class, 'changePassword']);
+Route::get('/user-register', [App\Http\Controllers\User\WelcomeController::class, 'userRegister']);
+Route::get('/user-login', [App\Http\Controllers\User\WelcomeController::class, 'userLogin']);
+Route::get('/user-profile', [App\Http\Controllers\User\WelcomeController::class, 'userProfile']);
 
 
 Route::get('/threeD', [App\Http\Controllers\User\WelcomeController::class, 'threeD']);
