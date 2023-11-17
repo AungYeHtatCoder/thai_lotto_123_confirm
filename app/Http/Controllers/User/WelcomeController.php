@@ -134,12 +134,12 @@ class WelcomeController extends Controller
 
     public function myBank()
     {
-        return view('frontend.myBank');
+        return view('frontend.my-bank');
     }
 
     public function changePassword()
     {
-        return view('frontend.changePassword');
+        return view('frontend.change-password');
     }
 
 
@@ -149,54 +149,10 @@ class WelcomeController extends Controller
         return view('frontend.twod');
     }
 
-    public function twoDPlay()
-    {
-        return view('frontend.twodplay');
-    }
-
-    public function twoDQuick()
-    {
-        return view('frontend.twod-quick');
-    }
-
-    public function threeD()
-    {
-        return view('frontend.threeD');
-    }
-
-    public function threedBet()
-    {
-        return view('frontend.threed-bet');
-    }
-
-    public function threedNum()
-    {
-        return view('frontend.threed-num');
-    }
-
-    public function threedQuick()
-    {
-        return view('frontend.threed-quick');
-    }
-
-    public function threedConfirm()
-    {
-        return view('frontend.threed-confirm');
-    }
-
-    public function threedWinner()
-    {
-        return view('frontend.threed-winner');
-    }
-
-    public function threedHistory()
-    {
-        return view('frontend.threed-history');
-    }
 
     public function inviteCode()
     {
-        return view('frontend.inviteCode');
+        return view('frontend.invite-code');
     }
 
     public function comment()
@@ -213,6 +169,35 @@ class WelcomeController extends Controller
     {
         return view('frontend.winning-record');
     }
+
+    public function moriningPrize()
+    {
+        return view('frontend.morning-session-prize-no-history');
+    }
+
+    public function moriningRecord()
+    {
+        return view('frontend.play-two-morning-record');
+    }
+
+    public function eveningRecord()
+    {
+        return view('frontend.play-two-evenving-record');
+    }
+
+    public function morningHistoryRecord()
+    {
+        return view('frontend.morning-history-record');
+    }
+
+    public function eveningHistoryRecord()
+    {
+        return view('frontend.evening-history-record');
+    }
+
+   
+
+   
 
     /**
      * Show the form for creating a new resource.
@@ -326,7 +311,7 @@ class WelcomeController extends Controller
 
     public function userProfile()
     {
-        return view('user_profile');
+        return view('frontend.user_profile');
     }
 
     public function userFillMoney()
@@ -336,12 +321,12 @@ class WelcomeController extends Controller
 
     public function userLogin()
     {
-        return view('user_login');
+        return view('frontend.user-login');
     }
 
     public function userRegister()
     {
-        return view('user_register');
+        return view('frontend.user-register');
     }
 
     public function winnerList()

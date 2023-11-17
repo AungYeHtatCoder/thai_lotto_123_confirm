@@ -133,6 +133,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'App\Http\Cont
     Route::get('/play-twod-index', [App\Http\Controllers\User\WelcomeController::class, 'twoD']);
 });
 
+<<<<<<< HEAD
 
 
 
@@ -145,6 +146,8 @@ Route::get('/withDraw', [App\Http\Controllers\User\WelcomeController::class, 'wi
 
 
 Route::get('/promotion', [App\Http\Controllers\User\WelcomeController::class, 'promo']);
+Route::get('/promoDetail', [App\Http\Controllers\User\WelcomeController::class, 'promoDetail']);
+
 Route::get('/service', [App\Http\Controllers\User\WelcomeController::class, 'servicePage']);
 
 
@@ -152,6 +155,18 @@ Route::get('/service', [App\Http\Controllers\User\WelcomeController::class, 'ser
 Route::get('/twod-quick', [App\Http\Controllers\User\WelcomeController::class, 'twoDQuick']);
 Route::get('/user-dashboard', [App\Http\Controllers\User\WelcomeController::class, 'user_dashboard']);
 Route::get('/user-dashboard/winningRecord', [App\Http\Controllers\User\WelcomeController::class, 'winningRecord']);
+Route::get('/user-dashboard/moriningPrize', [App\Http\Controllers\User\WelcomeController::class, 'moriningPrize']);
+Route::get('/user-dashboard/moriningRecord', [App\Http\Controllers\User\WelcomeController::class, 'moriningRecord']);
+Route::get('/user-dashboard/eveningRecord', [App\Http\Controllers\User\WelcomeController::class, 'eveningRecord']);
+Route::get('/user-dashboard/morningHistoryRecord', [App\Http\Controllers\User\WelcomeController::class, 'morningHistoryRecord']);
+Route::get('/user-dashboard/eveningHistoryRecord', [App\Http\Controllers\User\WelcomeController::class, 'eveningHistoryRecord']);
+Route::get('/user-dashboard/myBank', [App\Http\Controllers\User\WelcomeController::class, 'myBank']);
+Route::get('/user-dashboard/inviteCode', [App\Http\Controllers\User\WelcomeController::class, 'inviteCode']);
+Route::get('/user-dashboard/comment', [App\Http\Controllers\User\WelcomeController::class, 'comment']);
+Route::get('/user-dashboard/changePassword', [App\Http\Controllers\User\WelcomeController::class, 'changePassword']);
+Route::get('/user-register', [App\Http\Controllers\User\WelcomeController::class, 'userRegister']);
+Route::get('/user-login', [App\Http\Controllers\User\WelcomeController::class, 'userLogin']);
+Route::get('/user-profile', [App\Http\Controllers\User\WelcomeController::class, 'userProfile']);
 
 
 Route::get('/threeD', [App\Http\Controllers\User\WelcomeController::class, 'threeD']);
@@ -160,4 +175,12 @@ Route::get('/threed-num', [App\Http\Controllers\User\WelcomeController::class, '
 Route::get('/threed-quick', [App\Http\Controllers\User\WelcomeController::class, 'threedQuick']);
 Route::get('/threed-confirm', [App\Http\Controllers\User\WelcomeController::class, 'threedConfirm']);
 Route::get('/threed-winner', [App\Http\Controllers\User\WelcomeController::class, 'threedWinner']);
+<<<<<<< HEAD
 Route::get('/threed-history', [App\Http\Controllers\User\WelcomeController::class, 'threedHistory']);
+=======
+Route::get('/threed-history', [App\Http\Controllers\User\WelcomeController::class, 'threedHistory']);
+=======
+Route::get('/twod', [App\Http\Controllers\User\WelcomeController::class, 'twoD']);
+Route::get('/twodplay', [App\Http\Controllers\User\WelcomeController::class, 'twoDPlay']);
+>>>>>>> master
+>>>>>>> 142fd1a46e8411853bf9ea92684fd89e87517120

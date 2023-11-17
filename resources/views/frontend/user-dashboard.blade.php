@@ -21,7 +21,7 @@
               </div>
           </div>
       </a>
-      <a href="morning-session-prize-no-history.html" class="card text-decoration-none text-dark shadow p-3 my-3">
+      <a href="{{ url('/user-dashboard/moriningPrize') }}" class="card text-decoration-none text-dark shadow p-3 my-3">
           <div class="d-flex justify-content-between">
               <div class="d-flex">
                   <div class="me-3">
@@ -34,7 +34,7 @@
               </div>
           </div>
       </a>
-      <a href="play-two-morning-record.html" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
+      <a href="{{ url('/user-dashboard/moriningRecord') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
           <div class="d-flex justify-content-between">
               <div class="d-flex">
                   <div class="me-3">
@@ -47,7 +47,7 @@
               </div>
           </div>
       </a>
-      <a href="play-two-evening-record.html" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
+      <a href="{{ url('/user-dashboard/eveningRecord') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
           <div class="d-flex justify-content-between">
               <div class="d-flex">
                   <div class="me-3">
@@ -60,7 +60,7 @@
               </div>
           </div>
       </a>
-      <a href="#" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
+      <a href="{{ url('/user-dashboard/morningHistoryRecord') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
           <div class="d-flex justify-content-between">
               <div class="d-flex">
                   <div class="me-3">
@@ -74,7 +74,7 @@
           </div>
       </a>
   
-      <a href="#" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
+      <a href="{{ url('/user-dashboard/eveningHistoryRecord') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
           <div class="d-flex justify-content-between">
               <div class="d-flex">
                   <div class="me-3">
@@ -88,7 +88,7 @@
           </div>
       </a>
   
-      <a href="#" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
+      <a href="{{ url('/user-dashboard') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
           <div class="d-flex justify-content-between">
               <div class="d-flex">
                   <div class="me-3">
@@ -96,12 +96,10 @@
                   </div>
                   <p class="pb-0 mb-0">အမှတ် 0 (ကျပ်)</p>
               </div>
-              <div>
-                  <i class="fas fa-play"></i>
-              </div>
+              
           </div>
       </a>
-      <a href="my-bank.html" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
+      <a href="{{ url('/user-dashboard/myBank') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
           <div class="d-flex justify-content-between">
               <div class="d-flex">
                   <div class="me-3">
@@ -114,7 +112,7 @@
               </div>
           </div>
       </a>
-      <a href="#" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
+      <a href="{{ url('/user-dashboard/changePassword') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
           <div class="d-flex justify-content-between">
               <div class="d-flex">
                   <div class="me-3">
@@ -127,7 +125,7 @@
               </div>
           </div>
       </a>
-      <a href="#" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
+      <a href="{{ url('/user-dashboard/inviteCode') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
           <div class="d-flex justify-content-between">
               <div class="d-flex">
                   <div class="me-3">
@@ -140,7 +138,7 @@
               </div>
           </div>
       </a>
-      <a href="#" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
+      <a href="{{ url('/user-dashboard/comment') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
           <div class="d-flex justify-content-between">
               <div class="d-flex">
                   <div class="me-3">
