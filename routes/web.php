@@ -149,7 +149,11 @@ Route::get('/promoDetail', [App\Http\Controllers\User\WelcomeController::class, 
 Route::get('/service', [App\Http\Controllers\User\WelcomeController::class, 'servicePage']);
 
 
-// Route::get('/twodplay', [App\Http\Controllers\User\WelcomeController::class, 'twoDPlay']);
+Route::get('/twod', [App\Http\Controllers\User\WelcomeController::class, 'twoD']);
+Route::get('/twod-dream-book', [App\Http\Controllers\User\WelcomeController::class, 'twodDreamBook']);
+Route::get('/twodplay', [App\Http\Controllers\User\WelcomeController::class, 'twoDPlay']);
+
+
 Route::get('/twod-quick', [App\Http\Controllers\User\WelcomeController::class, 'twoDQuick']);
 Route::get('/user-dashboard', [App\Http\Controllers\User\WelcomeController::class, 'user_dashboard']);
 Route::get('/user-dashboard/winningRecord', [App\Http\Controllers\User\WelcomeController::class, 'winningRecord']);
@@ -174,5 +178,5 @@ Route::get('/threed-quick', [App\Http\Controllers\User\WelcomeController::class,
 Route::get('/threed-confirm', [App\Http\Controllers\User\WelcomeController::class, 'threedConfirm']);
 Route::get('/threed-winner', [App\Http\Controllers\User\WelcomeController::class, 'threedWinner']);
 Route::get('/threed-history', [App\Http\Controllers\User\WelcomeController::class, 'threedHistory']);
-Route::get('/twod', [App\Http\Controllers\User\WelcomeController::class, 'twoD']);
-Route::get('/twodplay', [App\Http\Controllers\User\WelcomeController::class, 'twoDPlay']);
+
+

@@ -169,9 +169,12 @@
               <div class="me-2">
                   <i class="fas fa-power-off list" aria-hidden="true"></i>
               </div>
-              <button type="submit" class="border-0 bg-transparent">
-                  အကောင့်မှ ထွက်ခွာရန်
-              </button>
+              <form action="#" method="post" class="d-flex align-items-center">
+                <input type="hidden" name="_token" value="MnZ1LIeqwKXfEvVUqUkWouulBhWuZIGXHksYt31M" autocomplete="off">                
+                <button type="submit" class="border-0 bg-transparent">
+                    အကောင့်မှ ထွက်ခွာရန်
+                </button>
+            </form>
               &nbsp; &nbsp; <i class="fas fa-chevron-right arrow-icon" aria-hidden="true"></i>
           </div>
       </a>
