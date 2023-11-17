@@ -50,7 +50,7 @@ class TwoDPlayController extends Controller
     }
     $lottery_matches = LotteryMatch::where('id', 1)->whereNotNull('is_active')->first();
 
-    return view('two_d.morning_play', compact('twoDigits', 'remainingAmounts', 'lottery_matches'));
+    return view('two_d.twodplay_morning', compact('twoDigits', 'remainingAmounts', 'lottery_matches'));
         
     }
 
@@ -69,7 +69,7 @@ class TwoDPlayController extends Controller
     }
     $lottery_matches = LotteryMatch::where('id', 1)->whereNotNull('is_active')->first();
 
-    return view('two_d.evening_play', compact('twoDigits', 'remainingAmounts', 'lottery_matches'));
+    return view('two_d.twodplay_evening', compact('twoDigits', 'remainingAmounts', 'lottery_matches'));
         
     }
     public function QuickMorningPlayTwoDigit()

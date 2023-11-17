@@ -13,7 +13,7 @@
       <i class="fa-regular fa-circle-user fa-2xl"></i>
      </div>
      <div>
-      <h2 class="ms-2"><a href="#">Login</a></h2>
+      <h2 class="ms-2"><a href="{{ route('login') }}">Login</a></h2>
      </div>
      <div>
       <i class="fa-solid fa-bell fa-2xl"></i>
@@ -75,7 +75,7 @@
     <div class="d-flex justify-content-around mt-2">
      <div>
       <div class="buttons">
-       <a href="{{ url('/twod') }}" class="">2D PLAY</a>
+       <a href="{{ route('admin.GetTwoDigit') }}" class="">2D PLAY</a>
       </div>
       <a href="{{ url('/twod') }}" class="text-dark text-decoration-none">
        <p class="font-weight-bold text">2D</p>

@@ -123,13 +123,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
 
 
 
-Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'App\Http\Controllers\Admin', 'middleware' => ['auth']], function () {
+Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'App\Http\Controllers\User', 'middleware' => ['auth']], function () {
 
     /*
     **********
     Write here Client Side Auth Routes
     **********
     */
+    Route::get('/play-twod-index', [App\Http\Controllers\User\WelcomeController::class, 'twoD']);
 });
 
 
@@ -147,8 +148,7 @@ Route::get('/promotion', [App\Http\Controllers\User\WelcomeController::class, 'p
 Route::get('/service', [App\Http\Controllers\User\WelcomeController::class, 'servicePage']);
 
 
-Route::get('/twod', [App\Http\Controllers\User\WelcomeController::class, 'twoD']);
-Route::get('/twodplay', [App\Http\Controllers\User\WelcomeController::class, 'twoDPlay']);
+// Route::get('/twodplay', [App\Http\Controllers\User\WelcomeController::class, 'twoDPlay']);
 Route::get('/twod-quick', [App\Http\Controllers\User\WelcomeController::class, 'twoDQuick']);
 Route::get('/user-dashboard', [App\Http\Controllers\User\WelcomeController::class, 'user_dashboard']);
 Route::get('/user-dashboard/winningRecord', [App\Http\Controllers\User\WelcomeController::class, 'winningRecord']);
