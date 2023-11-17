@@ -45,7 +45,7 @@
 
     <div>
       <div class="d-flex justify-content-between custom-btn">
-        <a href="dream-book.html" class="btn h-50 text-white p-2" style="background-color: #2a576c;"><span class="material-icons text-white icons">menu_book</span> အိမ်မက်</a>
+        <a href="{{ url('/twod-dream-book') }}" class="btn h-50 text-white p-2" style="background-color: #2a576c;"><span class="material-icons text-white icons">menu_book</span> အိမ်မက်</a>
         <div class="">
           <h1>2D</h1>
         </div>
