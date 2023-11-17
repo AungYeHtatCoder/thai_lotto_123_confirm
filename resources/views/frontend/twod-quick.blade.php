@@ -50,7 +50,7 @@
           <a class="btn mt-3" data-bs-toggle="modal" data-bs-target="#colorModal"><span class="material-icons">
             question_mark
             </span>အရောင်ရှင်းလင်းချက်</a>
-          
+            
         </div>
 
         <div class="box-container mt-3" id="boxContainer">

@@ -4,9 +4,6 @@
 <div class="row">
  <div class="col-lg-4 col-md-4 offset-lg-4 offset-md-4">
   <!--start navbar -->
-<<<<<<< HEAD
-  @include('user_layout.sub_nav')
-=======
   {{-- <div class="container-fluid fixed-top">
    <div class="row">
     <div class="col-lg-4 col-md-4 offset-lg-4 offset-md-4 navs">
@@ -27,7 +24,6 @@
   @include('user_layout.nav')
   <!-- end navbar -->
 
->>>>>>> master
   <!-- start content -->
   <div class="row content" style="height: 880px">
    <div class="stick">
