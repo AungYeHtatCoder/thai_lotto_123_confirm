@@ -29,7 +29,7 @@ use App\Http\Controllers\User\WelcomeController;
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'profile'])->name('home');
 
 Route::get('/', [App\Http\Controllers\User\WelcomeController::class, 'index'])->name('welcome');
 
@@ -132,7 +132,6 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'App\Http\Cont
     */
     Route::get('/play-twod-index', [App\Http\Controllers\User\WelcomeController::class, 'twoD']);
 });
-
 
 
 
