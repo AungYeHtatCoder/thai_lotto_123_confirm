@@ -8,7 +8,8 @@
       style="background-color: #b6c5d8;"
     >
         <div class="my-2">
-            <p style="font-size: 20px; color:#2a576c">တစ်လအတွင်း 2D ကံထူးရှင်များ</p>
+            <p style="font-size: 20px; color:#2a576c;   background: linear-gradient(90deg, #428387, #336876, #265166 100%);
+            ; border-radius:10px" class="p-3 text-white text-center">တစ်လအတွင်း 2D ကံထူးရှင်များ</p>
         </div>
     
         <div class="d-flex justify-content-between p-3">
