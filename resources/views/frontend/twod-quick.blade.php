@@ -53,8 +53,6 @@
           
         </div>
 
-        
-
         <div class="box-container mt-3" id="boxContainer">
           <div class="d-flex justify-content-around">
             <div class="box btn">
@@ -78,7 +76,7 @@
               04
               <div class="progress-bar mt-2"></div>
             </div>
-          </div>
+          </div>    
           <div class="d-flex justify-content-around">
             <div class="box btn">
               00
