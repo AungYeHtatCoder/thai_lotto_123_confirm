@@ -74,7 +74,7 @@
           </div>
       </a>
   
-      <a href="#" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
+      <a href="{{ url('/user-dashboard/eveningHistoryRecord') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
           <div class="d-flex justify-content-between">
               <div class="d-flex">
                   <div class="me-3">
@@ -99,7 +99,7 @@
               
           </div>
       </a>
-      <a href="my-bank.html" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
+      <a href="{{ url('/user-dashboard/myBank') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
           <div class="d-flex justify-content-between">
               <div class="d-flex">
                   <div class="me-3">
@@ -112,7 +112,7 @@
               </div>
           </div>
       </a>
-      <a href="#" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
+      <a href="{{ url('/user-dashboard/changePassword') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
           <div class="d-flex justify-content-between">
               <div class="d-flex">
                   <div class="me-3">
@@ -125,7 +125,7 @@
               </div>
           </div>
       </a>
-      <a href="#" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
+      <a href="{{ url('/user-dashboard/inviteCode') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
           <div class="d-flex justify-content-between">
               <div class="d-flex">
                   <div class="me-3">
@@ -138,7 +138,7 @@
               </div>
           </div>
       </a>
-      <a href="#" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
+      <a href="{{ url('/user-dashboard/comment') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
           <div class="d-flex justify-content-between">
               <div class="d-flex">
                   <div class="me-3">

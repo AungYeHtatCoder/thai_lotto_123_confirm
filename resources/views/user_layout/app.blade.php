@@ -6,11 +6,8 @@
   @yield('content')
 
   <!-- start footer -->
-
   {{-- @include('user_layout.footer') --}}
-
-
   <!-- end footer -->
  </div>
- @yield('script')
  @include('user_layout.js')
+ @yield('script')

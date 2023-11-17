@@ -2,23 +2,23 @@
 
 @section('content')
 <div class="row">
-  <div class="col-lg-4 col-md-4 offset-lg-4 offset-md-4">
-    <!--start navbar -->
-    @include('user_layout.nav')
-    <!-- start content -->
-    <div class="row content" style="height: 880px">
-      <div class="stick">
-        <div class="d-flex justify-content-between pt-4">
-          <div class="">
-            <i class="fa-regular fa-circle-user fa-2xl"></i>
-          </div>
-          <div>
-            <h2 class="ms-2"><a href="#">Login</a></h2>
-          </div>
-          <div>
-            <i class="fa-solid fa-bell fa-2xl"></i>
-          </div>
-        </div>
+ <div class="col-lg-4 col-md-4 offset-lg-4 offset-md-4">
+  <!--start navbar -->
+  @include('user_layout.sub_nav')
+  <!-- start content -->
+  <div class="row content" style="height: 880px">
+   <div class="stick">
+    <div class="d-flex justify-content-between pt-4">
+     <div class="">
+      <i class="fa-regular fa-circle-user fa-2xl"></i>
+     </div>
+     <div>
+      <h2 class="ms-2"><a href="#">Login</a></h2>
+     </div>
+     <div>
+      <i class="fa-solid fa-bell fa-2xl"></i>
+     </div>
+    </div>
 
         <div class="ticks mb-2">
           <hr style="
