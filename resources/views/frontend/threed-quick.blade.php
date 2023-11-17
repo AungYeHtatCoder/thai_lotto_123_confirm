@@ -3,15 +3,31 @@
 @section('style')
 
 <style>
-.toggled {
- background-color: #265166 !important;
- /* Change this to the color you want */
-}
+ .toggled {
+  background-color: #265166 !important;
+  /* Change this to the color you want */
+ }
 </style>
 
 @endsection
+<div class="row">
+ <div class="col-lg-4 col-md-4 offset-lg-4 offset-md-4 navs fixed-top">
+  <div class="px-3 py-3">
+   <div class="d-flex justify-content-between">
+    <span>
+     <a class="material-icons text-white" href="{{ url('/threed-bet') }}">arrow_back</a>
+    </span>
+    <h5 class="mx-auto">
+     <a href="../index.html" class="text-white">Diamond 2D | 3D</a>
+    </h5>
+    <span>
+     <a class="material-icons text-white" href="../index.html">refresh</a>
+    </span>
+   </div>
+  </div>
+ </div>
+</div>
 
-@include('user_layout.sub_nav')
 @section('content')
 <div class="row" style="height: 100vh">
  <div class="col-lg-4 col-md-4 offset-lg-4 offset-md-4 mt-5 py-4" style="background-color: #b6c5d8">
@@ -114,58 +130,58 @@
 </div>
 @section('script')
 <script>
-// Object to store button counts
-var buttonCounts1 = {
- 1: 0,
- 2: 0
-};
-var buttonCounts2 = {
- 3: 0,
- 4: 0
-};
+ // Object to store button counts
+ var buttonCounts1 = {
+  1: 0,
+  2: 0
+ };
+ var buttonCounts2 = {
+  3: 0,
+  4: 0
+ };
 
-// Function to toggle the count for a button
-function toggleCount(buttonId, containerId, incrementValue) {
- console.log(buttonId);
- console.log(containerId);
- console.log(incrementValue);
+ // Function to toggle the count for a button
+ function toggleCount(buttonId, containerId, incrementValue) {
+  console.log(buttonId);
+  console.log(containerId);
+  console.log(incrementValue);
 
- var buttonCounts =
-  containerId === 'container1' ? buttonCounts1 : buttonCounts2;
- console.log(buttonCounts);
+  var buttonCounts =
+   containerId === 'container1' ? buttonCounts1 : buttonCounts2;
+  console.log(buttonCounts);
 
- buttonCounts[buttonId] =
-  buttonCounts[buttonId] === incrementValue ? 0 : incrementValue;
+  buttonCounts[buttonId] =
+   buttonCounts[buttonId] === incrementValue ? 0 : incrementValue;
 
- //Change button color on toggle
- var button = document.getElementById('btn' + buttonId);
- button.classList.toggle('toggled');
+  //Change button color on toggle
+  var button = document.getElementById('btn' + buttonId);
+  button.classList.toggle('toggled');
 
- updateTotal();
-}
+  updateTotal();
+ }
 
-// Function to delete the total count
-function deleteTotalCount() {
- buttonCounts1 = [];
- buttonCounts2 = [];
- var total = 0;
+ // Function to delete the total count
+ function deleteTotalCount() {
+  buttonCounts1 = [];
+  buttonCounts2 = [];
+  var total = 0;
 
- document.getElementById('totalCount').textContent = total;
+  document.getElementById('totalCount').textContent = total;
 
- // Reset button colors
+  // Reset button colors
 
- var buttons = document.querySelectorAll('.btn');
+  var buttons = document.querySelectorAll('.btn');
 
- buttons.forEach((button) => button.classList.remove('toggled'));
-}
+  buttons.forEach((button) => button.classList.remove('toggled'));
+ }
 
-// Function to update the total count for all containers
-function updateTotal() {
- var total = Object.values(buttonCounts1)
-  .concat(Object.values(buttonCounts2))
-  .reduce((acc, count) => acc + count, 0);
- document.getElementById('totalCount').textContent = total;
-}
+ // Function to update the total count for all containers
+ function updateTotal() {
+  var total = Object.values(buttonCounts1)
+   .concat(Object.values(buttonCounts2))
+   .reduce((acc, count) => acc + count, 0);
+  document.getElementById('totalCount').textContent = total;
+ }
 </script>
 @endsection
 @endsection

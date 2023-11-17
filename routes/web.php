@@ -145,6 +145,8 @@ Route::get('/withDraw', [App\Http\Controllers\User\WelcomeController::class, 'wi
 
 
 Route::get('/promotion', [App\Http\Controllers\User\WelcomeController::class, 'promo']);
+Route::get('/promoDetail', [App\Http\Controllers\User\WelcomeController::class, 'promoDetail']);
+
 Route::get('/service', [App\Http\Controllers\User\WelcomeController::class, 'servicePage']);
 
 
