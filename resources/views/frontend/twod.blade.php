@@ -21,7 +21,7 @@
       </a>
      </div>
      <div>
-      <a href="#" class="text-decoration-none">
+      <a href="{{ url('/user-dashboard/winningRecord') }}" class="text-decoration-none">
        <span class="material-icons">stars</span>
        <p>ကံထူးရှင်များ</p>
       </a>

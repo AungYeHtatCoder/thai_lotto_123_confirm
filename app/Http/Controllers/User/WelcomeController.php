@@ -214,6 +214,26 @@ class WelcomeController extends Controller
         return view('frontend.winning-record');
     }
 
+    public function moriningPrize()
+    {
+        return view('frontend.morning-session-prize-no-history');
+    }
+
+    public function moriningRecord()
+    {
+        return view('frontend.play-two-morning-record');
+    }
+
+    public function eveningRecord()
+    {
+        return view('frontend.play-two-evenving-record');
+    }
+
+    public function morningHistoryRecord()
+    {
+        return view('frontend.morning-history-record');
+    }
+
     /**
      * Show the form for creating a new resource.
      */

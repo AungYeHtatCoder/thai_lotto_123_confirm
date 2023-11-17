@@ -7,57 +7,192 @@
       class="col-lg-4 col-md-4 offset-lg-4 offset-md-4 mt-5 py-4"
       style="background-color: #b6c5d8;"
     >
-        <div class="my-2">
-            <p style="font-size: 20px; color:#2a576c">တစ်လအတွင်း 2D ကံထူးရှင်များ</p>
-        </div>
-    
-        <div class="d-flex justify-content-between p-3">
+    <h4 class="text-center my-3">မှတ်တမ်း</h4>
+    <ul class="nav nav-justified" >
+      <li class="nav-item card p-2">
+        <a class="nav-link" id="twod-tab" data-toggle="tab" href="#twodmorning">
+          <i class="fas fa-calendar fa-2x mb-3 d-block" aria-hidden="true"></i>
+          <span class="d-block" style="font-size: 20px;">Morning 2D ထီပေါက်စဉ်</span>
+        </a>
+      </li>
+      <li class="nav-item card ms-2">
+        <a class="nav-link" id="threed-tab" data-toggle="tab" href="#twodevening">
+          <i class="fas fa-calendar fa-2x mb-3 d-block" aria-hidden="true"></i>
+          <span class="d-block" style="font-size: 20px;">Evening 2D ထီပေါက်စဉ်</span>
+        </a>
+      </li>
+    </ul>
 
-            <p>Updated at: <br><span class="font-weight-bold">
-                
-            <script>
-                var d = new Date();
-                document.write(d.toLocaleString());
-            </script>
-            </span></p>
-            <div>
-
-            <span class="font-weight-bold" style="font-size: 30px;color: #ab0000;">2
-                ကံထူးရှင်များ
-            </span>
+    <div class="tab-content" style="height: 100vh;">
+      <div class="tab-pane fade" id="twodmorning">
+        <div class="card p-4 rounded my-3">
+          <div class="d-flex justify-content-between">
+            <div class="text-center">
+              <p class="mb-0 pb-0">Session</p>
+              <p class="mb-0 pb-0">Morning</p>
             </div>
+            <div class="text-center">
+              <p class="mb-0 pb-0">Date</p>
+              <p class="mb-0 pb-0">
+                10-11-2023
+                Friday
+                04:07 PM 
+              </p>
+            </div>
+            <div>
+              <p class="mb-0 pb-0">2D</p>
+              <p class="text-warning mb-0 pb-0">12</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card p-4 rounded my-3">
+          <div class="d-flex justify-content-between">
+            <div class="text-center">
+              <p class="mb-0 pb-0">Session</p>
+              <p class="mb-0 pb-0">Morning</p>
+            </div>
+            <div class="text-center">
+              <p class="mb-0 pb-0">Date</p>
+              <p class="mb-0 pb-0">
+                10-11-2023
+                Friday
+                04:07 PM 
+              </p>
+            </div>
+            <div>
+              <p class="mb-0 pb-0">2D</p>
+              <p class="text-warning mb-0 pb-0">12</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card p-4 rounded my-3">
+          <div class="d-flex justify-content-between">
+            <div class="text-center">
+              <p class="mb-0 pb-0">Session</p>
+              <p class="mb-0 pb-0">Morning</p>
+            </div>
+            <div class="text-center">
+              <p class="mb-0 pb-0">Date</p>
+              <p class="mb-0 pb-0">
+                10-11-2023
+                Friday
+                04:07 PM 
+              </p>
+            </div>
+            <div>
+              <p class="mb-0 pb-0">2D</p>
+              <p class="text-warning mb-0 pb-0">12</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card p-4 rounded my-3">
+          <div class="d-flex justify-content-between">
+            <div class="text-center">
+              <p class="mb-0 pb-0">Session</p>
+              <p class="mb-0 pb-0">Morning</p>
+            </div>
+            <div class="text-center">
+              <p class="mb-0 pb-0">Date</p>
+              <p class="mb-0 pb-0">
+                10-11-2023
+                Friday
+                04:07 PM 
+              </p>
+            </div>
+            <div>
+              <p class="mb-0 pb-0">2D</p>
+              <p class="text-warning mb-0 pb-0">12</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="twodevening">
+        <div class="card p-4 rounded my-3">
+          <div class="d-flex justify-content-between">
+            <div class="text-center">
+              <p class="mb-0 pb-0">Session</p>
+              <p class="mb-0 pb-0">Evening</p>
+            </div>
+            <div class="text-center">
+              <p class="mb-0 pb-0">Date</p>
+              <p class="mb-0 pb-0">
+                10-11-2023
+                Friday
+                04:07 PM 
+              </p>
+            </div>
+            <div>
+              <p class="mb-0 pb-0">2D</p>
+              <p class="text-warning mb-0 pb-0">12</p>
+            </div>
+          </div>
+        </div>
+        <div class="card p-4 rounded my-3">
+          <div class="d-flex justify-content-between">
+            <div class="text-center">
+              <p class="mb-0 pb-0">Session</p>
+              <p class="mb-0 pb-0">Evening</p>
+            </div>
+            <div class="text-center">
+              <p class="mb-0 pb-0">Date</p>
+              <p class="mb-0 pb-0">
+                10-11-2023
+                Friday
+                04:07 PM 
+              </p>
+            </div>
+            <div>
+              <p class="mb-0 pb-0">2D</p>
+              <p class="text-warning mb-0 pb-0">12</p>
+            </div>
+          </div>
+        </div>
+        <div class="card p-4 rounded my-3">
+          <div class="d-flex justify-content-between">
+            <div class="text-center">
+              <p class="mb-0 pb-0">Session</p>
+              <p class="mb-0 pb-0">Evening</p>
+            </div>
+            <div class="text-center">
+              <p class="mb-0 pb-0">Date</p>
+              <p class="mb-0 pb-0">
+                10-11-2023
+                Friday
+                04:07 PM 
+              </p>
+            </div>
+            <div>
+              <p class="mb-0 pb-0">2D</p>
+              <p class="text-warning mb-0 pb-0">12</p>
+            </div>
+          </div>
+        </div>
+        <div class="card p-4 rounded my-3">
+          <div class="d-flex justify-content-between">
+            <div class="text-center">
+              <p class="mb-0 pb-0">Session</p>
+              <p class="mb-0 pb-0">Evening</p>
+            </div>
+            <div class="text-center">
+              <p class="mb-0 pb-0">Date</p>
+              <p class="mb-0 pb-0">
+                10-11-2023
+                Friday
+                04:07 PM 
+              </p>
+            </div>
+            <div>
+              <p class="mb-0 pb-0">2D</p>
+              <p class="text-warning mb-0 pb-0">12</p>
+            </div>
+          </div>
         </div>
         
-        <div class=" mt-3" style="padding-bottom: 200px">
-            <table class="winner-table table table-striped" width="100%">
-              <tbody>
-                <tr>
-                  <td><i class="fa-regular fa-circle-user" style="font-size: 50px;"></i></td>
-                  <td><span style="font-size: 10px">Super User</span> <p style="font-size: 10px">N/A</p></td>
-                  <td><span>Session</span> <p>Evening</p></td>
-                  <td><span>Win-No</span> <p>12</p></td>
-                  <td><span>ထိုးငွေ</span> <p>2500</p></td>
-                  <td><span>ထီပေါက်ငွေ</span> <p>212500</p></td>
-                </tr>
-                <tr>
-                  <td><i class="fa-regular fa-circle-user" style="font-size: 50px;"></i></td>
-                  <td><span style="font-size: 10px">Super User</span> <p style="font-size: 10px">N/A</p></td>
-                  <td><span>Session</span> <p>Evening</p></td>
-                  <td><span>Win-No</span> <p>12</p></td>
-                  <td><span>ထိုးငွေ</span> <p>2500</p></td>
-                  <td><span>ထီပေါက်ငွေ</span> <p>212500</p></td>
-                </tr>
-                <tr>
-                    <td><i class="fa-regular fa-circle-user" style="font-size: 50px;"></i></td>
-                    <td><span style="font-size: 10px">Super User</span> <p style="font-size: 10px">N/A</p></td>
-                    <td><span>Session</span> <p>Evening</p></td>
-                    <td><span>Win-No</span> <p>12</p></td>
-                    <td><span>ထိုးငွေ</span> <p>2500</p></td>
-                    <td><span>ထီပေါက်ငွေ</span> <p>212500</p></td>
-                  </tr>
-              </tbody>
-            </table>
-          </div>
+      </div>
+    </div> 
 
     </div>
 
@@ -85,5 +220,22 @@
   </div>
  </div>
 </div>
+
+<script>
+  document.getElementById('twod-tab').addEventListener('click', function() {
+  document.getElementById('twod-tab').classList.add('active');
+  document.getElementById('threed-tab').classList.remove('active');
+  document.getElementById('twodmorning').classList.add('show', 'active');
+  document.getElementById('twodevening').classList.remove('show', 'active');
+});
+
+
+document.getElementById('threed-tab').addEventListener('click', function() {
+  document.getElementById('threed-tab').classList.add('active');
+  document.getElementById('twod-tab').classList.remove('active');
+  document.getElementById('twodevening').classList.add('show', 'active');
+  document.getElementById('twodmorning').classList.remove('show', 'active');
+});
+</script>
 {{-- @include('user_layout.footer') --}}
 @endsection

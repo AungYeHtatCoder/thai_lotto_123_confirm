@@ -152,6 +152,10 @@ Route::get('/twodplay', [App\Http\Controllers\User\WelcomeController::class, 'tw
 Route::get('/twod-quick', [App\Http\Controllers\User\WelcomeController::class, 'twoDQuick']);
 Route::get('/user-dashboard', [App\Http\Controllers\User\WelcomeController::class, 'user_dashboard']);
 Route::get('/user-dashboard/winningRecord', [App\Http\Controllers\User\WelcomeController::class, 'winningRecord']);
+Route::get('/user-dashboard/moriningPrize', [App\Http\Controllers\User\WelcomeController::class, 'moriningPrize']);
+Route::get('/user-dashboard/moriningRecord', [App\Http\Controllers\User\WelcomeController::class, 'moriningRecord']);
+Route::get('/user-dashboard/eveningRecord', [App\Http\Controllers\User\WelcomeController::class, 'eveningRecord']);
+Route::get('/user-dashboard/morningHistoryRecord', [App\Http\Controllers\User\WelcomeController::class, 'morningHistoryRecord']);
 
 
 Route::get('/threeD', [App\Http\Controllers\User\WelcomeController::class, 'threeD']);
