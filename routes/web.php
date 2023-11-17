@@ -123,13 +123,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
 
 
 
-Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'App\Http\Controllers\Admin', 'middleware' => ['auth']], function () {
+Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'App\Http\Controllers\User', 'middleware' => ['auth']], function () {
 
     /*
     **********
     Write here Client Side Auth Routes
     **********
     */
+    Route::get('/play-twod-index', [App\Http\Controllers\User\WelcomeController::class, 'twoD']);
 });
 
 
@@ -152,6 +153,8 @@ Route::get('/service', [App\Http\Controllers\User\WelcomeController::class, 'ser
 Route::get('/twod', [App\Http\Controllers\User\WelcomeController::class, 'twoD']);
 Route::get('/twod-dream-book', [App\Http\Controllers\User\WelcomeController::class, 'twodDreamBook']);
 Route::get('/twodplay', [App\Http\Controllers\User\WelcomeController::class, 'twoDPlay']);
+
+
 Route::get('/twod-quick', [App\Http\Controllers\User\WelcomeController::class, 'twoDQuick']);
 Route::get('/user-dashboard', [App\Http\Controllers\User\WelcomeController::class, 'user_dashboard']);
 Route::get('/user-dashboard/winningRecord', [App\Http\Controllers\User\WelcomeController::class, 'winningRecord']);
@@ -176,3 +179,5 @@ Route::get('/threed-quick', [App\Http\Controllers\User\WelcomeController::class,
 Route::get('/threed-confirm', [App\Http\Controllers\User\WelcomeController::class, 'threedConfirm']);
 Route::get('/threed-winner', [App\Http\Controllers\User\WelcomeController::class, 'threedWinner']);
 Route::get('/threed-history', [App\Http\Controllers\User\WelcomeController::class, 'threedHistory']);
+
+
