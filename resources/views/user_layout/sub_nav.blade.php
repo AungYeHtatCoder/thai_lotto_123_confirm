@@ -6,10 +6,17 @@
      <a class="material-icons text-white" href="{{ url()->previous() }}">arrow_back</a>
     </span>
     <h5 class="mx-auto">
+<<<<<<< HEAD
+     <a href="{{ url('/')}}" class="text-white">Thai Lotto 123</a>
+    </h5>
+    <span>
+     <a class="material-icons text-white" href="{{ url('/')}}">refresh</a>
+=======
      <a href="{{ url('/') }}" class="text-white">Thai Lotto 123</a>
     </h5>
     <span>
      <a class="material-icons text-white" href="{{ url('/') }}">refresh</a>
+>>>>>>> 142fd1a46e8411853bf9ea92684fd89e87517120
     </span>
    </div>
   </div>

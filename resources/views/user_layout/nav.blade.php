@@ -3,13 +3,6 @@
   <div class="col-lg-4 col-md-4 offset-lg-4 offset-md-4 navs">
    <div class="px-3 py-3">
     <div class="d-flex justify-content-between">
-        {{-- <a href="{{ url('/') }}">
-        <img
-            src="{{ asset('user_app/assets/images/logo.jpg') }}"
-            style="width: 40px; height: 40px; border-radius: 50%"
-            alt=""
-        />
-        </a> --}}
         <span>
             <a class="material-icons text-white" href="{{ url()->previous() }}">arrow_back</a>
         </span>

@@ -13,7 +13,7 @@
       <i class="fa-regular fa-circle-user fa-2xl"></i>
      </div>
      <div>
-      <h2 class="ms-2"><a href="{{ url('/user-login') }}">Login</a></h2>
+      <h2 class="ms-2"><a href="#">Login</a></h2>
      </div>
      <div>
       <i class="fa-solid fa-bell fa-2xl"></i>
@@ -67,6 +67,26 @@
           </div>
         </div>
 
+<<<<<<< HEAD
+    <div class="d-flex justify-content-around mt-2">
+     <div>
+      <div class="buttons">
+       <a href="{{ route('admin.GetTwoDigit') }}" class="">2D PLAY</a>
+      </div>
+      <a href="{{ url('/twod') }}" class="text-dark text-decoration-none">
+       <p class="font-weight-bold text">2D</p>
+      </a>
+     </div>
+     <div>
+      <div class="buttons">
+       <a href="{{ url('/threeD') }}">3D PLAY</a>
+      </div>
+      <a href="{{ url('/threeD') }}" class="text-dark text-decoration-none">
+       <p class="font-weight-bold text text-center">3D</p>
+      </a>
+     </div>
+    </div>
+=======
         <div class="d-flex justify-content-around mt-2">
           <div>
             <div class="buttons">
@@ -85,6 +105,7 @@
             </a>
           </div>
         </div>
+>>>>>>> 142fd1a46e8411853bf9ea92684fd89e87517120
 
         <div class="d-flex justify-content-around">
           <div>
