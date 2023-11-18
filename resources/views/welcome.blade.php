@@ -13,7 +13,7 @@
       <i class="fa-regular fa-circle-user fa-2xl"></i>
      </div>
      <div>
-      <h2 class="ms-2"><a href="#">Login</a></h2>
+      <h2 class="ms-2"><a href="{{ url('/user-login') }}">Login</a></h2>
      </div>
      <div>
       <i class="fa-solid fa-bell fa-2xl"></i>
