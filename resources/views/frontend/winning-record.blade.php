@@ -14,7 +14,7 @@
     
         <div class="d-flex justify-content-between p-3">
 
-            <p>Updated at: <br><span class="font-weight-bold">
+            <p> <br><span class="font-weight-bold">
                 
             <script>
                 var d = new Date();
@@ -23,41 +23,35 @@
             </span></p>
             <div>
 
-            <span class="font-weight-bold" style="font-size: 30px;color: #ab0000;">2
-                ကံထူးရှင်များ
+            <span class="font-weight-bold" style="font-size: 30px;color: #ab0000;">{{ $winners->count() }}
+              @if($winners->count() > 1)
+              ကံထူးရှင်များ
+              @else
+              ကံထူးရှင်များ
+              @endif
             </span>
             </div>
         </div>
         
         <div class=" mt-3" style="padding-bottom: 200px">
-            <table class="winner-table table table-striped" width="100%">
-              <tbody>
-                <tr>
-                  <td><i class="fa-regular fa-circle-user" style="font-size: 50px;"></i></td>
-                  <td><span style="font-size: 10px">Super User</span> <p style="font-size: 10px">N/A</p></td>
-                  <td><span>Session</span> <p>Evening</p></td>
-                  <td><span>Win-No</span> <p>12</p></td>
-                  <td><span>ထိုးငွေ</span> <p>2500</p></td>
-                  <td><span>ထီပေါက်ငွေ</span> <p>212500</p></td>
-                </tr>
-                <tr>
-                  <td><i class="fa-regular fa-circle-user" style="font-size: 50px;"></i></td>
-                  <td><span style="font-size: 10px">Super User</span> <p style="font-size: 10px">N/A</p></td>
-                  <td><span>Session</span> <p>Evening</p></td>
-                  <td><span>Win-No</span> <p>12</p></td>
-                  <td><span>ထိုးငွေ</span> <p>2500</p></td>
-                  <td><span>ထီပေါက်ငွေ</span> <p>212500</p></td>
-                </tr>
-                <tr>
-                    <td><i class="fa-regular fa-circle-user" style="font-size: 50px;"></i></td>
-                    <td><span style="font-size: 10px">Super User</span> <p style="font-size: 10px">N/A</p></td>
-                    <td><span>Session</span> <p>Evening</p></td>
-                    <td><span>Win-No</span> <p>12</p></td>
-                    <td><span>ထိုးငွေ</span> <p>2500</p></td>
-                    <td><span>ထီပေါက်ငွေ</span> <p>212500</p></td>
-                  </tr>
-              </tbody>
+            @if($winners->isEmpty())
+          <p>No winners found for the past month.</p>
+            @else
+            <table class="winner-table table table-striped">
+              @foreach($winners as $winner)
+              <tr>
+               {{-- <td class="mt-2">1.</td> --}}
+               <td><i class="fa-regular fa-circle-user" style="font-size: 50px;"></i></td>
+               <td><span style="font-size: 10px" >{{ $winner->name }}</span> <p style="font-size: 10px" >{{ $winner->phone }}</p></td>
+               <td><span>Session</span> <p>{{ ucfirst($winner->session) }}</p></td>
+               <td><span>Win-No</span> <p>{{ $winner->prize_no }}</p></td>
+               <td><span>ထိုးငွေ</span> <p>{{ $winner->sub_amount }}</p></td>
+               <td><span>ထီပေါက်ငွေ</span> <p>{{ $winner->prize_amount }}</p></td>
+              </tr>
+              @endforeach
+              
             </table>
+            @endif
           </div>
 
     </div>

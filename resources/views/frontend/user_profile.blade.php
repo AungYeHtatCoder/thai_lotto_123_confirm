@@ -41,7 +41,7 @@
         </div>
         <div>
             <p class="mb-0" style="color:#009382; font-weight:700;">လက်ကျန်ငွေ</p>
-            <p class="mt-0 mb-0" style="color:#009382; font-weight:700;">0.00 kyats</p>
+            <p class="mt-0 mb-0" style="color:#009382; font-weight:700;">{{ Auth::user()->balance }} kyats</p>
             <div class="dropstart my-2">
                 <button class="btn btn-sm btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">ပြင်ဆင်ရန်
                 </button>
@@ -55,26 +55,68 @@
     </div>
     <hr>
     <div class="d-flex justify-content-around">
-        <a href="#" type="button" class="btn btn-success" style="text-decoration: none;">ငွေသွင်းမည်</a>
+        <a href="{{ url('/user/fill-balance') }}" type="button" class="btn btn-success" style="text-decoration: none;">ငွေသွင်းမည်</a>
         <a href="#" type="button" class="btn btn-danger" style="text-decoration: none;">ငွေထုတ်မည်</a>
     </div>
     {{-- <hr> --}}
 
     <div class="my-4">
         <p class="text-center bg-success text-white px-3 py-2">တစ်နေ့တာ 2D ထိုး မှတ်တမ်း</p>
+        @if(isset($morningDigits['two_digits']) && count($morningDigits['two_digits']) == 0)
+        <p class="text-center bg-success text-white px-3 py-2 mt-3">
+            ကံစမ်းထားသော ထီဂဏန်းများ မရှိသေးပါ
+              <span>
+               <a href="{{ route('admin.GetTwoDigit')}}" style="color: #1706da; text-decoration:none">
+               <strong>ထီးထိုးရန် နိုပ်ပါ</strong></a>
+              </span>
+        </p>
+         @endif
+
         <div class="d-flex justify-content-between text-success">
             <div id="morning" class="text-center w-100 shadow rounded pt-3 border border-1 border-success" style="cursor: pointer;">
                 <i class="fas fa-list d-block fa-2x"></i>
-                <p>Morning</p>
+                <p style="color: #1706da">မနက်ပိုင်းထီထိုးမှတ်တမ်း</p>
             </div>
             <div id="evening" class="text-center w-100 rounded pt-3" style="cursor: pointer;">
                 <i class="fas fa-list d-block fa-2x"></i>
-                <p>Evening</p>
+                <p style="color: blueviolet">ညနေပိုင်းထီထိုးမှတ်တမ်း</p>
             </div>
         </div>
 
         <div class="morning my-4">
+             @foreach ($morningDigits['two_digits'] as $index => $digit)
+
             <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow" style="background: rgb(0,187,189);
+            background: linear-gradient(211deg, rgba(0,187,189,1) 0%, rgba(28,147,0,1) 100%);">
+                <div>
+                    <span class="d-block">Session</span>
+                    <span class="d-block">Morning</span>
+                </div>
+                <div>
+                    <span class="d-block">Date</span>
+                    <span class="d-block">{{ $digit->pivot->created_at->format('d M Y (l) (h:i a)') }}</span>
+                </div>
+                <div>
+                    <span class="d-block">2D</span>
+                    <span class="d-block">{{ $digit->two_digit }}</span>
+                </div>
+                <div>
+                    <span class="d-block">ထိုးကြေး</span>
+                    <span class="d-block">{{ $digit->pivot->sub_amount }}</span>
+                </div>
+                {{-- <div>
+                    <span class="d-block">နီုင်/ရှုံး</span>
+                    <span class="d-block">နိုင်</span>
+                </div> --}}
+            </div>
+            @endforeach
+            <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow" style="background: rgb(0,187,189);
+            background: linear-gradient(211deg, rgba(0,187,189,1) 0%, rgba(28,147,0,1) 100%);">
+            <p class="text-right">Total Amount for Morning: ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
+                <strong>{{ $morningDigits['total_amount'] }} MMK</strong>
+            </p>
+            </div>
+            {{-- <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow" style="background: rgb(0,187,189);
             background: linear-gradient(211deg, rgba(0,187,189,1) 0%, rgba(28,147,0,1) 100%);">
                 <div>
                     <span class="d-block">Session</span>
@@ -130,30 +172,47 @@
                     <span class="d-block">နီုင်/ရှုံး</span>
                     <span class="d-block">နိုင်</span>
                 </div>
-            </div>
-            <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow" style="background: rgb(0,187,189);
-            background: linear-gradient(211deg, rgba(0,187,189,1) 0%, rgba(28,147,0,1) 100%);">
-                <div>
-                    <span class="d-block">Session</span>
-                    <span class="d-block">Morning</span>
-                </div>
-                <div>
-                    <span class="d-block">Date</span>
-                    <span class="d-block">10-11-2023 Friday 04:07 PM</span>
-                </div>
-                <div>
-                    <span class="d-block">2D</span>
-                    <span class="d-block">12</span>
-                </div>
-                <div>
-                    <span class="d-block">နီုင်/ရှုံး</span>
-                    <span class="d-block">နိုင်</span>
-                </div>
-            </div>
+            </div> --}}
         </div>
 
         <div class="evening d-none my-4">
+             @if(isset($eveningDigits['two_digits']) && count($eveningDigits['two_digits']) == 0)
+        <p class="text-center bg-success text-white px-3 py-2 mt-3">
+            ညနေပိုင်း ကံစမ်းထားသော ထီဂဏန်းများ မရှိသေးပါ
+              <span>
+               <a href="{{ route('admin.GetTwoDigit')}}" style="color: #1706da; text-decoration:none">
+               <strong>ထီးထိုးရန် နိုပ်ပါ</strong></a>
+              </span>
+        </p>
+         @endif
+             @foreach ($eveningDigits['two_digits'] as $index => $digit)
             <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow" style="background: rgb(0,187,189);
+            background: linear-gradient(211deg, rgba(0,187,189,1) 0%, rgba(28,147,0,1) 100%);">
+                <div>
+                    <span class="d-block">Session</span>
+                    <span class="d-block">Evening</span>
+                </div>
+                <div>
+                    <span class="d-block">Date</span>
+                    <span class="d-block">{{ $digit->pivot->created_at->format('d M Y (l) (h:i a)') }}</span>
+                </div>
+                <div>
+                    <span class="d-block">2D</span>
+                    <span class="d-block">{{ $digit->two_digit }}</span>
+                </div>
+                <div>
+                    <span class="d-block">ထိုးကြေး</span>
+                    <span class="d-block">{{ $digit->pivot->sub_amount }}</span>
+                </div>
+            </div>
+            @endforeach
+            <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow" style="background: rgb(0,187,189);
+            background: linear-gradient(211deg, rgba(0,187,189,1) 0%, rgba(28,147,0,1) 100%);">
+            <p class="text-right">Total Amount for Evening : ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
+                <strong>{{ $eveningDigits['total_amount'] }} MMK</strong>
+            </p>
+            </div>
+            {{-- <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow" style="background: rgb(0,187,189);
             background: linear-gradient(211deg, rgba(0,187,189,1) 0%, rgba(28,147,0,1) 100%);">
                 <div>
                     <span class="d-block">Session</span>
@@ -209,26 +268,7 @@
                     <span class="d-block">နီုင်/ရှုံး</span>
                     <span class="d-block">နိုင်</span>
                 </div>
-            </div>
-            <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow" style="background: rgb(0,187,189);
-            background: linear-gradient(211deg, rgba(0,187,189,1) 0%, rgba(28,147,0,1) 100%);">
-                <div>
-                    <span class="d-block">Session</span>
-                    <span class="d-block">Evening</span>
-                </div>
-                <div>
-                    <span class="d-block">Date</span>
-                    <span class="d-block">10-11-2023 Friday 04:07 PM</span>
-                </div>
-                <div>
-                    <span class="d-block">2D</span>
-                    <span class="d-block">12</span>
-                </div>
-                <div>
-                    <span class="d-block">နီုင်/ရှုံး</span>
-                    <span class="d-block">နိုင်</span>
-                </div>
-            </div>
+            </div> --}}
         </div>
 
     </div>

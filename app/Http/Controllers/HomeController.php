@@ -23,9 +23,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function profile(){
-        return view('frontend.user_profile');
-    }
+    
 
     public function index() {
     if (auth()->user()->hasRole('Admin')) {

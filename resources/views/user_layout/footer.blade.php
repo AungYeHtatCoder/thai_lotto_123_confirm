@@ -8,7 +8,7 @@
     </a>
    </div>
    <div class="text-center">
-    <a href="{{ url('/wallet') }}" class="text-decoration-none">
+    <a href="{{ url('/user/wallet-deposite') }}" class="text-decoration-none">
      <i class="fas fa-wallet"></i>
      <span class="d-block">ပိုက်ဆံအိတ်</span>
     </a>

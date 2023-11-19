@@ -13,7 +13,25 @@
       <i class="fa-regular fa-circle-user fa-2xl"></i>
      </div>
      <div>
-      <h2 class="ms-2"><a href="{{ route('login') }}">Login</a></h2>
+      {{-- <h2 class="ms-2"><a href="{{ route('login') }}">Login</a></h2> --}}
+       <div class="mt-2 text-white">
+            @auth
+                <p class="mb-0">{{ Auth::user()->name }}</p>
+                <p>{{ Auth::user()->phone }}</p>
+                
+            @endauth
+            @guest
+                <a href="{{ route('login') }}" class="text-decoration-none text-white">
+                    အကောင့်ဝင်ပါ |
+                </a>
+                <span>
+                  {{-- register route --}}
+                  <a href="{{ route('register') }}" class="text-decoration-none text-white">
+                    | အကောင့်ဖွင့်ပါ 
+                  </a>
+                </span>
+            @endguest
+          </div>
      </div>
      <div>
       <i class="fa-solid fa-bell fa-2xl"></i>
@@ -67,31 +85,10 @@
           </div>
         </div>
 
-<<<<<<< HEAD
-    <div class="d-flex justify-content-around mt-2">
-     <div>
-      <div class="buttons">
-       <a href="{{ route('admin.GetTwoDigit') }}" class="">2D PLAY</a>
-      </div>
-      <a href="{{ url('/twod') }}" class="text-dark text-decoration-none">
-       <p class="font-weight-bold text">2D</p>
-      </a>
-     </div>
-     <div>
-      <div class="buttons">
-       <a href="{{ url('/threeD') }}">3D PLAY</a>
-      </div>
-      <a href="{{ url('/threeD') }}" class="text-dark text-decoration-none">
-       <p class="font-weight-bold text text-center">3D</p>
-      </a>
-     </div>
-    </div>
-=======
->>>>>>> 146b160ff5f7e5e7b71bbb7a17247880548c8514
         <div class="d-flex justify-content-around mt-2">
           <div>
             <div class="buttons">
-              <a href="{{ url('/twod') }}" class="">2D PLAY</a>
+              <a href="{{ route('admin.GetTwoDigit') }}" class="">2D PLAY</a>
             </div>
             <a href="{{ url('/twod') }}" class="text-dark text-decoration-none">
               <p class="font-weight-bold text">2D</p>

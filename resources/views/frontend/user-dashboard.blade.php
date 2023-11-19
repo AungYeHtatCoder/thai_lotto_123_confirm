@@ -8,7 +8,37 @@
       style="background-color: #b6c5d8;"
     >
     <div style="margin-bottom: 100px;">
-      <a href="{{ url('/user-dashboard/winningRecord') }}" class="card text-decoration-none text-dark shadow p-3 my-3">
+        {{-- if login user is has role admin, show admin profile link, else user profile link --}}
+        @if(auth()->user()->hasRole('Admin'))
+            <a href="{{ url('/home') }}" class="card text-decoration-none text-dark shadow p-3 my-3">
+          <div class="d-flex justify-content-between">
+              <div class="d-flex">
+                  <div class="me-3">
+                      <i class="fas fa-list-ul list" aria-hidden="true"></i>
+                  </div>
+                  <p class="pb-0 mb-0">Admin Profile</p>
+              </div>
+              <div>
+                  <i class="fas fa-play" aria-hidden="true"></i>
+              </div>
+          </div>
+      </a>
+      @else
+      <a href="{{ url('/home') }}" class="card text-decoration-none text-dark shadow p-3 my-3">
+          <div class="d-flex justify-content-between">
+              <div class="d-flex">
+                  <div class="me-3">
+                      <i class="fas fa-list-ul list" aria-hidden="true"></i>
+                  </div>
+                  <p class="pb-0 mb-0">ကိုယ်ရေးအချက်လက်(Profile)</p>
+              </div>
+              <div>
+                  <i class="fas fa-play" aria-hidden="true"></i>
+              </div>
+          </div>
+      </a>
+        @endif
+      <a href="{{ url('/user/two-d-winners-history') }}" class="card text-decoration-none text-dark shadow p-3 my-3">
           <div class="d-flex justify-content-between">
               <div class="d-flex">
                   <div class="me-3">
@@ -34,7 +64,7 @@
               </div>
           </div>
       </a>
-      <a href="{{ url('/user-dashboard/moriningRecord') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
+      <a href="{{ url('/user/morning-play-history-record') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
           <div class="d-flex justify-content-between">
               <div class="d-flex">
                   <div class="me-3">
@@ -74,7 +104,7 @@
           </div>
       </a>
   
-      <a href="{{ url('/user-dashboard/eveningHistoryRecord') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
+      <a href="{{ url('/user/evening-play-history-record') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
           <div class="d-flex justify-content-between">
               <div class="d-flex">
                   <div class="me-3">
@@ -169,13 +199,13 @@
               <div class="me-2">
                   <i class="fas fa-power-off list" aria-hidden="true"></i>
               </div>
-              <form action="#" method="post" class="d-flex align-items-center">
-                <input type="hidden" name="_token" value="MnZ1LIeqwKXfEvVUqUkWouulBhWuZIGXHksYt31M" autocomplete="off">                
-                <button type="submit" class="border-0 bg-transparent">
+              <form action="{{ route('logout') }}" method="post" class="d-flex align-items-center">
+                @csrf
+                <button type="submit" class="border-0 bg-transparent logout-text">
                     အကောင့်မှ ထွက်ခွာရန်
                 </button>
             </form>
-              &nbsp; &nbsp; <i class="fas fa-chevron-right arrow-icon" aria-hidden="true"></i>
+            &nbsp; &nbsp; <i class="fas fa-chevron-right arrow-icon"></i>
           </div>
       </a>
   </div>      
