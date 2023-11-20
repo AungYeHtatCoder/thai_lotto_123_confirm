@@ -232,13 +232,13 @@
         </div>
         <select class="h-50 text-white">
           <option value="1">12:00 AM</option>
-          <option value="2">04:00 PM</option>
+          <option value="2">04:30 PM</option>
         </select>
       </div>
     </div>
 
     <div class="d-flex justify-content-between mt-3 custom-btn">
-      <button class="fs-6 px-3">ပတ်လည်</button>
+      <button class="fs-6 px-3" id="permuteButton" onclick="permuteDigits()">ပတ်လည်</button>
       <input type="text" name="amount" id="amount" placeholder="ငွေပမာဏ" class="form-control w-50 text-center border-black" />
     </div>
 
@@ -247,7 +247,7 @@
       <a class="btn mt-3" data-bs-toggle="modal" data-bs-target="#colorModal"><span class="material-icons">
           question_mark
         </span>အရောင်ရှင်းလင်းချက်</a>
-      <a href="{{ url('/twod-quick') }}" class="btn p-3 text-white" style="background-color: #2a576c">အမြန်ရွေးရန်</a>
+           <a href="{{ route('admin.QuickMorningPlayTwoDigit') }}" class="btn p-3 text-white" style="background-color: #2a576c">အမြန်ရွေးရန်</a>
     </div>
 
 
@@ -307,7 +307,9 @@
       </div>
       <div class="card mt-3">
         <div class="card-header">
-          <h5 class="mb-0">အရောင်ရှင်းလင်းချက်</h5>
+          <h5 class="mb-0">အရောင်ရှင်းလင်းချက် 
+            <span><a href="{{ url('/')}}" class="btn btn-primary">Back To Main</a></span>
+          </h5>
         </div>
         <div class="card-body">
           <div class="row">
@@ -534,6 +536,52 @@
                  amountInputsDiv.appendChild(amountInput);
              }
          }
+
+         function permuteDigits() {
+    const selectedInput = document.getElementById('selected_digits');
+    let selectedValue = selectedInput.value.split(",");
+    const amountInputsDiv = document.getElementById('amountInputs');
+
+    // Iterate over each selected digit and permute if it's two digits
+    selectedValue = selectedValue.map(num => {
+        if (num && num.length === 2) {
+            return num[1] + num[0];
+        }
+        return num;
+    });
+
+    // Update the selected input value
+    selectedInput.value = selectedValue.join(",");
+
+    // Update UI for each permuted digit
+    selectedValue.forEach(num => {
+        const digitElements = document.querySelectorAll('.digit');
+        digitElements.forEach(elem => {
+            if (elem.textContent.includes(num)) {
+                elem.classList.add('selected');
+
+                // Check if an input for this number already exists
+                let amountInput = document.getElementById('amount_' + num);
+                if (!amountInput) {
+                    amountInput = document.createElement('input');
+                    amountInput.setAttribute('type', 'number');
+                    amountInput.setAttribute('name', 'amounts[' + num + ']');
+                    amountInput.setAttribute('id', 'amount_' + num);
+                    amountInput.setAttribute('placeholder', 'Amount for ' + num);
+                    amountInput.setAttribute('min', '100');
+                    amountInput.setAttribute('max', '5000');
+                    amountInput.setAttribute('class', 'form-control mt-2');
+                    amountInput.onchange = function() {
+                        updateTotalAmount();
+                        checkBetAmount(this, num);
+                    };
+                    amountInputsDiv.appendChild(amountInput);
+                }
+            }
+        });
+    });
+}
+
          function checkBetAmount(inputElement, num) {
              // Replace the problematic line with the following code
              const digits = document.querySelectorAll('.digit');

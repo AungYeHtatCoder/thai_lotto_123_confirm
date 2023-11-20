@@ -104,20 +104,22 @@
         <div class="card mt-3">
             <div class="card-body">
                 <div class="row mt-3">
-            <div class="col-6">
+            <div class="col-4">
                 <button class="btn btn-success w-100" id="odd">မမ - Odd</button>
             </div>
-            <div class="col-6">
+            <div class="col-4">
                 <button class="btn btn-success w-100" id="even">စုံစုံ - Even</button>
             </div>
+            <div class="col-4">
+              <button class="fs-6 px-3 btn btn-primary" id="permuteButton" onclick="permuteDigits()">permulation</button>
+            </div>
+
         </div>
             </div>
         </div>
         <div class="card">
          <div class="card-header">
-             <h5 class="mb-0 text-center">အရောင်ရှင်းလင်းချက်
-                                      <span><a href="{{ url('admin/morning-play-two-d')}}" class="btn btn-primary">Back To Play</a></span>
-             </h5>
+             <h5 class="mb-0">အရောင်ရှင်းလင်းချက်</h5>
          </div>
          <div class="card-body">
           <div class="row">
@@ -167,8 +169,14 @@
         <form action="{{ route('admin.Quickstore') }}" method="post" class="p-4">
     @csrf
     <!-- Selected Digits Input -->
-    <input type="text" id="outputField" name="selected_digits" class="form-control" placeholder="Selected digits" readonly>
+    <div class="mb-3 mt-3">
+      <input type="text" id="outputField" name="selected_digits" class="form-control" placeholder="Selected digits" readonly>
+    </div>
 
+    <div class="mb-3 mt-3">
+        <label for="permulated_digit">Permulated Digits</label>
+        <input type="text" id="permulated_digit" class="form-control" readonly>
+    </div>
     <!-- Amounts Inputs will be appended here -->
     <div id="amountInputs" class="col-md-12 mb-3"></div>
 
@@ -236,80 +244,163 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
 <script>
-    document.getElementById('odd').addEventListener('click', function() {
-    const oddDigits = Array.from(document.querySelectorAll('.digit-button'))
-        .filter(button => {
-            const digits = button.getAttribute('data-digit').split('');
-            return digits.every(digit => parseInt(digit) % 2 !== 0);
-        })
-        .map(button => button.getAttribute('data-digit'));
+    // Helper function to filter digits based on a condition
+function filterDigits(condition) {
+    return Array.from(document.querySelectorAll('.digit-button'))
+        .map(button => button.getAttribute('data-digit').padStart(2, '0'))
+        .filter(condition)
+        .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+}
 
-    // Assuming 'outputField' is where the selected digits will be displayed
+// Function to update the output field and create amount inputs
+function updateDisplayAndCreateAmountInputs(digits) {
     const outputField = document.getElementById('outputField');
-    outputField.value = oddDigits.join(', ');
-
-    // Now create amount input fields for these digits
     const amountInputsDiv = document.getElementById('amountInputs');
+
+    outputField.value = digits.join(', ');
     amountInputsDiv.innerHTML = ''; // Clear previous inputs
 
-    oddDigits.forEach(digit => {
+    digits.forEach(digit => {
         const amountInput = document.createElement('input');
         amountInput.type = 'number';
-        amountInput.name = `amounts[${digit}]`; // Ensure this follows your naming scheme
+        amountInput.name = `amounts[${digit}]`;
         amountInput.id = `amount_${digit}`;
         amountInput.placeholder = `Amount for ${digit}`;
+        amountInput.value = '100';
         amountInput.min = '100';
         amountInput.max = '5000';
-        amountInput.value = '100';
         amountInput.classList.add('form-control', 'mt-2');
-        amountInput.onchange = updateTotalAmount; // Bind the change event to your total amount function
-
-        // Append the new input to your amountInputs div
+        amountInput.onchange = updateTotalAmount;
         amountInputsDiv.appendChild(amountInput);
     });
 
-    // Call the updateTotalAmount function to initialize the values
     updateTotalAmount();
+}
+
+// Event listener for odd digits
+document.getElementById('odd').addEventListener('click', function() {
+    const oddCondition = digit => digit.split('').every(d => parseInt(d) % 2 !== 0);
+    updateDisplayAndCreateAmountInputs(filterDigits(oddCondition));
 });
 
-
+// Event listener for even digits
 document.getElementById('even').addEventListener('click', function() {
-    // Filter even numbers and also ensure that each digit is even
-    const evenDigits = Array.from(document.querySelectorAll('.digit-button'))
-    .map(button => button.getAttribute('data-digit').padStart(2, '0')) // Ensure two digits
-    .filter(digit => digit[0] % 2 === 0 && digit[1] % 2 === 0) // Filter numbers where both digits are even
-    .sort((a, b) => a.localeCompare(b, undefined, {numeric: true})); // Sort numerically
-
-
-    // Assuming 'outputField' is where the selected digits will be displayed
+    const evenCondition = digit => digit.split('').every(d => parseInt(d) % 2 === 0);
+    updateDisplayAndCreateAmountInputs(filterDigits(evenCondition));
+});
+// Function to permute and display digits
+function permuteDigits() {
     const outputField = document.getElementById('outputField');
-    outputField.value = evenDigits.join(', ');
+    const permulatedField = document.getElementById('permulated_digit');
 
-    // Now create amount input fields for these digits
+    if (!outputField || !permulatedField) {
+        console.error('Required field not found');
+        return;
+    }
+
+    // Get the selected digits and trim any whitespace
+    let selectedDigits = outputField.value.split(",").map(s => s.trim());
+    
+    const permutedDigits = selectedDigits.map(num => num.length === 2 ? num[1] + num[0] : num);
+
+    // Update the outputField with both selected and permuted digits
+    outputField.value = `${selectedDigits.join(", ")} , ${permutedDigits.join(", ")}`;
+
+    // Update the permulatedField with the permuted digits only
+    permulatedField.value = permutedDigits.join(",");
+
+    // Combine selectedDigits and permutedDigits while removing duplicates
+    const allDigits = [...selectedDigits, ...permutedDigits];
+    // const allUniqueDigits = Array.from(new Set(allDigits));
+
+    // const allUniqueDigits = Array.from(new Set([...selectedDigits, ...permutedDigits]));
+    
+    // Recreate the amount inputs for all unique digits
+    createAmountInputs(allDigits);
+}
+
+// Function to create amount inputs for both selected and permuted digits
+function createAmountInputs(digits) {
     const amountInputsDiv = document.getElementById('amountInputs');
-    amountInputsDiv.innerHTML = ''; // Clear previous inputs
+    amountInputsDiv.innerHTML = ''; // Clear existing amount inputs
 
-    evenDigits.forEach(digit => {
+    // Create amount inputs for each digit
+    digits.forEach(digit => {
         const amountInput = document.createElement('input');
         amountInput.type = 'number';
-        amountInput.name = `amounts[${digit}]`; // Ensure this follows your naming scheme
+        amountInput.name = `amounts[${digit}]`;
         amountInput.id = `amount_${digit}`;
         amountInput.placeholder = `Amount for ${digit}`;
+        amountInput.value = '100'; // Default value or retrieve existing value
+        amountInput.min = '100';
+        amountInput.max = '5000';
         amountInput.classList.add('form-control', 'mt-2');
-        amountInput.min = '100'; // Assuming 100 is the minimum amount
-        amountInput.max = '5000'; // Assuming 5000 is the maximum amount
-        amountInput.required = true;
-        // value 
-        amountInput.value = '100';
-        amountInput.onchange = updateTotalAmount; // Bind the change event to your total amount function
-
-        // Append the new input to your amountInputs div
+        amountInput.onchange = updateTotalAmount;
         amountInputsDiv.appendChild(amountInput);
     });
 
-    // Call the updateTotalAmount function to initialize the values
-    updateTotalAmount();
-});
+    updateTotalAmount(); // Update the total amount to reflect changes
+}
+// function createAmountInputs(digits) {
+//     const amountInputsDiv = document.getElementById('amountInputs');
+//     amountInputsDiv.innerHTML = ''; // Clear existing amount inputs
+
+//     digits.forEach(digit => {
+//         const amountInput = document.createElement('input');
+//         amountInput.type = 'number';
+//         amountInput.name = `amounts[${digit}]`;
+//         amountInput.id = `amount_${digit}`;
+//         amountInput.placeholder = `Amount for ${digit}`;
+//         amountInput.value = '100'; // Default value or retrieve existing value
+//         amountInput.min = '100';
+//         amountInput.max = '5000';
+//         amountInput.classList.add('form-control', 'mt-2');
+//         amountInput.onchange = updateTotalAmount;
+//         amountInputsDiv.appendChild(amountInput);
+//     });
+
+//     updateTotalAmount(); // Update the total amount to reflect changes
+// }
+
+// Function to permute and display digits
+// function permuteDigits() {
+//     const outputField = document.getElementById('outputField');
+//     const permulatedField = document.getElementById('permulated_digit');
+
+//     if (!outputField || !permulatedField) {
+//         console.error('Required field not found');
+//         return;
+//     }
+
+//     let selectedDigits = outputField.value.split(",").map(s => s.trim());
+//     const permutedDigits = selectedDigits.map(num => num.length === 2 ? num[1] + num[0] : num);
+//     const allUniqueDigits = Array.from(new Set([...selectedDigits, ...permutedDigits]));
+
+//     outputField.value = `${selectedDigits.join(", ")} , ${permutedDigits.join(", ")}`;
+//     permulatedField.value = permutedDigits.join(",");
+    
+//     createAmountInputs(allUniqueDigits);
+// }
+
+// // Function to create amount inputs
+// function createAmountInputs(digits) {
+//     const amountInputsDiv = document.getElementById('amountInputs');
+//     amountInputsDiv.innerHTML = ''; // Clear existing amount inputs
+
+//     digits.forEach(digit => {
+//         const amountInput = document.createElement('input');
+//         amountInput.type = 'number';
+//         amountInput.name = `amounts[${digit}]`;
+//         amountInput.id = `amount_${digit}`;
+//         amountInput.placeholder = `Amount for ${digit}`;
+//         amountInput.value = '100'; // Default value
+//         amountInput.classList.add('form-control', 'mt-2');
+//         amountInput.onchange = updateTotalAmount;
+//         amountInputsDiv.appendChild(amountInput);
+//     });
+
+//     updateTotalAmount(); // Update the total amount
+// }
 // Function to update all amounts when an amount button is clicked
 function setAmountForAllDigits(amount) {
     const inputs = document.querySelectorAll('input[name^="amounts["]');
@@ -374,8 +465,6 @@ function updateTotalAmount() {
         document.getElementById('totalAmount').value = total.toFixed(2);
     }
 }
-
-
 </script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -415,5 +504,6 @@ function updateTotalAmount() {
          document.querySelectorAll('.digit.disabled').forEach(el => {
              el.style.backgroundColor = getRandomColor();
          });
+     </script>
 @endsection
 
