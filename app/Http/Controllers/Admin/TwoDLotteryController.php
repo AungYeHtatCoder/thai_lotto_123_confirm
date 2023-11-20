@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Models\Admin\Lottery;
+use App\Models\Lottery;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\TwodWiner;
 use Carbon\Carbon;

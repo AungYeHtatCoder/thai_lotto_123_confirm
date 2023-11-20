@@ -1,5 +1,5 @@
 <div class="row footer">
- <div class="col-lg-4 col-md-4 offset-lg-4 offset-md-4 py-3 footers">
+ <div class="col-lg-4 col-md-6 offset-lg-4 offset-md-3 py-3 footers">
   <div class="d-flex justify-content-around">
    <div class="text-center">
     <a href="{{ url('/') }}" class="text-decoration-none">
@@ -8,7 +8,7 @@
     </a>
    </div>
    <div class="text-center">
-    <a href="{{ url('/wallet') }}" class="text-decoration-none">
+    <a href="{{ url('/user/wallet-deposite') }}" class="text-decoration-none">
      <i class="fas fa-wallet"></i>
      <span class="d-block">ပိုက်ဆံအိတ်</span>
     </a>

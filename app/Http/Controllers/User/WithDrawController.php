@@ -12,19 +12,19 @@ class WithDrawController extends Controller
 {
     public function GetWithdraw()
     {
-        return view('frontend.withdraw_money');
+        return view('two_d.withdraw');
     }
     public function UserKpayWithdrawMoney()
     {
         // user id 1 is admin rethrive from database where kpay_no is not null
         $user = User::where('id', 1)->whereNotNull('kpay_no')->first();
-        return view('frontend.kpay_withdraw', compact('user'));
+        return view('two_d.k_pay_withdraw', compact('user'));
     }
     public function UserCBPayWithdrawMoney()
     {
         // user id 1 is admin rethrive from database where kpay_no is not null
         $user = User::where('id', 1)->whereNotNull('cbpay_no')->first();
-        return view('frontend.cb_pay_withdraw', compact('user'));
+        return view('two_d.cb_pay_withdraw', compact('user'));
         
         
     }
@@ -33,7 +33,7 @@ class WithDrawController extends Controller
     {
         // user id 1 is admin rethrive from database where kpay_no is not null
         $user = User::where('id', 1)->whereNotNull('wavepay_no')->first();
-        return view('frontend.wave_pay_withdraw', compact('user'));
+        return view('two_d.wave_pay_withdraw', compact('user'));
         
         
     }
@@ -41,7 +41,7 @@ class WithDrawController extends Controller
     {
         // user id 1 is admin rethrive from database where kpay_no is not null
         $user = User::where('id', 1)->whereNotNull('ayapay_no')->first();
-        return view('frontend.aya_pay_withdraw', compact('user'));
+        return view('two_d.aya_pay_withdraw', compact('user'));
         
         
     }
@@ -54,7 +54,14 @@ class WithDrawController extends Controller
             'user_ph_no' => 'required|numeric',
             'amount' => 'required|numeric'
         ]);
+        $user = Auth::user();
+        $user->balance -= $request->amount;
 
+        if ($user->balance < 0) {
+            throw new \Exception('Your balance is not enough to widthdraw.');
+        }
+
+        $user->save();
         // Create a new FillBalance record
         $fillBalance = new Withdraw();
         $fillBalance->user_id = Auth::id();
@@ -64,7 +71,7 @@ class WithDrawController extends Controller
         $fillBalance->status = 'pending';  // default to 'pending'
 
         $fillBalance->save();
-        session()->flash('SuccessRequest', 'သင့်အကောင့်သို့ငွေထုတ်ရန်တောင်းဆိုပြီးပါပီး .');
+        session()->flash('SuccessRequest', 'သင့်အကောင့်သို့ငွေထုတ်ရန်တောင်းဆိုပြီးပါပီး . သင့်ထုတ်ယူသည့်ငွေပမာဏ - '.$request->amount.' MMK . ၁၀ မိနစ်အတွင်း သင့်အကောင့်သို့ ထုတ်ယူသည့်ငွေအား လွဲပေးသွားပါမည်--- please wait for 10 minutes to get your money. Thank you!');
 
         // Redirect back with a success message
         return redirect()->back()->with('success', 'Money fill request submitted successfully!');
@@ -78,6 +85,13 @@ class WithDrawController extends Controller
             'user_ph_no' => 'required|numeric',
             'amount' => 'required|numeric'
         ]);
+        $user = Auth::user();
+        $user->balance -= $request->amount;
+
+        if ($user->balance < 0) {
+            throw new \Exception('Your balance is not enough to widthdraw.');
+        }
+        $user->save();
 
         // Create a new FillBalance record
         $fillBalance = new Withdraw();
@@ -88,7 +102,7 @@ class WithDrawController extends Controller
         $fillBalance->status = 'pending';  // default to 'pending'
 
         $fillBalance->save();
-        session()->flash('SuccessRequest', 'သင့်အကောင့်သို့ငွေထုတ်ရန်တောင်းဆိုပြီးပါပီး .');
+         session()->flash('SuccessRequest', 'သင့်အကောင့်သို့ငွေထုတ်ရန်တောင်းဆိုပြီးပါပီး . သင့်ထုတ်ယူသည့်ငွေပမာဏ - '.$request->amount.' MMK . ၁၀ မိနစ်အတွင်း သင့်အကောင့်သို့ ထုတ်ယူသည့်ငွေအား လွဲပေးသွားပါမည်--- please wait for 10 minutes to get your money. Thank you!');
 
         // Redirect back with a success message
         return redirect()->back()->with('success', 'Money fill request submitted successfully!');
@@ -102,6 +116,13 @@ class WithDrawController extends Controller
             'user_ph_no' => 'required|numeric',
             'amount' => 'required|numeric'
         ]);
+        $user = Auth::user();
+        $user->balance -= $request->amount;
+
+        if ($user->balance < 0) {
+            throw new \Exception('Your balance is not enough to widthdraw.');
+        }
+        $user->save();
 
         // Create a new FillBalance record
         $fillBalance = new Withdraw();
@@ -112,7 +133,7 @@ class WithDrawController extends Controller
         $fillBalance->status = 'pending';  // default to 'pending'
 
         $fillBalance->save();
-        session()->flash('SuccessRequest', 'သင့်အကောင့်သို့ငွေထုတ်ရန်တောင်းဆိုပြီးပါပီး .');
+         session()->flash('SuccessRequest', 'သင့်အကောင့်သို့ငွေထုတ်ရန်တောင်းဆိုပြီးပါပီး . သင့်ထုတ်ယူသည့်ငွေပမာဏ - '.$request->amount.' MMK . ၁၀ မိနစ်အတွင်း သင့်အကောင့်သို့ ထုတ်ယူသည့်ငွေအား လွဲပေးသွားပါမည်--- please wait for 10 minutes to get your money. Thank you!');
 
         // Redirect back with a success message
         return redirect()->back()->with('success', 'Money fill request submitted successfully!');
@@ -126,6 +147,13 @@ class WithDrawController extends Controller
             'user_ph_no' => 'required|numeric',
             'amount' => 'required|numeric'
         ]);
+        $user = Auth::user();
+        $user->balance -= $request->amount;
+
+        if ($user->balance < 0) {
+            throw new \Exception('Your balance is not enough to widthdraw.');
+        }
+        $user->save();
 
         // Create a new FillBalance record
         $fillBalance = new Withdraw();
@@ -136,7 +164,7 @@ class WithDrawController extends Controller
         $fillBalance->status = 'pending';  // default to 'pending'
 
         $fillBalance->save();
-        session()->flash('SuccessRequest', 'သင့်အကောင့်သို့ငွေထုတ်ရန်တောင်းဆိုပြီးပါပီး .');
+        session()->flash('SuccessRequest', 'သင့်အကောင့်သို့ငွေထုတ်ရန်တောင်းဆိုပြီးပါပီး . သင့်ထုတ်ယူသည့်ငွေပမာဏ - '.$request->amount.' MMK . ၁၀ မိနစ်အတွင်း သင့်အကောင့်သို့ ထုတ်ယူသည့်ငွေအား လွဲပေးသွားပါမည်--- please wait for 10 minutes to get your money. Thank you!');
 
         // Redirect back with a success message
         return redirect()->back()->with('success', 'Money fill request submitted successfully!');

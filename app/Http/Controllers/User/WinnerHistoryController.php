@@ -24,10 +24,10 @@ class WinnerHistoryController extends Controller
             'users.name',
             'users.profile',
             'users.phone',
-            'lottery_two_digit_pivot.sub_amount', // Add this
-            'lotteries.total_amount', // And this
-            'twod_winers.prize_no', // And this
-            'twod_winers.created_at',  // Add this
+            'lottery_two_digit_pivot.sub_amount', 
+            'lotteries.total_amount', 
+            'twod_winers.prize_no', 
+            'twod_winers.created_at',  
         )
         ->select(
             'lotteries.user_id', 
@@ -37,12 +37,12 @@ class WinnerHistoryController extends Controller
             'users.phone',
             'lottery_two_digit_pivot.sub_amount',
             'lotteries.total_amount',
-            'twod_winers.prize_no', // Add this
-            'twod_winers.created_at', // Add this
+            'twod_winers.prize_no', 
+            'twod_winers.created_at', 
             DB::raw('lottery_two_digit_pivot.sub_amount * 85 as prize_amount')
         )
         ->get();
 
-        return view('frontend.winner_history', compact('winners'));
+        return view('frontend.winning-record', compact('winners'));
     }
 }

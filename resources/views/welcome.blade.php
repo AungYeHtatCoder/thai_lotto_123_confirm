@@ -10,10 +10,35 @@
    <div class="stick">
     <div class="d-flex justify-content-between pt-4">
      <div class="">
-      <i class="fa-regular fa-circle-user fa-2xl"></i>
+        @if (!Auth::user())
+        <i class="fa-regular fa-circle-user fa-2xl"></i>
+        @elseif (Auth::user()->profile === null)
+        <i class="fa-regular fa-circle-user fa-2xl"></i>
+        @else
+        <img src="{{ Auth::user()->profile ?? "" }}" width="55px" class="rounded-circle" alt="">
+        @endif
+
      </div>
      <div>
-      <h2 class="ms-2"><a href="{{ url('/user-login') }}">Login</a></h2>
+      {{-- <h2 class="ms-2"><a href="{{ route('login') }}">Login</a></h2> --}}
+       <div class="mt-2 text-white">
+            @auth
+                <p class="mb-0">{{ Auth::user()->name }}</p>
+                <p>{{ Auth::user()->phone }}</p>
+
+            @endauth
+            @guest
+                <a href="{{ route('login') }}" class="text-decoration-none text-white">
+                    အကောင့်ဝင်ပါ |
+                </a>
+                <span>
+                  {{-- register route --}}
+                  <a href="{{ route('register') }}" class="text-decoration-none text-white">
+                    | အကောင့်ဖွင့်ပါ
+                  </a>
+                </span>
+            @endguest
+          </div>
      </div>
      <div>
       <i class="fa-solid fa-bell fa-2xl"></i>
@@ -70,7 +95,7 @@
         <div class="d-flex justify-content-around mt-2">
           <div>
             <div class="buttons">
-              <a href="{{ url('/twod') }}" class="">2D PLAY</a>
+              <a href="{{ route('admin.GetTwoDigit') }}" class="">2D PLAY</a>
             </div>
             <a href="{{ url('/twod') }}" class="text-dark text-decoration-none">
               <p class="font-weight-bold text">2D</p>
