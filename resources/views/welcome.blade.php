@@ -10,10 +10,12 @@
    <div class="stick">
     <div class="d-flex justify-content-between pt-4">
      <div class="">
-        @if (Auth::user()->profile === null)
+        @if (!Auth::user())
+        <i class="fa-regular fa-circle-user fa-2xl"></i>
+        @elseif (Auth::user()->profile === null)
         <i class="fa-regular fa-circle-user fa-2xl"></i>
         @else
-        <img src="{{ Auth::user()->profile }}" width="55px" class="rounded-circle" alt="">
+        <img src="{{ Auth::user()->profile ?? "" }}" width="55px" class="rounded-circle" alt="">
         @endif
 
      </div>
