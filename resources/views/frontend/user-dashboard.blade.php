@@ -103,7 +103,7 @@
               </div>
           </div>
       </a>
-  
+
       <a href="{{ url('/user/evening-play-history-record') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
           <div class="d-flex justify-content-between">
               <div class="d-flex">
@@ -117,7 +117,7 @@
               </div>
           </div>
       </a>
-  
+
       <a href="{{ url('/user-dashboard') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
           <div class="d-flex justify-content-between">
               <div class="d-flex">
@@ -126,7 +126,7 @@
                   </div>
                   <p class="pb-0 mb-0">အမှတ် 0 (ကျပ်)</p>
               </div>
-              
+
           </div>
       </a>
       <a href="{{ url('/user-dashboard/myBank') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
@@ -208,7 +208,10 @@
             &nbsp; &nbsp; <i class="fas fa-chevron-right arrow-icon"></i>
           </div>
       </a>
-  </div>      
+      <div class="text-center">
+        <p>Copyright &copy; 2023, All Rights Reserved By AMK</p>
+      </div>
+  </div>
 
     </div>
 
