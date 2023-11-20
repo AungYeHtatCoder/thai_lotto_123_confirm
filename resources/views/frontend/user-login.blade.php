@@ -8,23 +8,33 @@
       style="background-color: #b6c5d8;"
     >
     <img src="{{ asset('user_app/assets/images/login.jpg') }}" class="w-100 my-2" alt="">
-    <form action="" >
-        <input type="text" name="signin_phone" class="form-control w-75 ps-3 my-3 mx-auto py-2" placeholder="ဖုန်းနံပတ်ဖြည့်ပါ" />
-        <input type="password" name="signin_password" class="form-control w-75 ps-3 my-3 mx-auto py-2" placeholder="လျှို့ဝှက်နံပါတ်ဖြည့်ပါ" />
-
+    <form action="{{ route('login') }}" method="POST">
+        @csrf
+        <div class="w-75 ps-3 my-3 mx-auto py-2">
+            <input type="email" name="email" class="form-control" placeholder="အီးမေးလ်ဖြည့်ပါ" />
+            @error('email')
+            <span class="text-danger d-block">*{{ $message }}</span>
+            @enderror
+        </div>
+        <div class="w-75 ps-3 my-3 mx-auto py-2">
+            <input type="password" name="password" class="form-control" placeholder="လျှို့ဝှက်နံပါတ် ဖြည့်ပါ" />
+            @error('password')
+            <span class="text-danger d-block">*{{ $message }}</span>
+            @enderror
+        </div>
         <div class="d-flex justify-content-end align-items-center me-5">
             <small><a href="#" style="text-decoration: none;">လျှို့ဝှက်နံပါတ် မေ့နေပါသလား။</a></small>
         </div>
 
         <div class="d-flex justify-content-center align-items-center">
-            <button type="button" name="signin_btn" class="btn btn-outline-primary w-75 mx-auto mt-4 ">၀င်မည်</button>
+            <button type="submit" name="signin_btn" class="btn btn-outline-primary w-75 mx-auto mt-4 ">၀င်မည်</button>
         </div>
-        
+
 
         <hr/>
 
         <div class="d-flex justify-content-center align-items-center">
-            <a href="{{ url('/user-register') }}" type="button" name="signin_btn" class="btn btn-outline-success w-75 mx-auto mt-4 " style="text-decoration: none;">အကောင့် အသစ်ဖွင့်မည်</a>
+            <a href="{{ url('/register') }}" type="button" name="signin_btn" class="btn btn-outline-success w-75 mx-auto mt-4 " style="text-decoration: none;">အကောင့် အသစ်ဖွင့်မည်</a>
         </div>
     </form>
 </div>

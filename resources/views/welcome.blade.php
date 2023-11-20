@@ -10,7 +10,12 @@
    <div class="stick">
     <div class="d-flex justify-content-between pt-4">
      <div class="">
-      <i class="fa-regular fa-circle-user fa-2xl"></i>
+        @if (Auth::user()->profile === null)
+        <i class="fa-regular fa-circle-user fa-2xl"></i>
+        @else
+        <img src="{{ Auth::user()->profile }}" width="55px" class="rounded-circle" alt="">
+        @endif
+
      </div>
      <div>
       {{-- <h2 class="ms-2"><a href="{{ route('login') }}">Login</a></h2> --}}
@@ -18,7 +23,7 @@
             @auth
                 <p class="mb-0">{{ Auth::user()->name }}</p>
                 <p>{{ Auth::user()->phone }}</p>
-                
+
             @endauth
             @guest
                 <a href="{{ route('login') }}" class="text-decoration-none text-white">
@@ -27,7 +32,7 @@
                 <span>
                   {{-- register route --}}
                   <a href="{{ route('register') }}" class="text-decoration-none text-white">
-                    | အကောင့်ဖွင့်ပါ 
+                    | အကောင့်ဖွင့်ပါ
                   </a>
                 </span>
             @endguest

@@ -167,7 +167,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'App\Http\Cont
 
     Route::get('aya-pay-withdraw-money', [WithDrawController::class, 'UserAYAPayWithdrawMoney'])->name('UserAYAPayWithdrawMoney');
     Route::post('aya-pay-with-draw-money', [WithDrawController::class, 'StoreAYApayWithdrawMoney'])->name('StoreAYApayWithdrawMoney');
-     
+
 });
 
 // Route::get('/withDraw', [App\Http\Controllers\User\WelcomeController::class, 'withDraw']);
@@ -197,8 +197,8 @@ Route::get('/user-dashboard/myBank', [App\Http\Controllers\User\WelcomeControlle
 Route::get('/user-dashboard/inviteCode', [App\Http\Controllers\User\WelcomeController::class, 'inviteCode']);
 Route::get('/user-dashboard/comment', [App\Http\Controllers\User\WelcomeController::class, 'comment']);
 Route::get('/user-dashboard/changePassword', [App\Http\Controllers\User\WelcomeController::class, 'changePassword']);
-Route::get('/user-register', [App\Http\Controllers\User\WelcomeController::class, 'userRegister']);
-Route::get('/user-login', [App\Http\Controllers\User\WelcomeController::class, 'userLogin']);
+Route::get('/register', [App\Http\Controllers\User\WelcomeController::class, 'userRegister'])->name('register');
+Route::get('/login', [App\Http\Controllers\User\WelcomeController::class, 'userLogin'])->name('login');
 Route::get('/user-profile', [App\Http\Controllers\User\WelcomeController::class, 'userProfile']);
 Route::get('/threeD', [App\Http\Controllers\User\WelcomeController::class, 'threeD']);
 Route::get('/threed-bet', [App\Http\Controllers\User\WelcomeController::class, 'threedBet']);
