@@ -190,9 +190,9 @@ Route::get('/user-dashboard', [App\Http\Controllers\User\WelcomeController::clas
 // Route::get('/user-dashboard/winningRecord', [App\Http\Controllers\User\WelcomeController::class, 'winningRecord']);
 Route::get('/user-dashboard/moriningPrize', [App\Http\Controllers\User\WelcomeController::class, 'moriningPrize']);
 // Route::get('/user-dashboard/moriningRecord', [App\Http\Controllers\User\WelcomeController::class, 'moriningRecord']);
-Route::get('/user-dashboard/eveningRecord', [App\Http\Controllers\User\WelcomeController::class, 'eveningRecord']);
-Route::get('/user-dashboard/morningHistoryRecord', [App\Http\Controllers\User\WelcomeController::class, 'morningHistoryRecord']);
-Route::get('/user-dashboard/eveningHistoryRecord', [App\Http\Controllers\User\WelcomeController::class, 'eveningHistoryRecord']);
+// Route::get('/user-dashboard/eveningRecord', [App\Http\Controllers\User\WelcomeController::class, 'eveningRecord']);
+// Route::get('/user-dashboard/morningHistoryRecord', [App\Http\Controllers\User\WelcomeController::class, 'morningHistoryRecord']);
+// Route::get('/user-dashboard/eveningHistoryRecord', [App\Http\Controllers\User\WelcomeController::class, 'eveningHistoryRecord']);
 Route::get('/user-dashboard/myBank', [App\Http\Controllers\User\WelcomeController::class, 'myBank']);
 Route::get('/user-dashboard/inviteCode', [App\Http\Controllers\User\WelcomeController::class, 'inviteCode']);
 Route::get('/user-dashboard/comment', [App\Http\Controllers\User\WelcomeController::class, 'comment']);
