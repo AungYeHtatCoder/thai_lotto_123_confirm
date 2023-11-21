@@ -113,7 +113,9 @@
         </div>
         <div class="card">
          <div class="card-header">
-             <h5 class="mb-0">အရောင်ရှင်းလင်းချက်</h5>
+             <h5 class="mb-0">အရောင်ရှင်းလင်းချက်
+              <span><a href="{{ url('admin/morning-play-two-d')}}" class="btn btn-primary">Back To Play</a></span>
+             </h5>
          </div>
          <div class="card-body">
           <div class="row">
