@@ -10,13 +10,13 @@
     <img src="{{ asset('user_app/assets/images/login.jpg') }}" class="w-100 my-2" alt="">
     <form action="{{ route('login') }}" method="POST">
         @csrf
-        <div class="w-75 ps-3 my-3 mx-auto py-2">
+        <div class="w-75 my-3 mx-auto py-2">
             <input type="email" name="email" class="form-control" placeholder="အီးမေးလ်ဖြည့်ပါ" />
             @error('email')
             <span class="text-danger d-block">*{{ $message }}</span>
             @enderror
         </div>
-        <div class="w-75 ps-3 my-3 mx-auto py-2">
+        <div class="w-75 my-3 mx-auto py-2">
             <input type="password" name="password" class="form-control" placeholder="လျှို့ဝှက်နံပါတ် ဖြည့်ပါ" />
             @error('password')
             <span class="text-danger d-block">*{{ $message }}</span>
@@ -27,10 +27,8 @@
         </div>
 
         <div class="d-flex justify-content-center align-items-center">
-            <button type="submit" name="signin_btn" class="btn btn-outline-primary w-75 mx-auto mt-4 ">၀င်မည်</button>
+            <button type="submit" name="signin_btn" class="btn btn-outline-primary w-75 mt-4 ">၀င်မည်</button>
         </div>
-
-
         <hr/>
 
         <div class="d-flex justify-content-center align-items-center">

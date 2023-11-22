@@ -43,7 +43,7 @@
             <p class="mb-0" style="color:#009382; font-weight:700;">လက်ကျန်ငွေ</p>
             <p class="mt-0 mb-0" style="color:#009382; font-weight:700;">{{ Auth::user()->balance }} kyats</p>
             <div class="dropstart my-2">
-                <button class="btn btn-sm btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">ပြင်ဆင်ရန်
+                <button class="btn btn-sm btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">အကောင့် ပြင်ဆင်ရန်
                 </button>
                 <ul class="dropdown-menu border border-none shadow rounded-0" style="background: #e7fff9;">
                   <li><a class="dropdown-item text-success" href="#" onclick="event.preventDefault();" data-bs-target="#updateProfile" data-bs-toggle="modal">ဓာတ်ပုံတင်ရန်</a></li>
@@ -56,7 +56,7 @@
     <hr>
     <div class="d-flex justify-content-around">
         <a href="{{ url('/user/fill-balance') }}" type="button" class="btn btn-success" style="text-decoration: none;">ငွေသွင်းမည်</a>
-        <a href="#" type="button" class="btn btn-danger" style="text-decoration: none;">ငွေထုတ်မည်</a>
+        <a href="{{ url('/user/withdraw-money')}}" type="button" class="btn btn-danger" style="text-decoration: none;">ငွေထုတ်မည်</a>
     </div>
     {{-- <hr> --}}
 

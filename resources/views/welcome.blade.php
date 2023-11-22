@@ -28,6 +28,7 @@
 
             @endauth
             @guest
+              
                 <a href="{{ route('login') }}" class="text-decoration-none text-white">
                     အကောင့်ဝင်ပါ |
                 </a>
@@ -55,35 +56,35 @@
         <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
             <div class="carousel-item">
-              <img src="https://thailotto123.net/assets/img/banners/banner6551a36c29352.png" style="max-height: 500px" class="d-block w-100" alt="..." />
+              <img src="{{ asset('user_app/assets/images/banner/banner6551a36c29352.png') }}" style="max-height: 500px" class="d-block w-100" alt="..." />
               <marquee behavior="" direction="" style="background-color: blue; color: aliceblue">
                 Thai 2D - 3D App သည် Thai နိုင်ငံ Official App ဖြစ်ပြီး ၂၄
                 နာရီ ကြားခံမလိုပဲ ငွေသွင်းငွေထုတ်လုပ်နိုင်ပါသည်။
               </marquee>
             </div>
             <div class="carousel-item">
-              <img src="https://thailotto123.net/assets/img/banners/banner6551a35f3f8a0.png" style="max-height: 500px" class="d-block w-100" alt="..." />
+              <img src="{{ asset('user_app/assets/images/banner/banner6551a35f3f8a0.png') }}" style="max-height: 500px" class="d-block w-100" alt="..." />
               <marquee behavior="" direction="" style="background-color: blue; color: aliceblue">
                 Thai 2D - 3D App သည် Thai နိုင်ငံ Official App ဖြစ်ပြီး ၂၄
                 နာရီ ကြားခံမလိုပဲ ငွေသွင်းငွေထုတ်လုပ်နိုင်ပါသည်။
               </marquee>
             </div>
             <div class="carousel-item">
-              <img src="https://thailotto123.net/assets/img/banners/banner6551a3505d2c9.png" style="max-height: 500px" class="d-block w-100" alt="..." />
+              <img src="{{ asset('user_app/assets/images/banner/banner6551a3505d2c9.png') }}" style="max-height: 500px" class="d-block w-100" alt="..." />
               <marquee behavior="" direction="" style="background-color: blue; color: aliceblue">
                 Thai 2D - 3D App သည် Thai နိုင်ငံ Official App ဖြစ်ပြီး ၂၄
                 နာရီ ကြားခံမလိုပဲ ငွေသွင်းငွေထုတ်လုပ်နိုင်ပါသည်။
               </marquee>
             </div>
             <div class="carousel-item active">
-              <img src="https://thailotto123.net/assets/img/banners/banner6551a3505d2c9.png" style="max-height: 500px" class="d-block w-100" alt="..." />
+              <img src="{{ asset('user_app/assets/images/banner/banner6551a3505d2c9.png') }}" style="max-height: 500px" class="d-block w-100" alt="..." />
               <marquee behavior="" direction="" style="background-color: blue; color: aliceblue">
                 Thai 2D - 3D App သည် Thai နိုင်ငံ Official App ဖြစ်ပြီး ၂၄
                 နာရီ ကြားခံမလိုပဲ ငွေသွင်းငွေထုတ်လုပ်နိုင်ပါသည်။
               </marquee>
             </div>
             <div class="carousel-item">
-              <img src="https://thailotto123.net/assets/img/banners/banner6551a3505d2c9.png" style="max-height: 500px" class="d-block w-100" alt="..." />
+              <img src="{{ asset('user_app/assets/images/banner/banner6551a3505d2c9.png') }}" style="max-height: 500px" class="d-block w-100" alt="..." />
               <marquee behavior="" direction="" style="background-color: blue; color: aliceblue">
                 Thai 2D - 3D App သည် Thai နိုင်ငံ Official App ဖြစ်ပြီး ၂၄
                 နာရီ ကြားခံမလိုပဲ ငွေသွင်းငွေထုတ်လုပ်နိုင်ပါသည်။
@@ -103,9 +104,9 @@
           </div>
           <div>
             <div class="buttons">
-              <a href="{{ url('/threeD') }}">3D PLAY</a>
+              <a href="{{ url('/user/get-three-d') }}">3D PLAY</a>
             </div>
-            <a href="{{ url('/threeD') }}" class="text-dark text-decoration-none">
+            <a href="{{ url('/user/get-three-d') }}" class="text-dark text-decoration-none">
               <p class="font-weight-bold text text-center">3D</p>
             </a>
           </div>

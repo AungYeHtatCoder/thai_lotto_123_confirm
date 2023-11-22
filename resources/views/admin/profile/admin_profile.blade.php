@@ -239,7 +239,7 @@
                 <!-- Card Change Password -->
 
                 <!-- Card Accounts -->
-                <div id="accounts">
+                {{-- <div id="accounts">
                     <div class="row mt-3">
                         <div class="col-lg-12 col-12">
                             <div class="row">
@@ -421,7 +421,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <div class="col-lg-6 col-md-6 col-12 mt-4 mt-lg-0 mb-2 mb-md-0">
+                                
+                                 <div class="col-lg-6 col-md-6 col-12 mt-4 mt-lg-0 mb-2 mb-md-0">
             <div class="card">
              <div class="card-header p-3 pt-2">
               <div class="image-container ms-3 border-radius-xl mt-n4 position-absolute">
@@ -442,11 +443,11 @@
               </a>
              </div>
             </div>
-           </div> -->
+           </div> 
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <!-- Card Delete Account -->
                 <div class="card mt-4" id="delete">
