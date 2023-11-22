@@ -9,35 +9,38 @@
     >
     <div style="margin-bottom: 100px;">
         {{-- if login user is has role admin, show admin profile link, else user profile link --}}
-        @if(auth()->user()->hasRole('Admin'))
-            <a href="{{ url('/home') }}" class="card text-decoration-none text-dark shadow p-3 my-3">
-          <div class="d-flex justify-content-between">
-              <div class="d-flex">
-                  <div class="me-3">
-                      <i class="fas fa-list-ul list" aria-hidden="true"></i>
-                  </div>
-                  <p class="pb-0 mb-0">Admin Profile</p>
-              </div>
-              <div>
-                  <i class="fas fa-play" aria-hidden="true"></i>
-              </div>
-          </div>
-      </a>
-      @else
-      <a href="{{ url('/home') }}" class="card text-decoration-none text-dark shadow p-3 my-3">
-          <div class="d-flex justify-content-between">
-              <div class="d-flex">
-                  <div class="me-3">
-                      <i class="fas fa-list-ul list" aria-hidden="true"></i>
-                  </div>
-                  <p class="pb-0 mb-0">ကိုယ်ရေးအချက်လက်(Profile)</p>
-              </div>
-              <div>
-                  <i class="fas fa-play" aria-hidden="true"></i>
-              </div>
-          </div>
-      </a>
-        @endif
+        @auth
+            @if(auth()->user()->hasRole('Admin'))
+                <a href="{{ url('/home') }}" class="card text-decoration-none text-dark shadow p-3 my-3">
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex">
+                            <div class="me-3">
+                                <i class="fas fa-list-ul list" aria-hidden="true"></i>
+                            </div>
+                            <p class="pb-0 mb-0">Admin Profile</p>
+                        </div>
+                        <div>
+                            <i class="fas fa-play" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </a>
+            @else
+                <a href="{{ url('/home') }}" class="card text-decoration-none text-dark shadow p-3 my-3">
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex">
+                            <div class="me-3">
+                                <i class="fas fa-list-ul list" aria-hidden="true"></i>
+                            </div>
+                            <p class="pb-0 mb-0">ကိုယ်ရေးအချက်လက်(Profile)</p>
+                        </div>
+                        <div>
+                            <i class="fas fa-play" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </a>
+            @endif
+        @endauth
+
       <a href="{{ url('/user/two-d-winners-history') }}" class="card text-decoration-none text-dark shadow p-3 my-3">
           <div class="d-flex justify-content-between">
               <div class="d-flex">
