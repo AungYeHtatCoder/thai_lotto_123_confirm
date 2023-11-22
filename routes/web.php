@@ -23,7 +23,7 @@ use App\Http\Controllers\Admin\TwoDEveningWinnerController;
 use App\Http\Controllers\Admin\TwoDWinnerHistoryController;
 
 // Route::get('/', function () {
-//     return view('welcome');
+//     return view('two_d.api_test');
 // });
 
 
@@ -66,14 +66,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
     Route::get('/evening-play-two-d', [App\Http\Controllers\Admin\TwoDPlayController::class, 'EveningPlayTwoDigit'])->name('EveningPlayTwoDigit');
 
     Route::post('lotteries-two-d-play', [TwoDigitController::class, 'store'])->name('StorePlayTwoD');
-
-    Route::get('/get-three-d', [App\Http\Controllers\Admin\ThreeDPlayController::class, 'GetThreeDigit'])->name('GetThreeDigit');
-    Route::get('/three-d-play', [App\Http\Controllers\Admin\ThreeDPlayController::class, 'ThreeDigitPlay'])->name('ThreeDigitPlay');
-    Route::get('/three-d-play-confirm', [App\Http\Controllers\Admin\ThreeDPlayController::class, 'ThreeDigitPlayConfirm'])->name('ThreeDigitPlayConfirm');
-    Route::get('/three-d-play-confirm-api-format', [App\Http\Controllers\Admin\ThreeDPlayController::class, 'ThreeDigitPlayConfirmApi'])->name('ThreeDigitPlayConfirmApi');
-    // Route::post('/three-d-play-confirm', [App\Http\Controllers\Admin\ThreeDPlayController::class, 'ThreeDigitPlaystore'])->name('ThreeDigitPlaystore');
-
-    Route::post('/three-digit-play-confirm', [App\Http\Controllers\Admin\ThreeDigitPlayController::class, 'ThreeDigitPlaystore'])->name('ThreeDigitPlaystore');
     //Route::resource('two-d-lotteries', TwoDigitController::class);
     //Route::get('/two-d-lotteries', [App\Http\Controllers\Admin\TwoDigitController::class, 'index'])->name('GetTwoDigit');
 
@@ -167,6 +159,15 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'App\Http\Cont
 
     Route::get('aya-pay-withdraw-money', [WithDrawController::class, 'UserAYAPayWithdrawMoney'])->name('UserAYAPayWithdrawMoney');
     Route::post('aya-pay-with-draw-money', [WithDrawController::class, 'StoreAYApayWithdrawMoney'])->name('StoreAYApayWithdrawMoney');
+
+    // three d 
+    Route::get('/get-three-d', [App\Http\Controllers\User\ThreeDPlayingController::class, 'GetThreeDigit'])->name('GetThreeDigit');
+    Route::get('/three-d-play', [App\Http\Controllers\User\ThreeDPlayingController::class, 'ThreeDigitPlay'])->name('ThreeDigitPlay');
+    Route::get('/three-d-play-confirm', [App\Http\Controllers\User\ThreeDPlayingController::class, 'ThreeDigitPlayConfirm'])->name('ThreeDigitPlayConfirm');
+    Route::get('/three-d-play-confirm-api-format', [App\Http\Controllers\User\ThreeDPlayingController::class, 'ThreeDigitPlayConfirmApi'])->name('ThreeDigitPlayConfirmApi');
+    // Route::post('/three-d-play-confirm', [App\Http\Controllers\Admin\ThreeDPlayController::class, 'ThreeDigitPlaystore'])->name('ThreeDigitPlaystore');
+
+    Route::post('/three-digit-play-confirm', [App\Http\Controllers\Admin\ThreeDigitPlayController::class, 'ThreeDigitPlaystore'])->name('ThreeDigitPlaystore');
 
 });
 
