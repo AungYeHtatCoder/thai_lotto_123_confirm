@@ -246,7 +246,7 @@ class WelcomeController extends Controller
 
     public function twodCalendar()
     {
-        return view('frontend.dream-book');
+        return view('frontend.twod-calendar');
     }
 
     public function twodDreamBook()
@@ -256,7 +256,7 @@ class WelcomeController extends Controller
 
     public function threedResult()
     {
-        return view('frontend.dream-book');
+        return view('frontend.threed-result');
     }
 
 
