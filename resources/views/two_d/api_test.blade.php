@@ -118,7 +118,6 @@
     displayElement.innerHTML = htmlContent;
   }
   fetchData();
-//   setInterval(fetchData, 1000);
 </script>
 </body>
 </html>
