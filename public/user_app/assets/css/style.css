@@ -498,3 +498,11 @@ hr.my-custom-line {
   height: 40px;
   background: linear-gradient(90deg, #428387, #336876, #265166 100%);
 }
+
+.two-history-results {
+  background: #265166;
+  border-radius: 50%;
+  color: #fff !important;
+  width: 150px;
+  height: 150px;
+}
