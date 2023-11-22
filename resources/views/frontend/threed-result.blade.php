@@ -20,7 +20,7 @@
 @section('content')
 @include('user_layout.nav')
 <div class="row">
- <div class="col-lg-4 col-md-4 offset-lg-4 offset-md-4 mt-5 py-4" style="background-color: #b6c5d8;">
+ <div class="col-lg-4 col-md-4 offset-lg-4 offset-md-4 mt-5 py-4" style="background-color: #b6c5d8; height: 120vh">
   <div class="w-100 h-25 text-center text-white p-4 rounded" style="background-color: #265166;">
    <p style="font-weight: 800;font-size: 3.5rem;">576</p>
    <div>
@@ -28,7 +28,7 @@
    </div>
   </div>
 
-  <div class="mt-4">
+  <div class="mt-4" style="padding-bottom: 200px">
    <div class="d-flex justify-content-between align-items-center px-3 py-2 my-2" style="border-bottom: 1px solid #265166 ;">
     <p>21-11-2023</p>
     <p class="fw-bold">970</p>
@@ -60,5 +60,5 @@
 
 </div>
 
-{{-- @include('user_layout.footer') --}}
+@include('user_layout.footer')
 @endsection

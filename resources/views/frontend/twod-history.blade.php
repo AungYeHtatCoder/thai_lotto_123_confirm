@@ -3,12 +3,12 @@
 @section('content')
 @include('user_layout.nav')
 <div class="row">
- <div class="col-lg-4 col-md-4 offset-lg-4 offset-md-4 mt-5 py-4" style="background-color: #b6c5d8;">
+ <div class="col-lg-4 col-md-4 offset-lg-4 offset-md-4 mt-5 py-4" style="background-color: #b6c5d8; height: 120vh">
   <div class="two-history-results mt-3 mx-auto">
    <p class="text-center pt-4 fw-bold" style="font-size: 4rem;">71</p>
   </div>
 
-  <div class="container mt-3 mb-4">
+  <div class="container mt-3 mb-4" style="padding-bottom: 130px;">
    <div class="card text-center p-0 cards" style="background-color: #2a576c">
     <div class="card-body">
 
@@ -94,5 +94,5 @@
 
 </div>
 
-{{-- @include('user_layout.footer') --}}
+@include('user_layout.footer')
 @endsection
