@@ -37,17 +37,17 @@
   </div>
 
   <div class="results">
-   <h1>71</h1>
-   <p class="text-start">
+   <h1 id="live_2d">71</h1>
+   <p class="text-center">
     Updated:
-    <span>11-11-2023 4:31:59PM</span>
+    <span id="live_updated_time">11-11-2023 4:31:59PM</span>
    </p>
 
    <button type="button" class="btns" data-bs-toggle="modal" data-bs-target="#exampleModal">ထိုးမည်</button>
 
   </div>
-
-  <div class="container mb-4" style="padding-bottom: 200px">
+  <div class="container-fluid" style="margin-bottom:80px;" id="result"></div>
+  {{-- <div class="container mb-4" style="padding-bottom: 200px">
    <div class="card text-center p-0 cards" style="background-color: #2a576c">
     <div class="card-body">
      <p class="text-center text-white">11:00:00</p>
@@ -101,7 +101,7 @@
      </div>
     </div>
    </div>
-  </div>
+  </div> --}}
  </div>
 </div>
 
@@ -128,4 +128,68 @@
  </div>
 </div>
 @include('user_layout.footer')
+@endsection
+
+@section('script')
+<script>
+    (function() {
+        const fetchData = () => {
+            const url = 'https://api.thaistock2d.com/live';
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const updatedTime = new Date(data.live.time);
+                    const day = updatedTime.getDate().toString().padStart(2, '0');
+                    const month = (updatedTime.getMonth() + 1).toString().padStart(2, '0');
+                    const year = updatedTime.getFullYear();
+                    let hours = updatedTime.getHours();
+                    const minutes = updatedTime.getMinutes();
+                    const ampm = hours >= 12 ? 'PM' : 'AM';
+                    hours = hours % 12;
+                    hours = hours ? hours : 12;
+                    const updatedTimeFormat = `${day}-${month}-${year} ${hours}:${minutes.toString().padStart(2, '0')}:${updatedTime.getSeconds().toString().padStart(2, '0')}${ampm}`;
+
+                    $("#live_2d").text(data.live.twod);
+                    $("#live_updated_time").text(updatedTimeFormat);
+
+                    let newHTML = '';
+                    data.result.forEach(r => {
+                        newHTML += `
+                            <div class="card digit-card mb-1 pt-3">
+                              <p class="text-center">${r.open_time}</p>
+                              <div class="d-flex justify-content-around">
+                                <div class="">
+                                  <p>Set</p>
+                                  <p>${r.set}</p>
+                                </div>
+                                <div class="">
+                                  <p>Value</p>
+                                  <p>${r.value}</p>
+                                </div>
+                                <div class="">
+                                  <p>2D</p>
+                                  <p>${r.twod}</p>
+                                </div>
+                              </div>
+                          </div>
+                        `;
+                    });
+                    $('#result').html(newHTML);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        };
+
+        setInterval(fetchData, 1000);
+    })();
+
+
+</script>
 @endsection
