@@ -239,7 +239,22 @@ class WelcomeController extends Controller
     }
 
 
+    public function twodHistory()
+    {
+        return view('frontend.twod-history');
+    }
+
+    public function twodCalendar()
+    {
+        return view('frontend.dream-book');
+    }
+
     public function twodDreamBook()
+    {
+        return view('frontend.dream-book');
+    }
+
+    public function threedResult()
     {
         return view('frontend.dream-book');
     }
