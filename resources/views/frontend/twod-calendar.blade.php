@@ -6,9 +6,7 @@
   color: #fff;
   background-color: #265166;
   padding: 16px;
-  /* Adjust the padding to change the space between columns and rows */
-  border: 1px solid #fff;
-  /* Set the border to transparent */
+
  }
 
  .custom-tables>.table tr>td,
@@ -20,10 +18,11 @@
 @section('content')
 @include('user_layout.nav')
 <div class="row">
- <div class="col-lg-4 col-md-4 offset-lg-4 offset-md-4 mt-5 py-4" style="background-color: #b6c5d8;">
+ <div class="col-lg-4 col-md-4 offset-lg-4 offset-md-4 mt-5 pt-2" style="background-color: #b6c5d8; height: 120vh; padding-bottom: 1000px">
+  <p class="text-center fs-4 fw-bold mt-3 text-white">2D Calendar</p>
   <div>
    <p class="text-center fw-bold custom-tables">2023-11-21 (Tuesday)</p>
-   <table class="table table-bordered table-transparent">
+   <table class="table table-transparent">
     <tr>
      <th>Time</th>
      <th>BTC</th>
@@ -98,5 +97,5 @@
 
 </div>
 
-{{-- @include('user_layout.footer') --}}
+@include('user_layout.footer')
 @endsection
