@@ -3,64 +3,109 @@
 @section('content')
 @include('user_layout.nav')
 <div class="row">
-    <div class="col-lg-4 col-md-4 offset-lg-4 offset-md-4 mt-5 py-4" style="background-color: #b6c5d8;">
-        <div style="margin-bottom: 100px;">
-            {{-- if login user is has role admin, show admin profile link, else user profile link --}}
+    <div
+      class="col-lg-4 col-md-4 offset-lg-4 offset-md-4 mt-5 py-4"
+      style="background-color: #b6c5d8;"
+    >
+    <div style="margin-bottom: 100px;">
+        {{-- if login user is has role admin, show admin profile link, else user profile link --}}
+        @auth
             @if(auth()->user()->hasRole('Admin'))
-            <a href="{{ url('/home') }}" class="card text-decoration-none text-dark shadow p-3 my-3">
-                <div class="d-flex justify-content-between">
-                    <div class="d-flex">
-                        <div class="me-3">
-                            <i class="fas fa-list-ul list" aria-hidden="true"></i>
+                <a href="{{ url('/home') }}" class="card text-decoration-none text-dark shadow p-3 my-3">
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex">
+                            <div class="me-3">
+                                <i class="fas fa-list-ul list" aria-hidden="true"></i>
+                            </div>
+                            <p class="pb-0 mb-0">Admin Profile</p>
                         </div>
-                        <p class="pb-0 mb-0">Admin Profile</p>
+                        <div>
+                            <i class="fas fa-play" aria-hidden="true"></i>
+                        </div>
                     </div>
-                    <div>
-                        <i class="fas fa-play" aria-hidden="true"></i>
-                    </div>
-                </div>
-            </a>
+                </a>
             @else
-            <a href="{{ url('/home') }}" class="card text-decoration-none text-dark shadow p-3 my-3">
-                <div class="d-flex justify-content-between">
-                    <div class="d-flex">
-                        <div class="me-3">
-                            <i class="fas fa-list-ul list" aria-hidden="true"></i>
+                <a href="{{ url('/home') }}" class="card text-decoration-none text-dark shadow p-3 my-3">
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex">
+                            <div class="me-3">
+                                <i class="fas fa-list-ul list" aria-hidden="true"></i>
+                            </div>
+                            <p class="pb-0 mb-0">ကိုယ်ရေးအချက်လက်(Profile)</p>
                         </div>
-                        <p class="pb-0 mb-0">ကိုယ်ရေးအချက်လက်(Profile)</p>
+                        <div>
+                            <i class="fas fa-play" aria-hidden="true"></i>
+                        </div>
                     </div>
-                    <div>
-                        <i class="fas fa-play" aria-hidden="true"></i>
-                    </div>
-                </div>
-            </a>
+                </a>
             @endif
-            <a href="{{ url('/user/two-d-winners-history') }}" class="card text-decoration-none text-dark shadow p-3 my-3">
-                <div class="d-flex justify-content-between">
-                    <div class="d-flex">
-                        <div class="me-3">
-                            <i class="fas fa-list-ul list" aria-hidden="true"></i>
-                        </div>
-                        <p class="pb-0 mb-0">ကံထူးရှင်များ</p>
-                    </div>
-                    <div>
-                        <i class="fas fa-play" aria-hidden="true"></i>
-                    </div>
-                </div>
-            </a>
-            <a href="{{ url('/user-dashboard/moriningPrize') }}" class="card text-decoration-none text-dark shadow p-3 my-3">
-                <div class="d-flex justify-content-between">
-                    <div class="d-flex">
-                        <div class="me-3">
-                            <i class="fas fa-calendar-days list text-danger" aria-hidden="true"></i>
-                        </div>
-                        <p class="pb-0 mb-0">ထွက်ဂဏန်းများ</p>
-                    </div>
-                    <div>
-                        <i class="fas fa-play" aria-hidden="true"></i>
-                    </div>
-                </div>
-            </a>
+        @endauth
+
+      <a href="{{ url('/user/two-d-winners-history') }}" class="card text-decoration-none text-dark shadow p-3 my-3">
+          <div class="d-flex justify-content-between">
+              <div class="d-flex">
+                  <div class="me-3">
+                      <i class="fas fa-list-ul list" aria-hidden="true"></i>
+                  </div>
+                  <p class="pb-0 mb-0">ကံထူးရှင်များ</p>
+              </div>
+              <div>
+                  <i class="fas fa-play" aria-hidden="true"></i>
+              </div>
+          </div>
+      </a>
+      <a href="{{ url('/user-dashboard/moriningPrize') }}" class="card text-decoration-none text-dark shadow p-3 my-3">
+          <div class="d-flex justify-content-between">
+              <div class="d-flex">
+                  <div class="me-3">
+                      <i class="fas fa-calendar-days list text-danger" aria-hidden="true"></i>
+                  </div>
+                  <p class="pb-0 mb-0">ထွက်ဂဏန်းများ</p>
+              </div>
+              <div>
+                  <i class="fas fa-play" aria-hidden="true"></i>
+              </div>
+          </div>
+      </a>
+      <a href="{{ url('/user/morning-play-history-record') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
+          <div class="d-flex justify-content-between">
+              <div class="d-flex">
+                  <div class="me-3">
+                      <i class="fas fa-list-ul list" aria-hidden="true"></i>
+                  </div>
+                  <p class="pb-0 mb-0">မနက်ပိုင်းထီထိုးမှတ်တမ်း</p>
+              </div>
+              <div>
+                  <i class="fas fa-play" aria-hidden="true"></i>
+              </div>
+          </div>
+      </a>
+      <a href="{{ url('/user-dashboard/eveningRecord') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
+          <div class="d-flex justify-content-between">
+              <div class="d-flex">
+                  <div class="me-3">
+                      <i class="fas fa-list-ul list" aria-hidden="true"></i>
+                  </div>
+                  <p class="pb-0 mb-0">ညနေပိုင်းထီထိုးမှတ်တမ်း</p>
+              </div>
+              <div>
+                  <i class="fas fa-play" aria-hidden="true"></i>
+              </div>
+          </div>
+      </a>
+      <a href="{{ url('/user-dashboard/morningHistoryRecord') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
+          <div class="d-flex justify-content-between">
+              <div class="d-flex">
+                  <div class="me-3">
+                      <i class="fas fa-calendar-days list text-danger" aria-hidden="true"></i>
+                  </div>
+                  <p class="pb-0 mb-0">မနက်ပိုင်းထွက်ဂဏန်းများ</p>
+              </div>
+              <div>
+                  <i class="fas fa-play" aria-hidden="true"></i>
+              </div>
+          </div>
+      </a>
 
             <a href="{{ url('/user-dashboard/twod-history') }}" class="card text-decoration-none text-dark shadow p-3 my-3">
                 <div class="d-flex justify-content-between">
