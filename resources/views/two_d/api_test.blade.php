@@ -72,6 +72,7 @@
 
   // fetchData();
 </script>
+
 <script>
   async function fetchData() {
     const url = 'https://shwe-2d-live-api.p.rapidapi.com/live';
@@ -87,6 +88,7 @@
       const response = await fetch(url, options);
       const result = await response.json(); // Parse the response as JSON
       displayData(result);
+      console.log(result);
     } catch (error) {
       console.error(error);
     }
@@ -115,10 +117,7 @@
     // Update the placeholder with the table
     displayElement.innerHTML = htmlContent;
   }
-
   fetchData();
 </script>
-
-
 </body>
 </html>
