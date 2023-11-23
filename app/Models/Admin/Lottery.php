@@ -35,17 +35,35 @@ class Lottery extends Model
     public function twoDigits() {
         return $this->belongsToMany(TwoDigit::class, 'lottery_two_digit_copy')->withPivot('sub_amount', 'prize_sent')->withTimestamps();
     }
-    public function twoDigitsMorning()
+    // two digit early morning
+    public function twoDigitsEarlyMorning()
     {
         $morningStart = Carbon::now()->startOfDay()->addHours(6);
+        $morningEnd = Carbon::now()->startOfDay()->addHours(10);
+        return $this->belongsToMany(TwoDigit::class, 'lottery_two_digit_pivot', 'lottery_id', 'two_digit_id')->withPivot('sub_amount', 'prize_sent', 'created_at')
+                    ->wherePivotBetween('created_at', [$morningStart, $morningEnd]);
+    }
+
+    public function twoDigitsMorning()
+    {
+        $morningStart = Carbon::now()->startOfDay()->addHours(10);
         $morningEnd = Carbon::now()->startOfDay()->addHours(12);
         return $this->belongsToMany(TwoDigit::class, 'lottery_two_digit_pivot', 'lottery_id', 'two_digit_id')->withPivot('sub_amount', 'prize_sent', 'created_at')
                     ->wherePivotBetween('created_at', [$morningStart, $morningEnd]);
     }
 
-    public function twoDigitsEvening()
+    // two digit early evening
+    public function twoDigitsEarlyEvening()
     {
         $eveningStart = Carbon::now()->startOfDay()->addHours(12);
+        $eveningEnd = Carbon::now()->startOfDay()->addHours(14);
+        return $this->belongsToMany(TwoDigit::class, 'lottery_two_digit_pivot', 'lottery_id', 'two_digit_id')->withPivot('sub_amount', 'prize_sent', 'created_at')
+                    ->wherePivotBetween('created_at', [$eveningStart, $eveningEnd]);
+    }
+
+    public function twoDigitsEvening()
+    {
+        $eveningStart = Carbon::now()->startOfDay()->addHours(14);
         $eveningEnd = Carbon::now()->startOfDay()->addHours(24);
         return $this->belongsToMany(TwoDigit::class, 'lottery_two_digit_pivot', 'lottery_id', 'two_digit_id')->withPivot('sub_amount', 'prize_sent', 'created_at')
                     ->wherePivotBetween('created_at', [$eveningStart, $eveningEnd]);

@@ -5,6 +5,8 @@ namespace App\Console;
 use Illuminate\Support\Facades\DB;
 use App\Jobs\CheckForEveningWinners;
 use App\Jobs\CheckForMorningWinners;
+use App\Jobs\CheckForEarlyEveningWinners;
+use App\Jobs\CheckForEarlyMonringWinners;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -15,8 +17,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
 {
+    $schedule->job(new CheckForEarlyMonringWinners)->dailyAt('9:30');
     $schedule->job(new CheckForMorningWinners)->dailyAt('12:00');
+    $schedule->job(new CheckForEarlyEveningWinners)->dailyAt('2:30');
     $schedule->job(new CheckForEveningWinners)->dailyAt('16:30');
+
+
 }
 
     // protected function schedule(Schedule $schedule): void
