@@ -15,7 +15,6 @@
     <div class="card-body">
 
      <div class="text-center">
-        {{-- <p>Live</p> --}}
       <div class="d-flex justify-content-between text-center">
        <p>AM</p>
        <p>BTC</p>
@@ -23,7 +22,7 @@
        <p>2D</p>
       </div>
       <div class="d-flex justify-content-between text-center">
-       <p id="">09:30</p>
+       <p id="">Live</p>
        <p id="live_set">1389.57</p>
        <p id="live_value">50981.87</p>
        <p id="live_result">71</p>
@@ -32,6 +31,28 @@
     </div>
    </div>
     {{-- live data --}}
+
+    {{-- a9 data --}}
+   <div class="card text-center p-0 cards mt-3" style="background-color: #2a576c">
+    <div class="card-body">
+
+     <div class="text-center">
+      <div class="d-flex justify-content-between text-center">
+       <p>AM</p>
+       <p>BTC</p>
+       <p>ETH</p>
+       <p>2D</p>
+      </div>
+      <div class="d-flex justify-content-between text-center">
+       <p id="">9:30</p>
+       <p id="a9_set">1389.57</p>
+       <p id="a9_value">50981.87</p>
+       <p id="a9_internet">71</p>
+      </div>
+     </div>
+    </div>
+   </div>
+    {{-- a9 data --}}
 
     {{-- a12 data --}}
    <div class="card text-center p-0 cards mt-3" style="background-color: #2a576c">
@@ -54,6 +75,28 @@
     </div>
    </div>
     {{-- a12 data --}}
+
+    {{-- a2 data --}}
+   <div class="card text-center p-0 cards mt-3" style="background-color: #2a576c">
+    <div class="card-body">
+
+     <div class="text-center">
+      <div class="d-flex justify-content-between text-center">
+       <p>PM</p>
+       <p>BTC</p>
+       <p>ETH</p>
+       <p>2D</p>
+      </div>
+      <div class="d-flex justify-content-between text-center">
+       <p>02:00</p>
+       <p id="a2_set">1389.57</p>
+       <p id="a2_value">50981.87</p>
+       <p id="a2_result">71</p>
+      </div>
+     </div>
+    </div>
+   </div>
+    {{-- a2 data --}}
 
     {{-- a43 data --}}
    <div class="card text-center p-0 cards mt-3" style="background-color: #2a576c">
@@ -111,9 +154,17 @@
         $("#live_set").text(result.live_set);
         $("#live_value").text(result.live_value);
 
+        $("#a9_result").text(result.a9_internet);
+        $("#a9_set").text(result.a9_set);
+        $("#a9_value").text(result.a9_value);
+
         $("#a12_result").text(result.a12_result);
         $("#a12_set").text(result.a12_set);
         $("#a12_value").text(result.a12_value);
+
+        $("#a2_result").text(result.a2_internet);
+        $("#a2_set").text(result.a2_set);
+        $("#a2_value").text(result.a2_value);
 
         $("#a43_result").text(result.a43_result);
         $("#a43_set").text(result.a43_set);

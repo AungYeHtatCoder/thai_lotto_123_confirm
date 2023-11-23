@@ -30,7 +30,7 @@ use App\Http\Controllers\Admin\TwoDWinnerHistoryController;
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
 Route::get('/user-profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('home');
 
 Route::get('/', [App\Http\Controllers\User\WelcomeController::class, 'index'])->name('welcome');
@@ -249,7 +249,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'App\Http\Cont
   Route::get('aya-pay-withdraw-money', [WithDrawController::class, 'UserAYAPayWithdrawMoney'])->name('UserAYAPayWithdrawMoney');
   Route::post('aya-pay-with-draw-money', [WithDrawController::class, 'StoreAYApayWithdrawMoney'])->name('StoreAYApayWithdrawMoney');
 
-    // three d 
+    // three d
     Route::get('/get-three-d', [App\Http\Controllers\User\ThreeDPlayingController::class, 'GetThreeDigit'])->name('GetThreeDigit');
     Route::get('/three-d-play', [App\Http\Controllers\User\ThreeDPlayingController::class, 'ThreeDigitPlay'])->name('ThreeDigitPlay');
     Route::get('/three-d-play-confirm', [App\Http\Controllers\User\ThreeDPlayingController::class, 'ThreeDigitPlayConfirm'])->name('ThreeDigitPlayConfirm');
