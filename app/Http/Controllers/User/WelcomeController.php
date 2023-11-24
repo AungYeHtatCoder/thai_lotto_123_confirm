@@ -239,10 +239,10 @@ class WelcomeController extends Controller
     }
 
 
-    public function twodHistory()
+    public function twodLive()
     {
-        return view('two_d.api_test');
-        // return view('frontend.twod-history');
+        // return view('two_d.api_test');
+        return view('frontend.twod-live');
     }
 
     public function twodCalendar()

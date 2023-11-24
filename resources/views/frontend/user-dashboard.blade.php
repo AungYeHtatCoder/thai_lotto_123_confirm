@@ -120,7 +120,7 @@
             </div>
         </a> --}}
 
-            <a href="{{ url('/user-dashboard/twod-history') }}" class="card text-decoration-none text-dark shadow p-3 my-3">
+            <a href="{{ url('/user/user-dashboard/twod-live') }}" class="card text-decoration-none text-dark shadow p-3 my-3">
                 <div class="d-flex justify-content-between">
                     <div class="d-flex">
                         <div class="me-3">
@@ -133,7 +133,7 @@
                     </div>
                 </div>
             </a>
-            <a href="{{ url('/user-dashboard/twod-calendar') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
+            <a href="{{ url('/user/user-dashboard/twod-calendar') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
                 <div class="d-flex justify-content-between">
                     <div class="d-flex">
                         <div class="me-3">
@@ -146,7 +146,7 @@
                     </div>
                 </div>
             </a>
-            <a href="{{ url('/user-dashboard/twod-calendar') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
+            <a href="{{ url('/user/user-dashboard/twod-calendar') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
                 <div class="d-flex justify-content-between">
                     <div class="d-flex">
                         <div class="me-3">
@@ -159,7 +159,7 @@
                     </div>
                 </div>
             </a>
-            <a href="{{ url('/user-dashboard/threed-result') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
+            <a href="{{ url('/user/user-dashboard/threed-result') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
                 <div class="d-flex justify-content-between">
                     <div class="d-flex">
                         <div class="me-3">
@@ -299,9 +299,6 @@
                         </div>
                         <p class="pb-0 mb-0">ဗားရှင်း - 1.0.0</p>
                     </div>
-                    <!-- <div>
-                  <i class="fas fa-play"></i>
-              </div> -->
                 </div>
             </a>
             <a href="#" class="card logout-btn text-decoration-none text-dark p-3 my-3">
