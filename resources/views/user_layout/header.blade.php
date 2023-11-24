@@ -15,5 +15,11 @@
  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-icons@1.13.12/iconfont/material-icons.min.css" />
 
  <script src="https://kit.fontawesome.com/b829c5162c.js" crossorigin="anonymous"></script>
+ <style>
+    @import url('https://fonts.cdnfonts.com/css/source-sans-pro');
+    *{
+        font-family: 'Source Sans Pro', sans-serif;
+    }
+ </style>
  @yield('css')
 </head>

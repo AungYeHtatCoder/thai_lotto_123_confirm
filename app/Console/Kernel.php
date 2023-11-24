@@ -14,10 +14,10 @@ class Kernel extends ConsoleKernel
      * Define the application's command schedule.
      */
     protected function schedule(Schedule $schedule)
-{
-    $schedule->job(new CheckForMorningWinners)->dailyAt('12:00');
-    $schedule->job(new CheckForEveningWinners)->dailyAt('16:30');
-}
+    {
+        $schedule->job(new CheckForMorningWinners)->dailyAt('12:00');
+        $schedule->job(new CheckForEveningWinners)->dailyAt('16:30');
+    }
 
     // protected function schedule(Schedule $schedule): void
     // {
