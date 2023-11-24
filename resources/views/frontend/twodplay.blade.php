@@ -349,7 +349,7 @@
 
             <input type="hidden" name="user_id" value="6">
 
-            <div class="col-12 d-flex justify-content-center mt-3">
+            <div class="col-12 d-flex justify-content-center mt-3 submitbtns">
               <button type="submit" class="btn btn-danger me-2">Cancel</button>
               <button type="submit" class="btn btn-success">Submit</button>
             </div>

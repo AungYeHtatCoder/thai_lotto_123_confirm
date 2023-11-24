@@ -498,3 +498,9 @@ hr.my-custom-line {
   height: 40px;
   background: linear-gradient(90deg, #428387, #336876, #265166 100%);
 }
+
+.submitbtns {
+  position: fixed;
+  top: 640px;
+  left: 0;
+}
