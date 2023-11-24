@@ -15,9 +15,9 @@
                     <div class="d-flex justify-content-between">
                         <div class="d-flex">
                             <div class="me-3">
-                                <i class="fas fa-list-ul list" aria-hidden="true"></i>
+                                <i class="fas fa-dashboard list text-success" aria-hidden="true"></i>
                             </div>
-                            <p class="pb-0 mb-0">Admin Profile</p>
+                            <p class="pb-0 mb-0">Admin Dashboard</p>
                         </div>
                         <div>
                             <i class="fas fa-play" aria-hidden="true"></i>
@@ -29,7 +29,7 @@
                     <div class="d-flex justify-content-between">
                         <div class="d-flex">
                             <div class="me-3">
-                                <i class="fas fa-list-ul list" aria-hidden="true"></i>
+                                <i class="fa-regular fa-user-circle list text-success" aria-hidden="true"></i>
                             </div>
                             <p class="pb-0 mb-0">ကိုယ်ရေးအချက်လက်(Profile)</p>
                         </div>
@@ -45,7 +45,7 @@
           <div class="d-flex justify-content-between">
               <div class="d-flex">
                   <div class="me-3">
-                      <i class="fas fa-list-ul list" aria-hidden="true"></i>
+                      <i class="fas fa-users list text-success" aria-hidden="true"></i>
                   </div>
                   <p class="pb-0 mb-0">ကံထူးရှင်များ</p>
               </div>
@@ -58,7 +58,7 @@
           <div class="d-flex justify-content-between">
               <div class="d-flex">
                   <div class="me-3">
-                      <i class="fas fa-calendar-days list text-danger" aria-hidden="true"></i>
+                      <i class="fas fa-award text-warning list" aria-hidden="true"></i>
                   </div>
                   <p class="pb-0 mb-0">ထွက်ဂဏန်းများ</p>
               </div>
@@ -67,11 +67,11 @@
               </div>
           </div>
       </a>
-      <a href="{{ url('/user/morning-play-history-record') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
+      {{-- <a href="{{ url('/user/morning-play-history-record') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
           <div class="d-flex justify-content-between">
               <div class="d-flex">
                   <div class="me-3">
-                      <i class="fas fa-list-ul list" aria-hidden="true"></i>
+                      <i class="fas fa-tags list" aria-hidden="true"></i>
                   </div>
                   <p class="pb-0 mb-0">မနက်ပိုင်းထီထိုးမှတ်တမ်း</p>
               </div>
@@ -84,7 +84,7 @@
           <div class="d-flex justify-content-between">
               <div class="d-flex">
                   <div class="me-3">
-                      <i class="fas fa-list-ul list" aria-hidden="true"></i>
+                      <i class="fas fa-tags list" aria-hidden="true"></i>
                   </div>
                   <p class="pb-0 mb-0">ညနေပိုင်းထီထိုးမှတ်တမ်း</p>
               </div>
@@ -92,12 +92,12 @@
                   <i class="fas fa-play" aria-hidden="true"></i>
               </div>
           </div>
-      </a>
-      <a href="{{ url('/user-dashboard/morningHistoryRecord') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
+      </a> --}}
+      {{-- <a href="{{ url('/user-dashboard/morningHistoryRecord') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
           <div class="d-flex justify-content-between">
               <div class="d-flex">
                   <div class="me-3">
-                      <i class="fas fa-calendar-days list text-danger" aria-hidden="true"></i>
+                      <i class="fas fa-award list text-warning" aria-hidden="true"></i>
                   </div>
                   <p class="pb-0 mb-0">မနက်ပိုင်းထွက်ဂဏန်းများ</p>
               </div>
@@ -106,14 +106,27 @@
               </div>
           </div>
       </a>
+        <a href="{{ url('/user-dashboard/eveningHistoryRecord') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
+            <div class="d-flex justify-content-between">
+                <div class="d-flex">
+                    <div class="me-3">
+                        <i class="fas fa-award list text-warning" aria-hidden="true"></i>
+                    </div>
+                    <p class="pb-0 mb-0">ညနေပိုင်းထွက်ဂဏန်းများ</p>
+                </div>
+                <div>
+                    <i class="fas fa-play" aria-hidden="true"></i>
+                </div>
+            </div>
+        </a> --}}
 
             <a href="{{ url('/user-dashboard/twod-history') }}" class="card text-decoration-none text-dark shadow p-3 my-3">
                 <div class="d-flex justify-content-between">
                     <div class="d-flex">
                         <div class="me-3">
-                            <i class="fas fa-calendar-days list text-danger" aria-hidden="true"></i>
+                            <i class="fas fa-tower-broadcast list text-info" aria-hidden="true"></i>
                         </div>
-                        <p class="pb-0 mb-0">2D History</p>
+                        <p class="pb-0 mb-0">2D Live</p>
                     </div>
                     <div>
                         <i class="fas fa-play" aria-hidden="true"></i>
@@ -124,9 +137,22 @@
                 <div class="d-flex justify-content-between">
                     <div class="d-flex">
                         <div class="me-3">
-                            <i class="fas fa-list-ul list" aria-hidden="true"></i>
+                            <i class="fas fa-calendar list text-info" aria-hidden="true"></i>
                         </div>
                         <p class="pb-0 mb-0">2D Calendar</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-play" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </a>
+            <a href="{{ url('/user-dashboard/twod-calendar') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
+                <div class="d-flex justify-content-between">
+                    <div class="d-flex">
+                        <div class="me-3">
+                            <i class="fas fa-calendar list text-info" aria-hidden="true"></i>
+                        </div>
+                        <p class="pb-0 mb-0">2D Holidays</p>
                     </div>
                     <div>
                         <i class="fas fa-play" aria-hidden="true"></i>
@@ -137,9 +163,9 @@
                 <div class="d-flex justify-content-between">
                     <div class="d-flex">
                         <div class="me-3">
-                            <i class="fas fa-list-ul list" aria-hidden="true"></i>
+                            <i class="fas fa-tower-broadcast list text-info" aria-hidden="true"></i>
                         </div>
-                        <p class="pb-0 mb-0">3D History</p>
+                        <p class="pb-0 mb-0">3D Live</p>
                     </div>
                     <div>
                         <i class="fas fa-play" aria-hidden="true"></i>
@@ -147,7 +173,8 @@
                 </div>
             </a>
 
-            <a href="{{ url('/user/morning-play-history-record') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
+
+            {{-- <a href="{{ url('/user/morning-play-history-record') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
                 <div class="d-flex justify-content-between">
                     <div class="d-flex">
                         <div class="me-3">
@@ -172,7 +199,7 @@
                         <i class="fas fa-play" aria-hidden="true"></i>
                     </div>
                 </div>
-            </a>
+            </a> --}}
             {{-- <a href="{{ url('/user-dashboard/morningHistoryRecord') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
                 <div class="d-flex justify-content-between">
                     <div class="d-flex">
@@ -225,7 +252,7 @@
                     </div>
                 </div>
             </a>
-            <a href="{{ url('/user-dashboard/changePassword') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
+            {{-- <a href="{{ url('/user-dashboard/changePassword') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
                 <div class="d-flex justify-content-between">
                     <div class="d-flex">
                         <div class="me-3">
@@ -237,8 +264,8 @@
                         <i class="fas fa-play" aria-hidden="true"></i>
                     </div>
                 </div>
-            </a>
-            <a href="{{ url('/user-dashboard/inviteCode') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
+            </a> --}}
+            {{-- <a href="{{ url('/user-dashboard/inviteCode') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
                 <div class="d-flex justify-content-between">
                     <div class="d-flex">
                         <div class="me-3">
@@ -250,8 +277,8 @@
                         <i class="fas fa-play" aria-hidden="true"></i>
                     </div>
                 </div>
-            </a>
-            <a href="{{ url('/user-dashboard/comment') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
+            </a> --}}
+            {{-- <a href="{{ url('/user-dashboard/comment') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
                 <div class="d-flex justify-content-between">
                     <div class="d-flex">
                         <div class="me-3">
@@ -263,7 +290,7 @@
                         <i class="fas fa-play" aria-hidden="true"></i>
                     </div>
                 </div>
-            </a>
+            </a> --}}
             <a href="#" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
                 <div class="d-flex justify-content-between">
                     <div class="d-flex">
