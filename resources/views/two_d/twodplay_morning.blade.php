@@ -137,14 +137,15 @@
             <div class="form-header mb-4">
               <div class="row">
                 <div class="col-6">
-                  <div class="d-flex justify-content-between mt-3 custom-btn">
-                  <input type="text" name="amount" id="all_amount" placeholder="ငွေပမာဏ" class="form-control w-50 text-center border-black" />
+                  <div class="d-flex justify-content-between mt-3 ms-3 custom-btn ">
+                    <input type="text" name="amount" id="all_amount" placeholder="ငွေပမာဏ" class="form-control w-75 text-center border-black" />
                   </div>
                 </div>
                 <div class="col-6">
-                  <div class="d-flex justify-content-between mt-3 custom-btn">
-      <button class="fs-6 px-3" id="permuteButton" onclick="permuteDigits()">ပတ်လည်</button>
-    </div>
+                  <div class="d-flex justify-content-around mt-3 custom-btn">
+                    <button class="fs-6 px-2 py-2" id="permuteButton" onclick="permuteDigits()">ပတ်လည်</button>
+                    <button class="fs-6 px-2 py-2" id="permuteButton">အမြန်ရွေး</button>
+                </div>
                 </div>
               </div>
             </div>
@@ -168,7 +169,7 @@
 
                 <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
 
-              <div class="col-12 d-flex justify-content-center mt-3 submitbtns">
+              <div class="col-12 d-flex justify-content-center mt-3">
               <button type="submit" class="btn btn-danger me-2">Cancel</button>
               <button type="submit" class="btn btn-success">Submit</button>
             </div>
