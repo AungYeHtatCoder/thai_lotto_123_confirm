@@ -25,7 +25,22 @@
 
         <p class="ms-5" class="font-green d-block" id="userBalance"
                     data-balance="{{ Auth::user()->balance }}">{{ Auth::user()->balance }} MMK</p>
-        <p class="me-2">2023-11-16 <br /> 02:30:00PM</p>
+        <p class="me-2">
+    <span id="todayDate" style="font-size: 15px"></span><br/>
+    <span id="currentTime" style="font-size: 15px"></span><br/>
+    <span id="sessionInfo" style="font-size: 15px"></span>
+</p>
+                    {{-- <p class="me-2">
+          <script>
+            var d = new Date();
+            document.write(d.toLocaleDateString());
+          </script>
+          <br />
+        <script>
+          var d = new Date();
+          document.write(d.toLocaleTimeString());
+        </script>
+        </p> --}}
       </div>
 
     </div>
@@ -44,8 +59,7 @@
     </div>
 
     <div class="d-flex justify-content-between mt-3 custom-btn">
-      <button class="fs-6 px-3" id="permuteButton" onclick="permuteDigits()">ပတ်လည်</button>
-      <input type="text" name="amount" id="amount" placeholder="ငွေပမာဏ" class="form-control w-50 text-center border-black" />
+      <button class="fs-6 px-3" id="btn-id">ပတ်လည်</button>
     </div>
 
 
@@ -108,7 +122,7 @@
       <div class="row">
         <div class="col-md-12">
 
-          
+
         </div>
       </div>
       <div class="card mt-3">
@@ -118,79 +132,27 @@
           </h5>
         </div>
         <div class="card-body">
-          <div class="row">
-            <div class="col-4">
-              <button id="one_amount" class="btn btn-outline-primary">150MMK</button>
-            </div>
-            <div class="col-4">
-              <button id="two_amount" class="btn btn-outline-secondary">200MMK</button>
-            </div>
-            <div class="col-4">
-              <button id="three_amount" class="btn btn-outline-success">250MMK</button>
-            </div>
-
-          </div>
-          <div class="row mt-3">
-            <div class="col-4">
-              <button id="four_amount" class="btn btn-outline-danger">300MMK</button>
-            </div>
-            <div class="col-4">
-              <button id="six_amount" class="btn btn-outline-warning">350MMK</button>
-            </div>
-            <div class="col-4">
-              <button id="seven_amount" class="btn btn-outline-info">500MMK</button>
-            </div>
-
-          </div>
-          <div class="row mt-3">
-            <div class="col-4">
-              <button id="eight_amount" class="btn btn-outline-dark">1000MMK</button>
-            </div>
-            <div class="col-4">
-              <button id="nine_amount" class="btn btn-outline-primary">1500MMK</button>
-            </div>
-            <div class="col-4">
-              <button id="ten_amount" class="btn btn-outline-secondary">2000MMK</button>
-            </div>
-
-          </div>
-          <div class="row mt-3">
-            <div class="col-4">
-              <button id="eleven_amount" class="btn btn-outline-success">2500MMK</button>
-            </div>
-            <div class="col-4">
-              <button id="twele_amount" class="btn btn-outline-danger">3000MMK</button>
-            </div>
-            <div class="col-4">
-              <button id="theen_amount" class="btn btn-outline-warning">5000MMK</button>
+         
+          <div class="card">
+            <div class="form-header mb-4">
+              <div class="row">
+                <div class="col-6">
+                  <div class="d-flex justify-content-between mt-3 custom-btn">
+                  <input type="text" name="amount" id="all_amount" placeholder="ငွေပမာဏ" class="form-control w-50 text-center border-black" />
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="d-flex justify-content-between mt-3 custom-btn">
+      <button class="fs-6 px-3" id="permuteButton" onclick="permuteDigits()">ပတ်လည်</button>
+    </div>
+                </div>
+              </div>
             </div>
           </div>
-
-          {{-- <form action="https://thailotto123.net/admin/quick-two-d-play" method="post" class="p-4">
-            <input type="hidden" name="_token" value="Kk6gDnv0C0gHjNm5XM6QB2HiyT3fXu9Qqrays0cM" autocomplete="off">
-            <!-- Selected Digits Input -->
-            <input type="text" id="outputField" name="selected_digits" class="form-control" placeholder="Selected digits">
-
-            <div id="amuntInputs" class="col-md-12 mb-3"></div>
-
-            <div class="col-md-12 mb-3">
-              <label for="totalAmount">Total Amount</label>
-              <input type="text" id="totalAmount" name="totalAmount" class="form-control" readonly="">
-            </div>
-
-            <input type="hidden" name="user_id" value="6">
-
-            <div class="col-12 d-flex justify-content-center mt-3">
-              <button type="submit" class="btn btn-danger me-2">Cancel</button>
-              <button type="submit" class="btn btn-success">Submit</button>
-            </div>
-          </form> --}}
           @if ($lottery_matches->is_active == 1)
         <form action="{{ route('admin.two-d-play.store') }}" method="post" class="p-4">
             @csrf
-            <div class="form-header mb-4">
-                {{-- <h2 class="text-center">Place Your Bet</h2> --}}
-            </div>
+            
             <div class="row">
                 <div class="col-md-12 mb-3">
                     <label for="selected_digits">ရွှေးချယ်ထားသောဂဏန်းများ</label>
@@ -259,6 +221,35 @@
 @section('script')
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
+<script>
+    // Function to update date and time display
+    function updateDateTimeDisplay() {
+        var d = new Date();
+        document.getElementById('todayDate').textContent = d.toLocaleDateString();
+        document.getElementById('currentTime').textContent = d.toLocaleTimeString();
+
+        // Define the morning and evening session close times
+        var morningClose = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 12, 1);
+        var eveningClose = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 16, 30);
+
+        // Determine current session based on current time
+        var sessionInfo = "";
+        if (d < morningClose) {
+            sessionInfo = "Closes at 12:01 PM.";
+        } else if (d >= morningClose && d < eveningClose) {
+            sessionInfo = "Closes at 4:30 PM.";
+        } else if (d >= eveningClose) {
+            sessionInfo = "Evening session closed.";
+        }
+        document.getElementById('sessionInfo').textContent = sessionInfo;
+    }
+
+    // Update the display initially
+    updateDateTimeDisplay();
+
+    // Set interval to update the display every minute
+    setInterval(updateDateTimeDisplay, 60000);
+</script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
      @if(session('SuccessRequest'))
@@ -410,7 +401,7 @@
                  inputElement.value = ""; // Reset the input value
              }
          }
-    
+
     function setAmountForAllDigits(amount) {
     const inputs = document.querySelectorAll('input[name^="amounts["]');
     inputs.forEach(input => {
@@ -419,21 +410,11 @@
     updateTotalAmount(); // Update the total amount after setting the new amounts
 }
 
-// Attach event listeners to all amount buttons
-document.getElementById('one_amount').addEventListener('click', function() { setAmountForAllDigits(150); });
-document.getElementById('two_amount').addEventListener('click', function() { setAmountForAllDigits(200); });
-document.getElementById('three_amount').addEventListener('click', function() { setAmountForAllDigits(250); });
-document.getElementById('four_amount').addEventListener('click', function() { setAmountForAllDigits(300); });
-// document.getElementById('five_amount').addEventListener('click', function() { setAmountForAllDigits(350); });
-document.getElementById('six_amount').addEventListener('click', function() { setAmountForAllDigits(350); });
-document.getElementById('seven_amount').addEventListener('click', function() { setAmountForAllDigits(500); });
-document.getElementById('eight_amount').addEventListener('click', function() { setAmountForAllDigits(1000); });
-document.getElementById('nine_amount').addEventListener('click', function() { setAmountForAllDigits(1500); });
-document.getElementById('ten_amount').addEventListener('click', function() { setAmountForAllDigits(2000); });
-document.getElementById('eleven_amount').addEventListener('click', function() { setAmountForAllDigits(2500); });
-document.getElementById('twele_amount').addEventListener('click', function() { setAmountForAllDigits(3000); });
-document.getElementById('theen_amount').addEventListener('click', function() { setAmountForAllDigits(5000); });
-
+// Event listener for the amount input field
+document.getElementById('all_amount').addEventListener('input', function() {
+    const amount = this.value; // Get the current value of the input field
+    setAmountForAllDigits(amount); // Set this amount for all digit inputs
+});
          // New function to calculate and display the total amount
          function updateTotalAmount() {
              let total = 0;
@@ -476,8 +457,8 @@ document.getElementById('theen_amount').addEventListener('click', function() { s
                  text: 'You are about to submit your lottery choices.',
                  icon: 'warning',
                  showCancelButton: true,
-                 confirmButtonText: 'Yes, submit it! - ထိုးမယ်!',
-                 cancelButtonText: 'No, cancel! - မထိုးပါ!'
+                 cancelButtonText: 'No, cancel! - မထိုးပါ!',
+                 confirmButtonText: 'Yes, submit it! - ထိုးမယ်!'
              }).then((result) => {
                  if (result.isConfirmed) {
                      // If the user clicked "Yes", submit the form

@@ -301,9 +301,25 @@
           @endcan
           @can('user_access')
           <li class="nav-item ">
+            <a class="nav-link text-white " href="{{ url('admin/get-two-d-early-morning-number') }}">
+              <span class="sidenav-mini-icon"> MS </span>
+              <span class="sidenav-normal  ms-2  ps-1"> 2D (9:30) MorningSession </span>
+            </a>
+          </li>
+          @endcan
+          @can('user_access')
+          <li class="nav-item ">
             <a class="nav-link text-white " href="{{ route('admin.tow-d-morning-number.index') }}">
               <span class="sidenav-mini-icon"> MS </span>
-              <span class="sidenav-normal  ms-2  ps-1"> 2D MorningSession </span>
+              <span class="sidenav-normal  ms-2  ps-1"> 2D (12:1) MorningSession </span>
+            </a>
+          </li>
+          @endcan
+          @can('user_access')
+          <li class="nav-item ">
+            <a class="nav-link text-white " href="{{ url('admin/two-d-early-morning-winner') }}">
+              <span class="sidenav-mini-icon"> EMW </span>
+              <span class="sidenav-normal  ms-2  ps-1"> 2D (9:30) MorningWinner </span>
             </a>
           </li>
           @endcan
@@ -311,7 +327,15 @@
           <li class="nav-item ">
             <a class="nav-link text-white " href="{{ route('admin.morningWinner') }}">
               <span class="sidenav-mini-icon"> MW </span>
-              <span class="sidenav-normal  ms-2  ps-1"> 2D MorningWinner </span>
+              <span class="sidenav-normal  ms-2  ps-1"> 2D (12:) MorningWinner </span>
+            </a>
+          </li>
+          @endcan
+          @can('user_access')
+          <li class="nav-item ">
+            <a class="nav-link text-white " href="{{ url('admin/get-two-d-early-evening-number') }}">
+              <span class="sidenav-mini-icon"> ES </span>
+              <span class="sidenav-normal  ms-2  ps-1"> 2D (2:30) EveningSession </span>
             </a>
           </li>
           @endcan
@@ -319,7 +343,15 @@
           <li class="nav-item ">
             <a class="nav-link text-white " href="{{ route('admin.eveningNumber') }}">
               <span class="sidenav-mini-icon"> ES </span>
-              <span class="sidenav-normal  ms-2  ps-1"> 2D EveningSession </span>
+              <span class="sidenav-normal  ms-2  ps-1"> 2D (4:30) EveningSession </span>
+            </a>
+          </li>
+          @endcan
+          @can('user_access')
+          <li class="nav-item ">
+            <a class="nav-link text-white " href="{{ url('admin/two-d-early-evening-winner') }}">
+              <span class="sidenav-mini-icon"> EW </span>
+              <span class="sidenav-normal  ms-2  ps-1"> 2D (2:30) EveningWinner </span>
             </a>
           </li>
           @endcan
@@ -327,7 +359,7 @@
           <li class="nav-item ">
             <a class="nav-link text-white " href="{{ route('admin.eveningWinner') }}">
               <span class="sidenav-mini-icon"> EW </span>
-              <span class="sidenav-normal  ms-2  ps-1"> 2D EveningWinner </span>
+              <span class="sidenav-normal  ms-2  ps-1"> 2D (4:30) EveningWinner </span>
             </a>
           </li>
           @endcan

@@ -26,7 +26,7 @@
     </a>
    </div>
    <div class="text-center">
-    <a href="{{ url('/user-dashboard') }}" class="text-decoration-none">
+    <a href="{{ url('/user/user-dashboard') }}" class="text-decoration-none">
      <i class="fas fa-user"></i>
      <span class="d-block">ကျွန်ုပ်</span>
     </a>

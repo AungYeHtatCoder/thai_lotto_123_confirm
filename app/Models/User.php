@@ -149,7 +149,8 @@ public function twodWiners()
     {
         return $this->hasMany(FillBalance::class);
     }
-public static function getUserMorningTwoDigits($userId) {
+
+    public static function getUserMorningTwoDigits($userId) {
     $morningTwoDigits = Lottery::where('user_id', $userId)
                                ->with('twoDigitsMorning')
                                ->get()

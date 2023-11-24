@@ -104,9 +104,9 @@
           </div>
           <div>
             <div class="buttons">
-              <a href="{{ url('/threeD') }}">3D PLAY</a>
+              <a href="{{ url('/user/get-three-d') }}">3D PLAY</a>
             </div>
-            <a href="{{ url('/threeD') }}" class="text-dark text-decoration-none">
+            <a href="{{ url('/user/get-three-d') }}" class="text-dark text-decoration-none">
               <p class="font-weight-bold text text-center">3D</p>
             </a>
           </div>

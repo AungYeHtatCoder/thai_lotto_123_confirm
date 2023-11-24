@@ -499,8 +499,17 @@ hr.my-custom-line {
   background: linear-gradient(90deg, #428387, #336876, #265166 100%);
 }
 
+
 .submitbtns {
   position: fixed;
   top: 640px;
   left: 0;
+
+.two-history-results {
+  background: #265166;
+  border-radius: 50%;
+  color: #fff !important;
+  width: 150px;
+  height: 150px;
+
 }
