@@ -45,7 +45,7 @@
 
     <div class="d-flex justify-content-between mt-3 custom-btn">
       <button class="fs-6 px-3">ပတ်လည်</button>
-      {{-- <input type="text" name="amount" id="amount" placeholder="ငွေပမာဏ" class="form-control w-50 text-center border-black" /> --}}
+      <input type="text" name="amount" id="amount" placeholder="ငွေပမာဏ" class="form-control w-50 text-center border-black" />
     </div>
 
 
@@ -99,15 +99,6 @@
        
     </div>
     <div class="dream-form">
-        <div class="row">
-          <div class="card">
-            <div class="col-6">
-                  <div class="d-flex justify-content-between mt-3 custom-btn">
-                  <input type="text" name="amount" id="all_amount" placeholder="ငွေပမာဏ" class="form-control w-50 text-center border-black" />
-                  </div>
-                </div>
-          </div>
-        </div>
         <div class="card mt-3">
             <div class="card-body">
                 <div class="row mt-3">
@@ -127,8 +118,49 @@
              </h5>
          </div>
          <div class="card-body">
-         
-          
+          <div class="row">
+           <div class="col-3">
+            <button id="one_amount" class="btn btn-outline-primary">150MMK</button>
+           </div>
+           <div class="col-3">
+            <button id="two_amount" class="btn btn-outline-secondary">200MMK</button>
+          </div>
+          <div class="col-3">
+            <button id="three_amount" class="btn btn-outline-success">250MMK</button>
+         </div>
+         <div class="col-3">
+            <button id="four_amount" class="btn btn-outline-danger">300MMK</button>
+         </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-3">
+             <button id="six_amount" class="btn btn-outline-warning">350MMK</button>
+            </div>
+            <div class="col-3">
+             <button id="seven_amount" class="btn btn-outline-info">500MMK</button>
+           </div>
+           <div class="col-3">
+             <button id="eight_amount" class="btn btn-outline-dark">1000MMK</button>
+          </div>
+          <div class="col-3">
+             <button id="nine_amount" class="btn btn-outline-primary">1500MMK</button>
+          </div>
+           </div>
+           <div class="row mt-3">
+            <div class="col-3">
+             <button id="ten_amount" class="btn btn-outline-secondary">2000MMK</button>
+            </div>
+            <div class="col-3">
+             <button id="eleven_amount" class="btn btn-outline-success">2500MMK</button>
+           </div>
+           <div class="col-3">
+             <button id="twele_amount" class="btn btn-outline-danger">3000MMK</button>
+           </div>
+           <div class="col-3">
+             <button id="theen_amount" class="btn btn-outline-warning">5000MMK</button>
+           </div>
+        </div>
+
     @if ($lottery_matches->is_active == 1)
         <form action="{{ route('admin.Quickstore') }}" method="post" class="p-4">
     @csrf
@@ -272,17 +304,28 @@ function setAmountForAllDigits(amount) {
     updateTotalAmount(); // Update the total amount after setting the new amounts
 }
 
-// Event listener for the amount input field
-document.getElementById('all_amount').addEventListener('input', function() {
-    const amount = this.value; // Get the current value of the input field
-    setAmountForAllDigits(amount); // Set this amount for all digit inputs
-});
+// Attach event listeners to all amount buttons
+document.getElementById('one_amount').addEventListener('click', function() { setAmountForAllDigits(150); });
+document.getElementById('two_amount').addEventListener('click', function() { setAmountForAllDigits(200); });
+document.getElementById('three_amount').addEventListener('click', function() { setAmountForAllDigits(250); });
+document.getElementById('four_amount').addEventListener('click', function() { setAmountForAllDigits(300); });
+// document.getElementById('five_amount').addEventListener('click', function() { setAmountForAllDigits(350); });
+document.getElementById('six_amount').addEventListener('click', function() { setAmountForAllDigits(350); });
+document.getElementById('seven_amount').addEventListener('click', function() { setAmountForAllDigits(500); });
+document.getElementById('eight_amount').addEventListener('click', function() { setAmountForAllDigits(1000); });
+document.getElementById('nine_amount').addEventListener('click', function() { setAmountForAllDigits(1500); });
+document.getElementById('ten_amount').addEventListener('click', function() { setAmountForAllDigits(2000); });
+document.getElementById('eleven_amount').addEventListener('click', function() { setAmountForAllDigits(2500); });
+document.getElementById('twele_amount').addEventListener('click', function() { setAmountForAllDigits(3000); });
+document.getElementById('theen_amount').addEventListener('click', function() { setAmountForAllDigits(5000); });
+
+
 function updateTotalAmount() {
     let total = 0;
     const inputs = document.querySelectorAll('input[name^="amounts["]'); // Get all amount inputs
     inputs.forEach(input => {
         const value = Number(input.value);
-        if (value < 1 || value > 5000) {
+        if (value < 100 || value > 5000) {
             // If the input value is less than 100 or greater than 5000, show an error and reset the input
             Swal.fire({
                 icon: 'error',

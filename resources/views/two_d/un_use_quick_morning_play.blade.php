@@ -67,8 +67,8 @@
         </div>
 
         <div class="d-flex justify-content-between mt-3 custom-btn">
-           <button class="fs-6 px-3" id="btn-id">ပတ်လည်</button>
-          {{-- <input type="text" name="amount" id="amount" placeholder="ငွေပမာဏ" class="form-control w-50 text-center border-black"/> --}}
+           <button class="fs-6 px-3" id="permuteButton" onclick="permuteDigits()">ပတ်လည်</button>
+          <input type="text" name="amount" id="amount" placeholder="ငွေပမာဏ" class="form-control w-50 text-center border-black"/>
         </div>
         
 
@@ -123,26 +123,6 @@
 
         <div class="dream-form mt-3">
             <div class="row">
-        <div class="col-md-12">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="d-flex justify-content-between mt-3 custom-btn">
-      
-      <input type="text" name="amount" id="all_amount" placeholder="ငွေပမာဏ" class="form-control w-50 text-center border-black" />
-    </div>
-            </div>
-            <div class="col-md-6">
-              <div class="d-flex justify-content-between mt-3 custom-btn">
-      <button class="fs-6 px-3" id="permuteButton" onclick="permuteDigits()">ပတ်လည်</button>
-
-    </div>
-            </div>
-          </div>
-          
-        </div>
-      </div>
-
-            <div class="row">
                <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
@@ -174,7 +154,54 @@
                         <span><a href="{{ url('admin/morning-play-two-d')}}" class="btn btn-primary">Back To Play</a></span>
                     </h5>
                 </div>
+                <div class="card-body">
+                    <div class="row">
+                    <div class="col-4">
+                    <button id="one_amount" class="btn btn-outline-primary">150MMK</button>
+                    </div>
+                    <div class="col-4">
+                    <button id="two_amount" class="btn btn-outline-secondary">200MMK</button>
+                    </div>
+                    <div class="col-4">
+                    <button id="three_amount" class="btn btn-outline-success">250MMK</button>
+                </div>
                 
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-4">
+                            <button id="four_amount" class="btn btn-outline-danger">300MMK</button>
+                        </div>
+                        <div class="col-4">
+                        <button id="six_amount" class="btn btn-outline-warning">350MMK</button>
+                        </div>
+                    <div class="col-4">
+                    <button id="seven_amount" class="btn btn-outline-info">500MMK</button>
+                    </div>
+                    
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-4">
+                            <button id="eight_amount" class="btn btn-outline-dark">1000MMK</button>
+                        </div>
+                        <div class="col-4">
+                            <button id="nine_amount" class="btn btn-outline-primary">1500MMK</button>
+                        </div>
+                    <div class="col-4">
+                    <button id="ten_amount" class="btn btn-outline-secondary">2000MMK</button>
+                    </div>
+                    
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-4">
+                            <button id="eleven_amount" class="btn btn-outline-success">2500MMK</button>
+                        </div>
+                        <div class="col-4">
+                            <button id="twele_amount" class="btn btn-outline-danger">3000MMK</button>
+                        </div>
+                        <div class="col-4">
+                            <button id="theen_amount" class="btn btn-outline-warning">5000MMK</button>
+                        </div>
+                    </div>
         
                     @if ($lottery_matches->is_active == 1)
         <form action="{{ route('admin.Quickstore') }}" method="post" class="p-4">
@@ -448,6 +475,84 @@ function updateOutputField(digits) {
     const outputDiv = document.getElementById('outputField_div');
     outputDiv.innerHTML = '<ul>' + digits.map(num => `<li>${num}</li>`).join('') + '</ul>';
 }
+
+// permulation 
+// function permuteDigits() {
+//     // Get the outputField and permulated_digit elements
+//     const outputField = document.getElementById('outputField');
+//     const permulatedField = document.getElementById('permulated_digit');
+
+//     if (!outputField || !permulatedField) {
+//         console.error('Required field not found');
+//         return;
+//     }
+
+//     // Get the selected digits from the outputField and trim any whitespace
+//     let selectedDigits = outputField.value.split(",").map(s => s.trim());
+
+//     // Log the digits before permutation
+//     console.log('Before permutation:', selectedDigits);
+
+//     // Permute the digits only if they are two digits long
+//     const permutedDigits = selectedDigits.map(num => {
+//         return (num.length === 2) ? num[1] + num[0] : num;
+//     });
+
+//     // Log the digits after permutation
+//     console.log('After permutation:', permutedDigits);
+
+//     // Now update the outputField with both selected and permuted digits
+//     // The original selected digits are shown first, followed by the permuted digits
+//     outputField.value = selectedDigits.join(", ");
+//     // outputField.value = `Selected: ${selectedDigits.join(", ")} | Permuted: ${permutedDigits.join(", ")}`;
+
+//     // Update the permulatedField with the permuted digits only
+//     permulatedField.value = permutedDigits.join(",");
+    
+//     // Recreate the amount inputs for the permuted digits
+//     createAmountInputs(permutedDigits);
+// }
+
+// function permuteDigits() {
+//     // Debugging line to check if the function is called
+//     console.log('permuteDigits called');
+
+//     const outputField = document.getElementById('outputField');
+//     if (!outputField) {
+//         console.error('outputField not found'); // Check if the outputField exists
+//         return;
+//     }
+
+//     let selectedDigits = outputField.value.split(",").map(s => s.trim()); // Trim spaces just in case
+
+//     // Debugging line to see the digits before permutation
+//     console.log('Before permutation:', selectedDigits);
+
+//     // Only permute if the digit is a two-digit number
+//     const permutedDigits = selectedDigits.map(num => {
+//         if (num && num.length === 2) {
+//             // Swap the digits
+//             return num[1] + num[0];
+//         }
+//         return num; // Keep single digits unchanged
+//     });
+
+//     // Debugging line to see the digits after permutation
+//     console.log('After permutation:', permutedDigits);
+
+//     // Update the output field
+//     outputField.value = permutedDigits.join(",");
+    
+//     // Recreate the amount inputs for the permuted digits
+//     createAmountInputs(permutedDigits);
+//     // if (permutedDigits.length > 0) {
+//     //     document.getElementById('permulated_digit').value = permutedDigits.join(",");
+//     // }
+//     console.log(permutedDigits.join(","));
+// document.getElementById('permulated_digit').value = permutedDigits.join(",");
+// }
+
+
 // permulation end
 function setAmountForAllDigits(amount) {
     const inputs = document.querySelectorAll('input[name^="amounts["]');
@@ -457,18 +562,28 @@ function setAmountForAllDigits(amount) {
     updateTotalAmount(); // Update the total amount after setting the new amounts
 }
 
-// Event listener for the amount input field
-document.getElementById('all_amount').addEventListener('input', function() {
-    const amount = this.value; // Get the current value of the input field
-    setAmountForAllDigits(amount); // Set this amount for all digit inputs
-});
+// Attach event listeners to all amount buttons
+document.getElementById('one_amount').addEventListener('click', function() { setAmountForAllDigits(150); });
+document.getElementById('two_amount').addEventListener('click', function() { setAmountForAllDigits(200); });
+document.getElementById('three_amount').addEventListener('click', function() { setAmountForAllDigits(250); });
+document.getElementById('four_amount').addEventListener('click', function() { setAmountForAllDigits(300); });
+// document.getElementById('five_amount').addEventListener('click', function() { setAmountForAllDigits(350); });
+document.getElementById('six_amount').addEventListener('click', function() { setAmountForAllDigits(350); });
+document.getElementById('seven_amount').addEventListener('click', function() { setAmountForAllDigits(500); });
+document.getElementById('eight_amount').addEventListener('click', function() { setAmountForAllDigits(1000); });
+document.getElementById('nine_amount').addEventListener('click', function() { setAmountForAllDigits(1500); });
+document.getElementById('ten_amount').addEventListener('click', function() { setAmountForAllDigits(2000); });
+document.getElementById('eleven_amount').addEventListener('click', function() { setAmountForAllDigits(2500); });
+document.getElementById('twele_amount').addEventListener('click', function() { setAmountForAllDigits(3000); });
+document.getElementById('theen_amount').addEventListener('click', function() { setAmountForAllDigits(5000); });
+
 
 function updateTotalAmount() {
     let total = 0;
     const inputs = document.querySelectorAll('input[name^="amounts["]'); // Get all amount inputs
     inputs.forEach(input => {
         const value = Number(input.value);
-        if (value < 1 || value > 5000) {
+        if (value < 100 || value > 5000) {
             // If the input value is less than 100 or greater than 5000, show an error and reset the input
             Swal.fire({
                 icon: 'error',
