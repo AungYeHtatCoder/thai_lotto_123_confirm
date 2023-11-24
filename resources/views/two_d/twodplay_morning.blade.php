@@ -35,7 +35,7 @@
             var d = new Date();
             document.write(d.toLocaleDateString());
           </script>
-          <br /> 
+          <br />
         <script>
           var d = new Date();
           document.write(d.toLocaleTimeString());
@@ -123,7 +123,7 @@
       <div class="row">
         <div class="col-md-12">
 
-          
+
         </div>
       </div>
       <div class="card mt-3">
@@ -280,11 +280,11 @@
         var d = new Date();
         document.getElementById('todayDate').textContent = d.toLocaleDateString();
         document.getElementById('currentTime').textContent = d.toLocaleTimeString();
-        
+
         // Define the morning and evening session close times
         var morningClose = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 12, 1);
         var eveningClose = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 16, 30);
-        
+
         // Determine current session based on current time
         var sessionInfo = "";
         if (d < morningClose) {
@@ -454,7 +454,7 @@
                  inputElement.value = ""; // Reset the input value
              }
          }
-    
+
     function setAmountForAllDigits(amount) {
     const inputs = document.querySelectorAll('input[name^="amounts["]');
     inputs.forEach(input => {

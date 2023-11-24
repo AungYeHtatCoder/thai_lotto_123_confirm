@@ -84,32 +84,32 @@
         </div>
 
         <div class="morning my-4">
-             @foreach ($morningDigits['two_digits'] as $index => $digit)
+            @if ($morningDigits)
+                @foreach ($morningDigits['two_digits'] as $index => $digit)
 
-            <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow" style="background: rgb(0,187,189);
-            background: linear-gradient(211deg, rgba(0,187,189,1) 0%, rgba(28,147,0,1) 100%);">
-                <div>
-                    <span class="d-block">Session</span>
-                    <span class="d-block">Morning</span>
+                <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow" style="background: rgb(0,187,189);
+                background: linear-gradient(211deg, rgba(0,187,189,1) 0%, rgba(28,147,0,1) 100%);">
+                    <div>
+                        <span class="d-block">Session</span>
+                        <span class="d-block">Morning</span>
+                    </div>
+                    <div>
+                        <span class="d-block">Date</span>
+                        <span class="d-block">{{ $digit->pivot->created_at->format('d M Y (l) (h:i a)') }}</span>
+                    </div>
+                    <div>
+                        <span class="d-block">2D</span>
+                        <span class="d-block">{{ $digit->two_digit }}</span>
+                    </div>
+                    <div>
+                        <span class="d-block">ထိုးကြေး</span>
+                        <span class="d-block">{{ $digit->pivot->sub_amount }}</span>
+                    </div>
+
                 </div>
-                <div>
-                    <span class="d-block">Date</span>
-                    <span class="d-block">{{ $digit->pivot->created_at->format('d M Y (l) (h:i a)') }}</span>
-                </div>
-                <div>
-                    <span class="d-block">2D</span>
-                    <span class="d-block">{{ $digit->two_digit }}</span>
-                </div>
-                <div>
-                    <span class="d-block">ထိုးကြေး</span>
-                    <span class="d-block">{{ $digit->pivot->sub_amount }}</span>
-                </div>
-                {{-- <div>
-                    <span class="d-block">နီုင်/ရှုံး</span>
-                    <span class="d-block">နိုင်</span>
-                </div> --}}
-            </div>
-            @endforeach
+                @endforeach
+            @endif
+
             <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow" style="background: rgb(0,187,189);
             background: linear-gradient(211deg, rgba(0,187,189,1) 0%, rgba(28,147,0,1) 100%);">
             <p class="text-right">Total Amount for Morning: ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
