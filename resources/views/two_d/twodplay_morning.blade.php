@@ -520,8 +520,8 @@ document.getElementById('theen_amount').addEventListener('click', function() { s
                  text: 'You are about to submit your lottery choices.',
                  icon: 'warning',
                  showCancelButton: true,
-                 confirmButtonText: 'Yes, submit it! - ထိုးမယ်!',
-                 cancelButtonText: 'No, cancel! - မထိုးပါ!'
+                 cancelButtonText: 'No, cancel! - မထိုးပါ!',
+                 confirmButtonText: 'Yes, submit it! - ထိုးမယ်!'
              }).then((result) => {
                  if (result.isConfirmed) {
                      // If the user clicked "Yes", submit the form

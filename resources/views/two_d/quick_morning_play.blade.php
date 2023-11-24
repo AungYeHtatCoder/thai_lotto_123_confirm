@@ -67,7 +67,7 @@
         </div>
 
         <div class="d-flex justify-content-between mt-3 custom-btn">
-           <button class="fs-6 px-3" id="permuteButton" onclick="permuteDigits()">permulation</button>
+           <button class="fs-6 px-3" id="permuteButton" onclick="permuteDigits()">ပတ်လည်</button>
           <input type="text" name="amount" id="amount" placeholder="ငွေပမာဏ" class="form-control w-50 text-center border-black"/>
         </div>
         

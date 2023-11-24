@@ -1,6 +1,8 @@
 @extends('user_layout.app')
 @section('style')
-<style>
+<link rel="stylesheet" href="{{ asset('user_app/assets/css/balance.css')}}">
+
+{{-- <style>
    .progress-bar-container {
         position: relative;
         background-color: #f3f3f3;
@@ -195,7 +197,7 @@
     .column{
         height: 100%;
     }
-</style>
+</style> --}}
 @endsection
 @section('content')
 @include('user_layout.sub_nav')

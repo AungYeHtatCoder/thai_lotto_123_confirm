@@ -187,7 +187,7 @@
                     </div>
                 </div>
             </a>
-            <a href="{{ url('/user-dashboard/eveningRecord') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
+            <a href="{{ url('/user/evening-play-history-record') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
                 <div class="d-flex justify-content-between">
                     <div class="d-flex">
                         <div class="me-3">
@@ -212,9 +212,9 @@
                         <i class="fas fa-play" aria-hidden="true"></i>
                     </div>
                 </div>
-            </a>
+            </a> --}}
 
-            <a href="{{ url('/user/evening-play-history-record') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
+            {{-- <a href="{{ url('/user/evening-play-history-record') }}" class="card text-decoration-none text-dark shadow border border-1 p-3 my-3">
                 <div class="d-flex justify-content-between">
                     <div class="d-flex">
                         <div class="me-3">

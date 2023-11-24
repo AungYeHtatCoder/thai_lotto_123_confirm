@@ -107,7 +107,7 @@
       </div>
 
       <div class="custom-form-group">
-       <button class="btn btn-primary" type="button">Create</button>
+       <button type="submit" class="btn btn-primary" type="button">Create</button>
       </div>
      </form>
     </div>

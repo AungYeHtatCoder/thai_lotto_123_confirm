@@ -9,7 +9,7 @@
   <div class="container" style="padding-bottom: 120px">
    <p class="text-justify text-white">
     အောက်ပါတို့သည်
-    <span class="fw-bold text-dark">Diamond 2D | 3D </span>တရားဝင်ဖုန်းနံပါတ်များ ဖြစ်ပါသည်
+    <span class="fw-bold text-dark">Thai Lotto 123 </span>တရားဝင်ဖုန်းနံပါတ်များ ဖြစ်ပါသည်
    </p>
    <div class="service-card mt-4">
     <p class="mt-3">ငွေဖြည့် / ငွေထုတ်</p>
