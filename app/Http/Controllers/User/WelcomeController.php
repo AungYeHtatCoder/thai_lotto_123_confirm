@@ -247,6 +247,7 @@ class WelcomeController extends Controller
 
     public function twodCalendar()
     {
+        // return view('two_d.api_test');
         return view('frontend.twod-calendar');
     }
 
