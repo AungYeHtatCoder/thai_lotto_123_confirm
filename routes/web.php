@@ -27,7 +27,7 @@ use App\Http\Controllers\Admin\TwoDWinnerHistoryController;
 // });
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/user-profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('home');
 
 Route::get('/', [App\Http\Controllers\User\WelcomeController::class, 'index'])->name('welcome');
