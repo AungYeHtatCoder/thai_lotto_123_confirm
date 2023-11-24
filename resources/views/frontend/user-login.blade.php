@@ -27,7 +27,7 @@
         </div>
 
         <div class="d-flex justify-content-center align-items-center">
-            <button type="submit" name="signin_btn" class="btn btn-outline-primary w-75 mt-4 ">၀င်မည်</button>
+            <button type="submit" name="signin_btn" class="btn btn-outline-primary w-75 mt-4 py-2">၀င်မည်</button>
         </div>
         <hr/>
 
