@@ -258,6 +258,7 @@ class WelcomeController extends Controller
 
     public function threedResult()
     {
+        // return view('two_d.api_test');
         return view('frontend.threed-result');
     }
 
