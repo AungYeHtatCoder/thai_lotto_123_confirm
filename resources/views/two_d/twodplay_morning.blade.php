@@ -23,14 +23,13 @@
 
       <div class="d-flex justify-content-between">
 
-        <p class="ms-5" class="font-green d-block" id="userBalance"
-                    data-balance="{{ Auth::user()->balance }}">{{ Auth::user()->balance }} MMK</p>
+        <p class="ms-5" class="font-green d-block" id="userBalance" data-balance="{{ Auth::user()->balance }}">{{ Auth::user()->balance }} MMK</p>
         <p class="me-2">
-    <span id="todayDate" style="font-size: 15px"></span><br/>
-    <span id="currentTime" style="font-size: 15px"></span><br/>
-    <span id="sessionInfo" style="font-size: 15px"></span>
-</p>
-                    {{-- <p class="me-2">
+          <span id="todayDate" style="font-size: 15px"></span><br />
+          <span id="currentTime" style="font-size: 15px"></span><br />
+          <span id="sessionInfo" style="font-size: 15px"></span>
+        </p>
+        {{-- <p class="me-2">
           <script>
             var d = new Date();
             document.write(d.toLocaleDateString());
@@ -47,149 +46,144 @@
 
     <div>
       <div class="d-flex justify-content-between custom-btn">
-        <a href="dream-book.html" class="btn h-50 text-white p-2" style="background-color: #2a576c;"><span class="material-icons text-white icons">menu_book</span> အိမ်မက်</a>
+        <!-- <a href="dream-book.html" class="btn h-50 text-white p-2" style="background-color: #2a576c;"><span class="material-icons text-white icons">menu_book</span> အိမ်မက်</a> -->
+        <a href="{{ route('admin.QuickMorningPlayTwoDigit') }}" class="btn h-50 text-white" style="background-color: #2a576c">အမြန်ရွေး</a>
         <div class="">
           <h1>2D</h1>
         </div>
         <select class="h-50 text-white">
-          <option value="1">12:00 AM</option>
+          <option value="1">09:30 AM</option>
+          <option value="2">12:00 PM</option>
+          <option value="1">02:30 PM</option>
           <option value="2">04:00 PM</option>
         </select>
       </div>
     </div>
 
-    <div class="d-flex justify-content-between mt-3 custom-btn">
+    <!-- <div class="d-flex justify-content-between mt-3 custom-btn">
       <button class="fs-6 px-3" id="btn-id">ပတ်လည်</button>
       <a href="{{ route('admin.QuickMorningPlayTwoDigit') }}" class="btn px-1 text-white" style="background-color: #2a576c">အမြန်ရွေးရန်</a>
 
-    </div>
+    </div> -->
 
 
-    <div class="d-flex justify-content-between mt-3 custom-btn">
+    <!-- <div class="d-flex justify-content-between mt-3 custom-btn">
       <a class="btn mt-3" data-bs-toggle="modal" data-bs-target="#colorModal"><span class="material-icons">
           question_mark
         </span>အရောင်ရှင်းလင်းချက်</a>
       {{-- <a href="{{ route('admin.QuickMorningPlayTwoDigit') }}" class="btn p-3 text-white" style="background-color: #2a576c">အမြန်ရွေးရန်</a> --}}
-    </div>
+    </div> -->
 
 
-
-    {{-- <div class="box-container mt-5" id="boxContainer"> --}}
-      <div class="container-fluid my-5">
-        <div class="scrollable-container mt-6 digit-box">
-            <div class="main-row">
-                @foreach ($twoDigits->chunk(4) as $chunk)
-                <div class="column">
-                    @foreach ($chunk as $digit)
-                        @php
-                            $totalBetAmountForTwoDigit = DB::table('lottery_two_digit_copy')
-                                ->where('two_digit_id', $digit->id)
-                                ->sum('sub_amount');
-                        @endphp
-
-                        @if ($totalBetAmountForTwoDigit < 5000)
-                            <div class="text-center digit"
-                                style="background-color: {{ 'javascript:getRandomColor();' }};"
-                                onclick="selectDigit('{{ $digit->two_digit }}', this)">
-                                {{ $digit->two_digit }}
-                                <small class="d-block"
-                                    style="font-size: 10px">{{ $remainingAmounts[$digit->id] }}</small>
-                                    <div class="progress">
-                                        @php
-                                        $totalAmount = 5000;
-                                        $betAmount = $totalBetAmountForTwoDigit; // the amount already bet
-                                        $remainAmount = $totalAmount - $betAmount; // the amount remaining that can be bet
-                                        $percentage = ($betAmount / $totalAmount) * 100;
-                                    @endphp
-
-                                        <div class="progress-bar" style="width: {{ $percentage }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                            </div>
-                        @else
-                            <div class="col-2 text-center digit disabled"
-                                style="background-color: {{ 'javascript:getRandomColor();' }}"
-                                onclick="showLimitFullAlert()">
-                                {{ $digit->two_digit }}
-                            </div>
-                        @endif
-                    @endforeach
-                </div>
-            @endforeach
-            </div>
-        </div>
-      </div>
-    {{-- </div> --}}
-
-    <div class="dream-form mt-3">
+    <div class=" mt-1">
       <div class="row">
         <div class="col-md-12">
 
 
         </div>
       </div>
-      <div class="card mt-3">
-        <div class="card-header">
+      <div class="mt-1">
+        <!-- <div class="card-header">
           <h5 class="mb-0">အရောင်ရှင်းလင်းချက်
             <span><a href="{{ url('/')}}" class="btn btn-primary">Back To Main</a></span>
           </h5>
-        </div>
-        <div class="card-body" >
-         
-          <div class="card">
+        </div> -->
+        <div class="">
+
+          <div class="">
             <div class="form-header mb-4">
-              <div class="row">
-                <div class="col-5">
-                  <div class="d-flex justify-content-between mt-3 ms-3 custom-btn ">
-                    <input type="text" name="amount" id="all_amount" placeholder="ငွေပမာဏ" class="form-control w-100 text-center border-black" />
-                  </div>
-                </div>
-                <div class="col-7">
-                  <div class="d-flex justify-content-around mt-3 custom-btn">
-                    <button class="fs-6 px-1 py-0" id="permuteButton" onclick="permuteDigits()">ပတ်လည်</button>
-                    {{-- <button class="fs-6 px-1" id="permuteButton">အမြန်ရွေး</button> --}}
-                    <a href="{{ route('admin.QuickMorningPlayTwoDigit') }}" class="btn px-1 text-white" style="background-color: #2a576c">အမြန်ရွေး</a>
-                </div>
-                </div>
+              <div class="d-flex justify-content-between mt-3 ms-3 custom-btn ">
+                <input type="text" name="amount" id="all_amount" placeholder="ငွေပမာဏ" class="form-control d-block w-75 text-center border-black" />
+                <button class="fs-6 d-block px-1 py-2" id="permuteButton" onclick="permuteDigits()">ပတ်လည်</button>
               </div>
             </div>
           </div>
           @if ($lottery_matches->is_active == 1)
-        <form action="{{ route('admin.two-d-play.store') }}" method="post" class="p-4">
+          <form action="{{ route('admin.two-d-play.store') }}" method="post" class="p-1">
             @csrf
-            
+
             <div class="row">
-                <div class="col-md-12 mb-3">
-                    <label for="selected_digits">ရွှေးချယ်ထားသောဂဏန်းများ</label>
-                    <input type="text" name="selected_digits" id="selected_digits" class="form-control" placeholder="Enter digits">
-                </div>
+              <div class="col-md-12 mb-3">
+                <label for="selected_digits">ရွှေးချယ်ထားသောဂဏန်းများ</label>
+                <input type="text" name="selected_digits" id="selected_digits" class="form-control" placeholder="Enter digits">
+              </div>
 
-                <div id="amountInputs" class="col-md-12 mb-3"></div>
+              <div class="mb-3 mt-3">
+                {{-- <div class="digits-display" id="outputField_div">
 
-                <div class="col-md-12 mb-3">
-                    <label for="totalAmount">စုစုပေါင်းထိုးကြေး</label>
-                    <input type="text" id="totalAmount" name="totalAmount" class="form-control" readonly>
-                </div>
+        </div> --}}
+                <label for="permulated_digit">Permulated Digits</label>
+                <input type="text" id="permulated_digit" class="form-control" readonly>
+              </div>
 
-                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+              <div id="amountInputs" class="col-md-12 mb-3 d-none"></div>
+
+              <div class="col-md-12 mb-3">
+                <label for="totalAmount">စုစုပေါင်းထိုးကြေး</label>
+                <input type="text" id="totalAmount" name="totalAmount" class="form-control" readonly>
+              </div>
+
+              <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
               <div class="col-lg-4 col-md-6 offset-lg-4 offset-md-3 py-3 submitbtns">
 
-                <div class="d-flex justify-content-center mt-3 py-3" style="background: linear-gradient(90deg, #428387, #336876, #265166 100%); border-radius:10px;
+                <div class="d-flex justify-content-center mt-3 px-2 py-3" style="background: linear-gradient(90deg, #428387, #336876, #265166 100%); border-radius:10px;
                 ">
-                  <button type="submit" class="btn btn-danger me-2">Cancel</button>
-                  <button type="submit" class="btn btn-success">Submit</button>
+                  <a href="{{ url('/admin/morning-play-two-d') }}" class="btn remove-btn me-2">ဖျက်မည်</a>
+                  <button type="submit" class="btn play-btn">ထိုးမည်</button>
                 </div>
               </div>
             </div>
-        </form>
-    @else
-        <div class="text-center p-4">
+          </form>
+          @else
+          <div class="text-center p-4">
             <h3>Sorry, you can't play now. Please wait for the next round.</h3>
-        </div>
-    @endif
+          </div>
+          @endif
         </div>
       </div>
     </div>
+
+    <div class="container-fluid mt-1 mb-5">
+      <div class="scrollable-container digit-box">
+        <div class="main-row">
+          @foreach ($twoDigits as $digit)
+          <div class="column">
+
+            @php
+            $totalBetAmountForTwoDigit = DB::table('lottery_two_digit_copy')
+            ->where('two_digit_id', $digit->id)
+            ->sum('sub_amount');
+            @endphp
+
+            @if ($totalBetAmountForTwoDigit < 5000) <div class="text-center fs-6 digit" style="background-color: {{ 'javascript:getRandomColor();' }};" onclick="selectDigit('{{ $digit->two_digit }}', this)">
+              {{ $digit->two_digit }}
+              <small class="d-none" style="font-size: 10px">{{ $remainingAmounts[$digit->id] }}</small>
+              <div class="progress">
+                @php
+                $totalAmount = 5000;
+                $betAmount = $totalBetAmountForTwoDigit; // the amount already bet
+                $remainAmount = $totalAmount - $betAmount; // the amount remaining that can be bet
+                $percentage = ($betAmount / $totalAmount) * 100;
+                @endphp
+
+                <div class="progress-bar" style="width: {{ $percentage }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+          </div>
+          @else
+          <div class="col-2 text-center digit disabled" style="background-color: {{ 'javascript:getRandomColor();' }}" onclick="showLimitFullAlert()">
+            {{ $digit->two_digit }}
+          </div>
+          @endif
+
+        </div>
+        @endforeach
+      </div>
+    </div>
   </div>
+  {{-- </div> --}}
+
+
+</div>
 
 </div>
 {{-- modal --}}
@@ -230,270 +224,274 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
 <script>
-  
+
 </script>
 <script>
+  // Function to update date and time display
+  function updateDateTimeDisplay() {
+    var d = new Date();
+    document.getElementById('todayDate').textContent = d.toLocaleDateString();
+    document.getElementById('currentTime').textContent = d.toLocaleTimeString();
 
-    // Function to update date and time display
-    function updateDateTimeDisplay() {
-        var d = new Date();
-        document.getElementById('todayDate').textContent = d.toLocaleDateString();
-        document.getElementById('currentTime').textContent = d.toLocaleTimeString();
+    // Define the morning and evening session close times
+    var morningClose = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 12, 1);
+    var eveningClose = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 16, 30);
 
-        // Define the morning and evening session close times
-        var morningClose = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 12, 1);
-        var eveningClose = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 16, 30);
+    // Determine current session based on current time
+    var sessionInfo = "";
+    if (d < morningClose) {
+      sessionInfo = "Closes at 12:01 PM.";
+    } else if (d >= morningClose && d < eveningClose) {
+      sessionInfo = "Closes at 4:30 PM.";
+    } else if (d >= eveningClose) {
+      sessionInfo = "Evening session closed.";
+    }
+    document.getElementById('sessionInfo').textContent = sessionInfo;
+  }
 
-        // Determine current session based on current time
-        var sessionInfo = "";
-        if (d < morningClose) {
-            sessionInfo = "Closes at 12:01 PM.";
-        } else if (d >= morningClose && d < eveningClose) {
-            sessionInfo = "Closes at 4:30 PM.";
-        } else if (d >= eveningClose) {
-            sessionInfo = "Evening session closed.";
-        }
-        document.getElementById('sessionInfo').textContent = sessionInfo;
+  // Update the display initially
+  updateDateTimeDisplay();
+
+  // Set interval to update the display every minute
+  setInterval(updateDateTimeDisplay, 60000);
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    @if(session('SuccessRequest'))
+    Swal.fire({
+      icon: 'success',
+      title: 'Success!',
+      text: '{{ session('
+      SuccessRequest ') }}',
+      timer: 3000,
+      showConfirmButton: false
+    });
+    @endif
+  });
+</script>
+<script>
+  function showLimitFullAlert() {
+    Swal.fire({
+      icon: 'info',
+      title: 'Limit Reached',
+      text: 'This two digit\'s amount limit is full.'
+    });
+  }
+
+
+  function selectDigit(num, element) {
+    const selectedInput = document.getElementById('selected_digits');
+    const amountInputsDiv = document.getElementById('amountInputs');
+    //  console.log(selectedInput);
+
+    let selectedDigits = selectedInput.value ? selectedInput.value.split(",") : [];
+    console.log(selectedDigits);
+    // Get the remaining amount for the selected digit
+    const remainingAmount = Number(element.querySelector('small').innerText.split(' ')[1]);
+
+
+    // Check if the user tries to bet more than the remaining amount
+    if (selectedDigits.includes(num)) {
+      const betAmountInput = document.getElementById('amount_' + num);
+
+      if (Number(betAmountInput.value) > remainingAmount) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Bet Limit Exceeded',
+          text: `You can only bet up to ${remainingAmount} for the digit ${num}.`
+        });
+        return;
+      }
     }
 
-    // Update the display initially
-    updateDateTimeDisplay();
+    // Check if the digit is already selected
+    if (selectedDigits.includes(num)) {
+      // If it is, remove the digit, its style, and its input field
+      selectedInput.value = selectedInput.value.replace(num, '').replace(',,', ',').replace(/^,|,$/g, '');
+      element.classList.remove('selected');
 
-    // Set interval to update the display every minute
-    setInterval(updateDateTimeDisplay, 60000);
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-     @if(session('SuccessRequest'))
-         Swal.fire({
-             icon: 'success',
-             title: 'Success!',
-             text: '{{ session('SuccessRequest') }}',
-             timer: 3000,
-             showConfirmButton: false
-         });
-     @endif
- });
+      const inputToRemove = document.getElementById('amount_' + num);
+      amountInputsDiv.removeChild(inputToRemove);
+    } else {
+      // Otherwise, add the digit, its style, and its input field
+      selectedInput.value = selectedInput.value ? selectedInput.value + "," + num : num;
+      element.classList.add('selected');
 
- </script>
-     <script>
-         function showLimitFullAlert() {
-             Swal.fire({
-                 icon: 'info',
-                 title: 'Limit Reached',
-                 text: 'This two digit\'s amount limit is full.'
-             });
-         }
+      const amountInput = document.createElement('input');
+      amountInput.setAttribute('type', 'number');
+      amountInput.setAttribute('name', 'amounts[' + num + ']');
+      amountInput.setAttribute('id', 'amount_' + num);
+      amountInput.setAttribute('placeholder', 'Amount for ' + num);
+      amountInput.setAttribute('min', '100');
+      amountInput.setAttribute('max', '5000');
+      amountInput.setAttribute('class', 'form-control mt-2 d-none');
+      amountInput.onchange = function() {
+        updateTotalAmount();
+        checkBetAmount(this, num);
+      };
+      amountInputsDiv.appendChild(amountInput);
+    }
+  }
 
-         
-         function selectDigit(num, element) {
-             const selectedInput = document.getElementById('selected_digits');
-             const amountInputsDiv = document.getElementById('amountInputs');
-             //  console.log(selectedInput);
-             
-             let selectedDigits = selectedInput.value ? selectedInput.value.split(",") : [];
-             console.log(selectedDigits);
-             // Get the remaining amount for the selected digit
-             const remainingAmount = Number(element.querySelector('small').innerText.split(' ')[1]);
+  function permuteDigits() {
+    const outputField = document.getElementById('selected_digits');
+    const permulatedField = document.getElementById('permulated_digit');
 
+    if (!outputField || !permulatedField) {
+      console.error('Required field not found');
+      return;
+    }
 
-             // Check if the user tries to bet more than the remaining amount
-             if (selectedDigits.includes(num)) {
-                 const betAmountInput = document.getElementById('amount_' + num);
+    let selectedDigits = outputField.value.split(",").map(s => s.trim());
 
-                 if (Number(betAmountInput.value) > remainingAmount) {
-                     Swal.fire({
-                         icon: 'error',
-                         title: 'Bet Limit Exceeded',
-                         text: `You can only bet up to ${remainingAmount} for the digit ${num}.`
-                     });
-                     return;
-                 }
-             }
+    // Permute the digits only if they are two digits long
+    const permutedDigits = selectedDigits.map(num => {
+      return (num.length === 2) ? num[1] + num[0] : num;
+    });
 
-             // Check if the digit is already selected
-             if (selectedDigits.includes(num)) {
-                 // If it is, remove the digit, its style, and its input field
-                 selectedInput.value = selectedInput.value.replace(num, '').replace(',,', ',').replace(/^,|,$/g, '');
-                 element.classList.remove('selected');
+    // Update the outputField with both selected and permuted digits
+    outputField.value = `${selectedDigits.join(", ")} , ${permutedDigits.join(", ")}`;
 
-                 const inputToRemove = document.getElementById('amount_' + num);
-                 amountInputsDiv.removeChild(inputToRemove);
-             } else {
-                 // Otherwise, add the digit, its style, and its input field
-                 selectedInput.value = selectedInput.value ? selectedInput.value + "," + num : num;
-                 element.classList.add('selected');
+    // Update the permulatedField with the permuted digits only
+    permulatedField.value = permutedDigits.join(",");
 
-                 const amountInput = document.createElement('input');
-                 amountInput.setAttribute('type', 'number');
-                 amountInput.setAttribute('name', 'amounts[' + num + ']');
-                 amountInput.setAttribute('id', 'amount_' + num);
-                 amountInput.setAttribute('placeholder', 'Amount for ' + num);
-                 amountInput.setAttribute('min', '100');
-                 amountInput.setAttribute('max', '5000');
-                 amountInput.setAttribute('class', 'form-control mt-2 d-none');
-                 amountInput.onchange = function() {
-                     updateTotalAmount();
-                     checkBetAmount(this, num);
-                 };
-                 amountInputsDiv.appendChild(amountInput);
-             }
-         }
+    // Combine selectedDigits and permutedDigits while removing duplicates
+    const allUniqueDigits = Array.from(new Set([...selectedDigits, ...permutedDigits]));
 
-    function permuteDigits() {
-    const selectedInput = document.getElementById('selected_digits');
-    let selectedValue = selectedInput.value.split(",");
+    // Recreate the amount inputs for all unique digits
+    createAmountInputs(allUniqueDigits);
+  }
+
+  function createAmountInputs(digits) {
     const amountInputsDiv = document.getElementById('amountInputs');
+    amountInputsDiv.innerHTML = ''; // Clear existing amount inputs
 
-    // Iterate over each selected digit and permute if it's two digits
-    selectedValue = selectedValue.map(num => {
-        if (num && num.length === 2) {
-            return num[1] + num[0];
-        }
-        return num;
+    // Create a new input field for each unique digit
+    digits.forEach(digit => {
+      const amountInput = document.createElement('input');
+      amountInput.type = 'number';
+      amountInput.name = `amounts[${digit}]`;
+      amountInput.id = `amount_${digit}`;
+      amountInput.placeholder = `Amount for ${digit}`;
+      amountInput.value = '100'; // Set a default value or retrieve the existing value
+      amountInput.classList.add('form-control', 'mt-2');
+      amountInput.onchange = updateTotalAmount;
+      amountInputsDiv.appendChild(amountInput);
     });
 
-    // Update the selected input value
-    selectedInput.value = selectedValue.join(",");
+    updateTotalAmount(); // Update the total amount to reflect changes
+  }
 
-    // Update UI for each permuted digit
-    selectedValue.forEach(num => {
-        const digitElements = document.querySelectorAll('.digit');
-        digitElements.forEach(elem => {
-            if (elem.textContent.includes(num)) {
-                elem.classList.add('selected');
 
-                // Check if an input for this number already exists
-                let amountInput = document.getElementById('amount_' + num);
-                if (!amountInput) {
-                    amountInput = document.createElement('input');
-                    amountInput.setAttribute('type', 'number');
-                    amountInput.setAttribute('name', 'amounts[' + num + ']');
-                    amountInput.setAttribute('id', 'amount_' + num);
-                    amountInput.setAttribute('placeholder', 'Amount for ' + num);
-                    amountInput.setAttribute('min', '100');
-                    amountInput.setAttribute('max', '5000');
-                    amountInput.setAttribute('class', 'form-control mt-2 d-none');
-                    amountInput.onchange = function() {
-                        updateTotalAmount();
-                        checkBetAmount(this, num);
-                    };
-                    amountInputsDiv.appendChild(amountInput);
-                }
-            }
-        });
-    });
-}
+  function checkBetAmount(inputElement, num) {
+    // Replace the problematic line with the following code
+    const digits = document.querySelectorAll('.digit');
+    let digitElement = null;
 
-         function checkBetAmount(inputElement, num) {
-             // Replace the problematic line with the following code
-             const digits = document.querySelectorAll('.digit');
-             let digitElement = null;
+    for (let i = 0; i < digits.length; i++) {
+      if (digits[i].textContent.includes(num)) {
+        digitElement = digits[i];
+        break;
+      }
+    }
 
-             for (let i = 0; i < digits.length; i++) {
-                 if (digits[i].textContent.includes(num)) {
-                     digitElement = digits[i];
-                     break;
-                 }
-             }
+    // Ensure that the digitElement was found before proceeding
+    if (!digitElement) {
+      console.error('Could not find the digit element for', num);
+      return;
+    }
 
-             // Ensure that the digitElement was found before proceeding
-             if (!digitElement) {
-                 console.error('Could not find the digit element for', num);
-                 return;
-             }
+    // Continue with the rest of your function as before
+    const remainingAmount = Number(digitElement.querySelector('small').innerText.split(' ')[1]);
 
-             // Continue with the rest of your function as before
-             const remainingAmount = Number(digitElement.querySelector('small').innerText.split(' ')[1]);
+    // Check if the entered bet amount exceeds the remaining amount
+    if (Number(inputElement.value) > remainingAmount) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Bet Limit Exceeded',
+        text: `You can only bet up to ${remainingAmount} for the digit ${num}.`
+      });
+      inputElement.value = ""; // Reset the input value
+    }
+  }
 
-             // Check if the entered bet amount exceeds the remaining amount
-             if (Number(inputElement.value) > remainingAmount) {
-                 Swal.fire({
-                     icon: 'error',
-                     title: 'Bet Limit Exceeded',
-                     text: `You can only bet up to ${remainingAmount} for the digit ${num}.`
-                 });
-                 inputElement.value = ""; // Reset the input value
-             }
-         }
-
-    function setAmountForAllDigits(amount) {
+  function setAmountForAllDigits(amount) {
     const inputs = document.querySelectorAll('input[name^="amounts["]');
     inputs.forEach(input => {
-        input.value = amount;
+      input.value = amount;
     });
     updateTotalAmount(); // Update the total amount after setting the new amounts
-}
+  }
 
-// Event listener for the amount input field
-document.getElementById('all_amount').addEventListener('input', function() {
+  // Event listener for the amount input field
+  document.getElementById('all_amount').addEventListener('input', function() {
     const amount = this.value; // Get the current value of the input field
     setAmountForAllDigits(amount); // Set this amount for all digit inputs
-});
-         // New function to calculate and display the total amount
-         function updateTotalAmount() {
-             let total = 0;
-             const inputs = document.querySelectorAll('input[name^="amounts["]');
-             inputs.forEach(input => {
-                 total += Number(input.value);
-             });
+  });
+  // New function to calculate and display the total amount
+  function updateTotalAmount() {
+    let total = 0;
+    const inputs = document.querySelectorAll('input[name^="amounts["]');
+    inputs.forEach(input => {
+      total += Number(input.value);
+    });
 
-             // Get the user's current balance from the data attribute
-             const userBalanceSpan = document.getElementById('userBalance');
-             let userBalance = Number(userBalanceSpan.getAttribute('data-balance'));
+    // Get the user's current balance from the data attribute
+    const userBalanceSpan = document.getElementById('userBalance');
+    let userBalance = Number(userBalanceSpan.getAttribute('data-balance'));
 
-             // Check if user balance is less than total amount
-             if (userBalance < total) {
-                 //alert('Your balance is not enough to play two digit.');
-                 Swal.fire({
-                     icon: 'error',
-                     title: 'Oops...',
-                     text: 'Your balance is not enough to play two digit. - သင်၏လက်ကျန်ငွေ မလုံလောက်ပါ - ကျေးဇူးပြု၍ ငွေဖြည့်ပါ။',
-                     footer: `<a href=
+    // Check if user balance is less than total amount
+    if (userBalance < total) {
+      //alert('Your balance is not enough to play two digit.');
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Your balance is not enough to play two digit. - သင်၏လက်ကျန်ငွေ မလုံလောက်ပါ - ကျေးဇူးပြု၍ ငွေဖြည့်ပါ။',
+        footer: `<a href=
          "{{ url('user/wallet') }}" style="background-color: #007BFF; color: #FFFFFF; padding: 5px 10px; border-radius: 5px; text-decoration: none;">Fill Balance - ငွေဖြည့်သွင်းရန် နိုပ်ပါ </a>`
-                 });
-                 return; // Exit the function to prevent further changes
-             }
-             // Decrease the user balance by the total
-             userBalance -= total;
+      });
+      return; // Exit the function to prevent further changes
+    }
+    // Decrease the user balance by the total
+    userBalance -= total;
 
-             // Update the displayed balance and the data attribute
-             userBalanceSpan.textContent = userBalance;
-             userBalanceSpan.setAttribute('data-balance', userBalance);
+    // Update the displayed balance and the data attribute
+    userBalanceSpan.textContent = userBalance;
+    userBalanceSpan.setAttribute('data-balance', userBalance);
 
-             document.getElementById('totalAmount').value = total;
-         }
-         // sweet alert
-         document.querySelector('form').addEventListener('submit', function(event) {
-             event.preventDefault(); // prevent the form from submitting immediately
+    document.getElementById('totalAmount').value = total;
+  }
+  // sweet alert
+  document.querySelector('form').addEventListener('submit', function(event) {
+    event.preventDefault(); // prevent the form from submitting immediately
 
-             Swal.fire({
-                 title: 'Are you sure- ထိုးမှာလား ?',
-                 text: 'You are about to submit your lottery choices.',
-                 icon: 'warning',
-                 showCancelButton: true,
-                 cancelButtonText: 'No, cancel! - မထိုးပါ!',
-                 confirmButtonText: 'Yes, submit it! - ထိုးမယ်!'
-             }).then((result) => {
-                 if (result.isConfirmed) {
-                     // If the user clicked "Yes", submit the form
-                     event.target.submit();
-                 }
-             });
-         });
-     </script>
-     <script>
-         function getRandomColor() {
-             const letters = '0123456789ABCDEF';
-             let color = '#';
-             for (let i = 0; i < 6; i++) {
-                 color += letters[Math.floor(Math.random() * 16)];
-             }
-             return color;
-         }
+    Swal.fire({
+      title: 'Are you sure- ထိုးမှာလား ?',
+      text: 'You are about to submit your lottery choices.',
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonText: 'No, cancel! - မထိုးပါ!',
+      confirmButtonText: 'Yes, submit it! - ထိုးမယ်!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // If the user clicked "Yes", submit the form
+        event.target.submit();
+      }
+    });
+  });
+</script>
+<script>
+  function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
 
-         document.querySelectorAll('.digit.disabled').forEach(el => {
-             el.style.backgroundColor = getRandomColor();
-         });
-     </script>
+  document.querySelectorAll('.digit.disabled').forEach(el => {
+    el.style.backgroundColor = getRandomColor();
+  });
+</script>
 @endsection
