@@ -143,7 +143,7 @@ img {
   border: none;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
-  margin: 0 4px;
+  /* margin: 0 4px; */
   /* Spacing between digits */
 }
 
