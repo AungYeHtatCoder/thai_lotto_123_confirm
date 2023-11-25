@@ -133,7 +133,7 @@
             <span><a href="{{ url('/')}}" class="btn btn-primary">Back To Main</a></span>
           </h5>
         </div>
-        <div class="card-body">
+        <div class="card-body" >
          
           <div class="card">
             <div class="form-header mb-4">
@@ -171,11 +171,14 @@
                 </div>
 
                 <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+              <div class="col-lg-4 col-md-6 offset-lg-4 offset-md-3 py-3 submitbtns">
 
-              <div class="col-12 d-flex justify-content-center mt-3 submitbtns">
-              <button type="submit" class="btn btn-danger me-2">Cancel</button>
-              <button type="submit" class="btn btn-success">Submit</button>
-            </div>
+                <div class="d-flex justify-content-center mt-3 py-3" style="background: linear-gradient(90deg, #428387, #336876, #265166 100%); border-radius:10px;
+                ">
+                  <button type="submit" class="btn btn-danger me-2">Cancel</button>
+                  <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+              </div>
             </div>
         </form>
     @else
@@ -190,6 +193,7 @@
 
 </div>
 {{-- modal --}}
+
 <div class="modal fade" id="colorModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -226,6 +230,10 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
 <script>
+  
+</script>
+<script>
+
     // Function to update date and time display
     function updateDateTimeDisplay() {
         var d = new Date();
@@ -277,14 +285,17 @@
              });
          }
 
+         
          function selectDigit(num, element) {
              const selectedInput = document.getElementById('selected_digits');
              const amountInputsDiv = document.getElementById('amountInputs');
-
+             //  console.log(selectedInput);
+             
              let selectedDigits = selectedInput.value ? selectedInput.value.split(",") : [];
-
+             console.log(selectedDigits);
              // Get the remaining amount for the selected digit
              const remainingAmount = Number(element.querySelector('small').innerText.split(' ')[1]);
+
 
              // Check if the user tries to bet more than the remaining amount
              if (selectedDigits.includes(num)) {

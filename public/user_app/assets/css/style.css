@@ -501,7 +501,7 @@ hr.my-custom-line {
 
 .submitbtns {
   position: fixed;
-  top: 560px;
+  bottom: -20px;
   left: 0;
 }
 .two-history-results {
