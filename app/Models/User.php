@@ -150,6 +150,24 @@ public function twodWiners()
         return $this->hasMany(FillBalance::class);
     }
 
+    public static function getUserEarlyMorningTwoDigits($userId) {
+    $morningTwoDigits = Lottery::where('user_id', $userId)
+                               ->with('twoDigitsEarlyMorning')
+                               ->get()
+                               ->pluck('twoDigitsEarlyMorning')
+                               ->collapse(); // Collapse the collection to a single dimension
+
+    // Sum the sub_amount from the pivot table
+    $totalAmount = $morningTwoDigits->sum(function ($twoDigit) {
+        return $twoDigit->pivot->sub_amount;
+    });
+
+    return [
+        'two_digits' => $morningTwoDigits,
+        'total_amount' => $totalAmount
+    ];
+}
+
     public static function getUserMorningTwoDigits($userId) {
     $morningTwoDigits = Lottery::where('user_id', $userId)
                                ->with('twoDigitsMorning')
@@ -168,6 +186,23 @@ public function twodWiners()
     ];
 }
 
+public static function getUserEarlyEveningTwoDigits($userId) {
+    $morningTwoDigits = Lottery::where('user_id', $userId)
+                               ->with('twoDigitsEarlyEvening')
+                               ->get()
+                               ->pluck('twoDigitsEarlyEvening')
+                               ->collapse(); // Collapse the collection to a single dimension
+
+    // Sum the sub_amount from the pivot table
+    $totalAmount = $morningTwoDigits->sum(function ($twoDigit) {
+        return $twoDigit->pivot->sub_amount;
+    });
+
+    return [
+        'two_digits' => $morningTwoDigits,
+        'total_amount' => $totalAmount
+    ];
+}
 
 
 public static function getUserEveningTwoDigits($userId) {

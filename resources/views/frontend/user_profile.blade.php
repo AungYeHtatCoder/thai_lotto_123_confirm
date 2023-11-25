@@ -62,6 +62,9 @@
 
     <div class="my-4">
         <p class="text-center bg-success text-white px-3 py-2">တစ်နေ့တာ 2D ထိုး မှတ်တမ်း</p>
+
+        
+
         @if(isset($morningDigits['two_digits']) && count($morningDigits['two_digits']) == 0)
         <p class="text-center bg-success text-white px-3 py-2 mt-3">
             ကံစမ်းထားသော ထီဂဏန်းများ မရှိသေးပါ
@@ -91,10 +94,26 @@
             </div>
         </div>
 
+        <div class="card mt-2">
+            <div class="card-header">
+                <p class="text-center">
+                    <script>
+            var d = new Date();
+            document.write(d.toLocaleDateString());
+          </script>
+          <br />
+        <script>
+          var d = new Date();
+          document.write(d.toLocaleTimeString());
+        </script>
+                </p>
+            </div>
+        </div>
+
 
         <div class="morningnine my-4">
-            @if ($morningDigits)
-                @foreach ($morningDigits['two_digits'] as $index => $digit)
+            @if ($earlymorningDigits)
+                @foreach ($earlymorningDigits['two_digits'] as $index => $digit)
 
                 <div class="mb-3 d-flex justify-content-around text-white shadow p-2 rounded" style="background: rgb(0,187,189);
                 background: linear-gradient(211deg, rgba(0,187,189,1) 0%, rgba(28,147,0,1) 100%);">
@@ -102,10 +121,10 @@
                         <span class="d-block">Session</span>
                         <span class="d-block">Morning</span>
                     </div>
-                    <div>
+                    {{-- <div>
                         <span class="d-block">Date</span>
                         <span class="d-block">{{ $digit->pivot->created_at->format('d M Y (l) (h:i a)') }}</span>
-                    </div>
+                    </div> --}}
                     <div>
                         <span class="d-block">2D</span>
                         <span class="d-block">{{ $digit->two_digit }}</span>
@@ -122,7 +141,7 @@
             <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow" style="background: rgb(0,187,189);
             background: linear-gradient(211deg, rgba(0,187,189,1) 0%, rgba(28,147,0,1) 100%);">
             <p class="text-right">Total Amount for Morning: ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
-                <strong>{{ $morningDigits['total_amount'] }} MMK</strong>
+                <strong>{{ $earlymorningDigits['total_amount'] }} MMK</strong>
             </p>
             </div>
             
@@ -139,10 +158,10 @@
                         <span class="d-block">Session</span>
                         <span class="d-block">Morning</span>
                     </div>
-                    <div>
+                    {{-- <div>
                         <span class="d-block">Date</span>
                         <span class="d-block">{{ $digit->pivot->created_at->format('d M Y (l) (h:i a)') }}</span>
-                    </div>
+                    </div> --}}
                     <div>
                         <span class="d-block">2D</span>
                         <span class="d-block">{{ $digit->two_digit }}</span>
@@ -165,7 +184,7 @@
             
         </div>
         <div class="eveningtwo d-none my-4">
-             @if(isset($eveningDigits['two_digits']) && count($eveningDigits['two_digits']) == 0)
+             @if(isset($earlyeveningDigit['two_digits']) && count($eveningDigits['two_digits']) == 0)
             <p class="text-center bg-success text-white px-3 py-2 mt-3">
                 ညနေပိုင်း ကံစမ်းထားသော ထီဂဏန်းများ မရှိသေးပါ
                 <span>
@@ -174,17 +193,17 @@
                 </span>
             </p>
          @endif
-             @foreach ($eveningDigits['two_digits'] as $index => $digit)
+             @foreach ($earlyeveningDigit['two_digits'] as $index => $digit)
             <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow" style="background: rgb(0,187,189);
             background: linear-gradient(211deg, rgba(0,187,189,1) 0%, rgba(28,147,0,1) 100%);">
                 <div>
                     <span class="d-block">Session</span>
                     <span class="d-block">Evening</span>
                 </div>
-                <div>
+                {{-- <div>
                     <span class="d-block">Date</span>
                     <span class="d-block">{{ $digit->pivot->created_at->format('d M Y (l) (h:i a)') }}</span>
-                </div>
+                </div> --}}
                 <div>
                     <span class="d-block">2D</span>
                     <span class="d-block">{{ $digit->two_digit }}</span>
@@ -198,7 +217,7 @@
             <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow" style="background: rgb(0,187,189);
             background: linear-gradient(211deg, rgba(0,187,189,1) 0%, rgba(28,147,0,1) 100%);">
             <p class="text-right">Total Amount for Evening : ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
-                <strong>{{ $eveningDigits['total_amount'] }} MMK</strong>
+                <strong>{{ $earlyeveningDigit['total_amount'] }} MMK</strong>
             </p>
             </div>
             
