@@ -240,10 +240,10 @@
                    <span class="d-block">Session</span>
                    <span class="d-block">Evening</span>
                </div>
-               <div>
+               {{-- <div>
                    <span class="d-block">Date</span>
                    <span class="d-block">{{ $digit->pivot->created_at->format('d M Y (l) (h:i a)') }}</span>
-               </div>
+               </div> --}}
                <div>
                    <span class="d-block">2D</span>
                    <span class="d-block">{{ $digit->two_digit }}</span>
