@@ -32,7 +32,8 @@ class TwoDPlayController extends Controller
     {
         // get all two digits
         //$twoDigits = TwoDigit::all();
-        return view('two_d.play_two_d_index');
+        $lottery_matches = LotteryMatch::where('id', 1)->whereNotNull('is_active')->first();
+        return view('two_d.play_two_d_index', compact('lottery_matches'));
     }
 
     public function MorningPlayTwoDigit()

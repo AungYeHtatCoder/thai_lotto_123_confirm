@@ -105,14 +105,14 @@
             <div class="row">
               <div class="col-md-12 mb-3">
                 <label for="selected_digits">ရွှေးချယ်ထားသောဂဏန်းများ</label>
-                <input type="text" name="selected_digits" id="selected_digits" class="form-control" placeholder="Enter digits">
+                <input type="text" name="selected_digits" id="selected_digits" class="form-control" placeholder="Enter digits" style="font-size: 30px">
               </div>
 
-              <div class="mb-3 mt-3">
+              <div class="mb-3 mt-2">
                 {{-- <div class="digits-display" id="outputField_div">
 
         </div> --}}
-                <label for="permulated_digit">Permulated Digits</label>
+                <label for="permulated_digit">ပတ်လည် ဂဏန်းများ</label>
                 <input type="text" id="permulated_digit" class="form-control" readonly>
               </div>
 

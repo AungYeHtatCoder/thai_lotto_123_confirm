@@ -115,20 +115,27 @@
    </div>
    <div class="modal-body">
     <div class="modal-btn mt-2">
+      @if ($lottery_matches->is_active == 1)
      <a href="{{ route('admin.MorningPlayTwoDigit')}}" class="text-decoration-none btn">9:30 AM</a>
     </div>
     <div class="modal-btn mt-2">
      <a href="{{ route('admin.MorningPlayTwoDigit')}}" class="text-decoration-none btn">12:00 AM</a>
     </div>
     <div class="modal-btn mt-2">
-     <a href="{{ route('admin.MorningPlayTwoDigit')}}" class="text-decoration-none btn">2:00 AM</a>
+     <a href="{{ route('admin.EveningPlayTwoDigit')}}" class="text-decoration-none btn">2:00 AM</a>
     </div>
     <div class="modal-btn mt-2">
      <a href="{{ route('admin.EveningPlayTwoDigit')}}" class="text-decoration-none btn">4:30 PM</a>
+     @else
+          <div class="text-center p-4">
+            <h4>ပွဲချိန်ခေတ္တ ပိတ်ထားပါသည် </h4>
+            <h3>Sorry, you can't play now. Please wait for the next round.</h3>
+          </div>
+          @endif
     </div>
    </div>
    <div class="modal-footer">
-    <button type="button" class="btn modal-button">ထိုးမည်</button>
+    {{-- <button type="button" class="btn modal-button">ထိုးမည်</button> --}}
    </div>
   </div>
  </div>
