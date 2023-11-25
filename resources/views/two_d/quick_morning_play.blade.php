@@ -205,10 +205,14 @@
     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
 
     <!-- Submit Buttons -->
-    <div class="col-12 d-flex justify-content-center mt-3">
-        <button type="submit" class="btn btn-delete mr-3">Cancel</button>
-        <button type="submit" class="btn btn-confirm">Submit</button>
-    </div>
+    <div class="col-lg-4 col-md-6 offset-lg-4 offset-md-3 py-3 submitbtns">
+
+        <div class="d-flex justify-content-center mt-3 py-3" style="background: linear-gradient(90deg, #428387, #336876, #265166 100%); border-radius:10px;
+        ">
+          <button type="submit" class="btn btn-danger me-2">Cancel</button>
+          <button type="submit" class="btn btn-success">Submit</button>
+        </div>
+      </div>
 </form>
 
     @else
