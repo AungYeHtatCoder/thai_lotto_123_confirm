@@ -36,7 +36,7 @@
       const options = {
         method: 'GET',
         headers: {
-          'X-RapidAPI-Key': '4c6bcd02e8msh0665010fc0fab0fp1a2d33jsn173e389166b3',
+          'X-RapidAPI-Key': '53aaa0f305msh5cdcf7afaacaedcp11a2d2jsn2453bc4f2507',
           'X-RapidAPI-Host': 'shwe-2d-live-api.p.rapidapi.com'
         }
       };
@@ -97,7 +97,6 @@
                                 <td>${r.a43_result}</td>
                             </tr>
                         </table>
-
                         `;
                     });
                 $('#2dCalender').html(newHTML);
