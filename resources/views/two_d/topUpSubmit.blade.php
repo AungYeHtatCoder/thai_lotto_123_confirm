@@ -21,7 +21,7 @@
 
 @section('content')
 <div class="row">
- <div class="col-lg-4 col-md-4 offset-lg-4 offset-md-4 mt-5 py-4" style="background-color: #b6c5d8; height: 100vh">
+ <div class="col-lg-4 col-md-4 offset-lg-4 offset-md-4 mt-5 pt-4" style="background-color: #b6c5d8; padding-bottom:150px;">
   <p class="text-center mt-3" style="color: #fff">ငွေတင်မည်</p>
   <p class="text-center" style="color: #fff">
    ကျေးဇူးပြု၍ အောက်ပါ K Pay အကောင့်မှ ငွေထုတ်ယူပါ။
