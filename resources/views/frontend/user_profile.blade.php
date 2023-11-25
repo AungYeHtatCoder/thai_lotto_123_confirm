@@ -125,63 +125,7 @@
                 <strong>{{ $morningDigits['total_amount'] }} MMK</strong>
             </p>
             </div>
-            {{-- <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow" style="background: rgb(0,187,189);
-            background: linear-gradient(211deg, rgba(0,187,189,1) 0%, rgba(28,147,0,1) 100%);">
-                <div>
-                    <span class="d-block">Session</span>
-                    <span class="d-block">Morning</span>
-                </div>
-                <div>
-                    <span class="d-block">Date</span>
-                    <span class="d-block">10-11-2023 Friday 04:07 PM</span>
-                </div>
-                <div>
-                    <span class="d-block">2D</span>
-                    <span class="d-block">12</span>
-                </div>
-                <div>
-                    <span class="d-block">နီုင်/ရှုံး</span>
-                    <span class="d-block">နိုင်</span>
-                </div>
-            </div>
-            <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow" style="background: rgb(0,187,189);
-            background: linear-gradient(211deg, rgba(0,187,189,1) 0%, rgba(28,147,0,1) 100%);">
-                <div>
-                    <span class="d-block">Session</span>
-                    <span class="d-block">Morning</span>
-                </div>
-                <div>
-                    <span class="d-block">Date</span>
-                    <span class="d-block">10-11-2023 Friday 04:07 PM</span>
-                </div>
-                <div>
-                    <span class="d-block">2D</span>
-                    <span class="d-block">12</span>
-                </div>
-                <div>
-                    <span class="d-block">နီုင်/ရှုံး</span>
-                    <span class="d-block">နိုင်</span>
-                </div>
-            </div>
-            <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow" style="background: rgb(0,187,189);
-            background: linear-gradient(211deg, rgba(0,187,189,1) 0%, rgba(28,147,0,1) 100%);">
-                <div>
-                    <span class="d-block">Session</span>
-                    <span class="d-block">Morning</span>
-                </div>
-                <div>
-                    <span class="d-block">Date</span>
-                    <span class="d-block">10-11-2023 Friday 04:07 PM</span>
-                </div>
-                <div>
-                    <span class="d-block">2D</span>
-                    <span class="d-block">12</span>
-                </div>
-                <div>
-                    <span class="d-block">နီုင်/ရှုံး</span>
-                    <span class="d-block">နိုင်</span>
-                </div>
-            </div> --}}
+            
         </div>
 
 
@@ -218,70 +162,8 @@
                 <strong>{{ $morningDigits['total_amount'] }} MMK</strong>
             </p>
             </div>
-            {{-- <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow" style="background: rgb(0,187,189);
-            background: linear-gradient(211deg, rgba(0,187,189,1) 0%, rgba(28,147,0,1) 100%);">
-                <div>
-                    <span class="d-block">Session</span>
-                    <span class="d-block">Morning</span>
-                </div>
-                <div>
-                    <span class="d-block">Date</span>
-                    <span class="d-block">10-11-2023 Friday 04:07 PM</span>
-                </div>
-                <div>
-                    <span class="d-block">2D</span>
-                    <span class="d-block">12</span>
-                </div>
-                <div>
-                    <span class="d-block">နီုင်/ရှုံး</span>
-                    <span class="d-block">နိုင်</span>
-                </div>
-            </div>
-            <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow" style="background: rgb(0,187,189);
-            background: linear-gradient(211deg, rgba(0,187,189,1) 0%, rgba(28,147,0,1) 100%);">
-                <div>
-                    <span class="d-block">Session</span>
-                    <span class="d-block">Morning</span>
-                </div>
-                <div>
-                    <span class="d-block">Date</span>
-                    <span class="d-block">10-11-2023 Friday 04:07 PM</span>
-                </div>
-                <div>
-                    <span class="d-block">2D</span>
-                    <span class="d-block">12</span>
-                </div>
-                <div>
-                    <span class="d-block">နီုင်/ရှုံး</span>
-                    <span class="d-block">နိုင်</span>
-                </div>
-            </div>
-            <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow" style="background: rgb(0,187,189);
-            background: linear-gradient(211deg, rgba(0,187,189,1) 0%, rgba(28,147,0,1) 100%);">
-                <div>
-                    <span class="d-block">Session</span>
-                    <span class="d-block">Morning</span>
-                </div>
-                <div>
-                    <span class="d-block">Date</span>
-                    <span class="d-block">10-11-2023 Friday 04:07 PM</span>
-                </div>
-                <div>
-                    <span class="d-block">2D</span>
-                    <span class="d-block">12</span>
-                </div>
-                <div>
-                    <span class="d-block">နီုင်/ရှုံး</span>
-                    <span class="d-block">နိုင်</span>
-                </div>
-            </div> --}}
+            
         </div>
-
-        
-
-
-        
-
         <div class="eveningtwo d-none my-4">
              @if(isset($eveningDigits['two_digits']) && count($eveningDigits['two_digits']) == 0)
             <p class="text-center bg-success text-white px-3 py-2 mt-3">
@@ -319,63 +201,7 @@
                 <strong>{{ $eveningDigits['total_amount'] }} MMK</strong>
             </p>
             </div>
-            {{-- <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow" style="background: rgb(0,187,189);
-            background: linear-gradient(211deg, rgba(0,187,189,1) 0%, rgba(28,147,0,1) 100%);">
-                <div>
-                    <span class="d-block">Session</span>
-                    <span class="d-block">Morning</span>
-                </div>
-                <div>
-                    <span class="d-block">Date</span>
-                    <span class="d-block">10-11-2023 Friday 04:07 PM</span>
-                </div>
-                <div>
-                    <span class="d-block">2D</span>
-                    <span class="d-block">12</span>
-                </div>
-                <div>
-                    <span class="d-block">နီုင်/ရှုံး</span>
-                    <span class="d-block">နိုင်</span>
-                </div>
-            </div>
-            <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow" style="background: rgb(0,187,189);
-            background: linear-gradient(211deg, rgba(0,187,189,1) 0%, rgba(28,147,0,1) 100%);">
-                <div>
-                    <span class="d-block">Session</span>
-                    <span class="d-block">Morning</span>
-                </div>
-                <div>
-                    <span class="d-block">Date</span>
-                    <span class="d-block">10-11-2023 Friday 04:07 PM</span>
-                </div>
-                <div>
-                    <span class="d-block">2D</span>
-                    <span class="d-block">12</span>
-                </div>
-                <div>
-                    <span class="d-block">နီုင်/ရှုံး</span>
-                    <span class="d-block">နိုင်</span>
-                </div>
-            </div>
-            <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow" style="background: rgb(0,187,189);
-            background: linear-gradient(211deg, rgba(0,187,189,1) 0%, rgba(28,147,0,1) 100%);">
-                <div>
-                    <span class="d-block">Session</span>
-                    <span class="d-block">Morning</span>
-                </div>
-                <div>
-                    <span class="d-block">Date</span>
-                    <span class="d-block">10-11-2023 Friday 04:07 PM</span>
-                </div>
-                <div>
-                    <span class="d-block">2D</span>
-                    <span class="d-block">12</span>
-                </div>
-                <div>
-                    <span class="d-block">နီုင်/ရှုံး</span>
-                    <span class="d-block">နိုင်</span>
-                </div>
-            </div> --}}
+            
         </div>
 
         <div class="evening d-none my-4">
@@ -415,63 +241,6 @@
                <strong>{{ $eveningDigits['total_amount'] }} MMK</strong>
            </p>
            </div>
-           {{-- <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow" style="background: rgb(0,187,189);
-           background: linear-gradient(211deg, rgba(0,187,189,1) 0%, rgba(28,147,0,1) 100%);">
-               <div>
-                   <span class="d-block">Session</span>
-                   <span class="d-block">Morning</span>
-               </div>
-               <div>
-                   <span class="d-block">Date</span>
-                   <span class="d-block">10-11-2023 Friday 04:07 PM</span>
-               </div>
-               <div>
-                   <span class="d-block">2D</span>
-                   <span class="d-block">12</span>
-               </div>
-               <div>
-                   <span class="d-block">နီုင်/ရှုံး</span>
-                   <span class="d-block">နိုင်</span>
-               </div>
-           </div>
-           <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow" style="background: rgb(0,187,189);
-           background: linear-gradient(211deg, rgba(0,187,189,1) 0%, rgba(28,147,0,1) 100%);">
-               <div>
-                   <span class="d-block">Session</span>
-                   <span class="d-block">Morning</span>
-               </div>
-               <div>
-                   <span class="d-block">Date</span>
-                   <span class="d-block">10-11-2023 Friday 04:07 PM</span>
-               </div>
-               <div>
-                   <span class="d-block">2D</span>
-                   <span class="d-block">12</span>
-               </div>
-               <div>
-                   <span class="d-block">နီုင်/ရှုံး</span>
-                   <span class="d-block">နိုင်</span>
-               </div>
-           </div>
-           <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow" style="background: rgb(0,187,189);
-           background: linear-gradient(211deg, rgba(0,187,189,1) 0%, rgba(28,147,0,1) 100%);">
-               <div>
-                   <span class="d-block">Session</span>
-                   <span class="d-block">Morning</span>
-               </div>
-               <div>
-                   <span class="d-block">Date</span>
-                   <span class="d-block">10-11-2023 Friday 04:07 PM</span>
-               </div>
-               <div>
-                   <span class="d-block">2D</span>
-                   <span class="d-block">12</span>
-               </div>
-               <div>
-                   <span class="d-block">နီုင်/ရှုံး</span>
-                   <span class="d-block">နိုင်</span>
-               </div>
-           </div> --}}
            
        </div>
 
