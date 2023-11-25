@@ -61,7 +61,9 @@
     {{-- <hr> --}}
 
     <div class="my-4">
-        <p class="text-center bg-success text-white px-3 py-2">တစ်နေ့တာ 2D ထိုး မှတ်တမ်း</p>
+        <p class="text-center bg-success text-white px-3 py-2">တစ်နေ့တာ 2D ထိုး မှတ်တမ်း
+            <span><a href="{{ route('admin.GetTwoDigit')}}" class="btn btn-primary">ထီးထိုးရန် နိုပ်ပါ</a></span>
+        </p>
         @if(isset($morningDigits['two_digits']) && count($morningDigits['two_digits']) == 0)
         <p class="text-center bg-success text-white px-3 py-2 mt-3">
             ကံစမ်းထားသော ထီဂဏန်းများ မရှိသေးပါ
@@ -84,19 +86,34 @@
         </div>
 
         <div class="morning my-4">
+            <div class="card mt-2">
+                <div class="card-header">
+                    <p class="text-center" style="font-size: 20px">
+                       <script>
+            var d = new Date();
+            document.write(d.toLocaleDateString());
+          </script>
+          <br />
+        <script>
+          var d = new Date();
+          document.write(d.toLocaleTimeString());
+        </script>
+                    </p>
+                </div>
+            </div>
             @if ($morningDigits)
                 @foreach ($morningDigits['two_digits'] as $index => $digit)
 
-                <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow" style="background: rgb(0,187,189);
+                <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow mt-2" style="background: rgb(0,187,189);
                 background: linear-gradient(211deg, rgba(0,187,189,1) 0%, rgba(28,147,0,1) 100%);">
                     <div>
                         <span class="d-block">Session</span>
                         <span class="d-block">Morning</span>
                     </div>
-                    <div>
+                    {{-- <div>
                         <span class="d-block">Date</span>
                         <span class="d-block">{{ $digit->pivot->created_at->format('d M Y (l) (h:i a)') }}</span>
-                    </div>
+                    </div> --}}
                     <div>
                         <span class="d-block">2D</span>
                         <span class="d-block">{{ $digit->two_digit }}</span>
@@ -116,63 +133,7 @@
                 <strong>{{ $morningDigits['total_amount'] }} MMK</strong>
             </p>
             </div>
-            {{-- <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow" style="background: rgb(0,187,189);
-            background: linear-gradient(211deg, rgba(0,187,189,1) 0%, rgba(28,147,0,1) 100%);">
-                <div>
-                    <span class="d-block">Session</span>
-                    <span class="d-block">Morning</span>
-                </div>
-                <div>
-                    <span class="d-block">Date</span>
-                    <span class="d-block">10-11-2023 Friday 04:07 PM</span>
-                </div>
-                <div>
-                    <span class="d-block">2D</span>
-                    <span class="d-block">12</span>
-                </div>
-                <div>
-                    <span class="d-block">နီုင်/ရှုံး</span>
-                    <span class="d-block">နိုင်</span>
-                </div>
-            </div>
-            <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow" style="background: rgb(0,187,189);
-            background: linear-gradient(211deg, rgba(0,187,189,1) 0%, rgba(28,147,0,1) 100%);">
-                <div>
-                    <span class="d-block">Session</span>
-                    <span class="d-block">Morning</span>
-                </div>
-                <div>
-                    <span class="d-block">Date</span>
-                    <span class="d-block">10-11-2023 Friday 04:07 PM</span>
-                </div>
-                <div>
-                    <span class="d-block">2D</span>
-                    <span class="d-block">12</span>
-                </div>
-                <div>
-                    <span class="d-block">နီုင်/ရှုံး</span>
-                    <span class="d-block">နိုင်</span>
-                </div>
-            </div>
-            <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow" style="background: rgb(0,187,189);
-            background: linear-gradient(211deg, rgba(0,187,189,1) 0%, rgba(28,147,0,1) 100%);">
-                <div>
-                    <span class="d-block">Session</span>
-                    <span class="d-block">Morning</span>
-                </div>
-                <div>
-                    <span class="d-block">Date</span>
-                    <span class="d-block">10-11-2023 Friday 04:07 PM</span>
-                </div>
-                <div>
-                    <span class="d-block">2D</span>
-                    <span class="d-block">12</span>
-                </div>
-                <div>
-                    <span class="d-block">နီုင်/ရှုံး</span>
-                    <span class="d-block">နိုင်</span>
-                </div>
-            </div> --}}
+           
         </div>
 
         <div class="evening d-none my-4">
@@ -192,10 +153,10 @@
                     <span class="d-block">Session</span>
                     <span class="d-block">Evening</span>
                 </div>
-                <div>
+                {{-- <div>
                     <span class="d-block">Date</span>
                     <span class="d-block">{{ $digit->pivot->created_at->format('d M Y (l) (h:i a)') }}</span>
-                </div>
+                </div> --}}
                 <div>
                     <span class="d-block">2D</span>
                     <span class="d-block">{{ $digit->two_digit }}</span>
