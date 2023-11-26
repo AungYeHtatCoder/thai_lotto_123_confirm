@@ -8,50 +8,32 @@
 <div class="row">
   <div class="col-lg-4 col-md-4 offset-lg-4 offset-md-4 mt-5 py-4" style="background-color: #ffffff;">
     <div class="flesh-card">
-      <div class="d-flex justify-content-between">
         <div class="d-flex justify-content-between">
-          <span class="material-icons">account_balance_wallet</span>
-          <p class="px-2">လက်ကျန်ငွေ </p>
-        </div>
-        <div class="d-flex justify-content-between">
-          <span class="material-icons">
-            update
-          </span>
-          <p class="px-2">ပိတ်ရန်ကျန်ချိန်</p>
-        </div>
-      </div>
-
-      <div class="d-flex justify-content-between">
-
-        <p class="ms-5" class="font-green d-block" id="userBalance" data-balance="{{ Auth::user()->balance }}">{{ Auth::user()->balance }} MMK</p>
-        <p class="me-2">
-          <span id="todayDate" style="font-size: 15px"></span><br />
-          <span id="currentTime" style="font-size: 15px"></span><br />
-          <span id="sessionInfo" style="font-size: 15px"></span>
-        </p>
-        {{-- <p class="me-2">
-          <script>
-            var d = new Date();
-            document.write(d.toLocaleDateString());
-          </script>
-          <br />
-        <script>
-          var d = new Date();
-          document.write(d.toLocaleTimeString());
-        </script>
-        </p> --}}
-      </div>
-
+            <div class="">
+              <i class="fas fa-wallet" style="color:#265166"></i>
+              <p class="px-2 d-inline" style="font-size: 14px;">လက်ကျန်ငွေ </p>
+              <p class="font-green d-block" style="font-size: 14px;" id="userBalance" data-balance="{{ Auth::user()->balance }}">{{ Auth::user()->balance }} MMK</p>
+            </div>
+            <div class="">
+                <i class="fas fa-clock" style="color:#265166"></i>
+                <p class="px-2 d-inline" style="font-size: 14px;">ပိတ်ရန်ကျန်ချိန်</p>
+                <p class="me-2 text-end">
+                    <span id="currentTime" style="font-size: 14px"></span><br />
+                    <span id="sessionInfo" style="font-size: 14px"></span>
+                    <span id="todayDate" class="d-none" style="font-size: 14px"></span><br />
+                </p>
+            </div>
+          </div>
     </div>
 
     <div>
       <div class="d-flex justify-content-between custom-btn">
         <!-- <a href="dream-book.html" class="btn h-50 text-white p-2" style="background-color: #2a576c;"><span class="material-icons text-white icons">menu_book</span> အိမ်မက်</a> -->
-        <a href="{{ route('admin.QuickMorningPlayTwoDigit') }}" class="btn h-50 text-white" style="background-color: #2a576c">အမြန်ရွေး</a>
+        <a href="{{ route('admin.QuickMorningPlayTwoDigit') }}" class="btn h-50 text-white" style="background-color: #2a576c; font-size:14px;">အမြန်ရွေး</a>
         <div class="">
           <h1>2D</h1>
         </div>
-        <select class="h-50 text-white">
+        <select class="h-50 text-white" style="font-size: 14px;">
           <option value="1">09:30 AM</option>
           <option value="2">12:00 PM</option>
           <option value="1">02:30 PM</option>
@@ -94,7 +76,7 @@
             <div class="form-header mb-4">
               <div class="d-flex justify-content-between mt-3 ms-3 custom-btn ">
                 <input type="text" name="amount" id="all_amount" placeholder="ငွေပမာဏ" class="form-control d-block w-75 text-center border-black" />
-                <button class="fs-6 d-block px-1 py-2" id="permuteButton" onclick="permuteDigits()">ပတ်လည်</button>
+                <button class="fs-6 d-block px-1 py-2" id="permuteButton" onclick="permuteDigits()" style="font-size: 14px;">ပတ်လည်</button>
               </div>
             </div>
           </div>
@@ -104,22 +86,22 @@
 
             <div class="row">
               <div class="col-md-12 mb-3">
-                <label for="selected_digits">ရွှေးချယ်ထားသောဂဏန်းများ</label>
-                <input type="text" name="selected_digits" id="selected_digits" class="form-control" placeholder="Enter digits" style="font-size: 30px">
+                <label for="selected_digits" style="font-size: 14px;">ရွှေးချယ်ထားသောဂဏန်းများ</label>
+                <input type="text" name="selected_digits" id="selected_digits" class="form-control" placeholder="" style="font-size: 30px">
               </div>
 
               <div class="mb-3 mt-2">
                 {{-- <div class="digits-display" id="outputField_div">
 
         </div> --}}
-                <label for="permulated_digit">ပတ်လည် ဂဏန်းများ</label>
+                <label for="permulated_digit" style="font-size: 14px;">ပတ်လည် ဂဏန်းများ</label>
                 <input type="text" id="permulated_digit" class="form-control" readonly>
               </div>
 
               <div id="amountInputs" class="col-md-12 mb-3 d-none"></div>
 
               <div class="col-md-12 mb-3">
-                <label for="totalAmount">စုစုပေါင်းထိုးကြေး</label>
+                <label for="totalAmount" style="font-size: 14px;">စုစုပေါင်းထိုးကြေး</label>
                 <input type="text" id="totalAmount" name="totalAmount" class="form-control" readonly>
               </div>
 
@@ -128,8 +110,8 @@
 
                 <div class="d-flex justify-content-center mt-3 px-2 py-3" style="background: linear-gradient(90deg, #428387, #336876, #265166 100%); border-radius:10px;
                 ">
-                  <a href="{{ url('/admin/morning-play-two-d') }}" class="btn remove-btn me-2">ဖျက်မည်</a>
-                  <button type="submit" class="btn play-btn">ထိုးမည်</button>
+                  <a href="{{ url('/admin/evening-play-two-d') }}" class="btn remove-btn me-2" style="font-size: 14px;">ဖျက်မည်</a>
+                  <button type="submit" class="btn play-btn" style="font-size: 14px;">ထိုးမည်</button>
                 </div>
               </div>
             </div>

@@ -35,34 +35,31 @@
     <div class="col-lg-4 col-md-4 offset-lg-4 offset-md-4 mt-5 py-4" style="background-color: #ffffff;">
         <div class="flesh-card">
             <div class="d-flex justify-content-between">
-                <div class="d-flex justify-content-between">
-                    <span class="material-icons">account_balance_wallet</span>
-                    <p class="px-2">လက်ကျန်ငွေ</p>
+                <div class="">
+                  <i class="fas fa-wallet" style="color:#265166"></i>
+                  <p class="px-2 d-inline" style="font-size: 14px;">လက်ကျန်ငွေ </p>
+                  <p class="font-green d-block" style="font-size: 14px;" id="userBalance" data-balance="{{ Auth::user()->balance }}">{{ Auth::user()->balance }} MMK</p>
                 </div>
-                <div class="d-flex justify-content-between">
-                    <span class="material-icons">
-                        update
-                    </span>
-                    <p class="px-2">ပိတ်ရန်ကျန်ချိန်</p>
+                <div class="">
+                    <i class="fas fa-clock" style="color:#265166"></i>
+                    <p class="px-2 d-inline" style="font-size: 14px;">ပိတ်ရန်ကျန်ချိန်</p>
+                    <p class="me-2 text-end">
+                        <span id="currentTime" style="font-size: 14px"></span><br />
+                        <span id="sessionInfo" style="font-size: 14px"></span>
+                        <span id="todayDate" class="d-none" style="font-size: 14px"></span><br />
+                    </p>
                 </div>
-            </div>
-
-            <div class="d-flex justify-content-between">
-
-                <p class="ms-5" class="font-green d-block" id="userBalance" data-balance="{{ Auth::user()->balance }}">{{ Auth::user()->balance }} MMK</p>
-                <p class="me-2">2023-11-16 <br /> 02:30:00PM</p>
-            </div>
-
+              </div>
         </div>
 
         <div>
             <div class="d-flex justify-content-between custom-btn">
-                <a href="{{ url('admin/morning-play-two-d')}}" class="btn h-50 text-white p-2" style="background-color: #2a576c;">ပုံမှန်ရွေး</a>
+                <a href="{{ url('admin/morning-play-two-d')}}" class="btn h-50 text-white p-2" style="background-color: #2a576c; font-size:14px;">ပုံမှန်ရွေး</a>
                 <div class="text-center">
                     <h1>2D </h1>
                     <span>အမြန်ရွေး</span>
                 </div>
-                <select class="h-50 text-white">
+                <select class="h-50 text-white" style="font-size: 14px;">
                     <option value="1">12:00 AM</option>
                     <option value="2">04:00 PM</option>
                 </select>
@@ -81,7 +78,7 @@
 
                     @if ($totalBetAmountForTwoDigit < 5000) <div class="text-center digit digit-button" style="background-color: javascript:getRandomColor();" data-digit="{{ $digit->two_digit }}" onclick="selectDigit('{{ $digit->two_digit }}', this)">
                         {{ $digit->two_digit }}
-                        
+
                         <div class="progress">
                             @php
                             $totalAmount = 5000;
@@ -112,7 +109,7 @@
             <div class="col-md-12">
                 <div class="d-flex justify-content-between mt-3 ms-3 custom-btn ">
                     <input type="text" name="amount" id="all_amount" placeholder="ငွေပမာဏ" class="form-control w-50 text-center border-black" />
-                    <button class="fs-6 d-block px-1 py-2" id="permuteButton" onclick="permuteDigits()">ပတ်လည်</button>
+                    <button class="fs-6 d-block px-1 py-2" id="permuteButton" onclick="permuteDigits()" style="font-size: 14px;">ပတ်လည်</button>
                 </div>
             </div>
         </div>
@@ -157,7 +154,7 @@
                     {{-- <div class="digits-display" id="outputField_div">
 
         </div> --}}
-                    <label for="permulated_digit">ပတ်လည် ဂဏန်းများ</label>
+                    <label for="permulated_digit" style="font-size: 14px;">ပတ်လည် ဂဏန်းများ</label>
                     <input type="text" id="permulated_digit" class="form-control" readonly>
                 </div>
 
@@ -166,7 +163,7 @@
 
                 <!-- Total Amount Input -->
                 <div class="col-md-12 mb-5">
-                    <label for="totalAmount">Total Amount</label>
+                    <label for="totalAmount" style="font-size: 14px;">Total Amount</label>
                     <input type="text" id="totalAmount" name="totalAmount" class="form-control" readonly>
                 </div>
 
@@ -178,8 +175,8 @@
 
                     <div class="d-flex justify-content-center mt-3 px-2 py-3" style="background: linear-gradient(90deg, #428387, #336876, #265166 100%); border-radius:10px;
         ">
-                        <a href="{{ url('/admin/quick-morning-play-two-d') }}" class="btn remove-btn me-2">ဖျက်မည်</a>
-                        <button type="submit" class="btn play-btn">ထိုးမည်</button>
+                        <a href="{{ url('/admin/quick-morning-play-two-d') }}" class="btn remove-btn me-2" style="font-size: 14px;" >ဖျက်မည်</a>
+                        <button type="submit" class="btn play-btn"  style="font-size: 14px;">ထိုးမည်</button>
                     </div>
                 </div>
             </form>
@@ -226,6 +223,35 @@
 @section('script')
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
+<script>
+    // Function to update date and time display
+    function updateDateTimeDisplay() {
+      var d = new Date();
+      document.getElementById('todayDate').textContent = d.toLocaleDateString();
+      document.getElementById('currentTime').textContent = d.toLocaleTimeString();
+
+      // Define the morning and evening session close times
+      var morningClose = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 12, 1);
+      var eveningClose = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 16, 30);
+
+      // Determine current session based on current time
+      var sessionInfo = "";
+      if (d < morningClose) {
+        sessionInfo = "Closes at 12:01 PM.";
+      } else if (d >= morningClose && d < eveningClose) {
+        sessionInfo = "Closes at 4:30 PM.";
+      } else if (d >= eveningClose) {
+        sessionInfo = "Evening session closed.";
+      }
+      document.getElementById('sessionInfo').textContent = sessionInfo;
+    }
+
+    // Update the display initially
+    updateDateTimeDisplay();
+
+    // Set interval to update the display every minute
+    setInterval(updateDateTimeDisplay, 60000);
+  </script>
 <script>
     function selectDigit(num, element) {
         const selectedInput = document.getElementById('selected_digits');
@@ -297,8 +323,8 @@
         createAmountInputs(digitsStartingWith);
     }
 
-    
-    // permulation 
+
+    // permulation
     function permuteDigits() {
         const outputField = document.getElementById('outputField');
         const permulatedField = document.getElementById('permulated_digit');
