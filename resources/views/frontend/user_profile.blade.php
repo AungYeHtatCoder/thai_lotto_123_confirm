@@ -356,6 +356,27 @@
 @endsection
 
 @section('script')
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        @if(session('SuccessRequest'))
+        Swal.fire({
+            icon: 'success',
+            title: 'Success! သင့်ကံစမ်းမှုအောင်မြင်ပါသည် ! သိန်းထီးဆုကြီးပေါက်ပါစေ',
+            text: '{{ session('
+            SuccessRequest ') }}',
+            timer: 3000,
+            showConfirmButton: false
+        });
+        @endif
+    });
+</script>
+
+
+
 <script>
     $('#morning').click(function() {
         $('#morning').addClass('shadow');

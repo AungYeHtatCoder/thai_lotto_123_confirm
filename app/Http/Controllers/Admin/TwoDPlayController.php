@@ -272,7 +272,7 @@ class TwoDPlayController extends Controller
         DB::commit();
         session()->flash('SuccessRequest', 'သိန်းထီဆုကြီးပေါက်ပါစေ.');
 
-        return redirect()->back()->with('message', 'Data stored successfully!');
+        return redirect()->route('home')->with('message', 'Data stored successfully!');
     } catch (\Exception $e) {
         DB::rollback();
         return redirect()->back()->with('error', $e->getMessage());
@@ -370,7 +370,7 @@ public function Quickstore(Request $request)
         session()->flash('SuccessRequest', 'သိန်းထီဆုကြီးပေါက်ပါစေ.');
 
         // Redirect back with a success message
-        return redirect()->back()->with('message', 'Data stored successfully!');
+        return redirect()->route('home')->with('message', 'Data stored successfully!');
     } catch (\Exception $e) {
         // Rollback the transaction on error
         DB::rollback();

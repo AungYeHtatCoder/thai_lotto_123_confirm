@@ -157,8 +157,6 @@
         </div>
        
     </div>
-
- 
 {{-- modal --}}
 <div class="modal fade" id="colorModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
