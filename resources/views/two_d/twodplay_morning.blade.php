@@ -265,7 +265,7 @@
     @if(session('SuccessRequest'))
     Swal.fire({
       icon: 'success',
-      title: 'Success!',
+      title: 'Success! သင့်ကံစမ်းမှုအောင်မြင်ပါသည် ! သိန်းထီးဆုကြီးပေါက်ပါစေ',
       text: '{{ session('
       SuccessRequest ') }}',
       timer: 3000,

@@ -68,9 +68,6 @@
                 </select>
             </div>
         </div>
-
-
-
         <div class="scrollable-container overflow-scroll d-none mt-6 digit-box">
             <div class="main-row">
                 @foreach ($twoDigits->chunk(3) as $chunk)
@@ -84,7 +81,7 @@
 
                     @if ($totalBetAmountForTwoDigit < 5000) <div class="text-center digit digit-button" style="background-color: javascript:getRandomColor();" data-digit="{{ $digit->two_digit }}" onclick="selectDigit('{{ $digit->two_digit }}', this)">
                         {{ $digit->two_digit }}
-                        <small class="d-block" style="font-size: 10px">{{ $remainingAmounts[$digit->id] }}</small>
+                        
                         <div class="progress">
                             @php
                             $totalAmount = 5000;
@@ -93,7 +90,9 @@
                             $percentage = ($betAmount / $totalAmount) * 100;
                             @endphp
 
-                            <div class="progress-bar" style="width: {{ $percentage }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar" style="width: {{ $percentage }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                            <small class="d-block" style="font-size: 10px">{{ $remainingAmounts[$digit->id] }}</small>
+                            </div>
                         </div>
                 </div>
                 @else
@@ -158,7 +157,7 @@
                     {{-- <div class="digits-display" id="outputField_div">
 
         </div> --}}
-                    <label for="permulated_digit">Permulated Digits</label>
+                    <label for="permulated_digit">ပတ်လည် ဂဏန်းများ</label>
                     <input type="text" id="permulated_digit" class="form-control" readonly>
                 </div>
 
@@ -270,7 +269,7 @@
             amountInput.setAttribute('id', 'amount_' + num);
             amountInput.setAttribute('placeholder', 'Amount for ' + num);
             amountInput.setAttribute('min', '100');
-            amountInput.setAttribute('max', '5000');
+            amountInput.setAttribute('max', '50000');
             amountInput.setAttribute('class', 'form-control mt-2 d-none');
             amountInput.onchange = function() {
                 updateTotalAmount();
@@ -298,68 +297,7 @@
         createAmountInputs(digitsStartingWith);
     }
 
-    // function createAmountInputs(digits) {
-    //     const amountInputsDiv = document.getElementById('amountInputs');
-    //     // Do not clear previous inputs, so we don't lose the amounts already entered
-
-    //     digits.forEach(digit => {
-    //         let amountInput = document.getElementById('amount_' + digit);
-    //         if (!amountInput) {
-    //             // If the amount input does not exist for this digit, create it
-    //             amountInput = document.createElement('input');
-    //             amountInput.type = 'number';
-    //             amountInput.name = `amounts[${digit}]`;
-    //             amountInput.id = `amount_${digit}`;
-    //             amountInput.placeholder = `Amount for ${digit}`;
-    //             amountInput.value = '100'; // Set a default value or retrieve the existing value
-    //             amountInput.classList.add('form-control', 'mt-2');
-    //             amountInput.onchange = updateTotalAmount; // Bind the change event to your total amount function
-
-    //             // Append the new input to your amountInputs div
-    //             amountInputsDiv.appendChild(amountInput);
-    //         } else {
-    //             // If the input already exists, just update its ID and name to match the permuted digit
-    //             amountInput.name = `amounts[${digit}]`;
-    //             amountInput.id = `amount_${digit}`;
-    //         }
-    //     });
-
-    //     // Remove any amount inputs that are not in the list of permuted digits
-    //     const allAmountInputs = amountInputsDiv.querySelectorAll('input[type="number"]');
-    //     allAmountInputs.forEach(input => {
-    //         const digit = input.id.replace('amount_', '');
-    //         if (!digits.includes(digit)) {
-    //             amountInputsDiv.removeChild(input);
-    //         }
-    //     });
-
-    //     updateTotalAmount();
-    // }
-    // function createAmountInputs(digits) {
-    //     const amountInputsDiv = document.getElementById('amountInputs');
-
-    //     // First, clear out all existing amount inputs to avoid duplicates or mismatched entries
-    //     amountInputsDiv.innerHTML = '';
-
-    //     // Now, create a new input field for each permuted digit
-    //     digits.forEach(digit => {
-    //         // Create a new input element for the amount corresponding to this digit
-    //         const amountInput = document.createElement('input');
-    //         amountInput.type = 'number';
-    //         amountInput.name = `amounts[${digit}]`;
-    //         amountInput.id = `amount_${digit}`;
-    //         amountInput.placeholder = `Amount for ${digit}`;
-    //         amountInput.value = '100';
-
-    //         amountInput.classList.add('form-control', 'mt-2');
-    //         amountInput.onchange = updateTotalAmount; 
-    //         amountInputsDiv.appendChild(amountInput);
-    //     });
-
-    //     // Finally, update the total amount to reflect changes
-    //     updateTotalAmount();
-    // }
-
+    
     // permulation 
     function permuteDigits() {
         const outputField = document.getElementById('outputField');
@@ -402,7 +340,7 @@
             amountInput.id = `amount_${digit}`;
             amountInput.placeholder = `Amount for ${digit}`;
             amountInput.value = '100'; // Set a default value or retrieve the existing value
-            amountInput.classList.add('form-control', 'mt-2 d-none');
+            amountInput.classList.add('form-control', 'mt-2', 'd-none');
             amountInput.onchange = updateTotalAmount;
             amountInputsDiv.appendChild(amountInput);
         });
@@ -482,7 +420,7 @@
         @if(session('SuccessRequest'))
         Swal.fire({
             icon: 'success',
-            title: 'Success!',
+            title: 'Success! သင့်ကံစမ်းမှုအောင်မြင်ပါသည် ! သိန်းထီးဆုကြီးပေါက်ပါစေ',
             text: '{{ session('
             SuccessRequest ') }}',
             timer: 3000,
