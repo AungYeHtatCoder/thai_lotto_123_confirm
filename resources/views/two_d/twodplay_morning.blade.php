@@ -9,26 +9,23 @@
   <div class="col-lg-4 col-md-4 offset-lg-4 offset-md-4 mt-5 py-4" style="background-color: #ffffff;">
     <div class="flesh-card">
       <div class="d-flex justify-content-between">
-        <div class="d-flex justify-content-between">
-          <span class="material-icons">account_balance_wallet</span>
-          <p class="px-2">လက်ကျန်ငွေ </p>
+        <div class="">
+          <i class="fas fa-wallet"></i>
+          <p class="px-2 d-inline" style="font-size: 14px;">လက်ကျန်ငွေ </p>
+          <p class="font-green d-block" style="font-size: 14px;" id="userBalance" data-balance="{{ Auth::user()->balance }}">{{ Auth::user()->balance }} MMK</p>
         </div>
-        <div class="d-flex justify-content-between">
-          <span class="material-icons">
-            update
-          </span>
-          <p class="px-2">ပိတ်ရန်ကျန်ချိန်</p>
+        <div class="">
+            <i class="fas fa-clock" style="color:#265166"></i>
+            <p class="px-2 d-inline" style="font-size: 14px;">ပိတ်ရန်ကျန်ချိန်</p>
+            <p class="me-2">
+                <span id="currentTime" style="font-size: 14px"></span><br />
+                <span id="sessionInfo" style="font-size: 14px"></span>
+                <span id="todayDate" class="d-none" style="font-size: 14px"></span><br />
+            </p>
         </div>
       </div>
 
       <div class="d-flex justify-content-between">
-
-        <p class="ms-5" class="font-green d-block" id="userBalance" data-balance="{{ Auth::user()->balance }}">{{ Auth::user()->balance }} MMK</p>
-        <p class="me-2">
-          <span id="todayDate" style="font-size: 15px"></span><br />
-          <span id="currentTime" style="font-size: 15px"></span><br />
-          <span id="sessionInfo" style="font-size: 15px"></span>
-        </p>
         {{-- <p class="me-2">
           <script>
             var d = new Date();
