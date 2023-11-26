@@ -47,7 +47,7 @@ class TwoDPlayController extends Controller
             ->where('two_digit_id', $digit->id)
             ->sum('sub_amount');
 
-        $remainingAmounts[$digit->id] = 5000 - $totalBetAmountForTwoDigit; // Assuming 5000 is the session limit
+        $remainingAmounts[$digit->id] = 50000 - $totalBetAmountForTwoDigit; // Assuming 5000 is the session limit
     }
     $lottery_matches = LotteryMatch::where('id', 1)->whereNotNull('is_active')->first();
 
@@ -66,7 +66,7 @@ class TwoDPlayController extends Controller
             ->where('two_digit_id', $digit->id)
             ->sum('sub_amount');
 
-        $remainingAmounts[$digit->id] = 5000 - $totalBetAmountForTwoDigit; // Assuming 5000 is the session limit
+        $remainingAmounts[$digit->id] = 50000 - $totalBetAmountForTwoDigit; // Assuming 5000 is the session limit
     }
     $lottery_matches = LotteryMatch::where('id', 1)->whereNotNull('is_active')->first();
 
@@ -84,7 +84,7 @@ class TwoDPlayController extends Controller
             ->where('two_digit_id', $digit->id)
             ->sum('sub_amount');
 
-        $remainingAmounts[$digit->id] = 5000 - $totalBetAmountForTwoDigit; // Assuming 5000 is the session limit
+        $remainingAmounts[$digit->id] = 50000 - $totalBetAmountForTwoDigit; // Assuming 5000 is the session limit
     }
     $lottery_matches = LotteryMatch::where('id', 1)->whereNotNull('is_active')->first();
 
@@ -102,7 +102,7 @@ class TwoDPlayController extends Controller
             ->where('two_digit_id', $digit->id)
             ->sum('sub_amount');
 
-        $remainingAmounts[$digit->id] = 5000 - $totalBetAmountForTwoDigit; // Assuming 5000 is the session limit
+        $remainingAmounts[$digit->id] = 50000 - $totalBetAmountForTwoDigit; // Assuming 5000 is the session limit
     }
     $lottery_matches = LotteryMatch::where('id', 1)->whereNotNull('is_active')->first();
 
@@ -121,7 +121,7 @@ class TwoDPlayController extends Controller
             ->where('two_digit_id', $digit->id)
             ->sum('sub_amount');
 
-        $remainingAmounts[$digit->id] = 5000 - $totalBetAmountForTwoDigit; // Assuming 5000 is the session limit
+        $remainingAmounts[$digit->id] = 50000 - $totalBetAmountForTwoDigit; // Assuming 5000 is the session limit
     }
     $lottery_matches = LotteryMatch::where('id', 1)->whereNotNull('is_active')->first();
 
@@ -140,7 +140,7 @@ class TwoDPlayController extends Controller
             ->where('two_digit_id', $digit->id)
             ->sum('sub_amount');
 
-        $remainingAmounts[$digit->id] = 5000 - $totalBetAmountForTwoDigit; // Assuming 5000 is the session limit
+        $remainingAmounts[$digit->id] = 50000 - $totalBetAmountForTwoDigit; // Assuming 5000 is the session limit
     }
     $lottery_matches = LotteryMatch::where('id', 1)->whereNotNull('is_active')->first();
 
@@ -158,7 +158,7 @@ class TwoDPlayController extends Controller
             ->where('two_digit_id', $digit->id)
             ->sum('sub_amount');
 
-        $remainingAmounts[$digit->id] = 5000 - $totalBetAmountForTwoDigit; // Assuming 5000 is the session limit
+        $remainingAmounts[$digit->id] = 50000 - $totalBetAmountForTwoDigit; // Assuming 5000 is the session limit
     }
     $lottery_matches = LotteryMatch::where('id', 1)->whereNotNull('is_active')->first();
 
@@ -219,7 +219,7 @@ class TwoDPlayController extends Controller
                 ->where('lotteries.session', $currentSession)
                 ->sum('sub_amount');
 
-            if ($totalBetAmountForTwoDigit + $sub_amount > 5000) {
+            if ($totalBetAmountForTwoDigit + $sub_amount > 50000) {
                 $twoDigit = TwoDigit::find($two_digit_id);
                 throw new \Exception("The two-digit's amount limit for {$twoDigit->two_digit} is full.");
             }
@@ -291,7 +291,7 @@ public function Quickstore(Request $request)
                 ->where('lotteries.session', $currentSession)
                 ->sum('sub_amount');
 
-            if ($totalBetAmountForTwoDigit + $amount > 5000) {
+            if ($totalBetAmountForTwoDigit + $amount > 50000) {
                 $twoDigit = TwoDigit::find($two_digit_id);
                 throw new \Exception("The two-digit's amount limit for {$twoDigit->two_digit} is full.");
             }

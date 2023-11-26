@@ -402,7 +402,7 @@
             amountInput.id = `amount_${digit}`;
             amountInput.placeholder = `Amount for ${digit}`;
             amountInput.value = '100'; // Set a default value or retrieve the existing value
-            amountInput.classList.add('form-control', 'mt-2');
+            amountInput.classList.add('form-control', 'mt-2 d-none');
             amountInput.onchange = updateTotalAmount;
             amountInputsDiv.appendChild(amountInput);
         });

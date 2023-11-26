@@ -155,18 +155,23 @@
             ->sum('sub_amount');
             @endphp
 
-            @if ($totalBetAmountForTwoDigit < 5000) <div class="text-center fs-6 digit" style="background-color: {{ 'javascript:getRandomColor();' }};" onclick="selectDigit('{{ $digit->two_digit }}', this)">
-              {{ $digit->two_digit }}
-              <small class="d-none" style="font-size: 10px">{{ $remainingAmounts[$digit->id] }}</small>
+            @if ($totalBetAmountForTwoDigit < 50000) 
+            <div class="text-center fs-6 digit" style="background-color: {{ 'javascript:getRandomColor();' }};" onclick="selectDigit('{{ $digit->two_digit }}', this)">
+             <p style="font-size: 20px">
+               {{ $digit->two_digit }}
+             </p>
+              {{-- <small class="d-none" style="font-size: 10px">{{ $remainingAmounts[$digit->id] }}</small> --}}
               <div class="progress">
                 @php
-                $totalAmount = 5000;
+                $totalAmount = 50000;
                 $betAmount = $totalBetAmountForTwoDigit; // the amount already bet
                 $remainAmount = $totalAmount - $betAmount; // the amount remaining that can be bet
                 $percentage = ($betAmount / $totalAmount) * 100;
                 @endphp
 
-                <div class="progress-bar" style="width: {{ $percentage }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar" style="width: {{ $percentage }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                 <small class="d-none" style="font-size: 10px">{{ $remainingAmounts[$digit->id] }}</small>
+                </div>
               </div>
           </div>
           @else
@@ -323,7 +328,7 @@
       amountInput.setAttribute('id', 'amount_' + num);
       amountInput.setAttribute('placeholder', 'Amount for ' + num);
       amountInput.setAttribute('min', '100');
-      amountInput.setAttribute('max', '5000');
+      amountInput.setAttribute('max', '50000');
       amountInput.setAttribute('class', 'form-control mt-2 d-none');
       amountInput.onchange = function() {
         updateTotalAmount();

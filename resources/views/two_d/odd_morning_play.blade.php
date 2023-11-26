@@ -56,7 +56,7 @@
       <a href="{{ route('admin.QuickMorningPlayTwoDigit') }}" class="btn p-3 text-white" style="background-color: #2a576c">အမြန်ရွေးရန်</a>
     </div>
     <div class="container-fluid my-5">
-        <p>အရောင်ရှင်းလင်းချက်</p>
+        {{-- <p>အရောင်ရှင်းလင်းချက်</p> --}}
 
         <div class="scrollable-container overflow-scroll mt-6 digit-box">
             <div class="main-row">
@@ -73,17 +73,33 @@
                 <div class="text-center digit digit-button" style="background-color: javascript:getRandomColor();"
                     data-digit="{{ $digit->two_digit }}" onclick="selectDigit('{{ $digit->two_digit }}', this)">
                     {{ $digit->two_digit }}
-                    <small class="d-block" style="font-size: 10px">{{ $remainingAmounts[$digit->id] }}</small>
+                    <small class="d-block" style="font-size: 10px">
+                      {{-- {{ $remainingAmounts[$digit->id] }} --}}
+                    </small>
                     <div class="progress">
-                                        @php
-                                        $totalAmount = 5000;
-                                        $betAmount = $totalBetAmountForTwoDigit; // the amount already bet
-                                        $remainAmount = $totalAmount - $betAmount; // the amount remaining that can be bet
-                                        $percentage = ($betAmount / $totalAmount) * 100;
-                                    @endphp
+                    @php
+                    $totalAmount = 50000;
+                    $betAmount = $totalBetAmountForTwoDigit; // the amount already bet
+                    $remainAmount = $totalAmount - $betAmount; // the amount remaining that can be bet
+                    $percentage = ($betAmount / $totalAmount) * 100;
+                    // Determine the color of the progress bar based on the percentage
+    $progressBarColor = '';
+    if ($percentage <= 50) {
+        $progressBarColor = 'bg-primary'; // Blue for 50% or less
+    } elseif ($percentage > 50 && $percentage <= 75) {
+        $progressBarColor = 'bg-warning'; // Yellow for between 50% and 75%
+    } elseif ($percentage > 75) {
+        $progressBarColor = 'bg-danger'; // Red for over 75%
+    }
+                @endphp
+                <div class="progress-bar {{ $progressBarColor }}" style="width: {{ $percentage }}%;" aria-valuenow="{{ $percentage }}" aria-valuemin="0" aria-valuemax="100">
+                <small class="d-block" style="font-size: 10px">
+                      {{ $remainingAmounts[$digit->id] }}
+                    </small>
+                </div>
 
-                                        <div class="progress-bar" style="width: {{ $percentage }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
+                    {{-- <div class="progress-bar" style="width: {{ $percentage }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div> --}}
+                </div>
                 </div>
             @else
                 <div class="col-2 text-center digit disabled" style="background-color: javascript:getRandomColor();"
@@ -236,7 +252,7 @@
         amountInput.min = '100';
         amountInput.max = '5000';
         amountInput.value = '100';
-        amountInput.classList.add('form-control', 'mt-2');
+        amountInput.classList.add('form-control', 'mt-2', 'd-none');
         amountInput.onchange = updateTotalAmount; // Bind the change event to your total amount function
 
         // Append the new input to your amountInputs div
@@ -270,7 +286,7 @@ document.getElementById('even').addEventListener('click', function() {
         amountInput.name = `amounts[${digit}]`; // Ensure this follows your naming scheme
         amountInput.id = `amount_${digit}`;
         amountInput.placeholder = `Amount for ${digit}`;
-        amountInput.classList.add('form-control', 'mt-2');
+        amountInput.classList.add('form-control', 'mt-2', 'd-none');
         amountInput.min = '100'; // Assuming 100 is the minimum amount
         amountInput.max = '5000'; // Assuming 5000 is the maximum amount
         amountInput.required = true;
