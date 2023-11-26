@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('lottery_two_digit_copy', function (Blueprint $table) {
-$table->id();
+        $table->id();
         $table->unsignedBigInteger('lottery_id');
         $table->unsignedBigInteger('two_digit_id');
         // sub amount

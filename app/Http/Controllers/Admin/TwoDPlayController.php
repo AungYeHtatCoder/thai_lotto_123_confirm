@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Log;
 use App\Models\User;
 use App\Models\Lottery;
-//use App\Models\Admin\Lottery;
 use Illuminate\Http\Request;
+//use App\Models\Admin\Lottery;
 use App\Models\Admin\TwoDigit;
 use App\Models\Admin\LotteryMatch;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Models\LotteryTwoDigitPivot;
 use Illuminate\Support\Facades\Auth;
@@ -182,7 +182,7 @@ class TwoDPlayController extends Controller
 
     public function store(Request $request)
 {
-    //dd($request->all());
+    Log::info($request->all());
     $validatedData = $request->validate([
         'selected_digits' => 'required|string',
         'amounts' => 'required|array',
@@ -212,25 +212,56 @@ class TwoDPlayController extends Controller
             'session' => $currentSession
         ]);
 
-        foreach ($request->amounts as $two_digit_id => $sub_amount) {
-            $totalBetAmountForTwoDigit = DB::table('lottery_two_digit_pivot')
-                ->join('lotteries', 'lotteries.id', '=', 'lottery_two_digit_pivot.lottery_id')
-                ->where('two_digit_id', $two_digit_id)
-                ->where('lotteries.session', $currentSession)
-                ->sum('sub_amount');
+        foreach ($request->amounts as $two_digit_string => $sub_amount) {
+    // Convert the two-digit string to its numeric ID
+    // Assuming '00' corresponds to ID 1, '01' to ID 2, and so on...
+    $two_digit_id = $two_digit_string === '00' ? 1 : intval($two_digit_string, 10) + 1;
 
-            if ($totalBetAmountForTwoDigit + $sub_amount > 50000) {
-                $twoDigit = TwoDigit::find($two_digit_id);
-                throw new \Exception("The two-digit's amount limit for {$twoDigit->two_digit} is full.");
-            }
+    // Check if the bet amount for this digit does not exceed the limit
+    $totalBetAmountForTwoDigit = DB::table('lottery_two_digit_pivot')
+        ->join('lotteries', 'lotteries.id', '=', 'lottery_two_digit_pivot.lottery_id')
+        ->where('two_digit_id', $two_digit_id)
+        ->where('lotteries.session', $currentSession)
+        ->sum('sub_amount');
 
-            $pivot = new LotteryTwoDigitPivot();
-            $pivot->lottery_id = $lottery->id;
-            $pivot->two_digit_id = $two_digit_id;
-            $pivot->sub_amount = $sub_amount;
-            $pivot->prize_sent = false;
-            $pivot->save();
-        }
+    if ($totalBetAmountForTwoDigit + $sub_amount > 50000) {
+        // Assuming you have a model TwoDigit which corresponds to two_digits table
+        $twoDigit = TwoDigit::find($two_digit_id);
+        throw new \Exception("The two-digit's amount limit for {$twoDigit->two_digit} is full.");
+    }
+
+    // Create the pivot entry for the lottery and digit
+    $pivot = new LotteryTwoDigitPivot();
+    $pivot->lottery_id = $lottery->id;
+    $pivot->two_digit_id = $two_digit_id; // Use the numeric ID
+    $pivot->sub_amount = $sub_amount;
+    $pivot->prize_sent = false;
+    $pivot->save();
+}
+
+// After the foreach loop, complete any additional logic such as committing the transaction
+// and redirecting with a success message or handling exceptions as needed.
+
+
+        // foreach ($request->amounts as $two_digit_id => $sub_amount) {
+        //     $totalBetAmountForTwoDigit = DB::table('lottery_two_digit_pivot')
+        //         ->join('lotteries', 'lotteries.id', '=', 'lottery_two_digit_pivot.lottery_id')
+        //         ->where('two_digit_id', $two_digit_id)
+        //         ->where('lotteries.session', $currentSession)
+        //         ->sum('sub_amount');
+
+        //     if ($totalBetAmountForTwoDigit + $sub_amount > 50000) {
+        //         $twoDigit = TwoDigit::find($two_digit_id);
+        //         throw new \Exception("The two-digit's amount limit for {$twoDigit->two_digit} is full.");
+        //     }
+
+        //     $pivot = new LotteryTwoDigitPivot();
+        //     $pivot->lottery_id = $lottery->id;
+        //     $pivot->two_digit_id = $two_digit_id;
+        //     $pivot->sub_amount = $sub_amount;
+        //     $pivot->prize_sent = false;
+        //     $pivot->save();
+        // }
         // $admin = User::find(1); 
         // $admin->notify(new TwoDigitPlayedNotification($user));
         //Notification::send($admin, new TwoDigitPlayedNotification($user));
