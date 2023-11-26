@@ -152,7 +152,7 @@
             ->sum('sub_amount');
             @endphp
 
-            @if ($totalBetAmountForTwoDigit < 50000) 
+            @if ($totalBetAmountForTwoDigit < 50000)
             <div class="text-center fs-6 digit" style="background-color: {{ 'javascript:getRandomColor();' }};" onclick="selectDigit('{{ $digit->two_digit }}', this)">
              <p style="font-size: 20px">
                {{ $digit->two_digit }}

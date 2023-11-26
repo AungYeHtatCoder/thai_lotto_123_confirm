@@ -22,7 +22,7 @@ class TwoDPlayController extends Controller
     /**
      * Display a listing of the resource.
      */
-    
+
     private $sessionLimits = [
     'morning' => 5000, // Limit for morning session
     'evening' => 5000  // Limit for evening session
@@ -52,7 +52,7 @@ class TwoDPlayController extends Controller
     $lottery_matches = LotteryMatch::where('id', 1)->whereNotNull('is_active')->first();
 
     return view('two_d.twodplay_morning', compact('twoDigits', 'remainingAmounts', 'lottery_matches'));
-        
+
     }
 
     public function EveningPlayTwoDigit()
@@ -71,7 +71,7 @@ class TwoDPlayController extends Controller
     $lottery_matches = LotteryMatch::where('id', 1)->whereNotNull('is_active')->first();
 
     return view('two_d.twodplay_evening', compact('twoDigits', 'remainingAmounts', 'lottery_matches'));
-        
+
     }
     public function QuickMorningPlayTwoDigit()
     {
@@ -89,7 +89,7 @@ class TwoDPlayController extends Controller
     $lottery_matches = LotteryMatch::where('id', 1)->whereNotNull('is_active')->first();
 
     return view('two_d.quick_morning_play', compact('twoDigits', 'remainingAmounts', 'lottery_matches'));
-        
+
     }
     public function QuickOddMorningPlayTwoDigit()
     {
@@ -107,7 +107,7 @@ class TwoDPlayController extends Controller
     $lottery_matches = LotteryMatch::where('id', 1)->whereNotNull('is_active')->first();
 
     return view('two_d.odd_morning_play', compact('twoDigits', 'remainingAmounts', 'lottery_matches'));
-        
+
     }
 
     public function QuickEvenMorningPlayTwoDigit()
@@ -126,7 +126,7 @@ class TwoDPlayController extends Controller
     $lottery_matches = LotteryMatch::where('id', 1)->whereNotNull('is_active')->first();
 
     return view('two_d.even_morning_play', compact('twoDigits', 'remainingAmounts', 'lottery_matches'));
-        
+
     }
 
     public function QuickOddSameMorningPlayTwoDigit()
@@ -145,7 +145,7 @@ class TwoDPlayController extends Controller
     $lottery_matches = LotteryMatch::where('id', 1)->whereNotNull('is_active')->first();
 
     return view('two_d.odd_same_morning_play', compact('twoDigits', 'remainingAmounts', 'lottery_matches'));
-        
+
     }
     public function QuickEvenSameMorningPlayTwoDigit()
     {
@@ -163,7 +163,7 @@ class TwoDPlayController extends Controller
     $lottery_matches = LotteryMatch::where('id', 1)->whereNotNull('is_active')->first();
 
     return view('two_d.even_same_morning_play', compact('twoDigits', 'remainingAmounts', 'lottery_matches'));
-        
+
     }
     public function index()
     {
@@ -262,7 +262,7 @@ class TwoDPlayController extends Controller
         //     $pivot->prize_sent = false;
         //     $pivot->save();
         // }
-        // $admin = User::find(1); 
+        // $admin = User::find(1);
         // $admin->notify(new TwoDigitPlayedNotification($user));
         //Notification::send($admin, new TwoDigitPlayedNotification($user));
         $admins = User::whereHas('roles', function ($query) {
@@ -384,7 +384,7 @@ public function Quickstore(Request $request)
 
 // public function Quickstore(Request $request)
 // {
-//     //dd($request->all());    
+//     //dd($request->all());
 //     // Validate the request data
 //     $validatedData = $request->validate([
 //         'selected_digits' => 'required|string',
