@@ -98,7 +98,7 @@
               <a href="{{ url('/user/get-three-d') }}" class="buttons mb-5" style="font-size:30px; font-weight: 600;">3D</a>
         </div>
 
-        <div class="d-flex justify-content-around">
+        <div class="d-flex justify-content-around " style="padding-bottom: 100px;">
           <div>
             <div class="button">
               <a href="#"><img class="w-100 buttons-img" src="{{ asset('user_app/assets/images/logo1.jpg') }}" alt="" /></a>
