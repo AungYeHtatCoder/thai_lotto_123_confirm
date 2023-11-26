@@ -290,7 +290,7 @@
     //  console.log(selectedInput);
 
     let selectedDigits = selectedInput.value ? selectedInput.value.split(",") : [];
-    console.log(selectedDigits);
+    //console.log(selectedDigits);
     // Get the remaining amount for the selected digit
     const remainingAmount = Number(element.querySelector('small').innerText.split(' ')[1]);
 
@@ -453,7 +453,7 @@
         title: 'Oops...',
         text: 'Your balance is not enough to play two digit. - သင်၏လက်ကျန်ငွေ မလုံလောက်ပါ - ကျေးဇူးပြု၍ ငွေဖြည့်ပါ။',
         footer: `<a href=
-         "{{ url('user/wallet') }}" style="background-color: #007BFF; color: #FFFFFF; padding: 5px 10px; border-radius: 5px; text-decoration: none;">Fill Balance - ငွေဖြည့်သွင်းရန် နိုပ်ပါ </a>`
+         "{{ url('user/wallet-deposite') }}" style="background-color: #007BFF; color: #FFFFFF; padding: 5px 10px; border-radius: 5px; text-decoration: none;">Fill Balance - ငွေဖြည့်သွင်းရန် နိုပ်ပါ </a>`
       });
       return; // Exit the function to prevent further changes
     }
