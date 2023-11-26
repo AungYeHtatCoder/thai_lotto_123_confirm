@@ -251,6 +251,11 @@ class WelcomeController extends Controller
         return view('frontend.twod-calendar');
     }
 
+    public function twodHoliday(){
+        return view('two_d.api_test');
+        // return view('frontend.twod-calendar');
+    }
+
     public function twodDreamBook()
     {
         return view('frontend.dream-book');
