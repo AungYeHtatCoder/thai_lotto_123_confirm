@@ -280,60 +280,101 @@
     });
   }
 
-
   function selectDigit(num, element) {
     const selectedInput = document.getElementById('selected_digits');
     const amountInputsDiv = document.getElementById('amountInputs');
-    //  console.log(selectedInput);
 
+    // Ensure that the digits are handled as strings
     let selectedDigits = selectedInput.value ? selectedInput.value.split(",") : [];
     console.log(selectedDigits);
-    // Get the remaining amount for the selected digit
-    const remainingAmount = Number(element.querySelector('small').innerText.split(' ')[1]);
-
-
-    // Check if the user tries to bet more than the remaining amount
-    if (selectedDigits.includes(num)) {
-      const betAmountInput = document.getElementById('amount_' + num);
-
-      if (Number(betAmountInput.value) > remainingAmount) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Bet Limit Exceeded',
-          text: `You can only bet up to ${remainingAmount} for the digit ${num}.`
-        });
-        return;
-      }
-    }
+    // Convert num to a string to ensure "00" is not treated as 0
+    num = num.toString();
+    console.log(num);
 
     // Check if the digit is already selected
     if (selectedDigits.includes(num)) {
-      // If it is, remove the digit, its style, and its input field
-      selectedInput.value = selectedInput.value.replace(num, '').replace(',,', ',').replace(/^,|,$/g, '');
-      element.classList.remove('selected');
+        // If it is, remove the digit, its style, and its input field
+        selectedInput.value = selectedDigits.filter(digit => digit !== num).join(',');
+        element.classList.remove('selected');
 
-      const inputToRemove = document.getElementById('amount_' + num);
-      amountInputsDiv.removeChild(inputToRemove);
+        const inputToRemove = document.getElementById('amount_' + num);
+        if (inputToRemove) {
+            amountInputsDiv.removeChild(inputToRemove);
+        }
     } else {
-      // Otherwise, add the digit, its style, and its input field
-      selectedInput.value = selectedInput.value ? selectedInput.value + "," + num : num;
-      element.classList.add('selected');
+        // Otherwise, add the digit, its style, and its input field
+        selectedDigits.push(num);
+        selectedInput.value = selectedDigits.join(',');
+        element.classList.add('selected');
 
-      const amountInput = document.createElement('input');
-      amountInput.setAttribute('type', 'number');
-      amountInput.setAttribute('name', 'amounts[' + num + ']');
-      amountInput.setAttribute('id', 'amount_' + num);
-      amountInput.setAttribute('placeholder', 'Amount for ' + num);
-      amountInput.setAttribute('min', '100');
-      amountInput.setAttribute('max', '50000');
-      amountInput.setAttribute('class', 'form-control mt-2 d-none');
-      amountInput.onchange = function() {
-        updateTotalAmount();
-        checkBetAmount(this, num);
-      };
-      amountInputsDiv.appendChild(amountInput);
+        const amountInput = document.createElement('input');
+        amountInput.setAttribute('type', 'number');
+        amountInput.setAttribute('name', 'amounts[' + num + ']'); // Keep num as string
+        amountInput.setAttribute('id', 'amount_' + num);
+        amountInput.setAttribute('placeholder', 'Amount for ' + num);
+        amountInput.setAttribute('min', '100');
+        amountInput.setAttribute('max', '50000');
+        amountInput.setAttribute('class', 'form-control mt-2');
+        amountInput.onchange = function() {
+            updateTotalAmount();
+            checkBetAmount(this, num);
+        };
+        amountInputsDiv.appendChild(amountInput);
     }
-  }
+}
+  // function selectDigit(num, element) {
+  //   const selectedInput = document.getElementById('selected_digits');
+  //   const amountInputsDiv = document.getElementById('amountInputs');
+  //   //  console.log(selectedInput);
+
+  //   let selectedDigits = selectedInput.value ? selectedInput.value.split(",") : [];
+  //   console.log(selectedDigits);
+  //   // Get the remaining amount for the selected digit
+  //   const remainingAmount = Number(element.querySelector('small').innerText.split(' ')[1]);
+
+
+  //   // Check if the user tries to bet more than the remaining amount
+  //   if (selectedDigits.includes(num)) {
+  //     const betAmountInput = document.getElementById('amount_' + num);
+
+  //     if (Number(betAmountInput.value) > remainingAmount) {
+  //       Swal.fire({
+  //         icon: 'error',
+  //         title: 'Bet Limit Exceeded',
+  //         text: `You can only bet up to ${remainingAmount} for the digit ${num}.`
+  //       });
+  //       return;
+  //     }
+  //   }
+
+  //   // Check if the digit is already selected
+  //   if (selectedDigits.includes(num)) {
+  //     // If it is, remove the digit, its style, and its input field
+  //     selectedInput.value = selectedInput.value.replace(num, '').replace(',,', ',').replace(/^,|,$/g, '');
+  //     element.classList.remove('selected');
+
+  //     const inputToRemove = document.getElementById('amount_' + num);
+  //     amountInputsDiv.removeChild(inputToRemove);
+  //   } else {
+  //     // Otherwise, add the digit, its style, and its input field
+  //     selectedInput.value = selectedInput.value ? selectedInput.value + "," + num : num;
+  //     element.classList.add('selected');
+
+  //     const amountInput = document.createElement('input');
+  //     amountInput.setAttribute('type', 'number');
+  //     amountInput.setAttribute('name', 'amounts[' + num + ']');
+  //     amountInput.setAttribute('id', 'amount_' + num);
+  //     amountInput.setAttribute('placeholder', 'Amount for ' + num);
+  //     amountInput.setAttribute('min', '100');
+  //     amountInput.setAttribute('max', '50000');
+  //     amountInput.setAttribute('class', 'form-control mt-2 d-none');
+  //     amountInput.onchange = function() {
+  //       updateTotalAmount();
+  //       checkBetAmount(this, num);
+  //     };
+  //     amountInputsDiv.appendChild(amountInput);
+  //   }
+  // }
 
   function permuteDigits() {
     const outputField = document.getElementById('selected_digits');

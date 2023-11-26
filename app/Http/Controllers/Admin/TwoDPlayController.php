@@ -313,27 +313,54 @@ public function Quickstore(Request $request)
             'user_id' => $request->user_id,
             'session' => $currentSession,
         ]);
+        foreach ($request->amounts as $two_digit_string => $sub_amount) {
+    // Convert the two-digit string to its numeric ID
+    // Assuming '00' corresponds to ID 1, '01' to ID 2, and so on...
+    $two_digit_id = $two_digit_string === '00' ? 1 : intval($two_digit_string, 10) + 1;
+
+    // Check if the bet amount for this digit does not exceed the limit
+    $totalBetAmountForTwoDigit = DB::table('lottery_two_digit_pivot')
+        ->join('lotteries', 'lotteries.id', '=', 'lottery_two_digit_pivot.lottery_id')
+        ->where('two_digit_id', $two_digit_id)
+        ->where('lotteries.session', $currentSession)
+        ->sum('sub_amount');
+
+    if ($totalBetAmountForTwoDigit + $sub_amount > 50000) {
+        // Assuming you have a model TwoDigit which corresponds to two_digits table
+        $twoDigit = TwoDigit::find($two_digit_id);
+        throw new \Exception("The two-digit's amount limit for {$twoDigit->two_digit} is full.");
+    }
+
+    // Create the pivot entry for the lottery and digit
+    $pivot = new LotteryTwoDigitPivot();
+    $pivot->lottery_id = $lottery->id;
+    $pivot->two_digit_id = $two_digit_id; // Use the numeric ID
+    $pivot->sub_amount = $sub_amount;
+    $pivot->prize_sent = false;
+    $pivot->save();
+}
+
 
         // Process each selected digit and its amount
-        foreach ($request->amounts as $two_digit_id => $amount) {
-            $totalBetAmountForTwoDigit = DB::table('lottery_two_digit_pivot')
-                ->join('lotteries', 'lotteries.id', '=', 'lottery_two_digit_pivot.lottery_id')
-                ->where('two_digit_id', $two_digit_id)
-                ->where('lotteries.session', $currentSession)
-                ->sum('sub_amount');
+        // foreach ($request->amounts as $two_digit_id => $amount) {
+        //     $totalBetAmountForTwoDigit = DB::table('lottery_two_digit_pivot')
+        //         ->join('lotteries', 'lotteries.id', '=', 'lottery_two_digit_pivot.lottery_id')
+        //         ->where('two_digit_id', $two_digit_id)
+        //         ->where('lotteries.session', $currentSession)
+        //         ->sum('sub_amount');
 
-            if ($totalBetAmountForTwoDigit + $amount > 50000) {
-                $twoDigit = TwoDigit::find($two_digit_id);
-                throw new \Exception("The two-digit's amount limit for {$twoDigit->two_digit} is full.");
-            }
+        //     if ($totalBetAmountForTwoDigit + $amount > 50000) {
+        //         $twoDigit = TwoDigit::find($two_digit_id);
+        //         throw new \Exception("The two-digit's amount limit for {$twoDigit->two_digit} is full.");
+        //     }
 
-            $pivot = new LotteryTwoDigitPivot();
-            $pivot->lottery_id = $lottery->id;
-            $pivot->two_digit_id = $two_digit_id;
-            $pivot->sub_amount = $amount;
-            $pivot->prize_sent = false;
-            $pivot->save();
-        }
+        //     $pivot = new LotteryTwoDigitPivot();
+        //     $pivot->lottery_id = $lottery->id;
+        //     $pivot->two_digit_id = $two_digit_id;
+        //     $pivot->sub_amount = $amount;
+        //     $pivot->prize_sent = false;
+        //     $pivot->save();
+        // }
 
         // Send notifications to admins
         // ... (your existing logic)
