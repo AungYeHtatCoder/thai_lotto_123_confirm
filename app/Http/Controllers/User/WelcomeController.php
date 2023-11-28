@@ -158,6 +158,11 @@ class WelcomeController extends Controller
         return view('frontend.twod-quick');
     }
 
+    public function twoDConfirm()
+    {
+        return view('two_d.twod_play_confirm');
+    }
+
     public function threeD()
     {
         return view('frontend.threeD');
