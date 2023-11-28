@@ -44,8 +44,8 @@
     </div>
 
     <div class="d-flex justify-content-between mt-3 custom-btn">
-      <button class="fs-6 px-3">ပတ်လည်</button>
-      <input type="text" name="amount" id="amount" placeholder="ငွေပမာဏ" class="form-control w-50 text-center border-black" />
+      {{-- <button class="fs-6 px-3">ပတ်လည်</button> --}}
+      <input type="text" name="amount" id="all_amount" placeholder="ငွေပမာဏ" class="form-control w-50 text-center border-black" />
     </div>
 
 
@@ -56,67 +56,9 @@
       <a href="{{ route('admin.QuickMorningPlayTwoDigit') }}" class="btn p-3 text-white" style="background-color: #2a576c">အမြန်ရွေးရန်</a>
     </div>
     <div class="container-fluid my-5">
-        <p>အရောင်ရှင်းလင်းချက်</p>
+        {{-- <p>အရောင်ရှင်းလင်းချက်</p> --}}
 
-        <div class="scrollable-container overflow-scroll mt-6 digit-box">
-            <div class="main-row">
-    @foreach ($twoDigits->chunk(3) as $chunk)
-    <div class="column">
-        @foreach ($chunk as $digit)
-            @php
-                $totalBetAmountForTwoDigit = DB::table('lottery_two_digit_copy')
-                    ->where('two_digit_id', $digit->id)
-                    ->sum('sub_amount');
-            @endphp
-
-            @if ($totalBetAmountForTwoDigit < 5000)
-                <div class="text-center digit digit-button" style="background-color: javascript:getRandomColor();"
-                    data-digit="{{ $digit->two_digit }}" onclick="selectDigit('{{ $digit->two_digit }}', this)">
-                    {{ $digit->two_digit }}
-                    <small class="d-block" style="font-size: 10px">{{ $remainingAmounts[$digit->id] }}</small>
-                    <div class="progress">
-                                        @php
-                                        $totalAmount = 5000;
-                                        $betAmount = $totalBetAmountForTwoDigit; // the amount already bet
-                                        $remainAmount = $totalAmount - $betAmount; // the amount remaining that can be bet
-                                        $percentage = ($betAmount / $totalAmount) * 100;
-                                    @endphp
-
-                                        <div class="progress-bar" style="width: {{ $percentage }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                </div>
-            @else
-                <div class="col-2 text-center digit disabled" style="background-color: javascript:getRandomColor();"
-                    data-digit="{{ $digit->two_digit }}" onclick="showLimitFullAlert()">
-                    {{ $digit->two_digit }}
-                </div>
-            @endif
-        @endforeach
-    </div>
-    @endforeach
-</div>
-    
-        </div>
-       
-    </div>
-
- <div class="dream-form">
-  <div class="card mt-2">
-    <div class="row">
-        <div class="col-md-12">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="d-flex justify-content-between mt-3 custom-btn">
-      
-      <input type="text" name="amount" id="all_amount" placeholder="ငွေပမာဏ" class="form-control w-50 text-center border-black" />
-    </div>
-            </div>
-            
-          </div>
-          
-        </div>
-      </div>
-  </div>
+        <div class="dream-form">
         <div class="card mt-3">
             <div class="card-body">
                 <div class="row mt-3">
@@ -131,9 +73,7 @@
         </div>
         <div class="card">
          <div class="card-header">
-             <h5 class="mb-0 text-center">အရောင်ရှင်းလင်းချက်
-                                      <span><a href="{{ url('admin/morning-play-two-d')}}" class="btn btn-primary">Back To Play</a></span>
-             </h5>
+             {{-- <h5 class="mb-0">အရောင်ရှင်းလင်းချက်</h5> --}}
          </div>
          <div class="card-body">
           
@@ -158,8 +98,8 @@
 
     <!-- Submit Buttons -->
     <div class="col-12 d-flex justify-content-center mt-3">
-        <button type="submit" class="btn btn-delete mr-3">Cancel</button>
-        <button type="submit" class="btn btn-confirm">Submit</button>
+        <button type="submit" class="btn btn-delete mr-3">ဖျက်မည်</button>
+        <button type="submit" class="btn btn-confirm">ထိုးမည်</button>
     </div>
 </form>
 
@@ -172,6 +112,51 @@
 </div>
     </div>
 
+
+
+        <div class="scrollable-container overflow-scroll mt-5 digit-box">
+            <div class="main-row">
+    @foreach ($twoDigits->chunk(3) as $chunk)
+    <div class="column">
+        @foreach ($chunk as $digit)
+            @php
+                $totalBetAmountForTwoDigit = DB::table('lottery_two_digit_copy')
+                    ->where('two_digit_id', $digit->id)
+                    ->sum('sub_amount');
+            @endphp
+
+            @if ($totalBetAmountForTwoDigit < 5000)
+                <div class="text-center digit digit-button" style="background-color: javascript:getRandomColor();"
+                    data-digit="{{ $digit->two_digit }}" onclick="selectDigit('{{ $digit->two_digit }}', this)">
+                    {{ $digit->two_digit }}
+                    
+                    <div class="progress">
+                                        @php
+                                        $totalAmount = 5000;
+                                        $betAmount = $totalBetAmountForTwoDigit; // the amount already bet
+                                        $remainAmount = $totalAmount - $betAmount; // the amount remaining that can be bet
+                                        $percentage = ($betAmount / $totalAmount) * 100;
+                                    @endphp
+
+                                        <div class="progress-bar" style="width: {{ $percentage }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                        <small class="d-block" style="font-size: 10px">{{ $remainingAmounts[$digit->id] }}</small>
+                                        </div>
+                                    </div>
+                </div>
+            @else
+                <div class="col-2 text-center digit disabled" style="background-color: javascript:getRandomColor();"
+                    data-digit="{{ $digit->two_digit }}" onclick="showLimitFullAlert()">
+                    {{ $digit->two_digit }}
+                </div>
+            @endif
+        @endforeach
+    </div>
+    @endforeach
+</div>
+    
+        </div>
+       
+    </div>
 {{-- modal --}}
 <div class="modal fade" id="colorModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -234,9 +219,9 @@
         amountInput.id = `amount_${digit}`;
         amountInput.placeholder = `Amount for ${digit}`;
         amountInput.min = '100';
-        amountInput.max = '5000';
+        amountInput.max = '50000';
         amountInput.value = '100';
-        amountInput.classList.add('form-control', 'mt-2');
+        amountInput.classList.add('form-control', 'mt-2', 'd-none');
         amountInput.onchange = updateTotalAmount; // Bind the change event to your total amount function
 
         // Append the new input to your amountInputs div
@@ -246,16 +231,12 @@
     // Call the updateTotalAmount function to initialize the values
     updateTotalAmount();
 });
-
-
 document.getElementById('even').addEventListener('click', function() {
     // Filter even numbers and also ensure that each digit is even
     const evenDigits = Array.from(document.querySelectorAll('.digit-button'))
     .map(button => button.getAttribute('data-digit').padStart(2, '0')) // Ensure two digits
     .filter(digit => digit[0] % 2 === 0 && digit[1] % 2 === 0) // Filter numbers where both digits are even
     .sort((a, b) => a.localeCompare(b, undefined, {numeric: true})); // Sort numerically
-
-
     // Assuming 'outputField' is where the selected digits will be displayed
     const outputField = document.getElementById('outputField');
     outputField.value = evenDigits.join(', ');
@@ -270,9 +251,9 @@ document.getElementById('even').addEventListener('click', function() {
         amountInput.name = `amounts[${digit}]`; // Ensure this follows your naming scheme
         amountInput.id = `amount_${digit}`;
         amountInput.placeholder = `Amount for ${digit}`;
-        amountInput.classList.add('form-control', 'mt-2');
+        amountInput.classList.add('form-control', 'mt-2', 'd-none');
         amountInput.min = '100'; // Assuming 100 is the minimum amount
-        amountInput.max = '5000'; // Assuming 5000 is the maximum amount
+        amountInput.max = '50000'; // Assuming 5000 is the maximum amount
         amountInput.required = true;
         // value 
         amountInput.value = '100';
@@ -294,18 +275,18 @@ function setAmountForAllDigits(amount) {
     updateTotalAmount(); // Update the total amount after setting the new amounts
 }
 
-// Event listener for the amount input field
-document.getElementById('all_amount').addEventListener('input', function() {
-    const amount = this.value; // Get the current value of the input field
-    setAmountForAllDigits(amount); // Set this amount for all digit inputs
-});
 
+// Event listener for the amount input field
+    document.getElementById('all_amount').addEventListener('input', function() {
+        const amount = this.value; // Get the current value of the input field
+        setAmountForAllDigits(amount); // Set this amount for all digit inputs
+    });
 function updateTotalAmount() {
     let total = 0;
     const inputs = document.querySelectorAll('input[name^="amounts["]'); // Get all amount inputs
     inputs.forEach(input => {
         const value = Number(input.value);
-        if (value < 1 || value > 5000) {
+        if (value < 1 || value > 50000) {
             // If the input value is less than 100 or greater than 5000, show an error and reset the input
             Swal.fire({
                 icon: 'error',
@@ -328,7 +309,7 @@ function updateTotalAmount() {
             icon: 'error',
             title: 'Oops...',
             text: 'Your balance is not enough to play two digit. - သင်၏လက်ကျန်ငွေ မလုံလောက်ပါ - ကျေးဇူးပြု၍ ငွေဖြည့်ပါ။',
-            footer: `<a href="{{ url('user/wallet') }}" style="background-color: #007BFF; color: #FFFFFF; padding: 5px 10px; border-radius: 5px; text-decoration: none;">Fill Balance - ငွေဖြည့်သွင်းရန် နိုပ်ပါ </a>`
+            footer: `<a href="{{ url('user/wallet-deposite') }}" style="background-color: #007BFF; color: #FFFFFF; padding: 5px 10px; border-radius: 5px; text-decoration: none;">Fill Balance - ငွေဖြည့်သွင်းရန် နိုပ်ပါ </a>`
         });
     } else {
         // If the balance is sufficient, update the display
@@ -339,15 +320,13 @@ function updateTotalAmount() {
         document.getElementById('totalAmount').value = total.toFixed(2);
     }
 }
-
-
 </script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
      @if(session('SuccessRequest'))
          Swal.fire({
              icon: 'success',
-             title: 'Success!',
+             title: 'Success! သင့်ကံစမ်းမှုအောင်မြင်ပါသည် ! သိန်းထီးဆုကြီးပေါက်ပါစေ',
              text: '{{ session('SuccessRequest') }}',
              timer: 3000,
              showConfirmButton: false
@@ -380,5 +359,6 @@ function updateTotalAmount() {
          document.querySelectorAll('.digit.disabled').forEach(el => {
              el.style.backgroundColor = getRandomColor();
          });
+     </script>
 @endsection
 

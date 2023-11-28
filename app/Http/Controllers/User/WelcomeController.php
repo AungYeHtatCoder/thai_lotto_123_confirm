@@ -256,6 +256,11 @@ class WelcomeController extends Controller
         return view('frontend.twod-calendar');
     }
 
+    public function twodHoliday(){
+        return view('two_d.api_test');
+        // return view('frontend.twod-calendar');
+    }
+
     public function twodDreamBook()
     {
         return view('frontend.dream-book');
@@ -263,6 +268,7 @@ class WelcomeController extends Controller
 
     public function threedResult()
     {
+        // return view('two_d.api_test');
         return view('frontend.threed-result');
     }
 

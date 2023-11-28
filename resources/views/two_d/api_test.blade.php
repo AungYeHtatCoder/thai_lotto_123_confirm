@@ -75,7 +75,7 @@
 
 <script>
   async function fetchData() {
-    const url = 'https://shwe-2d-live-api.p.rapidapi.com/calender';
+    const url = 'https://shwe-2d-live-api.p.rapidapi.com/holiday';
     const options = {
       method: 'GET',
       headers: {

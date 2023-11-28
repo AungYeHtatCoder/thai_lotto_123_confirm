@@ -1,7 +1,11 @@
 @extends('user_layout.app')
 @section('style')
 <link rel="stylesheet" href="{{ asset('user_app/assets/css/balance.css')}}">
-
+<style>
+    /* #selected_digits::placeholder{
+        font-size: 30px;
+    } */
+</style>
 @endsection
 @section('content')
 @include('user_layout.sub_nav')
@@ -9,26 +13,23 @@
   <div class="col-lg-4 col-md-4 offset-lg-4 offset-md-4 mt-5 py-4" style="background-color: #ffffff;">
     <div class="flesh-card">
       <div class="d-flex justify-content-between">
-        <div class="d-flex justify-content-between">
-          <span class="material-icons">account_balance_wallet</span>
-          <p class="px-2">လက်ကျန်ငွေ </p>
+        <div class="">
+          <i class="fas fa-wallet" style="color:#265166"></i>
+          <p class="px-2 d-inline" style="font-size: 14px;">လက်ကျန်ငွေ </p>
+          <p class="font-green d-block" style="font-size: 14px;" id="userBalance" data-balance="{{ Auth::user()->balance }}">{{ Auth::user()->balance }} MMK</p>
         </div>
-        <div class="d-flex justify-content-between">
-          <span class="material-icons">
-            update
-          </span>
-          <p class="px-2">ပိတ်ရန်ကျန်ချိန်</p>
+        <div class="">
+            <i class="fas fa-clock" style="color:#265166"></i>
+            <p class="px-2 d-inline" style="font-size: 14px;">ပိတ်ရန်ကျန်ချိန်</p>
+            <p class="me-2 text-end">
+                <span id="currentTime" style="font-size: 14px"></span><br />
+                <span id="sessionInfo" style="font-size: 14px"></span>
+                <span id="todayDate" class="d-none" style="font-size: 14px"></span><br />
+            </p>
         </div>
       </div>
 
       <div class="d-flex justify-content-between">
-
-        <p class="ms-5" class="font-green d-block" id="userBalance" data-balance="{{ Auth::user()->balance }}">{{ Auth::user()->balance }} MMK</p>
-        <p class="me-2">
-          <span id="todayDate" style="font-size: 15px"></span><br />
-          <span id="currentTime" style="font-size: 15px"></span><br />
-          <span id="sessionInfo" style="font-size: 15px"></span>
-        </p>
         {{-- <p class="me-2">
           <script>
             var d = new Date();
@@ -47,11 +48,11 @@
     <div>
       <div class="d-flex justify-content-between custom-btn">
         <!-- <a href="dream-book.html" class="btn h-50 text-white p-2" style="background-color: #2a576c;"><span class="material-icons text-white icons">menu_book</span> အိမ်မက်</a> -->
-        <a href="{{ route('admin.QuickMorningPlayTwoDigit') }}" class="btn h-50 text-white" style="background-color: #2a576c">အမြန်ရွေး</a>
+        <a href="{{ route('admin.QuickMorningPlayTwoDigit') }}" class="btn h-50 text-white" style="background-color: #2a576c; font-size:14px;">အမြန်ရွေး</a>
         <div class="">
           <h1>2D</h1>
         </div>
-        <select class="h-50 text-white">
+        <select class="h-50 text-white" style=" font-size:14px;">
           <option value="1">09:30 AM</option>
           <option value="2">12:00 PM</option>
           <option value="1">02:30 PM</option>
@@ -94,7 +95,7 @@
             <div class="form-header mb-4">
               <div class="d-flex justify-content-between mt-3 ms-3 custom-btn ">
                 <input type="text" name="amount" id="all_amount" placeholder="ငွေပမာဏ" class="form-control d-block w-75 text-center border-black" />
-                <button class="fs-6 d-block px-1 py-2" id="permuteButton" onclick="permuteDigits()">ပတ်လည်</button>
+                <button class="d-block px-1 py-2" id="permuteButton" onclick="permuteDigits()" style="font-size:14px;">ပတ်လည်</button>
               </div>
             </div>
           </div>
@@ -104,22 +105,19 @@
 
             <div class="row">
               <div class="col-md-12 mb-3">
-                <label for="selected_digits">ရွှေးချယ်ထားသောဂဏန်းများ</label>
-                <input type="text" name="selected_digits" id="selected_digits" class="form-control" placeholder="Enter digits">
+                <label for="selected_digits" style="font-size: 14px;">ရွှေးချယ်ထားသောဂဏန်းများ</label>
+                <input type="text" name="selected_digits" id="selected_digits" class="form-control" placeholder="" style="font-size: 30px">
               </div>
 
-              <div class="mb-3 mt-3">
-                {{-- <div class="digits-display" id="outputField_div">
-
-        </div> --}}
-                <label for="permulated_digit">Permulated Digits</label>
+              <div class="mb-3 mt-2">
+                <label for="permulated_digit" style="font-size: 14px;">ပတ်လည် ဂဏန်းများ</label>
                 <input type="text" id="permulated_digit" class="form-control" readonly>
               </div>
 
               <div id="amountInputs" class="col-md-12 mb-3 d-none"></div>
 
               <div class="col-md-12 mb-3">
-                <label for="totalAmount">စုစုပေါင်းထိုးကြေး</label>
+                <label for="totalAmount" style="font-size: 14px;">စုစုပေါင်းထိုးကြေး</label>
                 <input type="text" id="totalAmount" name="totalAmount" class="form-control" readonly>
               </div>
 
@@ -128,8 +126,12 @@
 
                 <div class="d-flex justify-content-center mt-3 px-2 py-3" style="background: linear-gradient(90deg, #428387, #336876, #265166 100%); border-radius:10px;
                 ">
+
                   <a href="{{ url('/admin/morning-play-two-d') }}" class="btn remove-btn me-2">ဖျက်မည်</a>
                   <a href="{{ url('/twod_play_confirm') }}" class="btn play-btn">ထိုးမည်</a>
+
+                 
+
                 </div>
               </div>
             </div>
@@ -155,18 +157,23 @@
             ->sum('sub_amount');
             @endphp
 
-            @if ($totalBetAmountForTwoDigit < 5000) <div class="text-center fs-6 digit" style="background-color: {{ 'javascript:getRandomColor();' }};" onclick="selectDigit('{{ $digit->two_digit }}', this)">
-              {{ $digit->two_digit }}
-              <small class="d-none" style="font-size: 10px">{{ $remainingAmounts[$digit->id] }}</small>
+            @if ($totalBetAmountForTwoDigit < 50000)
+            <div class="text-center fs-6 digit" style="background-color: {{ 'javascript:getRandomColor();' }};" onclick="selectDigit('{{ $digit->two_digit }}', this)">
+             <p style="font-size: 20px">
+               {{ $digit->two_digit }}
+             </p>
+              {{-- <small class="d-none" style="font-size: 10px">{{ $remainingAmounts[$digit->id] }}</small> --}}
               <div class="progress">
                 @php
-                $totalAmount = 5000;
+                $totalAmount = 50000;
                 $betAmount = $totalBetAmountForTwoDigit; // the amount already bet
                 $remainAmount = $totalAmount - $betAmount; // the amount remaining that can be bet
                 $percentage = ($betAmount / $totalAmount) * 100;
                 @endphp
 
-                <div class="progress-bar" style="width: {{ $percentage }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar" style="width: {{ $percentage }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                 <small class="d-none" style="font-size: 10px">{{ $remainingAmounts[$digit->id] }}</small>
+                </div>
               </div>
           </div>
           @else
@@ -260,7 +267,7 @@
     @if(session('SuccessRequest'))
     Swal.fire({
       icon: 'success',
-      title: 'Success!',
+      title: 'Success! သင့်ကံစမ်းမှုအောင်မြင်ပါသည် ! သိန်းထီးဆုကြီးပေါက်ပါစေ',
       text: '{{ session('
       SuccessRequest ') }}',
       timer: 3000,
@@ -278,60 +285,102 @@
     });
   }
 
-
-  function selectDigit(num, element) {
+function selectDigit(num, element) {
     const selectedInput = document.getElementById('selected_digits');
     const amountInputsDiv = document.getElementById('amountInputs');
-    //  console.log(selectedInput);
 
+    // Ensure that the digits are handled as strings
     let selectedDigits = selectedInput.value ? selectedInput.value.split(",") : [];
     console.log(selectedDigits);
-    // Get the remaining amount for the selected digit
-    const remainingAmount = Number(element.querySelector('small').innerText.split(' ')[1]);
-
-
-    // Check if the user tries to bet more than the remaining amount
-    if (selectedDigits.includes(num)) {
-      const betAmountInput = document.getElementById('amount_' + num);
-
-      if (Number(betAmountInput.value) > remainingAmount) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Bet Limit Exceeded',
-          text: `You can only bet up to ${remainingAmount} for the digit ${num}.`
-        });
-        return;
-      }
-    }
+    // Convert num to a string to ensure "00" is not treated as 0
+    num = num.toString();
+    console.log(num);
 
     // Check if the digit is already selected
     if (selectedDigits.includes(num)) {
-      // If it is, remove the digit, its style, and its input field
-      selectedInput.value = selectedInput.value.replace(num, '').replace(',,', ',').replace(/^,|,$/g, '');
-      element.classList.remove('selected');
+        // If it is, remove the digit, its style, and its input field
+        selectedInput.value = selectedDigits.filter(digit => digit !== num).join(',');
+        element.classList.remove('selected');
 
-      const inputToRemove = document.getElementById('amount_' + num);
-      amountInputsDiv.removeChild(inputToRemove);
+        const inputToRemove = document.getElementById('amount_' + num);
+        if (inputToRemove) {
+            amountInputsDiv.removeChild(inputToRemove);
+        }
     } else {
-      // Otherwise, add the digit, its style, and its input field
-      selectedInput.value = selectedInput.value ? selectedInput.value + "," + num : num;
-      element.classList.add('selected');
+        // Otherwise, add the digit, its style, and its input field
+        selectedDigits.push(num);
+        selectedInput.value = selectedDigits.join(',');
+        element.classList.add('selected');
 
-      const amountInput = document.createElement('input');
-      amountInput.setAttribute('type', 'number');
-      amountInput.setAttribute('name', 'amounts[' + num + ']');
-      amountInput.setAttribute('id', 'amount_' + num);
-      amountInput.setAttribute('placeholder', 'Amount for ' + num);
-      amountInput.setAttribute('min', '100');
-      amountInput.setAttribute('max', '5000');
-      amountInput.setAttribute('class', 'form-control mt-2 d-none');
-      amountInput.onchange = function() {
-        updateTotalAmount();
-        checkBetAmount(this, num);
-      };
-      amountInputsDiv.appendChild(amountInput);
+        const amountInput = document.createElement('input');
+        amountInput.setAttribute('type', 'number');
+        amountInput.setAttribute('name', 'amounts[' + num + ']'); // Keep num as string
+        amountInput.setAttribute('id', 'amount_' + num);
+        amountInput.setAttribute('placeholder', 'Amount for ' + num);
+        amountInput.setAttribute('min', '100');
+        amountInput.setAttribute('max', '50000');
+        amountInput.setAttribute('class', 'form-control mt-2');
+        amountInput.onchange = function() {
+            updateTotalAmount();
+            checkBetAmount(this, num);
+        };
+        amountInputsDiv.appendChild(amountInput);
     }
-  }
+}
+
+  // function selectDigit(num, element) {
+  //   const selectedInput = document.getElementById('selected_digits');
+  //   const amountInputsDiv = document.getElementById('amountInputs');
+  //   //  console.log(selectedInput);
+
+  //   let selectedDigits = selectedInput.value ? selectedInput.value.split(",") : [];
+  //   console.log(selectedDigits);
+  //   // Get the remaining amount for the selected digit
+  //   const remainingAmount = Number(element.querySelector('small').innerText.split(' ')[1]);
+
+
+  //   // Check if the user tries to bet more than the remaining amount
+  //   if (selectedDigits.includes(num)) {
+  //     const betAmountInput = document.getElementById('amount_' + num);
+
+  //     if (Number(betAmountInput.value) > remainingAmount) {
+  //       Swal.fire({
+  //         icon: 'error',
+  //         title: 'Bet Limit Exceeded',
+  //         text: `You can only bet up to ${remainingAmount} for the digit ${num}.`
+  //       });
+  //       return;
+  //     }
+  //   }
+
+  //   // Check if the digit is already selected
+  //   if (selectedDigits.includes(num)) {
+  //     // If it is, remove the digit, its style, and its input field
+  //     selectedInput.value = selectedInput.value.replace(num, '').replace(',,', ',').replace(/^,|,$/g, '');
+  //     element.classList.remove('selected');
+
+  //     const inputToRemove = document.getElementById('amount_' + num);
+  //     amountInputsDiv.removeChild(inputToRemove);
+  //   } else {
+  //     // Otherwise, add the digit, its style, and its input field
+  //     selectedInput.value = selectedInput.value ? selectedInput.value + "," + num : num;
+  //     element.classList.add('selected');
+
+  //     const amountInput = document.createElement('input');
+  //     amountInput.setAttribute('type', 'number');
+  //     amountInput.setAttribute('name', 'amounts[' + num + ']');
+  //     amountInput.setAttribute('id', 'amount_' + num);
+  //     amountInput.setAttribute('placeholder', 'Amount for ' + num);
+  //     amountInput.setAttribute('min', '100');
+  //     amountInput.setAttribute('max', '50000');
+  //     amountInput.setAttribute('class', 'form-control mt-2 d-none');
+  //     amountInput.onchange = function() {
+  //       updateTotalAmount();
+  //       checkBetAmount(this, num);
+  //     };
+  //     amountInputsDiv.appendChild(amountInput);
+  //   }
+  // }
 
   function permuteDigits() {
     const outputField = document.getElementById('selected_digits');
@@ -448,7 +497,7 @@
         title: 'Oops...',
         text: 'Your balance is not enough to play two digit. - သင်၏လက်ကျန်ငွေ မလုံလောက်ပါ - ကျေးဇူးပြု၍ ငွေဖြည့်ပါ။',
         footer: `<a href=
-         "{{ url('user/wallet') }}" style="background-color: #007BFF; color: #FFFFFF; padding: 5px 10px; border-radius: 5px; text-decoration: none;">Fill Balance - ငွေဖြည့်သွင်းရန် နိုပ်ပါ </a>`
+         "{{ url('user/wallet-deposite') }}" style="background-color: #007BFF; color: #FFFFFF; padding: 5px 10px; border-radius: 5px; text-decoration: none;">Fill Balance - ငွေဖြည့်သွင်းရန် နိုပ်ပါ </a>`
       });
       return; // Exit the function to prevent further changes
     }

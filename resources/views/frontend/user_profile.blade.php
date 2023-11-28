@@ -172,12 +172,13 @@
         @endforeach
         @endif
 
-        <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow" style="background: rgb(0,187,189);
+         <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow" style="background: rgb(0,187,189);
             background: linear-gradient(211deg, rgba(0,187,189,1) 0%, rgba(28,147,0,1) 100%);">
-            <p class="text-right">Total Amount for Morning: ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
-                <strong>{{ $morningDigits['total_amount'] }} MMK</strong>
-            </p>
-        </div>
+                <p class="text-right">Total Amount for Morning: ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
+                    <strong>{{ $morningDigits['total_amount'] }} MMK</strong>
+                </p>
+            </div>
+       </div>
 
     </div>
     <div class="eveningtwo d-none my-4">
@@ -237,10 +238,10 @@
             <span class="d-block">Session</span>
             <span class="d-block">Evening</span>
         </div>
-        <div>
+        {{-- <div>
             <span class="d-block">Date</span>
             <span class="d-block">{{ $digit->pivot->created_at->format('d M Y (l) (h:i a)') }}</span>
-        </div>
+        </div> --}}
         <div>
             <span class="d-block">2D</span>
             <span class="d-block">{{ $digit->two_digit }}</span>
@@ -355,6 +356,27 @@
 @endsection
 
 @section('script')
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        @if(session('SuccessRequest'))
+        Swal.fire({
+            icon: 'success',
+            title: 'Success! သင့်ကံစမ်းမှုအောင်မြင်ပါသည် ! သိန်းထီးဆုကြီးပေါက်ပါစေ',
+            text: '{{ session('
+            SuccessRequest ') }}',
+            timer: 3000,
+            showConfirmButton: false
+        });
+        @endif
+    });
+</script>
+
+
+
 <script>
     $('#morning').click(function() {
         $('#morning').addClass('shadow');

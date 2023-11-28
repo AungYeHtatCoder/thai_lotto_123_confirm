@@ -6,7 +6,7 @@
  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
  <title>Thailotto123</title>
  <link rel="stylesheet" href="{{ asset('user_app/assets/css/style.css')}}" />
- <link rel="stylesheet" href="{{ asset('user_app/assets/images/logo.jpg') }}" />
+ <link rel="icon" href="{{ asset('assets/img/logo.png') }}" />
  <!-- Bootstrap 5 CSS -->
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
   integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
