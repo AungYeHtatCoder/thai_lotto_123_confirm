@@ -129,7 +129,7 @@
                 <div class="d-flex justify-content-center mt-3 px-2 py-3" style="background: linear-gradient(90deg, #428387, #336876, #265166 100%); border-radius:10px;
                 ">
                   <a href="{{ url('/admin/morning-play-two-d') }}" class="btn remove-btn me-2">ဖျက်မည်</a>
-                  <button type="submit" class="btn play-btn">ထိုးမည်</button>
+                  <a href="{{ url('/twod_play_confirm') }}" class="btn play-btn">ထိုးမည်</a>
                 </div>
               </div>
             </div>
