@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin\Currency;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Admin\Lottery;
@@ -56,11 +57,13 @@ class HomeController extends Controller
         $playedMorningTwoDigits = User::getUserMorningTwoDigits($userId);
         $playedEarlyEveningTwoDigits = User::getUserEarlyEveningTwoDigits($userId);
         $playedEveningTwoDigits = User::getUserEveningTwoDigits($userId);
+        $currency = Currency::latest()->first();
         return view('frontend.user_profile', [
             'earlymorningDigits' => $playedearlyMorningTwoDigits,
             'morningDigits' => $playedMorningTwoDigits,
             'earlyeveningDigit' => $playedEarlyEveningTwoDigits,
             'eveningDigits' => $playedEveningTwoDigits,
+            'currency' => $currency,
         ]);
     }
 }

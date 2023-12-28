@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Admin\Currency;
 use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Support\Str;
@@ -26,12 +27,14 @@ class ProfileController extends Controller
     {
         if (auth()->user()->hasRole('Admin')) {
             $user = User::find(Auth::user()->id);
-            return view('admin.profile.admin_profile', compact('user'));
+            $currency = Currency::latest()->first();
+            return view('admin.profile.admin_profile', compact('user', 'currency'));
 
-    } else {
-            $user = User::find(Auth::user()->id);
-            return view('admin.profile.user_profile', compact('user'));
-    }
+        } else {
+                $user = User::find(Auth::user()->id);
+                $currency = Currency::latest()->first();
+                return view('frontend.user_profile', compact('user', 'currency'));
+        }
         //return view('admin.profile.index');
     }
     //UserProfile
@@ -39,7 +42,8 @@ class ProfileController extends Controller
     {
         if (auth()->user()->hasRole('Admin')) {
             $user = User::find(Auth::user()->id);
-            return view('admin.profile.admin_profile', compact('user'));
+            $currency = Currency::latest()->first();
+            return view('admin.profile.admin_profile', compact('user', 'currency'));
 
     } else {
             $user = User::find(Auth::user()->id);
@@ -80,44 +84,27 @@ class ProfileController extends Controller
     }
 
 
-    public function update(UserRequest $request, User $profile)
+    public function update(UserRequest $request, User $user)
     {
-    $data = $request->validated();
-
-    // Check if a new profile image has been uploaded
-    $newImage = $request->file('profile');
-    
-    if ($newImage) {
-       // $main_folder = 'profile_images/';
-        $main_folder = 'profile_image/' . Str::random();
-        $filename = $newImage->getClientOriginalName();
-
-        // Store the new image with specified visibility settings
-        $path = Storage::putFileAs('public/'.
-            $main_folder, 
-            $newImage, 
-            $filename,
-            [
-                'visibility' => 'public',
-                'directory_visibility' => 'public'
-            ]
-        );
-
-        $data['profile'] = URL::to(Storage::url($path));
-        $data['profile_mime'] = $newImage->getClientMimeType();
-        $data['profile_size'] = $newImage->getSize();
-        
-        // If there is an old image, delete it
-        if ($profile->profile) {
-            $oldImagePath = str_replace(URL::to('/'), '', $profile->profile);
-            Storage::delete($oldImagePath);
+        $request->validate([
+            'profile' => 'required|image'
+        ]);
+        if(Auth::user()->profile){
+            //remove banner from localstorage
+            File::delete(public_path('assets/img/profile/' . $user->profile));
         }
+        // image
+        $image = $request->file('profile');
+        $ext = $image->getClientOriginalExtension();
+        $filename = uniqid('profile') . '.' . $ext; // Generate a unique filename
+        $image->move(public_path('assets/img/profile/'), $filename); // Save the file
+        
+        Auth::user()->update([
+            'profile' => $filename,
+        ]);
+        
+        return redirect()->back()->with('toast_success', 'Profile updated successfully');
     }
-
-    $profile->update($data);
-
-    return redirect()->back()->with('toast_success', 'Profile updated successfully');
-}
 // new password change function
     public function newPassword(Request $request)
     {

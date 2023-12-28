@@ -15,27 +15,27 @@ class UsersTableSeeder extends Seeder
     {
         $users = [
             [
-                'id'             => 1,
                 'name'           => 'Admin | NanDaAung',
-                'email'          => 'delight@gmail.com',
+                'country_code' => "+95",
+                'phone'          => '0911111111',
                 'password'       => '$2y$10$qyxYm.2dlaXROvs0OrGHseo4qbeissRMqNWdhlcr/vUqE62vN94Fi', // password
                 'remember_token' => null,
                 'created_at'     => '2019-09-10 14:00:26',
                 'updated_at'     => '2019-09-10 14:00:26',
             ],
             [
-                'id'             => 2,
                 'name'           => 'Aung Myo Kyaw',
-                'email'          => 'user@gmail.com',
+                'country_code' => "+95",
+                'phone'          => '0922222222',
                 'password'       => '$2y$10$qyxYm.2dlaXROvs0OrGHseo4qbeissRMqNWdhlcr/vUqE62vN94Fi', // password
                 'remember_token' => null,
                 'created_at'     => '2023-08-14 14:00:26',
                 'updated_at'     => '2023-08-14 14:00:26',
             ],
             [
-                'id'             => 3,
                 'name'           => 'Customer',
-                'email'          => 'customer@gmail.com',
+                'country_code' => "+95",
+                'phone'          => '0933333333',
                 'password'       => '$2y$10$qyxYm.2dlaXROvs0OrGHseo4qbeissRMqNWdhlcr/vUqE62vN94Fi', // password
                 'remember_token' => null,
                 'created_at'     => '2023-08-14 14:00:26',
@@ -43,26 +43,27 @@ class UsersTableSeeder extends Seeder
             ],
             
             [
-                'id'             => 4,
                 'name'           => 'Super Admin',
-                'email'          => 'superadmin@gmail.com',
+                'country_code' => "+95",
+                'phone'          => '0911111112',
                 'password'       => '$2y$10$qyxYm.2dlaXROvs0OrGHseo4qbeissRMqNWdhlcr/vUqE62vN94Fi', // password
                 'remember_token' => null,
                 'created_at'     => '2023-08-14 14:00:26',
                 'updated_at'     => '2023-08-14 14:00:26',
             ],
             [
-                'id'             => 5,
                 'name'           => 'Super User',
-                'email'          => 'superuser@gmail.com',
+                'country_code' => "+95",
+                'phone'          => '0933333331',
                 'password'       => '$2y$10$qyxYm.2dlaXROvs0OrGHseo4qbeissRMqNWdhlcr/vUqE62vN94Fi', // password
                 'remember_token' => null,
                 'created_at'     => '2023-08-14 14:00:26',
                 'updated_at'     => '2023-08-14 14:00:26',
             ]
-
         ];
 
-        User::insert($users);
+        foreach ($users as $user) {
+            User::create($user);
+        }
     }
 }

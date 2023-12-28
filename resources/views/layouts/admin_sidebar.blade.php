@@ -2,7 +2,11 @@
   <ul class="navbar-nav">
     <li class="nav-item mb-2 mt-0">
       <a data-bs-toggle="collapse" href="#ProfileNav" class="nav-link text-white" aria-controls="ProfileNav" role="button" aria-expanded="false">
-        <img src="{{ Auth::user()->profile }}" class="avatar">
+        @if(Auth::user()->profile)
+        <img src="{{ Auth::user()->img_url }}" alt="bruce" class="rounded-circle shadow-sm" width="40px" height="40px">
+        @else
+        <i class="fas fa-user-circle fa-3x"></i>
+        @endif
         <span class="nav-link-text ms-2 ps-1">{{ Auth::user()->name }}</span>
       </a>
       <div class="collapse" id="ProfileNav">
@@ -15,23 +19,6 @@
             </a>
           </li>
           @endcan
-          {{-- <li class="nav-item">
-            <a class="nav-link text-white " href="../../pages/pages/profile/teams.html">
-              <span class="sidenav-mini-icon"> T </span>
-              <span class="sidenav-normal  ms-3  ps-1"> Teams </span>
-            </a>
-          {{-- <li class="nav-item">
-            <a class="nav-link text-white " href="../../pages/pages/account/settings.html">
-              <span class="sidenav-mini-icon"> S </span>
-              <span class="sidenav-normal  ms-3  ps-1"> Settings </span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white " href="../../pages/authentication/signin/basic.html">
-              <span class="sidenav-mini-icon"> L </span>
-              <span class="sidenav-normal  ms-3  ps-1"> Logout </span>
-            </a>
-          </li> --}}
         </ul>
       </div>
     </li>
@@ -51,30 +38,14 @@
             </a>
           </li>
           @endcan
-          {{-- <li class="nav-item ">
-            <a class="nav-link text-white " href="../../pages/dashboards/discover.html">
-              <span class="sidenav-mini-icon"> D </span>
-              <span class="sidenav-normal  ms-2  ps-1"> Discover </span>
+          @can('user_access')
+          <li class="nav-item ">
+            <a class="nav-link text-white " href="{{ route('admin.currency.index') }}">
+              <span class="sidenav-mini-icon"> <i class="fas fa-dollar"></i> </span>
+              <span class="sidenav-normal  ms-2  ps-1"> Currency </span>
             </a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link text-white " href="../../pages/dashboards/sales.html">
-              <span class="sidenav-mini-icon"> S </span>
-              <span class="sidenav-normal  ms-2  ps-1"> Sales </span>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link text-white " href="../../pages/dashboards/automotive.html">
-              <span class="sidenav-mini-icon"> A </span>
-              <span class="sidenav-normal  ms-2  ps-1"> Automotive </span>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link text-white " href="../../pages/dashboards/smart-home.html">
-              <span class="sidenav-mini-icon"> S </span>
-              <span class="sidenav-normal  ms-2  ps-1"> Smart Home </span>
-            </a>
-          </li> --}}
+          @endcan
         </ul>
       </div>
     </li>
@@ -82,7 +53,7 @@
       <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder text-white">UserManagement</h6>
     </li>
     <li class="nav-item">
-      <a data-bs-toggle="collapse" href="#pagesExamples" class="nav-link text-white active" aria-controls="pagesExamples" role="button" aria-expanded="false">
+      <a data-bs-toggle="collapse" href="#pagesExamples" class="nav-link text-white" aria-controls="pagesExamples" role="button" aria-expanded="false">
         <i class="material-icons-round {% if page.brand == 'RTL' %}ms-2{% else %} me-2{% endif %}">manage_accounts</i>
         <span class="nav-link-text ms-2 ps-1">UserManagement</span>
       </a>
@@ -122,148 +93,6 @@
               </ul>
             </div>
           </li>
-          <!-- <li class="nav-item ">
-      <a class="nav-link text-white " data-bs-toggle="collapse" aria-expanded="false" href="#usersExample">
-       <span class="sidenav-mini-icon"> U </span>
-       <span class="sidenav-normal  ms-2  ps-1"> Users <b class="caret"></b></span>
-      </a>
-      <div class="collapse " id="usersExample">
-       <ul class="nav nav-sm flex-column">
-        <li class="nav-item">
-         <a class="nav-link text-white " href="../../pages/pages/users/reports.html">
-          <span class="sidenav-mini-icon"> R </span>
-          <span class="sidenav-normal  ms-2  ps-1"> Reports </span>
-         </a>
-        </li>
-        <li class="nav-item">
-         <a class="nav-link text-white " href="../../pages/pages/users/new-user.html">
-          <span class="sidenav-mini-icon"> N </span>
-          <span class="sidenav-normal  ms-2  ps-1"> New User </span>
-         </a>
-        </li>
-       </ul>
-      </div>
-     </li> -->
-          <!-- <li class="nav-item ">
-      <a class="nav-link text-white " data-bs-toggle="collapse" aria-expanded="false" href="#accountExample">
-       <span class="sidenav-mini-icon"> A </span>
-       <span class="sidenav-normal  ms-2  ps-1"> Account <b class="caret"></b></span>
-      </a>
-      <div class="collapse " id="accountExample">
-       <ul class="nav nav-sm flex-column">
-        <li class="nav-item">
-         <a class="nav-link text-white " href="../../pages/pages/account/settings.html">
-          <span class="sidenav-mini-icon"> S </span>
-          <span class="sidenav-normal  ms-2  ps-1"> Settings </span>
-         </a>
-        </li>
-        <li class="nav-item">
-         <a class="nav-link text-white " href="../../pages/pages/account/billing.html">
-          <span class="sidenav-mini-icon"> B </span>
-          <span class="sidenav-normal  ms-2  ps-1"> Billing </span>
-         </a>
-        </li>
-        <li class="nav-item">
-         <a class="nav-link text-white " href="../../pages/pages/account/invoice.html">
-          <span class="sidenav-mini-icon"> I </span>
-          <span class="sidenav-normal  ms-2  ps-1"> Invoice </span>
-         </a>
-        </li>
-        <li class="nav-item">
-         <a class="nav-link text-white " href="../../pages/pages/account/security.html">
-          <span class="sidenav-mini-icon"> S </span>
-          <span class="sidenav-normal  ms-2  ps-1"> Security </span>
-         </a>
-        </li>
-       </ul>
-      </div>
-     </li>
-     <li class="nav-item ">
-      <a class="nav-link text-white " data-bs-toggle="collapse" aria-expanded="false" href="#projectsExample">
-       <span class="sidenav-mini-icon"> P </span>
-       <span class="sidenav-normal  ms-2  ps-1"> Projects <b class="caret"></b></span>
-      </a>
-      <div class="collapse " id="projectsExample">
-       <ul class="nav nav-sm flex-column">
-        <li class="nav-item">
-         <a class="nav-link text-white " href="../../pages/pages/projects/general.html">
-          <span class="sidenav-mini-icon"> G </span>
-          <span class="sidenav-normal  ms-2  ps-1"> General </span>
-         </a>
-        </li>
-        <li class="nav-item">
-         <a class="nav-link text-white " href="../../pages/pages/projects/timeline.html">
-          <span class="sidenav-mini-icon"> T </span>
-          <span class="sidenav-normal  ms-2  ps-1"> Timeline </span>
-         </a>
-        </li>
-        <li class="nav-item">
-         <a class="nav-link text-white " href="../../pages/pages/projects/new-project.html">
-          <span class="sidenav-mini-icon"> N </span>
-          <span class="sidenav-normal  ms-2  ps-1"> New Project </span>
-         </a>
-        </li>
-       </ul>
-      </div>
-     </li>
-     <li class="nav-item ">
-      <a class="nav-link text-white " data-bs-toggle="collapse" aria-expanded="false" href="#vrExamples">
-       <span class="sidenav-mini-icon"> V </span>
-       <span class="sidenav-normal  ms-2  ps-1"> Virtual Reality <b class="caret"></b></span>
-      </a>
-      <div class="collapse " id="vrExamples">
-       <ul class="nav nav-sm flex-column">
-        <li class="nav-item">
-         <a class="nav-link text-white " href="../../pages/pages/vr/vr-default.html">
-          <span class="sidenav-mini-icon"> V </span>
-          <span class="sidenav-normal  ms-2  ps-1"> VR Default </span>
-         </a>
-        </li>
-        <li class="nav-item">
-         <a class="nav-link text-white " href="../../pages/pages/vr/vr-info.html">
-          <span class="sidenav-mini-icon"> V </span>
-          <span class="sidenav-normal  ms-2  ps-1"> VR Info </span>
-         </a>
-        </li>
-       </ul>
-      </div>
-     </li>
-     <li class="nav-item ">
-      <a class="nav-link text-white " href="../../pages/pages/pricing-page.html">
-       <span class="sidenav-mini-icon"> P </span>
-       <span class="sidenav-normal  ms-2  ps-1"> Pricing Page </span>
-      </a>
-     </li>
-     <li class="nav-item ">
-      <a class="nav-link text-white " href="../../pages/pages/rtl-page.html">
-       <span class="sidenav-mini-icon"> R </span>
-       <span class="sidenav-normal  ms-2  ps-1"> RTL </span>
-      </a>
-     </li>
-     <li class="nav-item ">
-      <a class="nav-link text-white " href="../../pages/pages/widgets.html">
-       <span class="sidenav-mini-icon"> W </span>
-       <span class="sidenav-normal  ms-2  ps-1"> Widgets </span>
-      </a>
-     </li>
-     <li class="nav-item active">
-      <a class="nav-link text-white active" href="../../pages/pages/charts.html">
-       <span class="sidenav-mini-icon"> C </span>
-       <span class="sidenav-normal  ms-2  ps-1"> Charts </span>
-      </a>
-     </li>
-     <li class="nav-item ">
-      <a class="nav-link text-white " href="../../pages/pages/sweet-alerts.html">
-       <span class="sidenav-mini-icon"> S </span>
-       <span class="sidenav-normal  ms-2  ps-1"> Sweet Alerts </span>
-      </a>
-     </li>
-     <li class="nav-item ">
-      <a class="nav-link text-white " href="../../pages/pages/notifications.html">
-       <span class="sidenav-mini-icon"> N </span>
-       <span class="sidenav-normal  ms-2  ps-1"> Notifications </span>
-      </a>
-     </li> -->
         </ul>
       </div>
     </li>
@@ -481,37 +310,13 @@
     </ul>
    </div>
   </li>
-
-    <li class="nav-item">
-      <a data-bs-toggle="collapse" href="#authExamples" class="nav-link text-white " aria-controls="authExamples" role="button" aria-expanded="false">
-        <i class="material-icons-round {% if page.brand == 'RTL' %}ms-2{% else %} me-2{% endif %}">content_paste</i>
-        <span class="nav-link-text ms-2 ps-1">Authentication</span>
-      </a>
-      <div class="collapse " id="authExamples">
-        <ul class="nav ">
-          <li class="nav-item ">
-            <a class="nav-link text-white " data-bs-toggle="collapse" aria-expanded="false" href="#signinExample">
-              <span class="sidenav-mini-icon"> S </span>
-              <span class="sidenav-normal  ms-2  ps-1"> Account Logout <b class="caret"></b></span>
-            </a>
-            <div class="collapse " id="signinExample">
-              <ul class="nav nav-sm flex-column">
-                
-                <li class="nav-item">
-                  <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="nav-link text-white">
-                    <span class="sidenav-mini-icon"> L </span>
-                    <span class="sidenav-normal ms-2 ps-1">Logout</span>
-                  </a>
-                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                  </form>
-                  
-                </li>
-                
-                
-              </ul>
-            </div>
-          </li>
-          
-        </ul>
-      </div>
+  <li class="nav-item">
+    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="nav-link text-white">
+      <span class="sidenav-mini-icon"> <i class="fas fa-right-from-bracket"></i> </span>
+      <span class="sidenav-normal ms-2 ps-1">Logout</span>
+    </a>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+      @csrf
+    </form>
+  </li>
+</ul>

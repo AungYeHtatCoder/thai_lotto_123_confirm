@@ -16,7 +16,7 @@
     <div class="col-lg-4 col-md-6 offset-lg-4 offset-md-3 mt-5 py-4" style="background-color: #b6c5d8;">
         <div class="text-center py-3">
             @if (Auth::user()->profile)
-            <img src="{{ Auth::user()->profile }}" class="me-3 rounded-circle border border-1 border-success" width="90px" alt="">
+            <img src="{{ Auth::user()->img_url }}" class="me-3 rounded-circle border border-1 border-success" width="90px" alt="">
             @else
             <i class="fas fa-user-circle profile-icon d-block me-3"></i>
             @endif
@@ -37,8 +37,18 @@
                 </div>
             </div>
             <div>
+
                 <p class="mb-0" style="color:#009382; font-weight:700;">လက်ကျန်ငွေ</p>
-                <p class="mt-0 mb-0" style="color:#009382; font-weight:700;">{{ Auth::user()->balance }} kyats</p>
+                <div class="d-flex">
+                    <img src="{{ asset('assets/img/mmflag.png') }}" width="40px" alt="" class="d-block m-1 border border-3 border-success" id="mmk" style="cursor: pointer;">
+                    <img src="{{ asset('assets/img/thai.webp') }}" width="40px" alt="" class="d-block m-1" id="baht" style="cursor: pointer;">
+                </div>
+                <p class="mt-0 mb-0 mmk" style="color:#009382; font-weight:700;">{{ number_format(Auth::user()->balance) }} MMK</p>
+                @php
+                    $balance = Auth::user()->balance;
+                    $balance_baht = $balance / $currency->rate;
+                @endphp
+                <p class="mt-0 mb-0 baht d-none" style="color:#009382; font-weight:700;">{{ number_format($balance_baht) }} BAHT</p>
                 <div class="dropstart my-2">
                     <button class="btn btn-sm btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">အကောင့် ပြင်ဆင်ရန်
                     </button>
@@ -357,9 +367,26 @@
 
 @section('script')
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#mmk').click(function(){
+            $('#mmk').addClass(['border', 'border-3', 'border-success'])
+            $('#baht').removeClass(['border', 'border-3', 'border-success'])
 
+            $('.mmk').removeClass('d-none')
+            $('.baht').addClass('d-none')
+        })
+        $('#baht').click(function(){
+            $('#mmk').removeClass(['border', 'border-3', 'border-success'])
+            $('#baht').addClass(['border', 'border-3', 'border-success'])
+
+            $('.mmk').addClass('d-none')
+            $('.baht').removeClass('d-none')
+        })
+    })
+</script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         @if(session('SuccessRequest'))
