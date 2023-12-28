@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
             //TwoDLotteryPlaySeeder::class,
             //ThreeDigitsTableSeeder::class,
             ThreedMatchTimesTableSeeder::class,
-            
+            CountryCodeSeeder::class,
         ]);
     }
 }
