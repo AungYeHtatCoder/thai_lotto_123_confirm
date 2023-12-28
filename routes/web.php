@@ -22,10 +22,10 @@ use App\Http\Controllers\Admin\FillBalanceReplyController;
 use App\Http\Controllers\Admin\TwoDEveningWinnerController;
 use App\Http\Controllers\Admin\TwoDWinnerHistoryController;
 
-// Route::get('/', function () {
-//     return view('two_d.api_test');
-// });
+
 Auth::routes();
+
+require __DIR__.'/auth.php';
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/user-profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('home');
