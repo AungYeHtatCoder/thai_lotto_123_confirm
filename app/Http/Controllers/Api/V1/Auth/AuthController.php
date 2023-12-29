@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\V1\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthApi\LoginRequest;
 use App\Http\Requests\AuthApi\RegisterRequest;
+use App\Models\Admin\CountryCode;
+use App\Models\Admin\Currency;
 use App\Models\User;
 use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
@@ -27,6 +29,14 @@ class AuthController extends Controller
         } else {
             return $this->error("", "Credentials do not match!", 401);
         }
+    }
+
+    public function loginData()
+    {
+        $country_codes = CountryCode::all();
+        return $this->success([
+            'country_codes' => $country_codes,
+        ]);
     }
 
     public function register(RegisterRequest $request){
@@ -55,6 +65,10 @@ class AuthController extends Controller
     
     public function profile()
     {
-        return $this->success(Auth::user());
+        $rate = Currency::latest()->first()->rate;
+        return $this->success([
+            "user" => Auth::user(),
+            "currency_rate" => $rate
+        ]);
     }
 }
