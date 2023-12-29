@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthApi\PasswordRequest;
 use App\Http\Requests\AuthApi\ProfileRequest;
 use App\Models\Admin\Currency;
+use App\Rules\PasswordCheck;
 use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -53,7 +54,10 @@ class ProfileController extends Controller
 
     public function changePassword(PasswordRequest $request)
     {
-        $request->validated($request->all());
+        $request->validate([
+            'old_password' => ['required', new PasswordCheck()],
+            'password' => 'required|min:6',
+        ]);
         $user = Auth::user();
         if(Hash::check($request->old_password, $user->password)){
             $user->update([
