@@ -116,16 +116,16 @@
    <div class="modal-body">
     <div class="modal-btn mt-2">
       @if ($lottery_matches->is_active == 1)
-     <a href="{{ route('admin.MorningPlayTwoDigit')}}" class="text-decoration-none btn">9:30 AM</a>
+     <a href="{{ url('/user/two-d-play-index-simple') }}" class="text-decoration-none btn">9:30 AM</a>
     </div>
     <div class="modal-btn mt-2">
-     <a href="{{ route('admin.MorningPlayTwoDigit')}}" class="text-decoration-none btn">12:00 AM</a>
+     <a href="{{ url('/user/two-d-play-index-12pm') }}" class="text-decoration-none btn">12:00 AM</a>
     </div>
     <div class="modal-btn mt-2">
-     <a href="{{ route('admin.EveningPlayTwoDigit')}}" class="text-decoration-none btn">2:00 AM</a>
+     <a href="{{ url('/user/two-d-play-index-2pm') }}" class="text-decoration-none btn">2:00 AM</a>
     </div>
     <div class="modal-btn mt-2">
-     <a href="{{ route('admin.EveningPlayTwoDigit')}}" class="text-decoration-none btn">4:30 PM</a>
+     <a href="{{ url('/user/two-d-play-index-4pm') }}" class="text-decoration-none btn">4:30 PM</a>
      @else
           <div class="text-center p-4">
             <h4>ပွဲချိန်ခေတ္တ ပိတ်ထားပါသည် </h4>

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\User\WalletController;
+use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\User\WelcomeController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\User\WithDrawController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\TwoDWinnerController;
 use App\Http\Controllers\Admin\FillBalanceController;
 use App\Http\Controllers\Admin\TwoDLotteryController;
+use App\Http\Controllers\Admin\TwoDMorningController;
 use App\Http\Controllers\Admin\ThreedHistoryController;
 use App\Http\Controllers\User\ChangePasswordController;
 use App\Http\Controllers\Admin\ThreedMatchTimeController;
@@ -25,6 +27,7 @@ use App\Http\Controllers\Admin\TwoDWinnerHistoryController;
 // Route::get('/', function () {
 //     return view('two_d.api_test');
 // });
+require __DIR__ . '/two_d_play.php';
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -56,14 +59,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
   Route::put('/change-phone-address', [ProfileController::class, 'PhoneAddressChange'])->name('changePhoneAddress');
   Route::put('/change-kpay-no', [ProfileController::class, 'KpayNoChange'])->name('changeKpayNo');
   Route::put('/change-join-date', [ProfileController::class, 'JoinDate'])->name('addJoinDate');
-  Route::resource('play-twod', PlayTwoDController::class);
-  Route::get('/get-two-d', [App\Http\Controllers\Admin\TwoDPlayController::class, 'GetTwoDigit'])->name('GetTwoDigit');
-  Route::post('lotteries-two-d-play', [TwoDigitController::class, 'store'])->name('StorePlayTwoD');
-  Route::get('/morning-play-two-d', [App\Http\Controllers\Admin\TwoDPlayController::class, 'MorningPlayTwoDigit'])->name('MorningPlayTwoDigit');
+//   Route::resource('play-twod', PlayTwoDController::class);
+//   Route::get('/get-two-d', [App\Http\Controllers\Admin\TwoDPlayController::class, 'GetTwoDigit'])->name('GetTwoDigit');
+//   Route::post('lotteries-two-d-play', [TwoDigitController::class, 'store'])->name('StorePlayTwoD');
+//   Route::get('/morning-play-two-d', [App\Http\Controllers\Admin\TwoDPlayController::class, 'MorningPlayTwoDigit'])->name('MorningPlayTwoDigit');
 
-  Route::get('/evening-play-two-d', [App\Http\Controllers\Admin\TwoDPlayController::class, 'EveningPlayTwoDigit'])->name('EveningPlayTwoDigit');
+//   Route::get('/evening-play-two-d', [App\Http\Controllers\Admin\TwoDPlayController::class, 'EveningPlayTwoDigit'])->name('EveningPlayTwoDigit');
 
-  Route::post('lotteries-two-d-play', [TwoDigitController::class, 'store'])->name('StorePlayTwoD');
+//   Route::post('lotteries-two-d-play', [TwoDigitController::class, 'store'])->name('StorePlayTwoD');
 
   Route::get('/get-three-d', [App\Http\Controllers\Admin\ThreeDPlayController::class, 'GetThreeDigit'])->name('GetThreeDigit');
   Route::get('/three-d-play', [App\Http\Controllers\Admin\ThreeDPlayController::class, 'ThreeDigitPlay'])->name('ThreeDigitPlay');
@@ -75,7 +78,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
   //Route::resource('two-d-lotteries', TwoDigitController::class);
   //Route::get('/two-d-lotteries', [App\Http\Controllers\Admin\TwoDigitController::class, 'index'])->name('GetTwoDigit');
 
-  Route::post('/two-d-play', [App\Http\Controllers\Admin\TwoDPlayController::class, 'store'])->name('two-d-play.store');
+//   Route::post('/two-d-play', [App\Http\Controllers\Admin\TwoDPlayController::class, 'store'])->name('two-d-play.store');
 
   Route::get('/quick-morning-play-two-d', [App\Http\Controllers\Admin\TwoDPlayController::class, 'QuickMorningPlayTwoDigit'])->name('QuickMorningPlayTwoDigit');
   Route::get('/quick-odd-morning-play-two-d', [App\Http\Controllers\Admin\TwoDPlayController::class, 'QuickOddMorningPlayTwoDigit'])->name('QuickOddMorningPlayTwoDigit');
@@ -85,6 +88,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
 
   Route::get('/quick-even-same-morning-play-two-d', [App\Http\Controllers\Admin\TwoDPlayController::class, 'QuickEvenSameMorningPlayTwoDigit'])->name('QuickEvenSameMorningPlayTwoDigit');
   Route::post('/quick-two-d-play', [App\Http\Controllers\Admin\TwoDPlayController::class, 'Quickstore'])->name('Quickstore');
+
   Route::get('/two-d-play-noti', [App\Http\Controllers\Admin\GetNotificationTwoDPlayUserController::class, 'index'])->name('two-d-play-noti');
   Route::post('/two-d-play-noti-mark-as-read', [App\Http\Controllers\Admin\GetNotificationTwoDPlayUserController::class, 'playTwoDmarkNotification'])->name('playTwoDmarkNotification');
 
