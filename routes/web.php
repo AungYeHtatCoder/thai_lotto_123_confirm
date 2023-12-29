@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\CurrencyController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\RolesController;
@@ -22,13 +24,12 @@ use App\Http\Controllers\User\ChangePasswordController;
 use App\Http\Controllers\Admin\ThreedMatchTimeController;
 use App\Http\Controllers\Admin\FillBalanceReplyController;
 use App\Http\Controllers\Admin\TwoDEveningWinnerController;
+use App\Http\Controllers\Admin\TwoDMorningController;
 use App\Http\Controllers\Admin\TwoDWinnerHistoryController;
 
-// Route::get('/', function () {
-//     return view('two_d.api_test');
-// });
-require __DIR__ . '/two_d_play.php';
 Auth::routes();
+
+require __DIR__.'/auth.php';
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/user-profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('home');
@@ -51,6 +52,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
   Route::get('/two-d-users/{id}', [App\Http\Controllers\Admin\TwoUsersController::class, 'show'])->name('two-d-users-details');
   //Banners
   Route::resource('banners', BannerController::class);
+  //Currency
+  Route::resource('currency', CurrencyController::class);
   // profile resource rotues
   Route::resource('profiles', ProfileController::class);
   // user profile route get method
@@ -313,8 +316,8 @@ Route::get('/user-dashboard/myBank', [App\Http\Controllers\User\WelcomeControlle
 Route::get('/user-dashboard/inviteCode', [App\Http\Controllers\User\WelcomeController::class, 'inviteCode']);
 Route::get('/user-dashboard/comment', [App\Http\Controllers\User\WelcomeController::class, 'comment']);
 Route::get('/user-dashboard/changePassword', [App\Http\Controllers\User\WelcomeController::class, 'changePassword']);
-Route::get('/register', [App\Http\Controllers\User\WelcomeController::class, 'userRegister'])->name('register');
-Route::get('/login', [App\Http\Controllers\User\WelcomeController::class, 'userLogin'])->name('login');
+// Route::get('/register', [App\Http\Controllers\User\WelcomeController::class, 'userRegister'])->name('register');
+// Route::get('/login', [App\Http\Controllers\User\WelcomeController::class, 'userLogin'])->name('login');
 Route::get('/user-profile', [App\Http\Controllers\User\WelcomeController::class, 'userProfile']);
 Route::get('/threeD', [App\Http\Controllers\User\WelcomeController::class, 'threeD']);
 Route::get('/threed-bet', [App\Http\Controllers\User\WelcomeController::class, 'threedBet']);

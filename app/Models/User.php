@@ -30,22 +30,19 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'country_code',
+        'phone',
         'profile',
         'email',
         'password',
-        'profile',
-        'profile_mime',
-        'profile_size',
-        'phone',
         'address',
         'kpay_no',
         'cbpay_no',
         'wavepay_no',
         'ayapay_no',
         'balance',
-        
     ];
-    protected $dates = ['created_at', 'updated_at'];
+    protected $appends = ['img_url'];
 
 
     /**
@@ -169,66 +166,69 @@ public function twodWiners()
 }
 
     public static function getUserMorningTwoDigits($userId) {
-    $morningTwoDigits = Lottery::where('user_id', $userId)
-                               ->with('twoDigitsMorning')
-                               ->get()
-                               ->pluck('twoDigitsMorning')
-                               ->collapse(); // Collapse the collection to a single dimension
+        $morningTwoDigits = Lottery::where('user_id', $userId)
+                                ->with('twoDigitsMorning')
+                                ->get()
+                                ->pluck('twoDigitsMorning')
+                                ->collapse(); // Collapse the collection to a single dimension
 
-    // Sum the sub_amount from the pivot table
-    $totalAmount = $morningTwoDigits->sum(function ($twoDigit) {
-        return $twoDigit->pivot->sub_amount;
-    });
+        // Sum the sub_amount from the pivot table
+        $totalAmount = $morningTwoDigits->sum(function ($twoDigit) {
+            return $twoDigit->pivot->sub_amount;
+        });
 
-    return [
-        'two_digits' => $morningTwoDigits,
-        'total_amount' => $totalAmount
-    ];
-}
+        return [
+            'two_digits' => $morningTwoDigits,
+            'total_amount' => $totalAmount
+        ];
+    }
 
-public static function getUserEarlyEveningTwoDigits($userId) {
-    $morningTwoDigits = Lottery::where('user_id', $userId)
-                               ->with('twoDigitsEarlyEvening')
-                               ->get()
-                               ->pluck('twoDigitsEarlyEvening')
-                               ->collapse(); // Collapse the collection to a single dimension
+    public static function getUserEarlyEveningTwoDigits($userId) {
+        $morningTwoDigits = Lottery::where('user_id', $userId)
+                                ->with('twoDigitsEarlyEvening')
+                                ->get()
+                                ->pluck('twoDigitsEarlyEvening')
+                                ->collapse(); // Collapse the collection to a single dimension
 
-    // Sum the sub_amount from the pivot table
-    $totalAmount = $morningTwoDigits->sum(function ($twoDigit) {
-        return $twoDigit->pivot->sub_amount;
-    });
+        // Sum the sub_amount from the pivot table
+        $totalAmount = $morningTwoDigits->sum(function ($twoDigit) {
+            return $twoDigit->pivot->sub_amount;
+        });
 
-    return [
-        'two_digits' => $morningTwoDigits,
-        'total_amount' => $totalAmount
-    ];
-}
-
-
-public static function getUserEveningTwoDigits($userId) {
-    $morningTwoDigits = Lottery::where('user_id', $userId)
-                               ->with('twoDigitsEvening')
-                               ->get()
-                               ->pluck('twoDigitsEvening')
-                               ->collapse(); // Collapse the collection to a single dimension
-
-    // Sum the sub_amount from the pivot table
-    $totalAmount = $morningTwoDigits->sum(function ($twoDigit) {
-        return $twoDigit->pivot->sub_amount;
-    });
-
-    return [
-        'two_digits' => $morningTwoDigits,
-        'total_amount' => $totalAmount
-    ];
-}
-
-// three d
-public function betLotteries()
-{
-    return $this->hasMany(BetLottery::class);
-}
+        return [
+            'two_digits' => $morningTwoDigits,
+            'total_amount' => $totalAmount
+        ];
+    }
 
 
+    public static function getUserEveningTwoDigits($userId) {
+        $morningTwoDigits = Lottery::where('user_id', $userId)
+                                ->with('twoDigitsEvening')
+                                ->get()
+                                ->pluck('twoDigitsEvening')
+                                ->collapse(); // Collapse the collection to a single dimension
+
+        // Sum the sub_amount from the pivot table
+        $totalAmount = $morningTwoDigits->sum(function ($twoDigit) {
+            return $twoDigit->pivot->sub_amount;
+        });
+
+        return [
+            'two_digits' => $morningTwoDigits,
+            'total_amount' => $totalAmount
+        ];
+    }
+
+    // three d
+    public function betLotteries()
+    {
+        return $this->hasMany(BetLottery::class);
+    }
+
+    public function getImgUrlAttribute()
+    {
+        return asset('assets/img/profile/' . $this->profile);
+    }
 
 }
