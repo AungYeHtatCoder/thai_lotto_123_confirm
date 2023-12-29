@@ -62,6 +62,10 @@ class ProfileController extends Controller
             return $this->success([
                 "message" => "Password changed successfully",
             ]);
+        }else{
+            return $this->error([
+                "message" => "Old password does not match",
+            ], 401);
         }
     }
 }
