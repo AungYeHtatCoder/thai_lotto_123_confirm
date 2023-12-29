@@ -62,10 +62,6 @@ class ProfileController extends Controller
             return $this->success([
                 "message" => "Password changed successfully",
             ]);
-        }else{
-            return response()->json([
-                "message" => "Old password is incorrect!",
-            ], 401);
         }
     }
 }
