@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthApi\LoginRequest;
 use App\Http\Requests\AuthApi\RegisterRequest;
 use App\Models\Admin\CountryCode;
-use App\Models\Admin\Currency;
 use App\Models\User;
 use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
@@ -39,7 +38,8 @@ class AuthController extends Controller
         ]);
     }
 
-    public function register(RegisterRequest $request){
+    public function register(RegisterRequest $request)
+    {
         $request->validated($request->all());
 
         $user = User::create([
@@ -60,15 +60,6 @@ class AuthController extends Controller
         Auth::user()->currentAccessToken()->delete(); 
         return $this->success([
             'message' => 'Logged out successfully.'
-        ]);
-    }
-    
-    public function profile()
-    {
-        $rate = Currency::latest()->first()->rate;
-        return $this->success([
-            "user" => Auth::user(),
-            "currency_rate" => $rate
         ]);
     }
 }

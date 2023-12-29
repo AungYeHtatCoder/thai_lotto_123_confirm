@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\Auth\AuthController;
+use App\Http\Controllers\Api\V1\Auth\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +14,12 @@ Route::post('/register', [AuthController::class, 'register']);
 //protected routes
 Route::group(["middleware" => ['auth:sanctum']], function(){
     Route::post('/logout', [AuthController::class, 'logout']);
-    Route::get('/profile', [AuthController::class, 'profile']);
+    
+    //profile management
+    Route::get('/profile', [ProfileController::class, 'profile']);
+    Route::post('/profile', [ProfileController::class, 'updateProfile']);
+
+
+    
     
 });
