@@ -22,9 +22,9 @@ class ProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'profile' => ['string', 'image'],
-            'name' => ['string'],
-            'phone' => ['string', 'unique:users,phone'],
+            'profile' => 'image',
+            'name' => 'nullable',
+            'phone' => 'unique:users,phone',
         ];
     }
 }
