@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Api\V1\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AuthApi\PasswordRequest;
 use App\Http\Requests\AuthApi\ProfileRequest;
 use App\Models\Admin\Currency;
 use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -47,5 +49,23 @@ class ProfileController extends Controller
         return $this->success([
             "message" => "Profile updated successfully",
         ]);
+    }
+
+    public function changePassword(PasswordRequest $request)
+    {
+        $request->validated($request->all());
+        $user = Auth::user();
+        if(Hash::check($request->old_password, $user->password)){
+            $user->update([
+                "password" => Hash::make($request->password),
+            ]);
+            return $this->success([
+                "message" => "Password changed successfully",
+            ]);
+        }else{
+            return $this->error([
+                "message" => "Old password is incorrect!",
+            ], 401);
+        }
     }
 }
