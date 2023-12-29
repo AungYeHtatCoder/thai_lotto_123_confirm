@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 
 //publish routes
+Route::get('/login', [AuthController::class, 'loginData']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 
