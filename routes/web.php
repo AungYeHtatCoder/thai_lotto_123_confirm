@@ -1,17 +1,18 @@
 <?php
 
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\BannerTextController;
 use App\Http\Controllers\Admin\CurrencyController;
+use App\Http\Controllers\Admin\GameController;
+use App\Http\Controllers\Admin\PromotionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\User\WalletController;
-use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\User\WelcomeController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\User\WithDrawController;
-use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\PlayTwoDController;
 use App\Http\Controllers\Admin\TwoDigitController;
 use App\Http\Controllers\User\UserWalletController;
