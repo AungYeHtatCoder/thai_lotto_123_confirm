@@ -25,10 +25,10 @@ use App\Http\Controllers\Admin\FillBalanceReplyController;
 use App\Http\Controllers\Admin\TwoDEveningWinnerController;
 use App\Http\Controllers\Admin\TwoDWinnerHistoryController;
 
-require __DIR__.'/two_d_play.php';
 Auth::routes();
 
 require __DIR__.'/auth.php';
+require __DIR__.'/two_d_play.php';
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/user-profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('home');
