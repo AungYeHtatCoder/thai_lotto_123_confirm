@@ -37,12 +37,28 @@
               <span class="sidenav-normal  ms-2  ps-1"> Banner </span>
             </a>
           </li>
-          @endcan
-          @can('user_access')
           <li class="nav-item ">
             <a class="nav-link text-white " href="{{ route('admin.currency.index') }}">
               <span class="sidenav-mini-icon"> <i class="fas fa-dollar"></i> </span>
               <span class="sidenav-normal  ms-2  ps-1"> Currency </span>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link text-white " href="{{ route('admin.games.index') }}">
+              <span class="sidenav-mini-icon"> <i class="fa-solid fa-gamepad"></i> </span>
+              <span class="sidenav-normal  ms-2  ps-1"> Game Links </span>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link text-white " href="{{ route('admin.text.index') }}">
+              <span class="sidenav-mini-icon"> <i class="fa-solid fa-bullhorn"></i> </span>
+              <span class="sidenav-normal  ms-2  ps-1"> Banner Text </span>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link text-white " href="{{ route('admin.promotions.index') }}">
+              <span class="sidenav-mini-icon"> <i class="fas fa-gift"></i> </span>
+              <span class="sidenav-normal  ms-2  ps-1"> Promotions </span>
             </a>
           </li>
           @endcan

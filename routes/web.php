@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\CurrencyController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\RolesController;
@@ -56,6 +58,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
   Route::get('/two-d-users/{id}', [App\Http\Controllers\Admin\TwoUsersController::class, 'show'])->name('two-d-users-details');
   //Banners
   Route::resource('banners', BannerController::class);
+  Route::resource('text', BannerTextController::class);
+  Route::resource('games', GameController::class);
+  Route::resource('/promotions', PromotionController::class);
   //Currency
   Route::resource('currency', CurrencyController::class);
   // profile resource rotues

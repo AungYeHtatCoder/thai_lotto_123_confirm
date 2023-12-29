@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Controllers\Api\V1\Auth\ProfileController;
+use App\Http\Controllers\Api\V1\Frontend\HomeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,8 @@ Route::group(["middleware" => ['auth:sanctum']], function(){
     Route::post('/profile', [ProfileController::class, 'updateProfile']);
     Route::post('/profile/changePassword', [ProfileController::class, 'changePassword']);
 
+    //Home Routes
+    Route::get('/', [HomeController::class, 'index']);
 
     
     
