@@ -94,7 +94,7 @@
         </div>
 
         <div class="d-flex justify-content-around mt-3">
-              <a href="{{ route('admin.GetTwoDigit') }}" class="buttons mb-5" style="font-size:30px; font-weight: 600;">2D</a>
+              <a href="{{ url('/user/two-d-play-index') }}" class="buttons mb-5" style="font-size:30px; font-weight: 600;">2D</a>
               <a href="{{ url('/user/get-three-d') }}" class="buttons mb-5" style="font-size:30px; font-weight: 600;">3D</a>
         </div>
 
