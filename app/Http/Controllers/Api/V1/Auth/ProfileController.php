@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Api\V1\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthApi\ProfileRequest;
 use App\Models\Admin\Currency;
+use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
 class ProfileController extends Controller
 {
+    use HttpResponses;
     public function profile()
     {
         $rate = Currency::latest()->first()->rate;
