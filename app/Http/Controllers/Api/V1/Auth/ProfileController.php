@@ -27,15 +27,20 @@ class ProfileController extends Controller
         if($user->profile){
             File::delete(public_path('assets/img/profile/' . $user->profile));
         }
-        $image = $request->file('profile');
-        $ext = $image->getClientOriginalExtension();
-        $filename = uniqid('profile') . '.' . $ext;
-        $image->move(public_path('assets/img/profile/'), $filename);
+        if($request->hasFile('profile'))
+        {
+            $image = $request->file('profile');
+            $ext = $image->getClientOriginalExtension();
+            $filename = uniqid('profile') . '.' . $ext;
+            $image->move(public_path('assets/img/profile/'), $filename);
+        }else{
+            $filename = $user->profile;
+        }
 
         $user->update([
             "name" => $request->name ?? $user->name,
             "phone" => $request->phone ?? $user->phone,
-            "profile" => $filename ?? $user->profile,
+            "profile" => $filename,
         ]);
         return $this->success([
             "message" => "Profile updated successfully",
