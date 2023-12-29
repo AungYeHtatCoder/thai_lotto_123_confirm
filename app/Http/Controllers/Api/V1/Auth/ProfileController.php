@@ -35,7 +35,7 @@ class ProfileController extends Controller
         $user->update([
             "name" => $request->name ?? $user->name,
             "phone" => $request->phone ?? $user->phone,
-            "profile" => $filename,
+            "profile" => $filename ?? $user->profile,
         ]);
         return $this->success([
             "message" => "Profile updated successfully",
