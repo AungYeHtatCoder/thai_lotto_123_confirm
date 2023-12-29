@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\FillBalanceReplyController;
 use App\Http\Controllers\Admin\TwoDEveningWinnerController;
 use App\Http\Controllers\Admin\TwoDWinnerHistoryController;
 
+require __DIR__.'/two_d_play.php';
 Auth::routes();
 
 require __DIR__.'/auth.php';
