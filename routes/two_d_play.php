@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\User\WithDrawController;
+use App\Http\Controllers\User\UserWalletController;
 
 Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'App\Http\Controllers\User', 'middleware' => ['auth']], function () {
 
