@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             //ThreeDigitsTableSeeder::class,
             ThreedMatchTimesTableSeeder::class,
             CountryCodeSeeder::class,
+            CurrencySeeder::class,
         ]);
     }
 }
