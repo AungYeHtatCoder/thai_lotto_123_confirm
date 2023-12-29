@@ -21,7 +21,6 @@ use App\Http\Controllers\Admin\TwoDMorningController;
 use App\Http\Controllers\User\TwodPlayIndexController;
 use App\Http\Controllers\Admin\ThreedHistoryController;
 use App\Http\Controllers\User\ChangePasswordController;
-use App\Http\Controllers\User\AM9\TwoDplay9AMController;
 use App\Http\Controllers\User\PM2\TwodPlay2PMController;
 use App\Http\Controllers\User\PM4\TwodPlay4PMController;
 use App\Http\Controllers\Admin\ThreedMatchTimeController;
@@ -29,6 +28,7 @@ use App\Http\Controllers\Admin\FillBalanceReplyController;
 use App\Http\Controllers\User\PM12\TwodPlay12PMController;
 use App\Http\Controllers\Admin\TwoDEveningWinnerController;
 use App\Http\Controllers\Admin\TwoDWinnerHistoryController;
+use App\Http\Controllers\User\EarlyM\TwoDplay9AMController;
 
 Auth::routes();
 
