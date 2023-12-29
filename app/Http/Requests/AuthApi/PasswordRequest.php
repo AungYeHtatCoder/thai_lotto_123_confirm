@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\AuthApi;
 
+use App\Rules\PasswordCheck;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PasswordRequest extends FormRequest
@@ -22,7 +23,7 @@ class PasswordRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'old_password' => 'required|min:6',
+            'old_password' => ['required|min:6', new PasswordCheck()],
             'password' => 'required|min:6',
         ];
     }
