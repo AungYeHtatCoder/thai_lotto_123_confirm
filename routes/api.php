@@ -22,7 +22,7 @@ Route::group(["middleware" => ['auth:sanctum']], function(){
     Route::post('/profile/changePassword', [ProfileController::class, 'changePassword']);
 
     //Home Routes
-    Route::get('/', [HomeController::class, 'index']);
+    Route::get('/home', [HomeController::class, 'index']);
 
     
     
