@@ -6,7 +6,7 @@
   <!--start navbar -->
   @include('user_layout.nav')
   <!-- start content -->
-  <div class="row content mt-2" style="height: 900px">
+  <div class="row content mt-2" >
    <div class="stick">
     <div class="d-flex justify-content-between pt-4">
      <div class="">
@@ -23,12 +23,12 @@
       {{-- <h2 class="ms-2"><a href="{{ route('login') }}">Login</a></h2> --}}
        <div class="mt-2 text-white">
             @auth
-                <p class="mb-0">{{ Auth::user()->name }}</p>
-                <p>{{ Auth::user()->phone }}</p>
+                <p class="mb-0 pb-0">{{ Auth::user()->name }}</p>
+                <p class="mb-0 pb-3">{{ Auth::user()->phone }}</p>
 
             @endauth
             @guest
-              
+
                 <a href="{{ route('login') }}" class="text-decoration-none text-white">
                     အကောင့်ဝင်ပါ |
                 </a>
@@ -42,16 +42,16 @@
           </div>
      </div>
      <div>
-      <i class="fa-solid fa-bell fa-2xl"></i>
+      <i class="fa-solid fa-bell fa-xl"></i>
      </div>
     </div>
 
         <div class="ticks mb-2">
-          <hr style="
+          {{-- <hr class="" style="
                     height: 20px;
                     background-color: #ffffff;
                     margin-top: 20px;
-                  " />
+                  " /> --}}
         </div>
         <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
@@ -93,26 +93,12 @@
           </div>
         </div>
 
-        <div class="d-flex justify-content-around mt-2">
-          <div>
-            <div class="buttons">
-              <a href="{{ route('admin.GetTwoDigit') }}" class="">2D PLAY</a>
-            </div>
-            <a href="{{ url('/twod') }}" class="text-dark text-decoration-none">
-              <p class="font-weight-bold text">2D</p>
-            </a>
-          </div>
-          <div>
-            <div class="buttons">
-              <a href="{{ url('/user/get-three-d') }}">3D PLAY</a>
-            </div>
-            <a href="{{ url('/user/get-three-d') }}" class="text-dark text-decoration-none">
-              <p class="font-weight-bold text text-center">3D</p>
-            </a>
-          </div>
+        <div class="d-flex justify-content-around mt-3">
+              <a href="{{ url('/user/two-d-play-index') }}" class="buttons mb-5" style="font-size:30px; font-weight: 600;">2D</a>
+              <a href="{{ url('/user/get-three-d') }}" class="buttons mb-5" style="font-size:30px; font-weight: 600;">3D</a>
         </div>
 
-        <div class="d-flex justify-content-around">
+        <div class="d-flex justify-content-around " style="padding-bottom: 100px;">
           <div>
             <div class="button">
               <a href="#"><img class="w-100 buttons-img" src="{{ asset('user_app/assets/images/logo1.jpg') }}" alt="" /></a>
