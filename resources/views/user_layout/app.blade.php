@@ -2,12 +2,17 @@
 @yield('style')
 
 <body>
- <div class="container-fluid">
+ <div class="main-body">
+  <!-- navbar section start -->
+
+  <!-- navbar section end -->
   @yield('content')
 
-  <!-- start footer -->
-  {{-- @include('user_layout.footer') --}}
-  <!-- end footer -->
+  <!-- footer section start  -->
+
+  <!-- footer section end -->
  </div>
+
+
  @include('user_layout.js')
  @yield('script')

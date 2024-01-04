@@ -1,36 +1,26 @@
-<div class="row footer">
- <div class="col-lg-4 col-md-6 offset-lg-4 offset-md-3 pt-3 footers">
-  <div class="d-flex justify-content-around">
-   <div class="text-center">
-    <a href="{{ url('/') }}" class="text-decoration-none">
-     <i style="font-size:20px;" class="fas fa-house-chimney"></i>
-     <span class="d-block" style="font-size: 10px;">ပင်မ</span>
-    </a>
-   </div>
-   <div class="text-center">
-    <a href="{{ url('/user/wallet-deposite') }}" class="text-decoration-none">
-     <i style="font-size:20px;" class="fas fa-wallet"></i>
-     <span class="d-block" style="font-size: 10px;">ပိုက်ဆံအိတ်</span>
-    </a>
-   </div>
-   <div class="text-center">
-    <a href="{{ url('/promotion') }}" class="text-decoration-none">
-     <i style="font-size:20px;" class="fas fa-gift"></i>
-     <span class="d-block" style="font-size: 10px;">ပရိုမိုရှင်း</span>
-    </a>
-   </div>
-   <div class="text-center">
-    <a href="{{ url('/service') }}" class="text-decoration-none">
-     <i style="font-size:20px;" class="fas fa-phone"></i>
-     <span class="d-block" style="font-size: 10px;">ဝန်ဆောင်မှုဖုန်း</span>
-    </a>
-   </div>
-   <div class="text-center">
-    <a href="{{ url('/user/user-dashboard') }}" class="text-decoration-none">
-     <i style="font-size:20px;" class="fas fa-user"></i>
-     <span class="d-block" style="font-size: 10px;">ကျွန်ုပ်</span>
-    </a>
-   </div>
+ <footer class="fixed-bottom py-2 mx-auto border border-top border-1">
+  <div class="d-flex justify-content-around" style="position: relative">
+   <a href="{{ url('/wallet') }}" class="text-center">
+    <img src="{{ asset('user_app/assets/img/Wallet.png') }}" width="24px" height="24px" alt="" />
+    <div class="footer-text">ပိုက်ဆံအိတ်</div>
+   </a>
+   <a href="{{ url('/promotion') }}" class="text-center">
+    <img src="{{ asset('user_app/assets/img/Dairy_2.png') }}" width="24px" height="24px" alt="" />
+    <div class="footer-text">ပရိုမိုရှင်း</div>
+   </a>
+   <a href="#" class="text-center">
+    <div class="homes">
+     <img src="{{ asset('user_app/assets/img/Home.png') }}" width="24px" height="24px" alt="" />
+    </div>
+    <div class="footer-text mt-4">ပင်မ</div>
+   </a>
+   <a href="{{ url('/service') }}" class="text-center">
+    <img src="{{ asset('user_app/assets/img/call.png') }}" width="24px" height="24px" alt="" />
+    <div class="footer-text">ဝန်ဆောင်မှုဖုန်း</div>
+   </a>
+   <a href="{{ url('/dashboard') }}" class="text-center">
+    <img src="{{ asset('user_app/assets/img/User.png') }}" width="24px" height="24px" alt="" />
+    <div class="footer-text">ကျွန်ုပ်</div>
+   </a>
   </div>
- </div>
-</div>
+ </footer>
