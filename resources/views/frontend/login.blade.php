@@ -3,9 +3,9 @@
 @section('content')
 <div class="main-body" style="margin-bottom: 0;padding-bottom: 0; height: 100vh;">
 
- <div class="d-flex justify-content-center align-items-center">
+ <!-- <div class="d-flex justify-content-center align-items-center">
   <img src="{{ asset('user_app/assets/img/image 3 (1).png') }}" class="mb-5" style="border-radius: 50%;" alt="">
- </div>
+ </div> -->
 
  <div style="background: linear-gradient(#C6ECEA, #2BC0E4);padding-bottom: 80px;padding-top:30px;border-top-left-radius: 59px;border-top-right-radius: 59px;">
   <div class="text-center">
