@@ -35,8 +35,8 @@ use App\Http\Controllers\User\EarlyM\TwoDplay9AMController;
 
 Auth::routes();
 
-require __DIR__.'/auth.php';
-require __DIR__.'/two_d_play.php';
+require __DIR__ . '/auth.php';
+require __DIR__ . '/two_d_play.php';
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/user-profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('home');
@@ -213,59 +213,44 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
   Route::get('/threed-lotteries-match-time', [ThreedMatchTimeController::class, 'index']);
 });
 
-
-
-
-// Route::get('/withDraw', [App\Http\Controllers\User\WelcomeController::class, 'withDraw']);
-
-
-
-Route::get('/promotion', [App\Http\Controllers\User\WelcomeController::class, 'promo']);
-Route::get('/promoDetail', [App\Http\Controllers\User\WelcomeController::class, 'promoDetail']);
-
-Route::get('/service', [App\Http\Controllers\User\WelcomeController::class, 'servicePage']);
-
-
-Route::get('/twod', [App\Http\Controllers\User\WelcomeController::class, 'twoD']);
-Route::get('/twod-dream-book', [App\Http\Controllers\User\WelcomeController::class, 'twodDreamBook']);
-Route::get('/twodplay', [App\Http\Controllers\User\WelcomeController::class, 'twoDPlay']);
-
-
-Route::get('/twod-quick', [App\Http\Controllers\User\WelcomeController::class, 'twoDQuick']);
-// Route::get('/user-dashboard/winningRecord', [App\Http\Controllers\User\WelcomeController::class, 'winningRecord']);
-Route::get('/user-dashboard/moriningPrize', [App\Http\Controllers\User\WelcomeController::class, 'moriningPrize']);
-// Route::get('/user-dashboard/moriningRecord', [App\Http\Controllers\User\WelcomeController::class, 'moriningRecord']);
-
-Route::get('/user-dashboard/eveningRecord', [App\Http\Controllers\User\WelcomeController::class, 'eveningRecord']);
-
-
-
-
-
-
-
-Route::get('/user-dashboard/morningHistoryRecord', [App\Http\Controllers\User\WelcomeController::class, 'morningHistoryRecord']);
-Route::get('/user-dashboard/eveningHistoryRecord', [App\Http\Controllers\User\WelcomeController::class, 'eveningHistoryRecord']);
-
-// Route::get('/user-dashboard/eveningRecord', [App\Http\Controllers\User\WelcomeController::class, 'eveningRecord']);
-// Route::get('/user-dashboard/morningHistoryRecord', [App\Http\Controllers\User\WelcomeController::class, 'morningHistoryRecord']);
-// Route::get('/user-dashboard/eveningHistoryRecord', [App\Http\Controllers\User\WelcomeController::class, 'eveningHistoryRecord']);
-
-Route::get('/user-dashboard/myBank', [App\Http\Controllers\User\WelcomeController::class, 'myBank']);
-Route::get('/user-dashboard/inviteCode', [App\Http\Controllers\User\WelcomeController::class, 'inviteCode']);
-Route::get('/user-dashboard/comment', [App\Http\Controllers\User\WelcomeController::class, 'comment']);
-Route::get('/user-dashboard/changePassword', [App\Http\Controllers\User\WelcomeController::class, 'changePassword']);
-// Route::get('/register', [App\Http\Controllers\User\WelcomeController::class, 'userRegister'])->name('register');
-// Route::get('/login', [App\Http\Controllers\User\WelcomeController::class, 'userLogin'])->name('login');
-Route::get('/user-profile', [App\Http\Controllers\User\WelcomeController::class, 'userProfile']);
+// threed routes
 Route::get('/threeD', [App\Http\Controllers\User\WelcomeController::class, 'threeD']);
-Route::get('/threed-bet', [App\Http\Controllers\User\WelcomeController::class, 'threedBet']);
-Route::get('/threed-num', [App\Http\Controllers\User\WelcomeController::class, 'threedNum']);
+Route::get('/threed-under', [App\Http\Controllers\User\WelcomeController::class, 'threedUnder']);
 Route::get('/threed-quick', [App\Http\Controllers\User\WelcomeController::class, 'threedQuick']);
 Route::get('/threed-confirm', [App\Http\Controllers\User\WelcomeController::class, 'threedConfirm']);
 Route::get('/threed-winner', [App\Http\Controllers\User\WelcomeController::class, 'threedWinner']);
 Route::get('/threed-history', [App\Http\Controllers\User\WelcomeController::class, 'threedHistory']);
 
+// twod routes
 Route::get('/twod', [App\Http\Controllers\User\WelcomeController::class, 'twoD']);
 Route::get('/twodplay', [App\Http\Controllers\User\WelcomeController::class, 'twoDPlay']);
-Route::get('/twod_play_confirm', [App\Http\Controllers\User\WelcomeController::class, 'twoDConfirm']);
+Route::get('/twod-confirm', [App\Http\Controllers\User\WelcomeController::class, 'twoDConfirm']);
+
+// wallet routes
+Route::get('/wallet', [App\Http\Controllers\User\WelcomeController::class, 'wallet']);
+Route::get('/topUp-bank', [App\Http\Controllers\User\WelcomeController::class, 'topUpBank']);
+Route::get('/topup', [App\Http\Controllers\User\WelcomeController::class, 'topUp']);
+
+Route::get('/withdraw-bank', [App\Http\Controllers\User\WelcomeController::class, 'withDrawBank']);
+Route::get('/withdraw', [App\Http\Controllers\User\WelcomeController::class, 'withDraw']);
+
+// promotion routes
+Route::get('/promotion', [App\Http\Controllers\User\WelcomeController::class, 'promo']);
+Route::get('/promoDetail', [App\Http\Controllers\User\WelcomeController::class, 'promoDetail']);
+
+// service route
+Route::get('/service', [App\Http\Controllers\User\WelcomeController::class, 'servicePage']);
+
+// dashboard routes
+Route::get('/dashboard', [App\Http\Controllers\User\WelcomeController::class, 'dashboard']);
+Route::get('/dashboard/winner-list', [App\Http\Controllers\User\WelcomeController::class, 'winnerList']);
+Route::get('/dashboard/twod-history', [App\Http\Controllers\User\WelcomeController::class, 'twodHistory']);
+Route::get('/dashboard/twod-live', [App\Http\Controllers\User\WelcomeController::class, 'twodLive']);
+Route::get('/dashboard/threed-live', [App\Http\Controllers\User\WelcomeController::class, 'threedLive']);
+Route::get('/dashboard/user-profile', [App\Http\Controllers\User\WelcomeController::class, 'userProfile']);
+
+// login route 
+Route::get('/login', [App\Http\Controllers\User\WelcomeController::class, 'login']);
+
+// register route
+Route::get('/signin', [App\Http\Controllers\User\WelcomeController::class, 'signin']);

@@ -81,18 +81,21 @@ class WelcomeController extends Controller
 
     public function topUp()
     {
-        return view('frontend.topUp');
+        return view('frontend.topup');
     }
 
-    public function topUpSubmit()
+    public function topUpBank()
     {
-        return view('frontend.topUpSubmit');
+        return view('frontend.topUp-bank');
     }
 
-
+    public function withDrawBank()
+    {
+        return view('frontend.withdraw-bank');
+    }
     public function withDraw()
     {
-        return view('frontend.withDraw');
+        return view('frontend.withdraw');
     }
 
     public function promo()
@@ -108,38 +111,6 @@ class WelcomeController extends Controller
     public function servicePage()
     {
         return view('frontend.service');
-    }
-
-    public function dashboard()
-    {
-        return view('frontend.dashboard');
-    }
-
-    public function winnerDigit()
-    {
-        return view('frontend.winnerDigit');
-    }
-
-    public function winnerPage()
-    {
-        return view('frontend.winner_page');
-    }
-
-    public function myDigit()
-    {
-        return view('frontend.myDigit');
-    }
-
-
-
-    public function myBank()
-    {
-        return view('frontend.my-bank');
-    }
-
-    public function changePassword()
-    {
-        return view('frontend.change-password');
     }
 
 
@@ -160,7 +131,7 @@ class WelcomeController extends Controller
 
     public function twoDConfirm()
     {
-        return view('two_d.twod_play_confirm');
+        return view('frontend.twod-confirm');
     }
 
     public function threeD()
@@ -168,9 +139,9 @@ class WelcomeController extends Controller
         return view('frontend.threeD');
     }
 
-    public function threedBet()
+    public function threedUnder()
     {
-        return view('frontend.threed-bet');
+        return view('frontend.threed-under');
     }
 
     public function threedNum()
@@ -198,51 +169,25 @@ class WelcomeController extends Controller
         return view('frontend.threed-history');
     }
 
-    public function inviteCode()
+    public function dashboard()
     {
-        return view('frontend.invite-code');
+        return view('frontend.dashboard');
     }
 
-    public function comment()
+    public function winnerList()
     {
-        return view('frontend.comment');
+        return view('frontend.winner-list');
     }
 
-    public function user_dashboard()
+    public function userProfile()
     {
-        return view('frontend.user-dashboard');
+        return view('frontend.user-profile');
     }
 
-    public function winningRecord()
+    public function twodHistory()
     {
-        return view('frontend.winning-record');
+        return view('frontend.twod-history');
     }
-
-    public function moriningPrize()
-    {
-        return view('frontend.morning-session-prize-no-history');
-    }
-
-    public function moriningRecord()
-    {
-        return view('frontend.play-two-morning-record');
-    }
-
-    public function eveningRecord()
-    {
-        return view('frontend.play-two-evenving-record');
-    }
-
-    public function morningHistoryRecord()
-    {
-        return view('frontend.morning-history-record');
-    }
-
-    public function eveningHistoryRecord()
-    {
-        return view('frontend.evening-history-record');
-    }
-
 
     public function twodLive()
     {
@@ -256,7 +201,8 @@ class WelcomeController extends Controller
         return view('frontend.twod-calendar');
     }
 
-    public function twodHoliday(){
+    public function twodHoliday()
+    {
         return view('two_d.api_test');
         // return view('frontend.twod-calendar');
     }
@@ -266,11 +212,23 @@ class WelcomeController extends Controller
         return view('frontend.dream-book');
     }
 
-    public function threedResult()
+    public function threedLive()
     {
         // return view('two_d.api_test');
-        return view('frontend.threed-result');
+        return view('frontend.threed-live');
     }
+
+    public function login()
+    {
+        return view('frontend.login');
+    }
+
+    public function signin()
+    {
+        return view('frontend.signin');
+    }
+
+
 
 
     /**
@@ -381,50 +339,5 @@ class WelcomeController extends Controller
     public function destroy(string $id)
     {
         //
-    }
-
-    public function userProfile()
-    {
-        return view('frontend.user_profile');
-    }
-
-    public function userFillMoney()
-    {
-        return view('user_fillmoney');
-    }
-
-    public function userLogin()
-    {
-        return view('frontend.user-login');
-    }
-
-    public function userRegister()
-    {
-        return view('frontend.user-register');
-    }
-
-    public function winnerList()
-    {
-        return view('winner_lists');
-    }
-
-    public function lotteryResult()
-    {
-        return view('lottery_result');
-    }
-
-    public function contact()
-    {
-        return view('contact');
-    }
-
-    public function service()
-    {
-        return view('service');
-    }
-
-    public function userRequestMoney()
-    {
-        return view('request_money');
     }
 }

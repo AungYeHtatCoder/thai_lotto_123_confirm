@@ -1,19 +1,9 @@
-<div class="container-fluid fixed-top">
-    <div class="row">
-        <div class="col-lg-4 col-md-6 offset-lg-4 offset-md-3 navs">
-            <div class="px-3 py-3">
-                <div class="d-flex justify-content-between">
-                    <span>
-                        <button class="material-icons btn btn-sm text-white" onclick="goBack()">arrow_back</button>
-                    </span>
-                    <h5 class="mx-auto mt-1">
-                        <a href="{{ url('/') }}" class="text-white">Thailotto123</a>
-                    </h5>
-                    <span class="mt-1">
-                        <button class="material-icons btn btn-sm text-white" onclick="refreshPage()">refresh</button>
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="d-flex justify-content-between align-items-center fixed-top p-3 mx-auto navs">
+    <div></div>
+    <a href="./index.html" class="text-decoration-none text-white d-block">
+        <h4 style="font-size: 24px; font-weight: 800">Thailotto123</h4>
+    </a>
+    <a href="./index.html" class="text-decoration-none text-white d-block">
+        <img src="{{ asset('user_app/assets/img/refresh.png') }}" alt="" />
+    </a>
 </div>
