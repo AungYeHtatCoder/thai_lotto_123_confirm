@@ -118,9 +118,12 @@
 
   <div class="d-flex justify-content-start align-items-start">
    <img src="{{ asset('user_app/assets/img/icons/profile_8.png') }}" class="mt-1 me-3" alt="" />
-   <a href="#">
+   <a href="" onclick="e.preventDefault(); document.getElementById('logout').submit();">
     <p>အကောင့်မှ ထွက်ခွာရန်</p>
    </a>
+   <form action="{{ route('logout') }}" id="logout" class="d-none" method="POST">
+      @csrf 
+  </form>
   </div>
  </div>
 </div>
