@@ -15,7 +15,7 @@ class AuthController extends Controller
 {
     public function loginForm()
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             return redirect()->back()->with('error', "Already Logged In.");
         }
         $countryCodes = CountryCode::all();
@@ -29,7 +29,7 @@ class AuthController extends Controller
             'phone' => ['required', new UniquePhone()],
             'password' => 'required|min:6'
         ]);
-        $credentials = $request->only('country_code','phone', 'password');
+        $credentials = $request->only('country_code', 'phone', 'password');
         if (Auth::attempt($credentials)) {
             return redirect()->route('home')->with('success', "Login Successfully.");
         }
@@ -38,7 +38,7 @@ class AuthController extends Controller
 
     public function registerForm()
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             return redirect()->back()->with('error', "Already Logged In.");
         }
         $countryCodes = CountryCode::all();
