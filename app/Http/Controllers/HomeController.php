@@ -79,7 +79,7 @@ class HomeController extends Controller
     }
 
     public function profile(){
-        return view('frontend.user_profile');
+        return view('frontend.user-profile');
     }
 
 }

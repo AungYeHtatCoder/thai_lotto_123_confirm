@@ -223,12 +223,10 @@ class WelcomeController extends Controller
         return view('frontend.login');
     }
 
-    public function signin()
+    public function register()
     {
-        return view('frontend.signin');
+        return view('frontend.register');
     }
-
-
 
 
     /**

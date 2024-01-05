@@ -55,10 +55,22 @@
 @section('content')
 <div class="frame fixed-bottom">
     <div class="login-card">
-        <h5 class="text-center header mb-0 pb-0">Welcome Back!</h5>
-        <span class="d-block text-center sub-header">welcome back we missed you</span>
-        <form action="{{ route('login') }}" method="post">
+        <h5 class="text-center header mb-0 pb-0">Welcome Here!</h5>
+        <span class="d-block text-center sub-header">Please visit to thailotto123!</span>
+        <form action="{{ route('register') }}" method="post">
             @csrf
+            <div class="mb-3">
+                <label for="" class="form-label">အမည်</label>
+                <div class="form-floating text-dark">
+                    <input type="text" class="form-control border border-1 border-secondary" name="name" id="name" placeholder="">
+                    <label for="name">
+                       <i class="fas fa-user-circle"></i>
+                    </label>
+                </div>
+                @error('name')
+                    <span class="text-danger">*{{ $message }}</span>
+                @enderror
+            </div>
             <div class="mb-3">
                 <label for="country_code" class="form-label">ဖုန်းနံပါတ်</label>
                 <div class="d-flex">
@@ -105,70 +117,13 @@
                     <span class="text-danger">*{{ $message }}</span>
                 @enderror
             </div>
-            <small class="text-end text-dark d-block">လျှိ၀ှက်နံပါတ် မမှတ်မိဘူးလား ? <a href="" class="text-decoration-underline text-dark">ဒီမှာနှိပ်ပါ</a></small>
+            {{-- <small class="text-end text-dark d-block">လျှိ၀ှက်နံပါတ် မမှတ်မိဘူးလား ? <a href="" class="text-decoration-underline text-dark">ဒီမှာနှိပ်ပါ</a></small> --}}
 
             <div class="login">
-                <button class="btn btn-login w-100 text-white text-center">အကောင့်၀င်မည်</button>
+                <button class="btn btn-login w-100 text-white text-center">အကောင့်ဖွင့်မည်</button>
             </div>
-            <span class="text-center text-dark d-block mb-5">အကောင့်အသစ်ဖွင့်ရန် <a href="{{ url('/register') }}" class="text-decoration-underline text-dark">ဒီမှာနှိပ်ပါ</a></span>
+            <span class="text-center text-dark d-block mb-5">အကောင့်ရှိပြီးပြီလား <a href="{{ url('/login') }}" class="text-decoration-underline text-dark">အကောင့်ဝင်ပါ</a></span>
         </form>
     </div>
 </div>
-{{-- <div class="main-body">
-
- <div class="d-flex justify-content-center align-items-center">
-  <img src="{{ asset('user_app/assets/img/image 3 (1).png') }}" class="mb-5" style="border-radius: 50%;" alt="">
- </div>
-
- <div class="fixed-bottom frame" style="background: linear-gradient(90deg, #C6ECEA 0%, #2BC0E4 330.33%);
- backdrop-filter: blur(40px);
- border-top-left-radius: 59px;
- border-top-right-radius: 59px;">
-  <div class="text-center">
-   <h6 class="login-titles">Welcome Back!</h6>
-   <span style="color: #5A5A5A;font-size: 14px;font-weight: 500;">welcome back we missed you</span>
-  </div>
-
-  <form action="">
-   <span class="text-start mx-2" style="color: #A4A4A4;font-family: 'Noto Sans',sans-serif;font-size: 14px;">ဖုန်းနံပါတ်</span>
-   <div class="d-flex justify-content-start align-items-center my-3">
-    <div class="dropdown mx-2">
-     <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">
-      <img src="{{ asset('user_app/assets/img/2D/flag.png') }}" alt="">
-     </button>
-     <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="#">Thailand</a></li>
-      <li><a class="dropdown-item" href="#">China</a></li>
-     </ul>
-    </div>
-
-    <div class="mx-2" style="position: relative;">
-     <img src="{{ asset('user_app/assets/img/2D/fi-br-call-history.png') }}" style="position: absolute;top: 5px;left: 10px;" alt="">
-     <input type="text" class="ps-5 py-2 rounded" style="outline: none;border: 1px solid #ddd;" placeholder="09123456789">
-    </div>
-   </div>
-
-   <div>
-    <span class="text-start mx-2" style="color: #A4A4A4;font-family: 'Noto Sans',sans-serif;font-size: 14px;">လျှိ၀ှက်နံပါတ်</span>
-
-    <div class="m-2" style="position: relative;">
-     <img src="{{ asset('user_app/assets/img/2D/Vector (1).png') }}" style="position: absolute;top: 5px;left: 10px;" alt="">
-     <input type="password" class="ps-5 py-2 rounded w-100" style="outline: none;border: 1px solid #ddd;" placeholder="******">
-     <div class="text-end my-1" style="font-size: 12px;font-weight: 500;">
-      <span style="color: #5A5A5A;">လျှိ၀ှက်နံပါတ် မမှတ်မိဘူးလား ? <a href="#" style="color: #232323;">ဒီမှာနှိပ်ပါ</a></span>
-     </div>
-    </div>
-   </div>
-
-   <div class="d-flex justify-content-center align-items-center">
-    <button type="button" class="w-100 mx-2 mt-5 py-2 rounded text-white border border-none" style="background: var(--linear);font-size: 18px;">အကောင့်၀င်မည်</button>
-   </div>
-
-   <div class="text-center mt-3" style="font-size: 12px;font-weight: 500;">
-    <span style="color: #5A5A5A;">အကောင့်အသစ်ဖွင့်ရန်<a href="{{ url('/signin') }}" class="fw-bold" style="color: #232323;">ဒီမှာနှိပ်ပါ</a></span>
-   </div>
-
-  </form>
- </div>
-</div> --}}
 @endsection
