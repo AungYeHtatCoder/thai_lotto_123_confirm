@@ -38,8 +38,8 @@ Auth::routes();
 require __DIR__ . '/auth.php';
 require __DIR__ . '/two_d_play.php';
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/user-profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
+
 
 Route::get('/', [App\Http\Controllers\User\WelcomeController::class, 'index'])->name('welcome');
 
@@ -213,44 +213,63 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
   Route::get('/threed-lotteries-match-time', [ThreedMatchTimeController::class, 'index']);
 });
 
-// threed routes
-Route::get('/threeD', [App\Http\Controllers\User\WelcomeController::class, 'threeD']);
-Route::get('/threed-under', [App\Http\Controllers\User\WelcomeController::class, 'threedUnder']);
-Route::get('/threed-quick', [App\Http\Controllers\User\WelcomeController::class, 'threedQuick']);
-Route::get('/threed-confirm', [App\Http\Controllers\User\WelcomeController::class, 'threedConfirm']);
-Route::get('/threed-winner', [App\Http\Controllers\User\WelcomeController::class, 'threedWinner']);
-Route::get('/threed-history', [App\Http\Controllers\User\WelcomeController::class, 'threedHistory']);
+Route::middleware('auth')->group(function () {
+  Route::get('/user-profile', [HomeController::class, 'profile'])->name('home');
 
-// twod routes
-Route::get('/twod', [App\Http\Controllers\User\WelcomeController::class, 'twoD']);
-Route::get('/twodplay', [App\Http\Controllers\User\WelcomeController::class, 'twoDPlay']);
-Route::get('/twod-confirm', [App\Http\Controllers\User\WelcomeController::class, 'twoDConfirm']);
+  // Wallet Routes
+  Route::prefix('wallet')->group(function () {
+      Route::get('/', [WelcomeController::class, 'wallet']);
+      Route::get('/topUp-bank', [WelcomeController::class, 'topUpBank']);
+      Route::get('/topup', [WelcomeController::class, 'topUp']);
+      Route::get('/withdraw-bank', [WelcomeController::class, 'withDrawBank']);
+      Route::get('/withdraw', [WelcomeController::class, 'withDraw']);
+  });
 
-// wallet routes
-Route::get('/wallet', [App\Http\Controllers\User\WelcomeController::class, 'wallet']);
-Route::get('/topUp-bank', [App\Http\Controllers\User\WelcomeController::class, 'topUpBank']);
-Route::get('/topup', [App\Http\Controllers\User\WelcomeController::class, 'topUp']);
+  // Promotion Routes
+  Route::prefix('promotion')->group(function () {
+      Route::get('/', [WelcomeController::class, 'promo']);
+      Route::get('/promoDetail', [WelcomeController::class, 'promoDetail']);
+  });
 
-Route::get('/withdraw-bank', [App\Http\Controllers\User\WelcomeController::class, 'withDrawBank']);
-Route::get('/withdraw', [App\Http\Controllers\User\WelcomeController::class, 'withDraw']);
+  // Service Route
+  Route::get('/service', [WelcomeController::class, 'servicePage']);
 
-// promotion routes
-Route::get('/promotion', [App\Http\Controllers\User\WelcomeController::class, 'promo']);
-Route::get('/promoDetail', [App\Http\Controllers\User\WelcomeController::class, 'promoDetail']);
+  // Dashboard Routes
+  Route::prefix('dashboard')->group(function () {
+      Route::get('/', [WelcomeController::class, 'dashboard']);
+      Route::get('/winner-list', [WelcomeController::class, 'winnerList']);
+      Route::get('/twod-history', [WelcomeController::class, 'twodHistory']);
+      Route::get('/twod-live', [WelcomeController::class, 'twodLive']);
+      Route::get('/threed-live', [WelcomeController::class, 'threedLive']);
+      Route::get('/user-profile', [WelcomeController::class, 'userProfile']);
+  });
 
-// service route
-Route::get('/service', [App\Http\Controllers\User\WelcomeController::class, 'servicePage']);
+  // Threed Routes
+  Route::prefix('threed')->group(function () {
+      Route::get('/', [WelcomeController::class, 'threeD']);
+      Route::get('/under', [WelcomeController::class, 'threedUnder']);
+      Route::get('/quick', [WelcomeController::class, 'threedQuick']);
+      Route::get('/confirm', [WelcomeController::class, 'threedConfirm']);
+      Route::get('/winner', [WelcomeController::class, 'threedWinner']);
+      Route::get('/history', [WelcomeController::class, 'threedHistory']);
+  });
 
-// dashboard routes
-Route::get('/dashboard', [App\Http\Controllers\User\WelcomeController::class, 'dashboard']);
-Route::get('/dashboard/winner-list', [App\Http\Controllers\User\WelcomeController::class, 'winnerList']);
-Route::get('/dashboard/twod-history', [App\Http\Controllers\User\WelcomeController::class, 'twodHistory']);
-Route::get('/dashboard/twod-live', [App\Http\Controllers\User\WelcomeController::class, 'twodLive']);
-Route::get('/dashboard/threed-live', [App\Http\Controllers\User\WelcomeController::class, 'threedLive']);
-Route::get('/dashboard/user-profile', [App\Http\Controllers\User\WelcomeController::class, 'userProfile']);
+  // Twod Routes
+  Route::prefix('twod')->group(function () {
+      Route::get('/', [WelcomeController::class, 'twoD']);
+      Route::get('/play', [WelcomeController::class, 'twoDPlay']);
+      Route::get('/confirm', [WelcomeController::class, 'twoDConfirm']);
+  });
+});
+
+
+
+
+
+
 
 // login route 
-Route::get('/login', [App\Http\Controllers\User\WelcomeController::class, 'login']);
+Route::get('/login', [App\Http\Controllers\User\WelcomeController::class, 'login'])->name('login');
 
 // register route
-Route::get('/signin', [App\Http\Controllers\User\WelcomeController::class, 'signin']);
+Route::get('/register', [App\Http\Controllers\User\WelcomeController::class, 'register'])->name('register');

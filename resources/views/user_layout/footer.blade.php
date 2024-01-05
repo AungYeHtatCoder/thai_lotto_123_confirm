@@ -8,7 +8,7 @@
     <img src="{{ asset('user_app/assets/img/Dairy_2.png') }}" width="24px" height="24px" alt="" />
     <div class="footer-text">ပရိုမိုရှင်း</div>
    </a>
-   <a href="#" class="text-center">
+   <a href="{{ url('/') }}" class="text-center">
     <div class="homes">
      <img src="{{ asset('user_app/assets/img/Home.png') }}" width="24px" height="24px" alt="" />
     </div>
