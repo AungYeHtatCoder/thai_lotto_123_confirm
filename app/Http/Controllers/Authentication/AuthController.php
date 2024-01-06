@@ -19,7 +19,7 @@ class AuthController extends Controller
             return redirect()->back()->with('error', "Already Logged In.");
         }
         $countryCodes = CountryCode::all();
-        return view('frontend.user-login', compact('countryCodes'));
+        return view('frontend.login', compact('countryCodes'));
     }
 
     public function login(Request $request)
@@ -42,7 +42,7 @@ class AuthController extends Controller
             return redirect()->back()->with('error', "Already Logged In.");
         }
         $countryCodes = CountryCode::all();
-        return view('frontend.user-register', compact('countryCodes'));
+        return view('frontend.register', compact('countryCodes'));
     }
 
     public function register(Request $request)
