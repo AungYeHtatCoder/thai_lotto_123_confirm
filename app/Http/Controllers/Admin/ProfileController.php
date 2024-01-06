@@ -23,17 +23,16 @@ class ProfileController extends Controller
     /**
      * Display a listing of the resource.
      */
-   public function index()
+    public function index()
     {
         if (auth()->user()->hasRole('Admin')) {
             $user = User::find(Auth::user()->id);
             $currency = Currency::latest()->first();
             return view('admin.profile.admin_profile', compact('user', 'currency'));
-
         } else {
-                $user = User::find(Auth::user()->id);
-                $currency = Currency::latest()->first();
-                return view('frontend.user_profile', compact('user', 'currency'));
+            $user = User::find(Auth::user()->id);
+            $currency = Currency::latest()->first();
+            return view('frontend.user_profile', compact('user', 'currency'));
         }
         //return view('admin.profile.index');
     }
@@ -44,11 +43,10 @@ class ProfileController extends Controller
             $user = User::find(Auth::user()->id);
             $currency = Currency::latest()->first();
             return view('admin.profile.admin_profile', compact('user', 'currency'));
-
-    } else {
+        } else {
             $user = User::find(Auth::user()->id);
             return view('user_profile', compact('user'));
-    }
+        }
         //return view('admin.profile.index');
     }
     /**
@@ -89,7 +87,7 @@ class ProfileController extends Controller
         $request->validate([
             'profile' => 'required|image'
         ]);
-        if(Auth::user()->profile){
+        if (Auth::user()->profile) {
             //remove banner from localstorage
             File::delete(public_path('assets/img/profile/' . $user->profile));
         }
@@ -98,14 +96,14 @@ class ProfileController extends Controller
         $ext = $image->getClientOriginalExtension();
         $filename = uniqid('profile') . '.' . $ext; // Generate a unique filename
         $image->move(public_path('assets/img/profile/'), $filename); // Save the file
-        
+
         Auth::user()->update([
             'profile' => $filename,
         ]);
-        
+
         return redirect()->back()->with('toast_success', 'Profile updated successfully');
     }
-// new password change function
+    // new password change function
     public function newPassword(Request $request)
     {
         //dd($request->all());
@@ -121,7 +119,6 @@ class ProfileController extends Controller
         ]);
 
         return redirect()->back()->with('toast_success', "Customer Password has been Updated.");
-
     }
 
 
@@ -200,13 +197,13 @@ class ProfileController extends Controller
         }
     }
 
-        public function JoinDate(Request $request)
+    public function JoinDate(Request $request)
     {
         //dd($request->all());
         $request->validate([
             'join_date' => 'required',
         ]);
-            $formattedJoinDate = Carbon::createFromFormat('m/d/Y', $request->input('join_date'))->format('Y-m-d');
+        $formattedJoinDate = Carbon::createFromFormat('m/d/Y', $request->input('join_date'))->format('Y-m-d');
 
         $user = User::find(Auth::user()->id);
 
@@ -219,6 +216,38 @@ class ProfileController extends Controller
         } else {
             return redirect()->back()->with('toast_success', "Customer Profile has been Updated.");
         }
+    }
+
+
+    // user profile info 
+    public function editInfo(Request $request)
+    {
+        $request->validate([
+            "name" => "required",
+            "phone" => ['nullable', 'string', 'min:11'],
+
+        ]);
+
+        $user = User::find(Auth::id());
+
+        if (
+            $request->phone !== $user->phone
+        ) {
+
+            $existingPhone = User::where("phone", $request->phone)->first();
+
+            if ($existingPhone && $existingPhone->id !== $user->id) {
+                return redirect()->back()->with("error", "The phone has already been taken.");
+            }
+        }
+
+        $user->update([
+            "name" => $request->name,
+            "phone" => $request->phone ?? $user->phone,
+
+        ]);
+
+        return redirect()->back()->with("success", "User info updated successfully.");
     }
 
 
@@ -249,5 +278,4 @@ class ProfileController extends Controller
     {
         return view('admin.profile.fill_money');
     }
-
 }
