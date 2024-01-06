@@ -6,6 +6,7 @@
 @include('user_layout.profile')
 <!-- profile section end -->
 
+@auth
 <!-- kyat-baht -->
 <div class="my-2 d-flex justify-content-around align-items-center">
   <div class="kyat">Kyat / ကျပ်</div>
@@ -23,31 +24,35 @@
           padding: 12px 16px;
         ">
   <img src="{{ asset('user_app/assets/img/vector.png') }}" width="24px" height="24px" alt="" />
-  <p style="font-size: 16px; font-weight: 500">ပိုက်ဆံအိတ်</p>
-  <p style="
+  <p class="pt-3" style="font-size: 16px; font-weight: 500">ပိုက်ဆံအိတ် </p>
+  <p class="pt-3" style="
             font-size: 16px;
             font-weight: 700;
             font-family: 'Lato', sans-serif;
           ">
-    12,670 Kyats
+    {{ Auth::user()->balance }} Kyats
   </p>
+
   <img src="{{ asset('user_app/assets/img/plus.png') }}" class="rounded-circle" style="padding: 10px; color: var(--blue); background-color: #fff" alt="" />
 </div>
+@endauth
 
 <!-- carousel -->
 <div id="carouselExampleSlidesOnly" class="carousel slide carousel-fade mt-3 px-3" data-bs-ride="carousel">
   <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="{{ asset('user_app/assets/img/banner.png') }}" style="max-height: 500px" class="d-block w-100" alt="..." />
+    @foreach ($banners as $key => $banner)
+    <div class="carousel-item{{ $key === 0 ? ' active' : '' }}">
+      <img src="{{ asset('assets/img/banners/'.$banner->image) }}" style="max-height: 500px" class="d-block w-100" alt="..." />
+
       <div class="marquee">
         <div class="marquee-text">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-          Dolorem ea id exercitationem. Quos consequuntur vitae soluta
-          aliquid odit temporibus beatae iste autem?
+          {{ $marqueeText->text }}
         </div>
       </div>
+
     </div>
-    <div class="carousel-item">
+    @endforeach
+    <!-- <div class="carousel-item">
       <img src="{{ asset('user_app/assets/img/banner.png') }}" style="max-height: 500px" class="d-block w-100" alt="..." />
       <div class="marquee">
         <div class="marquee-text">
@@ -66,7 +71,7 @@
           aliquid odit temporibus beatae iste autem?
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
 <!-- carousel -->
@@ -87,10 +92,25 @@
   </div>
 </div>
 
-<div class="d-flex justify-content-around align-items-center" style="margin-top: 16px">
+<div class="row my-3 mx-2">
+
+  @foreach ($games as $game)
+  <div class="col-6 mb-4">
+    <a href="{{ $game->link }}" target="__blank" class="text-decoration-none">
+      <img src="{{ $game->img_url }}" width="100%" class="rounded-4" alt="">
+      <span class="d-block text-center mt-2" style="font-size: 14px; font-weight: 700; color: var(--default)">{{ $game->name }}</span>
+    </a>
+  </div>
+  @endforeach
+
+</div>
+
+<!-- <div class="d-flex justify-content-around align-items-center" style="margin-top: 16px">
+  @foreach($games as $game)
   <img src="{{ asset('user_app/assets/img/logo1.png') }}" class="w-100" style="border-radius: 16px" alt="" />
   <img src="{{ asset('user_app/assets/img/logo2.png') }}" class="w-100" style="border-radius: 16px" alt="" />
-</div>
+  @endforeach
+</div> -->
 <!-- button section end-->
 @include('user_layout.footer')
 

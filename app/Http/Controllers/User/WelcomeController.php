@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\User;
 
 use GuzzleHttp\Client;
+use App\Models\Admin\Game;
 use App\Models\Admin\Banner;
 use Illuminate\Http\Request;
 use App\Models\Admin\Lottery;
 use App\Models\Admin\TwoDigit;
+use App\Models\Admin\BannerText;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -57,6 +59,8 @@ class WelcomeController extends Controller
     public function index()
     {
         $banners = Banner::latest()->take(3)->get();
+        $marqueeText = BannerText::latest()->first();
+        $games = Game::latest()->get();
         //$twoDigits = TwoDigit::all();
         $client = new Client();
 
@@ -71,7 +75,7 @@ class WelcomeController extends Controller
             return response()->json($data);
         }
 
-        return view('welcome', compact('data', 'banners'));
+        return view('welcome', compact('data', 'banners', 'marqueeText', 'games'));
     }
 
     public function wallet()
