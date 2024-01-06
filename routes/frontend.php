@@ -3,11 +3,18 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\WelcomeController;
+use App\Http\Controllers\Admin\ProfileController;
 
 Route::get('/', [App\Http\Controllers\User\WelcomeController::class, 'index'])->name('welcome');
 
 Route::middleware('auth')->group(function () {
     Route::get('/user-profile', [HomeController::class, 'profile'])->name('home');
+
+    //profile management
+    Route::put('editProfile/{profile}', [ProfileController::class, 'update'])->name('editProfile');
+    Route::post('editInfo', [ProfileController::class, 'editInfo'])->name('editInfo');
+    Route::post('changePassword', [ProfileController::class, 'changePassword'])->name('changePassword');
+    //profile management
 
     // Wallet Routes
     Route::prefix('wallet')->group(function () {
