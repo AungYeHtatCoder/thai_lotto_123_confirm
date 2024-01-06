@@ -1,5 +1,15 @@
 @extends('user_layout.app')
 
+@section('style')
+<style>
+  .multi-text {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+</style>
+@endsection
+
 @section('content')
 @include('user_layout.nav')
 <div class="d-flex justify-content-around align-items-center mx-auto profiles" style="
@@ -60,12 +70,12 @@
 <!-- play section  start-->
 <div class="p-3">
   <div class="twod_styles mx-auto">
-    <h5 class="d-flex justify-content-center align-items-center" style="font-size: 20px">
+    <h5 class="d-flex justify-content-center align-items-center" id="live_2d" style="font-size: 20px">
       83
     </h5>
   </div>
   <div class="text-center mt-1" style="color: #5a5a5a; font-size: 16px; line-height: 20px">
-    Last Update: 30 Nov 2023 04:29:44 PM
+    Last Update: <span id="live_updated_time">30 Nov 2023 04:29:44 PM</span>
   </div>
   <div class="d-flex justify-content-center align-items-center mt-3" width="126px" height="45px">
     <button type="button" class="text-white" style="
@@ -81,8 +91,12 @@
 </div>
 <!-- play section end -->
 
+<!-- 2d lists -->
+<div class="mx-auto lives" style="margin-bottom:80px;" id="result"></div>
+<!-- 2d lists -->
+
 <!--  -->
-<div>
+<!-- <div>
   <div class="mx-auto lives">
     <p class="text-center">11:00:00</p>
 
@@ -136,7 +150,7 @@
       <h6>31</h6>
     </div>
   </div>
-</div>
+</div> -->
 
 @include('user_layout.footer')
 <!-- time modal -->
@@ -172,4 +186,67 @@
   </div>
 </div>
 
+@endsection
+
+@section('script')
+<script>
+  (function() {
+    const fetchData = () => {
+      const url = 'https://api.thaistock2d.com/live';
+
+      fetch(url)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          const updatedTime = new Date(data.live.time);
+          const day = updatedTime.getDate().toString().padStart(2, '0');
+          const month = (updatedTime.getMonth() + 1).toString().padStart(2, '0');
+          const year = updatedTime.getFullYear();
+          let hours = updatedTime.getHours();
+          const minutes = updatedTime.getMinutes();
+          const ampm = hours >= 12 ? 'PM' : 'AM';
+          hours = hours % 12;
+          hours = hours ? hours : 12;
+          const updatedTimeFormat = `${day}-${month}-${year} ${hours}:${minutes.toString().padStart(2, '0')}:${updatedTime.getSeconds().toString().padStart(2, '0')}${ampm}`;
+
+          $("#live_2d").text(data.live.twod);
+          $("#live_updated_time").text(updatedTimeFormat);
+
+          let newHTML = '';
+          data.result.forEach(r => {
+            newHTML += `
+                            <div class="digit-card mb-1 rounded-4 mb-2">
+                              <h5 class="text-center">${r.open_time}</h5>
+                              <div class="multi-text">
+                                <div class="">
+                                  <p>Set</p>
+                                  <p>${r.set}</p>
+                                </div>
+                                <div class="">
+                                  <p>Value</p>
+                                  <p>${r.value}</p>
+                                </div>
+                                <div class="">
+                                  <p>2D</p>
+                                  <p>${r.twod}</p>
+                                </div>
+                              </div>
+                          </div>
+                          <hr />
+                        `;
+          });
+          $('#result').html(newHTML);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    };
+
+    setInterval(fetchData, 1000);
+  })();
+</script>
 @endsection

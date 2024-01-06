@@ -1,4 +1,6 @@
-<?php 
+<?php
+
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\WelcomeController;
 
@@ -6,7 +8,7 @@ Route::get('/', [App\Http\Controllers\User\WelcomeController::class, 'index'])->
 
 Route::middleware('auth')->group(function () {
     Route::get('/user-profile', [HomeController::class, 'profile'])->name('home');
-  
+
     // Wallet Routes
     Route::prefix('wallet')->group(function () {
         Route::get('/', [WelcomeController::class, 'wallet']);
@@ -15,16 +17,16 @@ Route::middleware('auth')->group(function () {
         Route::get('/withdraw-bank', [WelcomeController::class, 'withDrawBank']);
         Route::get('/withdraw', [WelcomeController::class, 'withDraw']);
     });
-  
+
     // Promotion Routes
     Route::prefix('promotion')->group(function () {
         Route::get('/', [WelcomeController::class, 'promo']);
         Route::get('/promoDetail', [WelcomeController::class, 'promoDetail']);
     });
-  
+
     // Service Route
     Route::get('/service', [WelcomeController::class, 'servicePage']);
-  
+
     // Dashboard Routes
     Route::prefix('dashboard')->group(function () {
         Route::get('/', [WelcomeController::class, 'dashboard']);
@@ -34,7 +36,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/threed-live', [WelcomeController::class, 'threedLive']);
         Route::get('/user-profile', [WelcomeController::class, 'userProfile']);
     });
-  
+
     // Threed Routes
     Route::prefix('threed')->group(function () {
         Route::get('/', [WelcomeController::class, 'threeD']);
@@ -44,7 +46,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/winner', [WelcomeController::class, 'threedWinner']);
         Route::get('/history', [WelcomeController::class, 'threedHistory']);
     });
-  
+
     // Twod Routes
     Route::prefix('twod')->group(function () {
         Route::get('/', [WelcomeController::class, 'twoD']);
