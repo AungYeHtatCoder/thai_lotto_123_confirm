@@ -66,7 +66,7 @@
     </p>
   </div>
   <div>
-    <a href="{{ url('/user/three-d-play-index') }}" class="btns">3Dထိုးမည်</a>
+    <a href="{{ route('user.three-d-choice-play') }}" class="btns">3Dထိုးမည်</a>
     <p class="d-block mt-2 text-center" style="font-size: 14px; font-weight: 700; color: var(--default)">
       ၃လုံးထီ
     </p>

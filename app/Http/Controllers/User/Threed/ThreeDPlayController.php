@@ -36,7 +36,7 @@ class ThreeDPlayController extends Controller
         }
         $lottery_matches = LotteryMatch::where('id', 2)->whereNotNull('is_active')->first();
 
-        return view('three_d.three_d_choice_play', compact('threeDigits', 'remainingAmounts', 'lottery_matches'));
+        return view('frontend.three_d.three_d_choice_play', compact('threeDigits', 'remainingAmounts', 'lottery_matches'));
         //return view('three_d.three_d_choice_play');
     }
     public function confirm_play()
@@ -54,7 +54,7 @@ class ThreeDPlayController extends Controller
         }
         $lottery_matches = LotteryMatch::where('id', 2)->whereNotNull('is_active')->first();
 
-        return view('three_d.play_confirm', compact('threeDigits', 'remainingAmounts', 'lottery_matches'));
+        return view('frontend.three_d.play_confirm', compact('threeDigits', 'remainingAmounts', 'lottery_matches'));
         //return view('three_d.three_d_choice_play');
     }
 
