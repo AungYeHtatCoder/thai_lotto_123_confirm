@@ -27,7 +27,7 @@ class RegisterRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'country_code' => ['required', 'string', 'max:5'],
             'phone' => ['required', 'max:15', 'unique:users'],
-            'password' => ['required', 'min:6', Rules\Password::defaults()],
+            'password' => ['required', 'min:6'],
         ];
     }
 }
