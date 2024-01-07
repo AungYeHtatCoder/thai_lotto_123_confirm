@@ -28,8 +28,8 @@
 
     <div class="d-flex justify-content-start align-items-start">
       <img src="{{ asset('user_app/assets/img/icons/profile_1.png') }}" class="mt-1 me-3" alt="" />
-      <a href="#">
-        <p>အမှတ် ၀ ကျပ်</p>
+      <a href="{{ route('twodHistory') }}">
+        <p>ထီထိုးမှတ်တမ်း</p>
       </a>
     </div>
   </div>

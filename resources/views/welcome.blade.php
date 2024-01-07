@@ -52,26 +52,7 @@
 
     </div>
     @endforeach
-    <!-- <div class="carousel-item">
-      <img src="{{ asset('user_app/assets/img/banner.png') }}" style="max-height: 500px" class="d-block w-100" alt="..." />
-      <div class="marquee">
-        <div class="marquee-text">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-          Dolorem ea id exercitationem. Quos consequuntur vitae soluta
-          aliquid odit temporibus beatae iste autem?
-        </div>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img src="{{ asset('user_app/assets/img/banner.png') }}" style="max-height: 500px" class="d-block w-100" />
-      <div class="marquee">
-        <div class="marquee-text">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-          Dolorem ea id exercitationem. Quos consequuntur vitae soluta
-          aliquid odit temporibus beatae iste autem?
-        </div>
-      </div>
-    </div> -->
+
   </div>
 </div>
 <!-- carousel -->
@@ -79,13 +60,13 @@
 <!-- button section start-->
 <div class="d-flex justify-content-around align-items-center" style="margin-top: 16px">
   <div>
-    <a href="{{ url('/twod') }}" class="btns">2Dထိုးမည်</a>
+    <a href="{{ route('user.twod-play-index') }}" class="btns">2Dထိုးမည်</a>
     <p class="d-block mt-2 text-center" style="font-size: 14px; font-weight: 700; color: var(--default)">
       ၂လုံးထီ
     </p>
   </div>
   <div>
-    <a href="{{ url('/threeD') }}" class="btns">3Dထိုးမည်</a>
+    <a href="{{ url('/user/three-d-play-index') }}" class="btns">3Dထိုးမည်</a>
     <p class="d-block mt-2 text-center" style="font-size: 14px; font-weight: 700; color: var(--default)">
       ၃လုံးထီ
     </p>

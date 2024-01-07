@@ -1,50 +1,60 @@
 <?php
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\WithDrawController;
 use App\Http\Controllers\User\UserWalletController;
 use App\Http\Controllers\User\TwodPlayIndexController;
+use App\Http\Controllers\User\AM9\TwoDPlay9AMController;
 use App\Http\Controllers\User\PM2\TwodPlay2PMController;
 use App\Http\Controllers\User\PM4\TwodPlay4PMController;
 use App\Http\Controllers\User\PM12\TwodPlay12PMController;
-use App\Http\Controllers\User\EarlyM\TwoDplay9AMController;
+use App\Http\Controllers\User\Threed\ThreeDPlayController;
+
 
 Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'App\Http\Controllers\User', 'middleware' => ['auth']], function () {
 
-Route::get('/two-d-play-index', [TwodPlayIndexController::class, 'index'])->name('twod-play-index');
-    // 9:00 am index
-    Route::get('/two-d-play-index-simple', [TwoDplay9AMController::class, 'index'])->name('twod-play-index-9am');
-    // 9:00 am confirm page
-    Route::get('/two-d-play-9-30-early-morning-confirm', [TwoDplay9AMController::class, 'play_confirm'])->name('twod-play-confirm-9am');
-    // store
-    Route::post('/two-d-play-index-9am', [TwoDplay9AMController::class, 'store'])->name('twod-play-index-9am.store');
-    // 12:00 pm index
-    Route::get('/two-d-play-index-12pm', [TwodPlay12PMController::class, 'index'])->name('twod-play-index-12pm');
-    // 12:00 pm confirm page
-    Route::get('/two-d-play-12-1-morning-confirm', [TwodPlay12PMController::class, 'play_confirm'])->name('twod-play-confirm-12pm');
-    // store
-    Route::post('/two-d-play-index-12pm', [TwodPlay12PMController::class, 'store'])->name('twod-play-index-12pm.store');
-    // 2:00 pm index
-    Route::get('/two-d-play-index-2pm', [TwodPlay2PMController::class, 'index'])->name('twod-play-index-2pm');
-    // 2:00 pm confirm page
-    Route::get('/two-d-play-2-early-evening-confirm', [TwodPlay2PMController::class, 'play_confirm'])->name('twod-play-confirm-2pm');
-    // store
-    Route::post('/two-d-play-index-2pm', [TwodPlay2PMController::class, 'store'])->name('twod-play-index-2pm.store');
-    // 4:00 pm index
-    Route::get('/two-d-play-index-4pm', [TwodPlay4PMController::class, 'index'])->name('twod-play-index-4pm');
-    // 2:00 pm confirm page
-    Route::get('/two-d-play-4-30-evening-confirm', [TwodPlay4PMController::class, 'play_confirm'])->name('twod-play-confirm-4pm');
-    // store
-    Route::post('/two-d-play-index-4pm', [TwodPlay4PMController::class, 'store'])->name('twod-play-index-4pm.store');
+  Route::get('/two-d-play-index', [TwodPlayIndexController::class, 'index'])->name('twod-play-index');
 
-    // qick play 9:00 am index
-    Route::get('/two-d-quick-play-index', [App\Http\Controllers\User\TwodQuick\TwoDQicklyPlayController::class, 'index'])->name('twod-quick-play-index');
-    Route::get('/two-d-play-quick-confirm', [App\Http\Controllers\User\TwodQuick\TwoDQicklyPlayController::class, 'play_confirm'])->name('twod-play-confirm-quick');
-    // store
-    Route::post('/twod-play-quick-confirm', [App\Http\Controllers\User\TwodQuick\TwoDQicklyPlayController::class, 'store'])->name('twod-play-quickly-confirm.store');
+  // 9:00 am index
+  Route::get('/two-d-play-index-simple', [TwoDPlay9AMController::class, 'index'])->name('twod-play-index-9am');
+  // 9:00 am confirm page
+  Route::get('/two-d-play-9-30-early-morning-confirm', [TwoDPlay9AMController::class, 'play_confirm'])->name('twod-play-confirm-9am');
+  // store
+  Route::post('/two-d-play-index-9am', [TwoDPlay9AMController::class, 'store'])->name('twod-play-index-9am.store');
 
-    // other route
-    Route::get('/two-d-winners-history', [App\Http\Controllers\User\WinnerHistoryController::class, 'winnerHistory'])->name('winnerHistory');
+
+  // 12:00 pm index
+  Route::get('/two-d-play-index-12pm', [TwodPlay12PMController::class, 'index'])->name('twod-play-index-12pm');
+  // 12:00 pm confirm page
+  Route::get('/two-d-play-12-1-morning-confirm', [TwodPlay12PMController::class, 'play_confirm'])->name('twod-play-confirm-12pm');
+  // store
+  Route::post('/two-d-play-index-12pm', [TwodPlay12PMController::class, 'store'])->name('twod-play-index-12pm.store');
+
+
+  // 2:00 pm index
+  Route::get('/two-d-play-index-2pm', [TwodPlay2PMController::class, 'index'])->name('twod-play-index-2pm');
+  // 2:00 pm confirm page
+  Route::get('/two-d-play-2-early-evening-confirm', [TwodPlay2PMController::class, 'play_confirm'])->name('twod-play-confirm-2pm');
+  // store
+  Route::post('/two-d-play-index-2pm', [TwodPlay2PMController::class, 'store'])->name('twod-play-index-2pm.store');
+
+
+  // 4:00 pm index
+  Route::get('/two-d-play-index-4pm', [TwodPlay4PMController::class, 'index'])->name('twod-play-index-4pm');
+  // 2:00 pm confirm page
+  Route::get('/two-d-play-4-30-evening-confirm', [TwodPlay4PMController::class, 'play_confirm'])->name('twod-play-confirm-4pm');
+  // store
+  Route::post('/two-d-play-index-4pm', [TwodPlay4PMController::class, 'store'])->name('twod-play-index-4pm.store');
+
+  // qick play 9:00 am index
+  Route::get('/two-d-quick-play-index', [App\Http\Controllers\User\TwodQuick\TwoDQicklyPlayController::class, 'index'])->name('twod-quick-play-index');
+  Route::get('/two-d-play-quick-confirm', [App\Http\Controllers\User\TwodQuick\TwoDQicklyPlayController::class, 'play_confirm'])->name('twod-play-confirm-quick');
+  // store
+  Route::post('/twod-play-quick-confirm', [App\Http\Controllers\User\TwodQuick\TwoDQicklyPlayController::class, 'store'])->name('twod-play-quickly-confirm.store');
+
+  // other route
+  Route::get('/two-d-winners-history', [App\Http\Controllers\User\WinnerHistoryController::class, 'winnerHistory'])->name('winnerHistory');
   Route::get('/morning-play-history-record', [App\Http\Controllers\User\UserPlayTwoDHistoryRecordController::class, 'MorningPlayHistoryRecord']);
   Route::get('/evening-play-history-record', [App\Http\Controllers\User\UserPlayTwoDHistoryRecordController::class, 'EveningPlayHistoryRecord']);
 
@@ -82,17 +92,25 @@ Route::get('/two-d-play-index', [TwodPlayIndexController::class, 'index'])->name
   Route::post('aya-pay-with-draw-money', [WithDrawController::class, 'StoreAYApayWithdrawMoney'])->name('StoreAYApayWithdrawMoney');
 
   // three d
-  Route::get('/get-three-d', [App\Http\Controllers\User\ThreeDPlayingController::class, 'GetThreeDigit'])->name('GetThreeDigit');
-  Route::get('/three-d-play', [App\Http\Controllers\User\ThreeDPlayingController::class, 'ThreeDigitPlay'])->name('ThreeDigitPlay');
-  Route::get('/three-d-play-confirm', [App\Http\Controllers\User\ThreeDPlayingController::class, 'ThreeDigitPlayConfirm'])->name('ThreeDigitPlayConfirm');
-  Route::get('/three-d-play-confirm-api-format', [App\Http\Controllers\User\ThreeDPlayingController::class, 'ThreeDigitPlayConfirmApi'])->name('ThreeDigitPlayConfirmApi');
-  // Route::post('/three-d-play-confirm', [App\Http\Controllers\Admin\ThreeDPlayController::class, 'ThreeDigitPlaystore'])->name('ThreeDigitPlaystore');
+  Route::get('/three-d-play-index', [ThreeDPlayController::class, 'index'])->name('three-d-play-index');
+  // three d choice play
+  Route::get('/three-d-choice-play-index', [ThreeDPlayController::class, 'choiceplay'])->name('three-d-choice-play');
+  // three d choice play confirm
+  Route::get('/three-d-choice-play-confirm', [ThreeDPlayController::class, 'confirm_play'])->name('three-d-choice-play-confirm');
+  // three d choice play store
+  Route::post('/three-d-choice-play-store', [ThreeDPlayController::class, 'store'])->name('three-d-choice-play-store');
+  // display three d play
+  Route::get('/three-d-display', [ThreeDPlayController::class, 'user_play'])->name('display');
+  // three d dream book
+  Route::get('/three-d-dream-book', [App\Http\Controllers\User\Threed\ThreeDreamBookController::class, 'index'])->name('three-d-dream-book-index');
+  // three d winner history
+  Route::get('/three-d-winners-history', [App\Http\Controllers\User\Threed\ThreedWinnerHistoryController::class, 'index'])->name('three-d-winners-history');
 
-  Route::post('/three-digit-play-confirm', [App\Http\Controllers\Admin\ThreeDigitPlayController::class, 'ThreeDigitPlaystore'])->name('ThreeDigitPlaystore');
+
+
   Route::get('/user-dashboard', [App\Http\Controllers\User\WelcomeController::class, 'user_dashboard']);
 
   Route::get('/user-dashboard/twod-live', [App\Http\Controllers\User\WelcomeController::class, 'twodLive']);
   Route::get('/user-dashboard/twod-calendar', [App\Http\Controllers\User\WelcomeController::class, 'twodCalendar']);
   Route::get('/user-dashboard/threed-result', [App\Http\Controllers\User\WelcomeController::class, 'threedResult']);
-
 });

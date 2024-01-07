@@ -1,71 +1,87 @@
 <?php
 
-namespace App\Http\Controllers\User\AM9;
+namespace App\Http\Controllers\User\Threed;
 
-use App\Models\Lottery;
+use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\Admin\TwoDigit;
+use App\Models\ThreeDigit\Lotto;
 use App\Models\Admin\LotteryMatch;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use App\Models\LotteryTwoDigitPivot;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Two\LotteryTwoDigitOverLimit;
+use App\Models\ThreeDigit\ThreeDigit;
+use App\Models\ThreeDigit\ThreeDigitOverLimit;
+use App\Models\ThreeDigit\LotteryThreeDigitPivot;
 
-class TwoDplay9AMController extends Controller
+class ThreeDPlayController extends Controller
 {
     public function index()
     {
-        $twoDigits = TwoDigit::all();
+        return view('frontend.three_d.index');
+    }
+    // threed play
+    public function choiceplay()
+    {
+        $threeDigits = ThreeDigit::all();
 
         // Calculate remaining amounts for each two-digit
         $remainingAmounts = [];
-        foreach ($twoDigits as $digit) {
-            $totalBetAmountForTwoDigit = DB::table('lottery_two_digit_copy')
-                ->where('two_digit_id', $digit->id)
+        foreach ($threeDigits as $digit) {
+            $totalBetAmountForTwoDigit = DB::table('lotto_three_digit_pivot')
+                ->where('three_digit_id', $digit->id)
                 ->sum('sub_amount');
 
             $remainingAmounts[$digit->id] = 50000 - $totalBetAmountForTwoDigit; // Assuming 5000 is the session limit
         }
-        $lottery_matches = LotteryMatch::where('id', 1)->whereNotNull('is_active')->first();
+        $lottery_matches = LotteryMatch::where('id', 2)->whereNotNull('is_active')->first();
 
-        return view('frontend.two_d.9_am.twoDPlayAM', compact('twoDigits', 'remainingAmounts', 'lottery_matches'));
+        return view('three_d.three_d_choice_play', compact('threeDigits', 'remainingAmounts', 'lottery_matches'));
+        //return view('three_d.three_d_choice_play');
+    }
+    public function confirm_play()
+    {
+        $threeDigits = ThreeDigit::all();
+
+        // Calculate remaining amounts for each two-digit
+        $remainingAmounts = [];
+        foreach ($threeDigits as $digit) {
+            $totalBetAmountForTwoDigit = DB::table('lotto_three_digit_pivot')
+                ->where('three_digit_id', $digit->id)
+                ->sum('sub_amount');
+
+            $remainingAmounts[$digit->id] = 50000 - $totalBetAmountForTwoDigit; // Assuming 5000 is the session limit
+        }
+        $lottery_matches = LotteryMatch::where('id', 2)->whereNotNull('is_active')->first();
+
+        return view('three_d.play_confirm', compact('threeDigits', 'remainingAmounts', 'lottery_matches'));
+        //return view('three_d.three_d_choice_play');
     }
 
-    public function play_confirm()
+    public function user_play()
     {
-        $twoDigits = TwoDigit::all();
+        $userId = auth()->id(); // Get logged in user's ID
 
-        // Calculate remaining amounts for each two-digit
-        $remainingAmounts = [];
-        foreach ($twoDigits as $digit) {
-            $totalBetAmountForTwoDigit = DB::table('lottery_two_digit_copy')
-                ->where('two_digit_id', $digit->id)
-                ->sum('sub_amount');
-
-            $remainingAmounts[$digit->id] = 50000 - $totalBetAmountForTwoDigit; // Assuming 5000 is the session limit
-        }
-        $lottery_matches = LotteryMatch::where('id', 1)->whereNotNull('is_active')->first();
-
-        return view('frontend.two_d.9_am.twoDPlayAMConfirm', compact('twoDigits', 'remainingAmounts', 'lottery_matches'));
+        $displayThreeDigits = User::getUserThreeDigits($userId);
+        return view('three_d.three_d_display', [
+            'displayThreeDigits' => $displayThreeDigits,
+        ]);
     }
 
 
     public function store(Request $request)
     {
 
-        Log::info($request->all());
+        //Log::info($request->all());
         $validatedData = $request->validate([
             'selected_digits' => 'required|string',
             'amounts' => 'required|array',
             'amounts.*' => 'required|integer|min:100|max:50000',
-            //'totalAmount' => 'required|integer|min:100',
-            'totalAmount' => 'required|numeric|min:100', // Changed from integer to numeric
+            'totalAmount' => 'required|numeric|min:100',
             'user_id' => 'required|exists:users,id',
         ]);
 
-        $currentSession = date('H') < 12 ? 'morning' : 'evening';
+        //$currentSession = date('H') < 12 ? 'morning' : 'evening';
         $limitAmount = 50000; // Define the limit amount
 
         DB::beginTransaction();
@@ -80,24 +96,24 @@ class TwoDplay9AMController extends Controller
 
             $user->save();
 
-            $lottery = Lottery::create([
-                'pay_amount' => $request->totalAmount,
+            $lottery = Lotto::create([
+                //'pay_amount' => $request->totalAmount,
                 'total_amount' => $request->totalAmount,
                 'user_id' => $request->user_id,
-                'session' => $currentSession
+                //'session' => $currentSession
             ]);
 
-            foreach ($request->amounts as $two_digit_string => $sub_amount) {
-                $two_digit_id = $two_digit_string === '00' ? 1 : intval($two_digit_string, 10) + 1;
+            foreach ($request->amounts as $three_digit_string => $sub_amount) {
+                $three_digit_id = $three_digit_string === '00' ? 1 : intval($three_digit_string, 10) + 1;
 
-                $totalBetAmountForTwoDigit = DB::table('lottery_two_digit_copy')
-                    ->where('two_digit_id', $two_digit_id)
+                $totalBetAmountForTwoDigit = DB::table('lotto_three_digit_copy')
+                    ->where('three_digit_id', $three_digit_id)
                     ->sum('sub_amount');
 
                 if ($totalBetAmountForTwoDigit + $sub_amount <= $limitAmount) {
-                    $pivot = new LotteryTwoDigitPivot([
-                        'lottery_id' => $lottery->id,
-                        'two_digit_id' => $two_digit_id,
+                    $pivot = new LotteryThreeDigitPivot([
+                        'lotto_id' => $lottery->id,
+                        'three_digit_id' => $three_digit_id,
                         'sub_amount' => $sub_amount,
                         'prize_sent' => false
                     ]);
@@ -107,9 +123,9 @@ class TwoDplay9AMController extends Controller
                     $overLimit = $sub_amount - $withinLimit;
 
                     if ($withinLimit > 0) {
-                        $pivotWithin = new LotteryTwoDigitPivot([
-                            'lottery_id' => $lottery->id,
-                            'two_digit_id' => $two_digit_id,
+                        $pivotWithin = new LotteryThreeDigitPivot([
+                            'lotto_id' => $lottery->id,
+                            'three_digit_id' => $three_digit_id,
                             'sub_amount' => $withinLimit,
                             'prize_sent' => false
                         ]);
@@ -117,9 +133,9 @@ class TwoDplay9AMController extends Controller
                     }
 
                     if ($overLimit > 0) {
-                        $pivotOver = new LotteryTwoDigitOverLimit([
+                        $pivotOver = new ThreeDigitOverLimit([
                             'lottery_id' => $lottery->id,
-                            'two_digit_id' => $two_digit_id,
+                            'two_digit_id' => $three_digit_id,
                             'sub_amount' => $overLimit,
                             'prize_sent' => false
                         ]);
@@ -130,7 +146,7 @@ class TwoDplay9AMController extends Controller
 
             DB::commit();
             session()->flash('SuccessRequest', 'Successfully placed bet.');
-            return redirect()->route('twodHistory')->with('message', 'Data stored successfully!');
+            return redirect()->route('user.display')->with('message', 'Data stored successfully!');
         } catch (\Exception $e) {
             DB::rollback();
             Log::error('Error in store method: ' . $e->getMessage());

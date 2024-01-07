@@ -12,7 +12,7 @@
 
 @section('content')
 @include('user_layout.nav')
-<div class="d-flex justify-content-around align-items-center mx-auto profiles" style="
+<div class="d-flex justify-content-around align-items-center mx-auto" style="
           background-color: var(--default);
           width: 358px;
           height: 59px;
@@ -20,16 +20,18 @@
           border: 2px solid var(--gold, #576265);
           background: #12486b;
           padding: 12px 16px;
+          margin-top: 80px;
         ">
   <img src="{{ asset('user_app/assets/img/vector.png') }}" width="24px" height="24px" alt="" />
-  <p style="font-size: 16px; font-weight: 500">ပိုက်ဆံအိတ်</p>
-  <p style="
+  <p class="pt-3" style="font-size: 16px; font-weight: 500">ပိုက်ဆံအိတ် </p>
+  <p class="pt-3" style="
             font-size: 16px;
             font-weight: 700;
             font-family: 'Lato', sans-serif;
           ">
-    12,670 Kyats
+    {{ Auth::user()->balance }} Kyats
   </p>
+
   <img src="{{ asset('user_app/assets/img/plus.png') }}" class="rounded-circle" style="padding: 10px; color: var(--blue); background-color: #fff" alt="" />
 </div>
 
@@ -54,7 +56,7 @@
       <img src="{{ asset('user_app/assets/img/2D/send-money 1.png') }}" width="20px" height="20px" alt="" />
     </div>
     <p class="d-block mt-1" style="font-size: 12px; font-weight: 500; color: #253490">
-      ငွေထုတ််
+      ငွေထုတ်
     </p>
   </a>
 
@@ -95,62 +97,6 @@
 <div class="mx-auto lives" style="margin-bottom:80px;" id="result"></div>
 <!-- 2d lists -->
 
-<!--  -->
-<!-- <div>
-  <div class="mx-auto lives">
-    <p class="text-center">11:00:00</p>
-
-    <div class="d-flex justify-content-around align-items-center">
-      <h6>Set</h6>
-      <h6>Value</h6>
-      <h6>2D</h6>
-    </div>
-    <div class="d-flex justify-content-around align-items-center">
-      <h6>1397.99</h6>
-      <h6>12091.35</h6>
-      <h6>31</h6>
-    </div>
-
-    <hr style="height: 2px; background-color: #8b93c4" class="mx-3" />
-
-    <div class="d-flex justify-content-around align-items-center">
-      <h6>Set</h6>
-      <h6>Value</h6>
-      <h6>2D</h6>
-    </div>
-    <div class="d-flex justify-content-around align-items-center">
-      <h6>1397.99</h6>
-      <h6>12091.35</h6>
-      <h6>31</h6>
-    </div>
-
-    <hr style="height: 2px; background-color: #8b93c4" class="mx-3" />
-
-    <div class="d-flex justify-content-around align-items-center">
-      <h6>Set</h6>
-      <h6>Value</h6>
-      <h6>2D</h6>
-    </div>
-    <div class="d-flex justify-content-around align-items-center">
-      <h6>1397.99</h6>
-      <h6>12091.35</h6>
-      <h6>31</h6>
-    </div>
-
-    <hr style="height: 2px; background-color: #8b93c4" class="mx-3" />
-
-    <div class="d-flex justify-content-around align-items-center">
-      <h6>Set</h6>
-      <h6>Value</h6>
-      <h6>2D</h6>
-    </div>
-    <div class="d-flex justify-content-around align-items-center">
-      <h6>1397.99</h6>
-      <h6>12091.35</h6>
-      <h6>31</h6>
-    </div>
-  </div>
-</div> -->
 
 @include('user_layout.footer')
 <!-- time modal -->
@@ -161,22 +107,42 @@
       <div class="modal-header">
         <span class="modal-title text-dark" id="exampleModalLongTitle" style="font-size: 15px">ထိုးမည့်အချိန် (section) ကိုရွေးပါ
         </span>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="border: none; outline: none; background-color: #fff">
-          <span aria-hidden="true" style="font-size: 30px">&times;</span>
-        </button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        @php
+        use Carbon\Carbon;
+        $currentTime = Carbon::now();
+        $start9Time = Carbon::parse('9:30');
+        $end12Time = Carbon::parse('12:00');
+        $start12Time = Carbon::parse('12:00');
+        $end2Time = Carbon::parse('14:00');
+        $start2Time = Carbon::parse('14:00');
+        $end4Time = Carbon::parse('16:30');
+        @endphp
         <button class="btn w-100 my-1" style="background: var(--linear)">
-          <a href="{{ url('/twodplay') }}">10:00 AM</a>
+          <a href="{{ route('user.twod-play-index-9am') }}">09:30 AM</a>
         </button>
         <button class="btn w-100 my-1" style="background: var(--linear)">
-          <a href="{{ url('/twodplay') }}">12:00 AM</a>
+          @if ($currentTime->between($start9Time, $end12Time))
+          <a href="{{ route('user.twod-play-index-9am') }}">12:00 PM</a>
+          @else
+          <span class="w-100 border-purple py-2 rounded d-block text-purple text-center">12:00 PM</span>
+          @endif
         </button>
-        <button class="btn btn-outline-primary w-100 my-1" style="background: var(--linear)">
-          <a href="{{ url('/twodplay') }}">2:00 AM</a>
+        <button class="btn w-100 my-1" style="background: var(--linear)">
+          @if ($currentTime->between($start12Time, $end2Time))
+          <a href="{{ route('user.twod-play-index-9am') }}">2:00 PM</a>
+          @else
+          <span class="w-100 border-purple py-2 rounded d-block text-purple text-center">02:00 PM</span>
+          @endif
         </button>
-        <button class="btn btn-outline-primary w-100 my-1" style="background: var(--linear)">
-          <a href="{{ url('/twodplay') }}">4:00 AM</a>
+        <button class="btn w-100 my-1" style="background: var(--linear)">
+          @if ($currentTime->between($start2Time, $end4Time))
+          <a href="{{ route('user.twod-play-index-9am') }}">4:00 PM</a>
+          @else
+          <span class="w-100 border-purple py-2 rounded d-block text-purple text-center">04:30 PM</span>
+          @endif
         </button>
       </div>
       <!-- <div class="modal-footer d-flex justify-content-center align-items-center">

@@ -8,10 +8,10 @@
         ">
   <!-- content section start -->
   <p class="text-center" style="font-size: 20px; color: var(--Font-Body, #5a5a5a)">
-    မှတ်တမ်း
+    တစ်နေ့တာထီထိုးမှတ်တမ်း
   </p>
 
-  <div class="tab d-flex justify-content-around align-items-center m-2">
+  <div class="d-flex justify-content-around align-items-center m-2">
     <button class="bg-transparent d-block click" id="nine-thirty">
       <div class="text-center" style="
                 padding: 12px 16px;
@@ -98,10 +98,10 @@
     </button>
   </div>
 
-  <div class="nine-thirty py-5 d-none">
-    <p class="text-center">တစ်နေ့တာ 2D ထိုးမှတ်တမ်း</p>
-    <div class="card mt-2 bg-transparent shadow border border-1">
-      <div class="card-header">
+  <div class="nine-thirty">
+    <p class="text-center text-dark">09:30 AM 2D ထိုးမှတ်တမ်း</p>
+    <div class="card mt-2 shadow border border-1" style="border-radius: 10px; background: var(--Primary, #12486b)">
+      <div class="card-header mt-3">
         <p class="text-center text-white">
           <script>
             var d = new Date();
@@ -135,17 +135,17 @@
         @endif
       </tbody>
     </table>
-    <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow border border-1">
-      <p class="text-end pt-1" style="color: #ffffff">Total Amount for 09:30AM: ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
+    <div class="mb-3 d-flex justify-content-around text-white p-2 shadow border border-1" style="border-radius: 10px; background: var(--Primary, #12486b)">
+      <p class="text-end pt-1" style="color: #fff">Total Amount for 09:30AM: ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
         <strong>{{ $earlymorningDigits['total_amount'] }} MMK</strong>
       </p>
     </div>
   </div>
 
-  <div class="twelve py-5 d-none">
-    <p class="text-center">တစ်နေ့တာ 2D ထိုးမှတ်တမ်း</p>
-    <div class="card mt-2 bg-transparent shadow border border-1">
-      <div class="card-header">
+  <div class="twelve d-none">
+    <p class="text-center" style="color: #000">12:00 AM 2D ထိုးမှတ်တမ်း</p>
+    <div class="card mt-2 shadow border border-1" style="border-radius: 10px; background: var(--Primary, #12486b)">
+      <div class="card-header mt-3">
         <p class="text-center text-white">
           <script>
             var d = new Date();
@@ -179,26 +179,26 @@
         @endif
       </tbody>
     </table>
-    <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow border border-1">
-      <p class="text-end pt-1" style="color: #ffffff">Total Amount for 12:00PM: ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
+    <div class="mb-3 d-flex justify-content-around text-white p-2 shadow border border-1" style="border-radius: 10px; background: var(--Primary, #12486b)">
+      <p class="text-end pt-1" style="color: #fff">Total Amount for 12:00PM: ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
         <strong>{{ $morningDigits['total_amount'] }} MMK</strong>
       </p>
     </div>
   </div>
 
-  <div class="two py-5 d-none">
-    <p class="text-center">တစ်နေ့တာ 2D ထိုးမှတ်တမ်း</p>
+  <div class="two d-none">
+    <p class="text-center" style="color: #000">02:00 AM 2D ထိုးမှတ်တမ်း</p>
     @if(isset($earlyeveningDigit['two_digits']) && count($eveningDigits['two_digits']) == 0)
-    <p class="text-center text-white px-3 py-2 mt-3" style="background-color: #c50408">
+    <p class="text-center text-dark px-3 py-2 mt-3" style="background-color: #c50408">
       ညနေပိုင်း ကံစမ်းထားသော ထီဂဏန်းများ မရှိသေးပါ
       <span>
-        <a href="{{ route('admin.GetTwoDigit')}}" style="color: #f5bd02; text-decoration:none">
+        <a href="{{ route('user.twod-play-index-9am') }}" style="color: #f5bd02; text-decoration:none">
           <strong>ထီးထိုးရန် နိုပ်ပါ</strong></a>
       </span>
     </p>
     @endif
-    <div class="card mt-2 bg-transparent shadow border border-1">
-      <div class="card-header">
+    <div class="card mt-2 shadow border border-1" style="border-radius: 10px; background: var(--Primary, #12486b)">
+      <div class="card-header mt-3">
         <p class="text-center text-white">
           <script>
             var d = new Date();
@@ -232,17 +232,17 @@
         @endif
       </tbody>
     </table>
-    <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow border border-1">
-      <p class="text-end pt-1" style="color: #ffffff">Total Amount for 02:00PM: ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
+    <div class="mb-3 d-flex justify-content-around text-white p-2 shadow border border-1" style="border-radius: 10px; background: var(--Primary, #12486b)">
+      <p class="text-end pt-1" style="color: #fff">Total Amount for 02:00PM: ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
         <strong>{{ $earlyeveningDigit['total_amount'] }} MMK</strong>
       </p>
     </div>
   </div>
 
-  <div class="four-thirty py-5 d-none">
-    <p class="text-center">တစ်နေ့တာ 2D ထိုးမှတ်တမ်း</p>
-    <div class="card mt-2 bg-transparent shadow border border-1">
-      <div class="card-header">
+  <div class="four-thirty d-none">
+    <p class="text-center" style="color: #000">04:30 AM 2D ထိုးမှတ်တမ်း</p>
+    <div class="card mt-2 shadow border border-1" style="border-radius: 10px; background: var(--Primary, #12486b)">
+      <div class="card-header mt-3">
         <p class="text-center text-white">
           <script>
             var d = new Date();
@@ -276,164 +276,12 @@
         @endif
       </tbody>
     </table>
-    <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow border border-1">
-      <p class="text-end pt-1" style="color: #ffffff">Total Amount for 04:30AM: ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
+    <div class="mb-3 d-flex justify-content-around text-white p-2 shadow border border-1" style="border-radius: 10px; background: var(--Primary, #12486b)">
+      <p class="text-end pt-1" style="color: #fff">Total Amount for 04:30AM: ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
         <strong>{{ $eveningDigits['total_amount'] }} MMK</strong>
       </p>
     </div>
   </div>
-
-
-
-  {{-- <div id="first_tab" class="tabcontent mt-4" style="display: none; min-height: 100vh">
-    <div>
-      <p class="text-center" style="font-size: 14px; color: var(--Font-Body, #5a5a5a)">
-        Morning Session
-      </p>
-      <div class="d-flex justify-content-around align-items-center text-center m-3 pt-2" style="border-radius: 10px; background: var(--Primary, #12486b)">
-        <div>
-          <p style="font-size: 16px; color: #dde3f0">Session</p>
-          <p style="font-size: 14px; color: #abb1cc">Evening</p>
-        </div>
-        <div>
-          <p style="font-size: 16px; color: #dde3f0">Date</p>
-          <p style="font-size: 14px; color: #abb1cc">
-            10-11-2023 Friday 04:07 PM
-          </p>
-        </div>
-        <div>
-          <p style="font-size: 16px; color: #dde3f0">2D</p>
-          <p style="font-size: 14px; color: #ff1267">83</p>
-        </div>
-      </div>
-
-      <div class="d-flex justify-content-around align-items-center text-center m-3 pt-2" style="border-radius: 10px; background: var(--Primary, #12486b)">
-        <div>
-          <p style="font-size: 16px; color: #dde3f0">Session</p>
-          <p style="font-size: 14px; color: #abb1cc">Evening</p>
-        </div>
-        <div>
-          <p style="font-size: 16px; color: #dde3f0">Date</p>
-          <p style="font-size: 14px; color: #abb1cc">
-            10-11-2023 Friday 04:07 PM
-          </p>
-        </div>
-        <div>
-          <p style="font-size: 16px; color: #dde3f0">2D</p>
-          <p style="font-size: 14px; color: #ff1267">83</p>
-        </div>
-      </div>
-
-      <div class="d-flex justify-content-around align-items-center text-center m-3 pt-2" style="border-radius: 10px; background: var(--Primary, #12486b)">
-        <div>
-          <p style="font-size: 16px; color: #dde3f0">Session</p>
-          <p style="font-size: 14px; color: #abb1cc">Evening</p>
-        </div>
-        <div>
-          <p style="font-size: 16px; color: #dde3f0">Date</p>
-          <p style="font-size: 14px; color: #abb1cc">
-            10-11-2023 Friday 04:07 PM
-          </p>
-        </div>
-        <div>
-          <p style="font-size: 16px; color: #dde3f0">2D</p>
-          <p style="font-size: 14px; color: #ff1267">83</p>
-        </div>
-      </div>
-
-      <div class="d-flex justify-content-around align-items-center text-center m-3 pt-2" style="border-radius: 10px; background: var(--Primary, #12486b)">
-        <div>
-          <p style="font-size: 16px; color: #dde3f0">Session</p>
-          <p style="font-size: 14px; color: #abb1cc">Evening</p>
-        </div>
-        <div>
-          <p style="font-size: 16px; color: #dde3f0">Date</p>
-          <p style="font-size: 14px; color: #abb1cc">
-            10-11-2023 Friday 04:07 PM
-          </p>
-        </div>
-        <div>
-          <p style="font-size: 16px; color: #dde3f0">2D</p>
-          <p style="font-size: 14px; color: #ff1267">83</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="second_tab" class="tabcontent mt-4" style="display: block; min-height: 100vh">
-    <p class="text-center" style="font-size: 14px; color: var(--Font-Body, #5a5a5a)">
-      Evening Session
-    </p>
-    <div>
-      <div class="d-flex justify-content-around align-items-center text-center m-3 pt-2" style="border-radius: 10px; background: var(--Primary, #12486b)">
-        <div>
-          <p style="font-size: 16px; color: #dde3f0">Session</p>
-          <p style="font-size: 14px; color: #abb1cc">Evening</p>
-        </div>
-        <div>
-          <p style="font-size: 16px; color: #dde3f0">Date</p>
-          <p style="font-size: 14px; color: #abb1cc">
-            10-11-2023 Friday 04:07 PM
-          </p>
-        </div>
-        <div>
-          <p style="font-size: 16px; color: #dde3f0">2D</p>
-          <p style="font-size: 14px; color: #ff1267">83</p>
-        </div>
-      </div>
-
-      <div class="d-flex justify-content-around align-items-center text-center m-3 pt-2" style="border-radius: 10px; background: var(--Primary, #12486b)">
-        <div>
-          <p style="font-size: 16px; color: #dde3f0">Session</p>
-          <p style="font-size: 14px; color: #abb1cc">Evening</p>
-        </div>
-        <div>
-          <p style="font-size: 16px; color: #dde3f0">Date</p>
-          <p style="font-size: 14px; color: #abb1cc">
-            10-11-2023 Friday 04:07 PM
-          </p>
-        </div>
-        <div>
-          <p style="font-size: 16px; color: #dde3f0">2D</p>
-          <p style="font-size: 14px; color: #ff1267">83</p>
-        </div>
-      </div>
-
-      <div class="d-flex justify-content-around align-items-center text-center m-3 pt-2" style="border-radius: 10px; background: var(--Primary, #12486b)">
-        <div>
-          <p style="font-size: 16px; color: #dde3f0">Session</p>
-          <p style="font-size: 14px; color: #abb1cc">Evening</p>
-        </div>
-        <div>
-          <p style="font-size: 16px; color: #dde3f0">Date</p>
-          <p style="font-size: 14px; color: #abb1cc">
-            10-11-2023 Friday 04:07 PM
-          </p>
-        </div>
-        <div>
-          <p style="font-size: 16px; color: #dde3f0">2D</p>
-          <p style="font-size: 14px; color: #ff1267">83</p>
-        </div>
-      </div>
-
-      <div class="d-flex justify-content-around align-items-center text-center m-3 pt-2" style="border-radius: 10px; background: var(--Primary, #12486b)">
-        <div>
-          <p style="font-size: 16px; color: #dde3f0">Session</p>
-          <p style="font-size: 14px; color: #abb1cc">Evening</p>
-        </div>
-        <div>
-          <p style="font-size: 16px; color: #dde3f0">Date</p>
-          <p style="font-size: 14px; color: #abb1cc">
-            10-11-2023 Friday 04:07 PM
-          </p>
-        </div>
-        <div>
-          <p style="font-size: 16px; color: #dde3f0">2D</p>
-          <p style="font-size: 14px; color: #ff1267">83</p>
-        </div>
-      </div>
-    </div>
-  </div> --}}
 
   <!-- content section end -->
 </div>
@@ -442,21 +290,6 @@
 @endsection
 
 @section('script')
-<script>
-  function openTab(evt, cityName) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName('tabcontent');
-    for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = 'none';
-    }
-    tablinks = document.getElementsByClassName('tablinks');
-    for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(' active', '');
-    }
-    document.getElementById(cityName).style.display = 'block';
-    evt.currentTarget.className += ' active';
-  }
-</script>
 
 <script>
   $(document).ready(function() {
