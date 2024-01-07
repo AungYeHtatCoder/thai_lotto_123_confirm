@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-            $this->call([
+        $this->call([
             PermissionsTableSeeder::class,
             RolesTableSeeder::class,
             PermissionRoleTableSeeder::class,
@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             MatchTableSeeder::class,
             TwoDigitsTableSeeder::class,
             //TwoDLotteryPlaySeeder::class,
-            //ThreeDigitsTableSeeder::class,
+            ThreeDigitsTableSeeder::class,
             ThreedMatchTimesTableSeeder::class,
             CountryCodeSeeder::class,
             CurrencySeeder::class,
