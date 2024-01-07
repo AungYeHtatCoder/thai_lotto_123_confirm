@@ -10,6 +10,9 @@ Route::get('/', [App\Http\Controllers\User\WelcomeController::class, 'index'])->
 Route::middleware('auth')->group(function () {
     Route::get('/user-profile', [HomeController::class, 'profile'])->name('home');
 
+    Route::get('/two_d/twod_history', [HomeController::class, 'index'])->name('twodHistory');
+
+
     //profile management
     Route::put('editProfile/{profile}', [ProfileController::class, 'update'])->name('editProfile');
     Route::post('editInfo', [ProfileController::class, 'editInfo'])->name('editInfo');
@@ -38,7 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('dashboard')->group(function () {
         Route::get('/', [WelcomeController::class, 'dashboard']);
         Route::get('/winner-list', [WelcomeController::class, 'winnerList']);
-        Route::get('/twod-history', [WelcomeController::class, 'twodHistory']);
+        // Route::get('/twod-history', [WelcomeController::class, 'twodHistory']);
         Route::get('/twod-live', [WelcomeController::class, 'twodLive']);
         Route::get('/threed-live', [WelcomeController::class, 'threedLive']);
         Route::get('/user-profile', [WelcomeController::class, 'userProfile']);
