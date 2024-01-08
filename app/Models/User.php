@@ -231,4 +231,20 @@ public function twodWiners()
         return asset('assets/img/profile/' . $this->profile);
     }
 
+    public static function getUserThreeDigits($userId) {
+    $displayThreeDigits = Lotto::where('user_id', $userId)
+                               ->with('DisplayThreeDigits')
+                               ->get()
+                               ->pluck('DisplayThreeDigits')
+                               ->collapse(); 
+    $totalAmount = $displayThreeDigits->sum(function ($threeDigit) {
+        return $threeDigit->pivot->sub_amount;
+    });
+
+    return [
+        'threeDigit' => $displayThreeDigits,
+        'total_amount' => $totalAmount
+    ];
+}
+
 }
