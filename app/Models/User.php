@@ -10,6 +10,7 @@ use App\Models\Admin\Lottery;
 use App\Models\Admin\TwodWiner;
 use App\Models\Admin\BetLottery;
 use App\Models\Admin\Permission;
+use App\Models\ThreeDigit\Lotto;
 use App\Models\Admin\FillBalance;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
