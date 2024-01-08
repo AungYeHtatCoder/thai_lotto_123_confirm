@@ -28,7 +28,9 @@ class DatabaseSeeder extends Seeder
             TwoDigitsTableSeeder::class,
             //TwoDLotteryPlaySeeder::class,
             ThreeDigitsTableSeeder::class,
+            //ThreedMatchTimesTableSeeder::class,
             ThreedMatchTimesTableSeeder::class,
+
             CountryCodeSeeder::class,
             CurrencySeeder::class,
         ]);

@@ -57,35 +57,72 @@ class ThreedMatchTimesTableSeeder extends Seeder
         'December' => 31,
     ];
 
+    
+
+        // Adjust February for leap year if necessary
+        $year = date('Y');
+        if (($year % 4 == 0 && $year % 100 != 0) || $year % 400 == 0) {
+            $months['February'] = 29;
+        }
+
+        // Loop through each month
+        foreach ($months as $month => $days) {
+            // Get the date for the 1st and 16th of the month
+            $firstOfMonth = Carbon::createFromFormat('F Y', "{$month} {$year}")->startOfMonth();
+            $sixteenthOfMonth = clone $firstOfMonth;
+            $sixteenthOfMonth->addDays(15);
+
+            // Determine the index for open times
+            $firstOpenTimeIndex = ($firstOfMonth->month - 1) * 2;
+            $sixteenthOpenTimeIndex = $firstOpenTimeIndex + 1;
+
+            // Insert the entry for the 1st of the month
+            DB::table('threed_match_times')->insert([
+                'open_time' => $openTimes[$firstOpenTimeIndex],
+                'match_time' => $firstOfMonth->toDateString(),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            // Insert the entry for the 16th of the month
+            DB::table('threed_match_times')->insert([
+                'open_time' => $openTimes[$sixteenthOpenTimeIndex],
+                'match_time' => $sixteenthOfMonth->toDateString(),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+    }
+
     // Check for leap year and adjust February if needed
-    $year = date('Y'); // Current year
-    if (($year % 4 == 0 && $year % 100 != 0) || $year % 400 == 0) {
-        $months['February'] = 29;
-    }
+    // $year = date('Y'); // Current year
+    // if (($year % 4 == 0 && $year % 100 != 0) || $year % 400 == 0) {
+    //     $months['February'] = 29;
+    // }
 
-    $matchDates = [];
+    // $matchDates = [];
 
-    // Generate the 1st and 16th match dates for each month
-    foreach ($months as $month => $days) {
-        $matchDates[] = "1 - {$month} - {$year}";
-        $matchDates[] = "16 - {$month} - {$year}";
-    }
+    // // Generate the 1st and 16th match dates for each month
+    // foreach ($months as $month => $days) {
+    //     $matchDates[] = "1 - {$month} - {$year}";
+    //     $matchDates[] = "16 - {$month} - {$year}";
+    // }
 
-    // Insert the match dates into the database
-     foreach ($months as $month => $days) {
-        DB::table('matchings')->insert([
-            'open_time' => $openTimes[0], // Assuming "1: Time" for the 1st of each month
-            'match_time' => Carbon::createFromFormat('F Y', "{$month} {$year}")->startOfMonth()->toDateString(),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+    // // Insert the match dates into the database
+    //  foreach ($months as $month => $days) {
+    //     DB::table('threed_match_times')->insert([
+    //         'open_time' => $openTimes[0], // Assuming "1: Time" for the 1st of each month
+    //         'match_time' => Carbon::createFromFormat('F Y', "{$month} {$year}")->startOfMonth()->toDateString(),
+    //         'created_at' => now(),
+    //         'updated_at' => now(),
+    //     ]);
 
-        DB::table('matchings')->insert([
-            'open_time' => $openTimes[15], // Assuming "16: Time" for the 16th of each month
-            'match_time' => Carbon::createFromFormat('F Y', "{$month} {$year}")->startOfMonth()->addDays(15)->toDateString(),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+    //     DB::table('threed_match_times')->insert([
+    //         'open_time' => $openTimes[15], // Assuming "16: Time" for the 16th of each month
+    //         'match_time' => Carbon::createFromFormat('F Y', "{$month} {$year}")->startOfMonth()->addDays(15)->toDateString(),
+    //         'created_at' => now(),
+    //         'updated_at' => now(),
+    //     ]);
     }
     // foreach ($matchDates as $key => $date) {
     //     DB::table('threed_match_times')->insert([
@@ -106,7 +143,7 @@ class ThreedMatchTimesTableSeeder extends Seeder
     // foreach ($storedMatchTimes as $matchTime) {
     //     echo $matchTime->match_time . "\n"; // or however you wish to output them
     // }
-}
+
 
 // Call the function
 
@@ -149,4 +186,3 @@ class ThreedMatchTimesTableSeeder extends Seeder
     //         ]);
     //     }
     // }
-}

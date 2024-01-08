@@ -15,7 +15,7 @@ class ThreedWinnerHistoryController extends Controller
         })->with(['threedDigits' => function ($query) {
             $query->where('prize_sent', 1);
         }])->get();
-        return view('three_d.threed-winner-history', compact('winners'));
+        return view('three_d.three-d-winner-list', compact('winners'));
         //return response()->json($winners);
     }
 }

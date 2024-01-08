@@ -19,8 +19,8 @@
                         </div>
                         <div class="ms-auto my-auto mt-lg-0 mt-4">
                             <div class="ms-auto my-auto">
-                                <a href="{{ route('admin.twod-records.index') }}"
-                                    class="btn bg-gradient-primary btn-sm mb-0">+&nbsp; Back To 2D List </a>
+                                <a href="{{ url('/admin/three-d-list-index') }}"
+                                    class="btn bg-gradient-primary btn-sm mb-0">+&nbsp; Back To 3D List </a>
                             </div>
                         </div>
                     </div>
