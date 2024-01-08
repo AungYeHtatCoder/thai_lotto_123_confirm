@@ -12,28 +12,7 @@
  {{-- <div id="jsonDataDisplay"></div> --}}
  <div id="jsonDataDisplay" class="table-responsive"></div>
 
- <script>
-  // async function fetchData() {
-  //   const url = 'https://shwe-2d-live-api.p.rapidapi.com/live';
-  //   const options = {
-  //     method: 'GET',
-  //     headers: {
-  //       'X-RapidAPI-Key': '4c6bcd02e8msh0665010fc0fab0fp1a2d33jsn173e389166b3',
-  //       'X-RapidAPI-Host': 'shwe-2d-live-api.p.rapidapi.com'
-  //     }
-  //   };
-
-  //   try {
-  //     const response = await fetch(url, options);
-  //     const result = await response.text();
-  //     console.log(result);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
-
-  // fetchData();
-</script>
+ 
 <script>
   // async function fetchData() {
   //   const url = 'https://shwe-2d-live-api.p.rapidapi.com/live';
