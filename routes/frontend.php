@@ -43,6 +43,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/winner-list', [WelcomeController::class, 'winnerList']);
         // Route::get('/twod-history', [WelcomeController::class, 'twodHistory']);
         Route::get('/twod-live', [WelcomeController::class, 'twodLive']);
+        Route::get('/twod-calendar', [WelcomeController::class, 'twodCalendar']);
+        Route::get('/twod-holiday', [WelcomeController::class, 'twodHoliday']);
+        Route::get('/twod-winDigitRecord', [WelcomeController::class, 'twodDigitRecord']);
         Route::get('/threed-live', [WelcomeController::class, 'threedLive']);
         Route::get('/user-profile', [WelcomeController::class, 'userProfile']);
     });

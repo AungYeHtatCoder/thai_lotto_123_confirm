@@ -110,7 +110,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'App\Http\Cont
 
   Route::get('/user-dashboard', [App\Http\Controllers\User\WelcomeController::class, 'user_dashboard']);
 
-  Route::get('/user-dashboard/twod-live', [App\Http\Controllers\User\WelcomeController::class, 'twodLive']);
-  Route::get('/user-dashboard/twod-calendar', [App\Http\Controllers\User\WelcomeController::class, 'twodCalendar']);
-  Route::get('/user-dashboard/threed-result', [App\Http\Controllers\User\WelcomeController::class, 'threedResult']);
+  // Route::get('/user-dashboard/twod-live', [App\Http\Controllers\User\WelcomeController::class, 'twodLive']);
+  // Route::get('/user-dashboard/twod-calendar', [App\Http\Controllers\User\WelcomeController::class, 'twodCalendar']);
+  // Route::get('/user-dashboard/threed-result', [App\Http\Controllers\User\WelcomeController::class, 'threedResult']);
 });

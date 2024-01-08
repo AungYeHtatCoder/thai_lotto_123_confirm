@@ -63,7 +63,7 @@ class ThreeDPlayController extends Controller
         $userId = auth()->id(); // Get logged in user's ID
 
         $displayThreeDigits = User::getUserThreeDigits($userId);
-        return view('three_d.three-d-history', [
+        return view('frontend.three_d.three-d-history', [
             'displayThreeDigits' => $displayThreeDigits,
         ]);
     }
