@@ -32,8 +32,10 @@
         <p>2D ထီထိုးမှတ်တမ်း</p>
       </a>
     </div>
-
-     <div class="d-flex justify-content-start align-items-start">
+    <hr class="mt-0 ms-4" style="
+                border-bottom: 0.5px solid var(--Overlay, rgba(0, 0, 0, 0.15));
+              " />
+    <div class="d-flex justify-content-start align-items-start">
       <img src="{{ asset('user_app/assets/img/icons/profile_1.png') }}" class="mt-1 me-3" alt="" />
       <a href="{{ route('user.display') }}">
         <p>3D ထီထိုးမှတ်တမ်း</p>
@@ -54,7 +56,7 @@
 
     <div class="d-flex justify-content-start align-items-start">
       <img src="{{ asset('user_app/assets/img/icons/profile_2.png') }}" class="mt-1 me-3" alt="" />
-      <a href="{{ url('/dashboard/winner-list') }}">
+      <a href="{{ route('user.winnerHistory') }}">
         <p>2D ကံထူးရှင်များ</p>
       </a>
     </div>
@@ -65,12 +67,15 @@
 
     <div class="d-flex justify-content-start align-items-start">
       <img src="{{ asset('user_app/assets/img/icons/profile_3.png') }}" class="mt-1 me-3" alt="" />
-      <a href="{{ url('/dashboard/twod-history') }}">
+      <a href="{{ url('/dashboard/twod-winDigitRecord') }}">
         <p>2D ထွက်ဂဏန်းများ</p>
       </a>
     </div>
+    <hr class="mt-0 ms-4" style="
+                border-bottom: 0.5px solid var(--Overlay, rgba(0, 0, 0, 0.15));
+              " />
 
-     <div class="d-flex justify-content-start align-items-start">
+    <div class="d-flex justify-content-start align-items-start">
       <img src="{{ asset('user_app/assets/img/icons/profile_2.png') }}" class="mt-1 me-3" alt="" />
       <a href="{{ url('/user/three-d-winners-history') }}">
         <p>3D ကံထူးရှင်များ</p>
@@ -104,7 +109,7 @@
 
     <div class="d-flex justify-content-start align-items-start">
       <img src="{{ asset('user_app/assets/img/icons/profile_5.png') }}" class="mt-1 me-3" alt="" />
-      <a href="#">
+      <a href="{{ url('/dashboard/twod-calendar') }}">
         <p>2D Calendar</p>
       </a>
     </div>
@@ -114,7 +119,7 @@
 
     <div class="d-flex justify-content-start align-items-start">
       <img src="{{ asset('user_app/assets/img/icons/profile_6.png') }}" class="mt-1 me-3" alt="" />
-      <a href="#">
+      <a href="{{ url('/dashboard/twod-holiday') }}">
         <p>2D Holidays</p>
       </a>
     </div>

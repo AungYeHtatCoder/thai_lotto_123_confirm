@@ -11,13 +11,13 @@
     တစ်ပတ်အတွင်း 3D ထိုးမှတ်တမ်း
   </p>
 
-  
+
 
   <div class="nine-thirty py-1">
     {{-- <p class="text-center text-dark">တစ်ပတ်အတွင်း 3D ထိုးမှတ်တမ်း</p> --}}
-    <div class="card mt-2 bg-transparent shadow border border-1">
-      <div class="card-header">
-        <p class="text-center text-dark">
+    <div class="card mt-2 shadow border border-1" style="border-radius: 10px; background: var(--Primary, #12486b)">
+      <div class="card-header mt-3">
+        <p class="text-center text-white">
           <script>
             var d = new Date();
             document.write(d.toLocaleDateString());
@@ -34,12 +34,12 @@
       <thead>
         <tr>
           <th>No</th>
-          <th>2D</th>
+          <th>3D</th>
           <th>ထိုးကြေး</th>
         </tr>
       </thead>
       <tbody>
-         @if(isset($displayThreeDigits['threeDigit']) && count($displayThreeDigits['threeDigit']) == 0)
+        @if(isset($displayThreeDigits['threeDigit']) && count($displayThreeDigits['threeDigit']) == 0)
         <p class="text-center text-white px-3 py-2 mt-3" style="background-color: #c50408">
           ကံစမ်းထားသော 3D ထီဂဏန်းများ မရှိသေးပါ
           <span>
@@ -60,14 +60,14 @@
         @endif
       </tbody>
     </table>
-    <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow border border-1">
-      <p class="text-end pt-1" style="color: #121111">Total Amount for 3D: ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
+    <div class="mb-3 d-flex justify-content-around text-white p-2 shadow border border-1" style="border-radius: 10px; background: var(--Primary, #12486b)">
+      <p class="text-end pt-1" style="color: #fff">Total Amount for 3D: ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
         <strong>{{ $displayThreeDigits['total_amount'] }} MMK</strong>
       </p>
     </div>
   </div>
 
-  
+
 
 
   {{-- <div id="first_tab" class="tabcontent mt-4" style="display: none; min-height: 100vh">
