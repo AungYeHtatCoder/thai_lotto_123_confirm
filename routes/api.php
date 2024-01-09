@@ -29,7 +29,5 @@ Route::group(["middleware" => ['auth:sanctum']], function(){
     Route::get('/wallet/bank/{id}', [WalletController::class, 'bankDetail']);
     Route::post('/wallet/deposit', [WalletController::class, 'deposit']);
     Route::post('/wallet/withdraw', [WalletController::class, 'withdraw']);
-
-    
-    
+    Route::get('/wallet/transferLogs', [WalletController::class, 'transferLog']);
 });

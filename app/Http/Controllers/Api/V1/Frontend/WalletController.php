@@ -10,6 +10,7 @@ use App\Models\Admin\Bank;
 use App\Models\Admin\CashInRequest;
 use App\Models\Admin\CashOutRequest;
 use App\Models\Admin\Currency;
+use App\Models\Admin\TransferLog;
 use App\Models\User;
 use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
@@ -108,5 +109,11 @@ class WalletController extends Controller
         ]);
     }
 
-    
+    public function transferLog()
+    {
+        $logs = TransferLog::where('user_id', auth()->id())->latest()->take(20)->get();
+        return $this->success([
+            "logs" => $logs,
+        ]);
+    }
 }
