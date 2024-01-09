@@ -86,7 +86,7 @@
     </p>
   </a>
 
-  <a href="#">
+  <a href="{{ route('transferlog') }}">
     <div class="menus">
       <img src="{{ asset('user_app/assets/img/2D/receipt.png') }}" width="20px" height="20px" alt="" />
     </div>

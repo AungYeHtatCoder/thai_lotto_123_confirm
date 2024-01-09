@@ -11,7 +11,7 @@
     appearance: none;
     /* For some browsers */
   }
-  .fas{
+  .icon{
     font-size: 25px;
     cursor: pointer;
   }
@@ -67,7 +67,7 @@
             <tr>
                 <th>Status</th>
                 <td>
-                    <i onclick="document.getElementById('status').submit()" class="fas text-{{ $cash->status == 1 ? 'success' : 'danger' }} fa-toggle-{{ $cash->status == 1 ? 'on' : 'off' }}"></i>   
+                    <i onclick="document.getElementById('status').submit()" class="fas icon text-{{ $cash->status == 1 ? 'success' : 'danger' }} fa-toggle-{{ $cash->status == 1 ? 'on' : 'off' }}"></i>   
                     <form id="status" action="{{ url('/admin/cashIn/status/'.$cash->id) }}" class="d-none" method="POST">
                       @csrf
                     </form>               

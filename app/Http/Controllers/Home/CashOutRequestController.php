@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\CashRequest;
 use App\Models\Admin\CashOutRequest;
 use App\Models\Admin\Currency;
+use App\Models\Admin\TransferLog;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -131,9 +132,21 @@ class CashOutRequestController extends Controller
         if($request->currency == 'kyat')
         {
             $user->balance -= $request->amount;
+            TransferLog::create([
+                'user_id' => $user->id,
+                'amount' => $request->amount,
+                'status' => "withdraw",
+                'created_by' => auth()->user()->id,
+            ]);
         }else{
             $rate = Currency::latest()->first()->rate;
             $user->balance -= $request->amount * $rate;
+            TransferLog::create([
+                'user_id' => $user->id,
+                'amount' => $request->amount * $rate,
+                'status' => "withdraw",
+                'created_by' => auth()->user()->id,
+            ]);
         }
         $user->save();
         return redirect()->back()->with('success', 'Withdraw the cash from user successfully');
