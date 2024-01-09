@@ -60,6 +60,7 @@
         <table>
             <tr>
                 <th>ဖုန်းနံပါတ်</th>
+                <th>လက်ခံသူအမည်</th>
                 <th>ပမာဏ</th>
                 <th>ငွေလွှဲနည်းလမ်း</th>
                 <th>နောက်ဆုံးဂဏန်း၆လုံး</th>
@@ -68,6 +69,9 @@
                 <td>
                     {{ $mail['phone'] }}
                 </td>
+                <td>
+                    {{ $mail['receiver'] }}
+                </td>   
                 <td>
                     {{ number_format($mail['amount']) .$mail['currency'] }} 
                 </td>
