@@ -112,4 +112,30 @@ class CashOutRequestController extends Controller
     {
         //
     }
+
+    public function status($id)
+    {
+        $cash = CashOutRequest::find($id);
+        $cash->status = $cash->status == 1 ? 0 : 1;
+        $cash->save();
+        return redirect()->back()->with('success', 'Filled the cash into user successfully');
+    }
+
+    public function withdraw(Request $request, $id)
+    {
+        $request->validate([
+            'amount' => 'required|numeric',
+            'currency' => 'required|string'
+        ]);
+        $user = User::find($id);
+        if($request->currency == 'kyat')
+        {
+            $user->balance -= $request->amount;
+        }else{
+            $rate = Currency::latest()->first()->rate;
+            $user->balance -= $request->amount * $rate;
+        }
+        $user->save();
+        return redirect()->back()->with('success', 'Withdraw the cash from user successfully');
+    }
 }
