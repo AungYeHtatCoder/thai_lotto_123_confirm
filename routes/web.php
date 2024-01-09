@@ -68,8 +68,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
     //cash in lists
     Route::get('/cashIn', [CashInRequestController::class, 'index'])->name('cashIn');
     Route::get('/cashIn/{id}', [CashInRequestController::class, 'show'])->name('cashIn.show');
+    Route::post('/cashIn/status/{id}', [CashInRequestController::class, 'status'])->name('statusInChange');
+    Route::post('/transfer/{id}', [CashInRequestController::class, "transfer"]);
+    //cash out lists
     Route::get('/cashOut', [CashOutRequestController::class, 'index'])->name('cashOut');
     Route::get('/cashOut/{id}', [CashOutRequestController::class, 'show'])->name('cashOut.show');
+    Route::post('/cashOut/status/{id}', [CashOutRequestController::class, 'status'])->name('statusOutChange');
+    Route::post('/withdraw/{id}', [CashOutRequestController::class, "withdraw"]);
+    
     //Currency
     Route::resource('currency', CurrencyController::class);
     // profile resource rotues
