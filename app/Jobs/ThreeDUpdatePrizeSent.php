@@ -37,13 +37,13 @@ class ThreeDUpdatePrizeSent implements ShouldQueue
     // Convert prize_no to three_digit_id
     $three_digit_id = $this->threedWinner->prize_no === '00' ? 1 : intval($this->threedWinner->prize_no, 10) + 1;
 
-    $winningEntries = DB::table('lotto_three_digit_copy')
-        ->join('lottos', 'lotto_three_digit_copy.lotto_id', '=', 'lottos.id')
-        ->join('three_digits', 'lotto_three_digit_copy.three_digit_id', '=', 'three_digits.id')
+    $winningEntries = DB::table('lotto_three_digit_pivot')
+        ->join('lottos', 'lotto_three_digit_pivot.lotto_id', '=', 'lottos.id')
+        ->join('three_digits', 'lotto_three_digit_pivot.three_digit_id', '=', 'three_digits.id')
         ->where('three_digits.id', $three_digit_id) // Use the calculated three_digit_id here
-        ->where('lotto_three_digit_copy.prize_sent', 0)
-        ->whereDate('lotto_three_digit_copy.created_at', $today)
-        ->select('lotto_three_digit_copy.*') // Select all columns from pivot table
+        ->where('lotto_three_digit_pivot.prize_sent', 0)
+        ->whereDate('lotto_three_digit_pivot.created_at', $today)
+        ->select('lotto_three_digit_pivot.*') // Select all columns from pivot table
         ->get();
 
     // Loop through each winning entry and process them

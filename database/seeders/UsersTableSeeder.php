@@ -17,7 +17,7 @@ class UsersTableSeeder extends Seeder
             [
                 'name'           => 'Admin | NanDaAung',
                 'country_code' => "+95",
-                'phone'          => '0911111111',
+                'phone'          => '09123456789',
                 'password'       => '$2y$10$qyxYm.2dlaXROvs0OrGHseo4qbeissRMqNWdhlcr/vUqE62vN94Fi', // password
                 'remember_token' => null,
                 'created_at'     => '2019-09-10 14:00:26',
@@ -26,16 +26,16 @@ class UsersTableSeeder extends Seeder
             [
                 'name'           => 'Aung Myo Kyaw',
                 'country_code' => "+95",
-                'phone'          => '0922222222',
+                'phone'          => '09112345678',
                 'password'       => '$2y$10$qyxYm.2dlaXROvs0OrGHseo4qbeissRMqNWdhlcr/vUqE62vN94Fi', // password
                 'remember_token' => null,
                 'created_at'     => '2023-08-14 14:00:26',
                 'updated_at'     => '2023-08-14 14:00:26',
             ],
             [
-                'name'           => 'Customer',
+                'name'           => 'Player 1',
                 'country_code' => "+95",
-                'phone'          => '0933333333',
+                'phone'          => '09223456789',
                 'password'       => '$2y$10$qyxYm.2dlaXROvs0OrGHseo4qbeissRMqNWdhlcr/vUqE62vN94Fi', // password
                 'remember_token' => null,
                 'created_at'     => '2023-08-14 14:00:26',
@@ -43,18 +43,18 @@ class UsersTableSeeder extends Seeder
             ],
             
             [
-                'name'           => 'Super Admin',
+                'name'           => 'Player 2',
                 'country_code' => "+95",
-                'phone'          => '0911111112',
+                'phone'          => '09334567899',
                 'password'       => '$2y$10$qyxYm.2dlaXROvs0OrGHseo4qbeissRMqNWdhlcr/vUqE62vN94Fi', // password
                 'remember_token' => null,
                 'created_at'     => '2023-08-14 14:00:26',
                 'updated_at'     => '2023-08-14 14:00:26',
             ],
             [
-                'name'           => 'Super User',
+                'name'           => 'Player 3',
                 'country_code' => "+95",
-                'phone'          => '0933333331',
+                'phone'          => '09445647889',
                 'password'       => '$2y$10$qyxYm.2dlaXROvs0OrGHseo4qbeissRMqNWdhlcr/vUqE62vN94Fi', // password
                 'remember_token' => null,
                 'created_at'     => '2023-08-14 14:00:26',
