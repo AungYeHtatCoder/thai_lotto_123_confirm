@@ -1,5 +1,19 @@
 @extends('user_layout.app')
 
+@section('style')
+<style>
+  .form{
+    font-size: 14px;
+    position: relative;
+    color: var(--Text-Body, #abb1cc);
+  }
+  .input{
+    border: 1px solid var(--System-Gray-500, #9e9e9e);
+    background: var(--System-White, #fff);
+  }
+</style>
+@endsection
+
 @section('content')
 @include('user_layout.nav')
 <!-- content section start -->
@@ -20,49 +34,48 @@
           ">
   <p style="font-size: 16px">ငွေထုတ်မည်</p>
   <p style="font-size: 14px">
-   ကျေးဇူးပြု၍ အောက်ပါ K Pay အကောင့်မှ ငွေထုတ်ယူပါ။
+   ကျေးဇူးပြု၍ အောက်ပါ {{ $bank->bank }} အကောင့်မှ ငွေထုတ်ယူပါ။
   </p>
  </div>
 
- <form class="m-2" style="
-            font-size: 14px;
-            position: relative;
-            color: var(--Text-Body, #abb1cc);
-          ">
-  <label for="ph-number" class="my-2">
-   သင်၏ Kpay ဖုန်းနံပါတ်ထည့်ပါ
-  </label>
-  <input type="text" class="form-control" placeholder="" style="
-              border: 1px solid var(--System-Gray-500, #9e9e9e);
-              background: var(--System-White, #fff);
-            " />
+ <form class="m-2 form" id="cashOut" method="POST" action="{{ route('cashOutRequest') }}">
+  @csrf
+    <label for="phone" class="my-2">
+    သင်၏ {{ $bank->bank }} ဖုန်းနံပါတ်ထည့်ပါ
+    </label>
+    <input type="number" name="phone" id="phone" class="form-control input" placeholder="" />
+    @error('phone')
+      <span class="text-danger d-block">*{{ $message }}</span>
+    @enderror
+    <input type="hidden" name="payment_method" value="{{ $bank->bank }}">
 
-  <label for="number" class="my-2">Kpay အကောင့်အမည် </label>
-  <input type="text" class="form-control" placeholder="" style="
-              border: 1px solid var(--System-Gray-500, #9e9e9e);
-              background: var(--System-White, #fff);
-            " />
+    <label for="name" class="my-2">{{ $bank->bank }} ငွေလက်ခံသူအမည် </label>
+    <input type="text" id="name" name="name" class="form-control input" placeholder="" />
+    @error('name')
+      <span class="text-danger d-block">*{{ $message }}</span>
+    @enderror
+    <input type="hidden" name="currency" value="{{ $bank->currency }}">
 
-  <label for="amount" class="my-2"> ငွေထုတ်ယူမည့် ပမာဏ</label>
-  <input type="text" class="form-control" placeholder="" style="
-              border: 1px solid var(--System-Gray-500, #9e9e9e);
-              background: var(--System-White, #fff);
-            " />
+    <label for="amount" class="my-2"> ငွေထုတ်ယူမည့် ပမာဏ</label>
+    <input type="number" id="amount" name="amount" class="form-control input" placeholder="" />
+    @error('amount')
+      <span class="text-danger d-block">*{{ $message }}</span>
+    @enderror
  </form>
 
  <div class="d-flex justify-content-center align-items-center my-3">
-  <button class="topup-btns">1000</button>
-  <button class="topup-btns">2000</button>
-  <button class="topup-btns">3000</button>
+  <button class="topup-btns" data-value="1000" onclick="fillInputBox(this)">1000</button>
+  <button class="topup-btns" data-value="2000" onclick="fillInputBox(this)">2000</button>
+  <button class="topup-btns" data-value="3000" onclick="fillInputBox(this)">3000</button>
  </div>
  <div class="d-flex justify-content-center align-items-center my-3">
-  <button class="topup-btns">10000</button>
-  <button class="topup-btns">20000</button>
-  <button class="topup-btns">50000</button>
+  <button class="topup-btns" data-value="10000" onclick="fillInputBox(this)">10000</button>
+  <button class="topup-btns" data-value="20000" onclick="fillInputBox(this)">20000</button>
+  <button class="topup-btns" data-value="50000" onclick="fillInputBox(this)">50000</button>
  </div>
 
  <div style="margin: 0 10px">
-  <button class="w-100 p-3 my-2 rounded border border-none" style="background: var(--Primary, #12486b); color: #ffe9f8">
+  <button onclick="document.getElementById('cashOut').submit();" class="w-100 p-3 my-2 rounded border border-none" style="background: var(--Primary, #12486b); color: #ffe9f8">
    ငွေထုတ်မည်
   </button>
  </div>
@@ -97,4 +110,32 @@
 </div>
 <!-- content section end -->
 @include('user_layout.footer')
+@endsection
+
+@section('script')
+<script>
+  function copyText() {
+    var inputElement = document.getElementById("receiver");
+  
+    // Select the text in the input field
+    inputElement.select();
+  
+    // Copy the selected text
+    document.execCommand("copy");
+    // alert('copied text!');
+  
+    // Deselect the input field
+    inputElement.setSelectionRange(0, 0);
+  
+    alert("Text copied: " + inputElement.value);
+  }
+</script>
+<script>
+  function fillInputBox(element) {
+    let value = element.getAttribute('data-value');
+    console.log(value);
+    let inputField = document.getElementById('amount');
+    inputField.value = value;
+  }
+</script>
 @endsection

@@ -2,7 +2,7 @@
 @yield('style')
 
 <body>
- <div class="main-body">
+ <div class="main-body" style="min-height: 100vh;">
   <!-- navbar section start -->
 
   <!-- navbar section end -->
