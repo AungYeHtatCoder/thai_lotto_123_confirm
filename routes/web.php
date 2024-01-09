@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BankController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,8 @@ use App\Http\Controllers\Admin\ThreedHistoryController;
 use App\Http\Controllers\Admin\ThreedMatchTimeController;
 use App\Http\Controllers\Admin\FillBalanceReplyController;
 
+use App\Http\Controllers\Home\CashInRequestController;
+use App\Http\Controllers\Home\CashOutRequestController;
 
 Auth::routes();
 
@@ -60,6 +63,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
     Route::resource('text', BannerTextController::class);
     Route::resource('games', GameController::class);
     Route::resource('/promotions', PromotionController::class);
+    Route::resource('/banks', BankController::class);
+
+    //cash in lists
+    Route::get('/cashIn', [CashInRequestController::class, 'index'])->name('cashIn');
+    Route::get('/cashIn/{id}', [CashInRequestController::class, 'show'])->name('cashIn.show');
+    Route::get('/cashOut', [CashOutRequestController::class, 'index'])->name('cashOut');
+    Route::get('/cashOut/{id}', [CashOutRequestController::class, 'show'])->name('cashOut.show');
     //Currency
     Route::resource('currency', CurrencyController::class);
     // profile resource rotues

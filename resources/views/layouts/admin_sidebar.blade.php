@@ -61,6 +61,51 @@
               <span class="sidenav-normal  ms-2  ps-1"> Promotions </span>
             </a>
           </li>
+          <li class="nav-item ">
+            <a class="nav-link text-white " href="{{ route('admin.banks.index') }}">
+              <span class="sidenav-mini-icon"> <i class="fas fa-coins"></i> </span>
+              <span class="sidenav-normal  ms-2  ps-1"> Banks </span>
+            </a>
+          </li>
+
+          @endcan
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item ">
+      <a class="nav-link text-white " data-bs-toggle="collapse" aria-expanded="false" href="#userRequest">
+        <span class="sidenav-mini-icon"> <i class="fas fa-envelope"></i> </span>
+        <span class="sidenav-normal  ms-2  ps-1"> User Requests <b class="caret"></b></span>
+      </a>
+      <div class="collapse " id="userRequest">
+        <ul class="nav nav-sm flex-column">
+          @can('user_access')
+          <li class="nav-item">
+            <a class="nav-link text-white " href="{{ route('admin.cashIn')}}">
+              <span class="sidenav-mini-icon"> <i class="fas fa-coins" style="color: gold;"></i> </span>
+              <span class="sidenav-normal  ms-2  ps-1"> 
+                CashIn Request 
+                @php
+                  $cashInRequest = App\Models\Admin\CashInRequest::where('status', 0)->count();
+                @endphp
+                <span class="badge text-bg-info text-white">{{ $cashInRequest }}</span> 
+              </span>
+            </a>
+          </li>
+          @endcan
+          @can('user_access')
+          <li class="nav-item">
+            <a class="nav-link text-white " href="{{ route('admin.cashOut') }}">
+              <span class="sidenav-mini-icon"> <i class="fas fa-coins" style="color: gold;"></i> </span>
+              <span class="sidenav-normal  ms-2  ps-1"> 
+                CashOut Request 
+                @php
+                  $cashOutRequest = App\Models\Admin\CashOutRequest::where('status', 0)->count();
+                @endphp
+                <span class="badge text-bg-info text-white">{{ $cashOutRequest }}</span> 
+              </span>
+            </a>
+          </li>
           @endcan
         </ul>
       </div>

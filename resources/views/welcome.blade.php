@@ -7,38 +7,63 @@
 <!-- profile section end -->
 
 @auth
-<!-- kyat-baht -->
-<div class="my-2 d-flex justify-content-around align-items-center">
-  <div class="kyat">Kyat / ကျပ်</div>
-  <img src="{{ asset('user_app/assets/img/arrow.png') }}" width="32px" height="32px" alt="" />
-  <div class="baht">Baht / ဘတ်</div>
-</div>
+  <!-- kyat-baht -->
+  <div class="my-2 d-flex justify-content-around align-items-center">
+    <div class="money currency-active" id="mmk">Kyat / ကျပ်</div>
+    <img src="{{ asset('user_app/assets/img/arrow.png') }}" width="32px" height="32px" alt="" />
+    <div class="money" id="bht">Baht / ဘတ်</div>
+  </div>
 
-<div class="d-flex justify-content-around align-items-center mx-auto" style="
-          background-color: var(--default);
-          width: 358px;
-          height: 59px;
-          border-radius: 24px;
-          border: 2px solid var(--gold, #576265);
-          background: #12486b;
-          padding: 12px 16px;
-        ">
-  <img src="{{ asset('user_app/assets/img/vector.png') }}" width="24px" height="24px" alt="" />
-  <p class="pt-3" style="font-size: 16px; font-weight: 500">ပိုက်ဆံအိတ် </p>
-  <p class="pt-3" style="
-            font-size: 16px;
-            font-weight: 700;
-            font-family: 'Lato', sans-serif;
+  <div class="d-flex justify-content-around align-items-center mx-auto mmk" style="
+            background-color: var(--default);
+            width: 358px;
+            height: 59px;
+            border-radius: 24px;
+            border: 2px solid var(--gold, #576265);
+            background: #12486b;
+            padding: 12px 16px;
           ">
-    {{ Auth::user()->balance }} Kyats
-  </p>
+    <img src="{{ asset('user_app/assets/img/vector.png') }}" width="24px" height="24px" alt="" />
+    <p class="pt-3" style="font-size: 16px; font-weight: 500">ပိုက်ဆံအိတ် </p>
+    <p class="pt-3" style="
+              font-size: 16px;
+              font-weight: 700;
+              font-family: 'Lato', sans-serif;
+            ">
+      {{ number_format(Auth::user()->balance) }} Kyats
+    </p>
 
-  <img src="{{ asset('user_app/assets/img/plus.png') }}" class="rounded-circle" style="padding: 10px; color: var(--blue); background-color: #fff" alt="" />
-</div>
+    <img src="{{ asset('user_app/assets/img/plus.png') }}" class="rounded-circle" style="padding: 10px; color: var(--blue); background-color: #fff" alt="" />
+  </div>
+  <div class="d-flex justify-content-around align-items-center mx-auto d-none bht" style="
+            background-color: var(--default);
+            width: 358px;
+            height: 59px;
+            border-radius: 24px;
+            border: 2px solid var(--gold, #576265);
+            background: #12486b;
+            padding: 12px 16px;
+          ">
+    <img src="{{ asset('user_app/assets/img/vector.png') }}" width="24px" height="24px" alt="" />
+    <p class="pt-3" style="font-size: 16px; font-weight: 500">ပိုက်ဆံအိတ် </p>
+    <p class="pt-3" style="
+              font-size: 16px;
+              font-weight: 700;
+              font-family: 'Lato', sans-serif;
+            ">
+      @php
+          $rate = App\Models\Admin\Currency::latest()->first()->rate;
+          // dd($rate);
+      @endphp
+      {{ number_format(Auth::user()->balance / $rate) }} Bahts
+    </p>
+
+    <img src="{{ asset('user_app/assets/img/plus.png') }}" class="rounded-circle" style="padding: 10px; color: var(--blue); background-color: #fff" alt="" />
+  </div>
 @endauth
 
 <!-- carousel -->
-<div id="carouselExampleSlidesOnly" class="carousel slide carousel-fade mt-3 px-3" data-bs-ride="carousel">
+<div id="carouselExampleSlidesOnly" class="carousel slide carousel-fade px-3 pt-2" data-bs-ride="carousel">
   <div class="carousel-inner">
     @foreach ($banners as $key => $banner)
     <div class="carousel-item{{ $key === 0 ? ' active' : '' }}">
@@ -58,7 +83,7 @@
 <!-- carousel -->
 
 <!-- button section start-->
-<div class="d-flex justify-content-around align-items-center" style="margin-top: 16px">
+<div class="d-flex justify-content-around align-items-center" style="padding-top: 16px">
   <div>
     <a href="{{ route('user.twod-play-index') }}" class="btns">2Dထိုးမည်</a>
     <p class="d-block mt-2 text-center" style="font-size: 14px; font-weight: 700; color: var(--default)">
