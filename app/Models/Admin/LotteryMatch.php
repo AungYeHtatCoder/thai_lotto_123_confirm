@@ -22,4 +22,10 @@ public function betLotteries()
 {
     return $this->hasMany(BetLottery::class);
 }
+
+    public function threedMatchTime()
+    {
+        return $this->hasOne(ThreedMatchTime::class, 'id', 'lottery_match_id');
+    }
+
 }
