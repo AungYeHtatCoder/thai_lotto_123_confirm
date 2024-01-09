@@ -1,14 +1,16 @@
 <?php
 
+use App\Http\Controllers\Admin\TransferLogController;
 use App\Http\Controllers\Home\CashInRequestController;
-use App\Http\Controllers\Home\CashOutRequestController;
 
+use App\Http\Controllers\Home\CashOutRequestController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Home\ProfileController;
 use App\Http\Controllers\Home\PromotionController;
 use App\Http\Controllers\Home\WalletController;
 use App\Http\Controllers\User\WelcomeController;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -35,6 +37,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/withdraw-bank', [WalletController::class, 'withDrawBank'])->name('withdrawBank');
         Route::get('/withdraw/{id}', [WalletController::class, 'withDraw'])->name('withdraw');
         Route::post('/cashOutRequest', [CashOutRequestController::class, 'store'])->name('cashOutRequest');
+        Route::get('/transferlog', [TransferLogController::class, 'mylogs'])->name('transferlog');
     });
 
     // Promotion Routes

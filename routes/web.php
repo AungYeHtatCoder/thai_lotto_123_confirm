@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin\TwoDMorningController;
 use App\Http\Controllers\Admin\ThreedHistoryController;
 use App\Http\Controllers\Admin\ThreedMatchTimeController;
 use App\Http\Controllers\Admin\FillBalanceReplyController;
+use App\Http\Controllers\Admin\TransferLogController;
 
 use App\Http\Controllers\Home\CashInRequestController;
 use App\Http\Controllers\Home\CashOutRequestController;
@@ -75,6 +76,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
     Route::get('/cashOut/{id}', [CashOutRequestController::class, 'show'])->name('cashOut.show');
     Route::post('/cashOut/status/{id}', [CashOutRequestController::class, 'status'])->name('statusOutChange');
     Route::post('/withdraw/{id}', [CashOutRequestController::class, "withdraw"]);
+    //transfer logs lists
+    Route::get('/transferlogs', [TransferLogController::class, 'index'])->name('transferLog');
     
     //Currency
     Route::resource('currency', CurrencyController::class);
