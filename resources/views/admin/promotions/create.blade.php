@@ -63,7 +63,7 @@
 <div class="row">
   <div class="col-12">
     <div class="container mb-3">
-      <a class="btn btn-icon btn-2 btn-primary float-end me-5" href="{{ route('admin.banners.index') }}">
+      <a class="btn btn-icon btn-2 btn-primary float-end me-5" href="{{ route('admin.promotions.index') }}">
         <span class="btn-inner--icon mt-1"><i class="material-icons">arrow_back</i>Back</span>
       </a>
     </div>
@@ -94,8 +94,8 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="desc" class="form-label text-dark">Description</label>
-                    <textarea name="description" class="form-control border border-1 border-secondary ps-2" id="desc" cols="30" rows="10" placeholder="Enter Descriptiton"></textarea>
+                    <label for="" class="form-label text-dark">Description</label>
+                    <textarea name="description" id="textbox" class="form-control ps-2" cols="30" rows="10" placeholder="Enter Descriptiton"></textarea>
                     @error('description')
                     <span class="text-danger d-block">*{{ $message }}</span>
                     @enderror
@@ -114,16 +114,16 @@
 
 @endsection
 @section('scripts')
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script> --}}
 
 <script src="{{ asset('admin_app/assets/js/plugins/choices.min.js') }}"></script>
 <script src="{{ asset('admin_app/assets/js/plugins/quill.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script>
-    $('#desc').summernote({
+    $('#textbox').summernote({
       placeholder: 'Write Down Full Text',
-      tabsize: 2,
+      tabsize: 1,
       height: 120,
       toolbar: [
         ['style', ['style']],
@@ -132,7 +132,7 @@
         ['para', ['ul', 'ol', 'paragraph']],
         ['table', ['table']],
         // ['insert', ['link', 'picture', 'video']],
-        ['view', ['fullscreen', 'codeview', 'help']]
+        // ['view', ['fullscreen', 'codeview', 'help']]
       ]
     });
 

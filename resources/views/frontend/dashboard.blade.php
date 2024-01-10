@@ -18,7 +18,7 @@
 
     <div class="d-flex justify-content-start align-items-start">
       <img src="{{ asset('user_app/assets/img/icons/profile_0.png') }}" class="mt-1 me-3" alt="" />
-      <a href="{{ url('/dashboard/user-profile') }}">
+      <a href="{{ route('home') }}">
         <p>ကိုယ်ရေးအချက်အလက် (Profile)</p>
       </a>
     </div>

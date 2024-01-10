@@ -1,37 +1,50 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\User\WelcomeController;
-use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\TransferLogController;
+use App\Http\Controllers\Home\CashInRequestController;
 
-Route::get('/', [App\Http\Controllers\User\WelcomeController::class, 'index'])->name('welcome');
+use App\Http\Controllers\Home\CashOutRequestController;
+use App\Http\Controllers\Home\HomeController;
+use App\Http\Controllers\Home\ProfileController;
+use App\Http\Controllers\Home\PromotionController;
+use App\Http\Controllers\Home\WalletController;
+use App\Http\Controllers\User\WelcomeController;
+use Illuminate\Support\Facades\Route;
+
+
+
+
+//home route
+Route::get('/', [HomeController::class, 'index'])->name('welcome');
+
 
 Route::middleware('auth')->group(function () {
-    Route::get('/user-profile', [HomeController::class, 'profile'])->name('home');
-
-    Route::get('/two_d/twod_history', [HomeController::class, 'index'])->name('twodHistory');
-
-
+    Route::get('/home', [ProfileController::class, 'profile'])->name('home');
     //profile management
-    Route::put('editProfile/{profile}', [ProfileController::class, 'update'])->name('editProfile');
+    Route::post('editProfile/', [ProfileController::class, 'update'])->name('editProfile');
     Route::post('editInfo', [ProfileController::class, 'editInfo'])->name('editInfo');
     Route::post('changePassword', [ProfileController::class, 'changePassword'])->name('changePassword');
     //profile management
 
+    Route::get('/two_d/twod_history', [HomeController::class, 'index'])->name('twodHistory');
+
     // Wallet Routes
     Route::prefix('wallet')->group(function () {
-        Route::get('/', [WelcomeController::class, 'wallet']);
-        Route::get('/topUp-bank', [WelcomeController::class, 'topUpBank']);
-        Route::get('/topup', [WelcomeController::class, 'topUp']);
-        Route::get('/withdraw-bank', [WelcomeController::class, 'withDrawBank']);
-        Route::get('/withdraw', [WelcomeController::class, 'withDraw']);
+        Route::get('/', [WalletController::class, 'wallet'])->name('wallet');
+        Route::get('/topUp-bank', [WalletController::class, 'topUpBank'])->name('topupBank');
+        Route::get('/topup/{id}', [WalletController::class, 'topUp'])->name('topup');
+        Route::post('/cashInRequest', [CashInRequestController::class, 'store'])->name('cashInRequest');
+
+        Route::get('/withdraw-bank', [WalletController::class, 'withDrawBank'])->name('withdrawBank');
+        Route::get('/withdraw/{id}', [WalletController::class, 'withDraw'])->name('withdraw');
+        Route::post('/cashOutRequest', [CashOutRequestController::class, 'store'])->name('cashOutRequest');
+        Route::get('/transferlog', [TransferLogController::class, 'mylogs'])->name('transferlog');
     });
 
     // Promotion Routes
     Route::prefix('promotion')->group(function () {
-        Route::get('/', [WelcomeController::class, 'promo']);
-        Route::get('/promoDetail', [WelcomeController::class, 'promoDetail']);
+        Route::get('/', [PromotionController::class, 'promo'])->name('promotion');
+        Route::get('/promoDetail/{id}', [PromotionController::class, 'promoDetail'])->name('promotionDetail');
     });
 
     // Service Route
@@ -47,7 +60,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/twod-holiday', [WelcomeController::class, 'twodHoliday']);
         Route::get('/twod-winDigitRecord', [WelcomeController::class, 'twodDigitRecord']);
         Route::get('/threed-live', [WelcomeController::class, 'threedLive']);
-        Route::get('/user-profile', [WelcomeController::class, 'userProfile']);
     });
 
     // Threed Routes

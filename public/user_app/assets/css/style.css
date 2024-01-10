@@ -90,7 +90,7 @@ a {
   font-family: "Poppins", sans-serif;
 }
 
-.kyat {
+.money {
   width: 115px;
   height: 31px;
   font-family: "Noto Sans", sans-serif;
@@ -102,14 +102,22 @@ a {
   border-radius: 24px;
   border: 2px solid var(--gold, #576265);
 
-  background: var(--default);
+  /* background: var(--default); */
+  background: #fff;
+  color: var(--default);
 
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
-.baht {
+.currency-active{
+  background: var(--default);
+  color: #fff;
+}
+
+/* .baht {
   width: 115px;
   height: 31px;
   font-family: "Noto Sans", sans-serif;
@@ -126,7 +134,8 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-}
+  cursor: pointer;
+} */
 
 .btns {
   width: 171px;
@@ -428,7 +437,7 @@ a {
 
 .promotion {
   border-radius: 20px 20px 0px 0px;
-  background: var(--Primary, #12486b);
+  background: var(--Primary, #dfdfdf);
   box-shadow: 4px 0px 4px 0px rgba(251, 231, 231, 0.25);
 }
 

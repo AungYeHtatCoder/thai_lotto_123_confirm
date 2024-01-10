@@ -14,7 +14,7 @@
           @can('user_access')
           <li class="nav-item">
             <a class="nav-link text-white" href="{{ route('admin.profiles.index') }}">
-              <span class="sidenav-mini-icon"> MP </span>
+              <span class="sidenav-mini-icon"> <i class="fa-regular fa-user-circle"></i> </span>
               <span class="sidenav-normal  ms-3  ps-1"> My Profile </span>
             </a>
           </li>
@@ -25,7 +25,8 @@
     <hr class="horizontal light mt-0">
     <li class="nav-item">
       <a data-bs-toggle="collapse" href="#dashboardsExamples" class="nav-link text-white " aria-controls="dashboardsExamples" role="button" aria-expanded="false">
-        <i class="material-icons-round opacity-10">dashboard</i>
+        {{-- <i class="material-icons-round opacity-10">dashboard</i> --}}
+        <i class="fas fa-dashboard"></i>
         <span class="nav-link-text ms-2 ps-1">Dashboards</span>
       </a>
       <div class="collapse " id="dashboardsExamples">
@@ -61,62 +62,106 @@
               <span class="sidenav-normal  ms-2  ps-1"> Promotions </span>
             </a>
           </li>
+          <li class="nav-item ">
+            <a class="nav-link text-white " href="{{ route('admin.banks.index') }}">
+              <span class="sidenav-mini-icon"> <i class="fas fa-coins"></i> </span>
+              <span class="sidenav-normal  ms-2  ps-1"> Banks </span>
+            </a>
+          </li>
+
+          @endcan
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item ">
+      <a class="nav-link text-white " data-bs-toggle="collapse" aria-expanded="false" href="#userRequest">
+        <i class="fas fa-envelope"></i>
+        <span class="sidenav-normal  ms-2  ps-1"> User Requests <b class="caret"></b></span>
+      </a>
+      <div class="collapse " id="userRequest">
+        <ul class="nav nav-sm flex-column">
+          @can('user_access')
+          <li class="nav-item">
+            <a class="nav-link text-white " href="{{ route('admin.cashIn')}}">
+              <span class="sidenav-mini-icon"> <i class="fas fa-coins" style="color: gold;"></i> </span>
+              <span class="sidenav-normal  ms-2  ps-1"> 
+                CashIn Request 
+                @php
+                  $cashInRequest = App\Models\Admin\CashInRequest::where('status', 0)->count();
+                @endphp
+                <span class="badge text-bg-info text-white">{{ $cashInRequest }}</span> 
+              </span>
+            </a>
+          </li>
+          @endcan
+          @can('user_access')
+          <li class="nav-item">
+            <a class="nav-link text-white " href="{{ route('admin.cashOut') }}">
+              <span class="sidenav-mini-icon"> <i class="fas fa-coins" style="color: gold;"></i> </span>
+              <span class="sidenav-normal  ms-2  ps-1"> 
+                CashOut Request 
+                @php
+                  $cashOutRequest = App\Models\Admin\CashOutRequest::where('status', 0)->count();
+                @endphp
+                <span class="badge text-bg-info text-white">{{ $cashOutRequest }}</span> 
+              </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white " href="{{ route('admin.transferLog') }}">
+              <span class="sidenav-mini-icon"> <i class="fas fa-coins" style="color: gold;"></i> </span>
+              <span class="sidenav-normal  ms-2  ps-1"> 
+                Transfer Logs
+              </span>
+            </a>
+          </li>
           @endcan
         </ul>
       </div>
     </li>
     <li class="nav-item mt-3">
-      <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder text-white">UserManagement</h6>
+      <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder text-white">Management</h6>
     </li>
-    <li class="nav-item">
-      <a data-bs-toggle="collapse" href="#pagesExamples" class="nav-link text-white" aria-controls="pagesExamples" role="button" aria-expanded="false">
-        <i class="material-icons-round {% if page.brand == 'RTL' %}ms-2{% else %} me-2{% endif %}">manage_accounts</i>
-        <span class="nav-link-text ms-2 ps-1">UserManagement</span>
+    <li class="nav-item ">
+      <a class="nav-link text-white " data-bs-toggle="collapse" aria-expanded="false" href="#profileExample">
+        <i class="fas fa-user-gear"></i>
+        <span class="sidenav-normal  ms-2  ps-1"> UserManagement <b class="caret"></b></span>
       </a>
-      <div class="collapse  show " id="pagesExamples">
-        <ul class="nav ">
-          <li class="nav-item ">
-            <a class="nav-link text-white " data-bs-toggle="collapse" aria-expanded="false" href="#profileExample">
-              <span class="sidenav-mini-icon"> UM </span>
-              <span class="sidenav-normal  ms-2  ps-1"> UserManagement <b class="caret"></b></span>
+      <div class="collapse " id="profileExample">
+        <ul class="nav nav-sm flex-column">
+          @can('user_access')
+          <li class="nav-item">
+            <a class="nav-link text-white " href="{{ route('admin.permissions.index')}}">
+              <span class="sidenav-mini-icon"> P </span>
+              <span class="sidenav-normal  ms-2  ps-1"> Permissions </span>
             </a>
-            <div class="collapse " id="profileExample">
-              <ul class="nav nav-sm flex-column">
-                @can('user_access')
-                <li class="nav-item">
-                  <a class="nav-link text-white " href="{{ route('admin.permissions.index')}}">
-                    <span class="sidenav-mini-icon"> P </span>
-                    <span class="sidenav-normal  ms-2  ps-1"> Permissions </span>
-                  </a>
-                </li>
-                @endcan
-                @can('user_access')
-                <li class="nav-item">
-                  <a class="nav-link text-white " href="{{ route('admin.roles.index') }}">
-                    <span class="sidenav-mini-icon"> U R </span>
-                    <span class="sidenav-normal  ms-2  ps-1"> User's Roles </span>
-                  </a>
-                </li>
-                @endcan
-                @can('user_access')
-                <li class="nav-item">
-                  <a class="nav-link text-white " href="{{ route('admin.users.index')}}">
-                    <span class="sidenav-mini-icon"> U </span>
-                    <span class="sidenav-normal  ms-2  ps-1"> Users </span>
-                  </a>
-                </li>
-                @endcan
-              </ul>
-            </div>
           </li>
+          @endcan
+          @can('user_access')
+          <li class="nav-item">
+            <a class="nav-link text-white " href="{{ route('admin.roles.index') }}">
+              <span class="sidenav-mini-icon"> U R </span>
+              <span class="sidenav-normal  ms-2  ps-1"> User's Roles </span>
+            </a>
+          </li>
+          @endcan
+          @can('user_access')
+          <li class="nav-item">
+            <a class="nav-link text-white " href="{{ route('admin.users.index')}}">
+              <span class="sidenav-mini-icon"> U </span>
+              <span class="sidenav-normal  ms-2  ps-1"> Users </span>
+            </a>
+          </li>
+          @endcan
         </ul>
       </div>
     </li>
     {{-- lottery --}}
     <li class="nav-item">
       <a data-bs-toggle="collapse" href="#applicationsExamples" class="nav-link text-white " aria-controls="applicationsExamples" role="button" aria-expanded="false">
-        <i class="material-icons-round {% if page.brand == 'RTL' %}ms-2{% else %} me-2{% endif %}">apps</i>
-        <span class="nav-link-text ms-2 ps-1">2D Management</span>
+        {{-- <i class="material-icons-round {% if page.brand == 'RTL' %}ms-2{% else %} me-2{% endif %}">apps</i> --}}
+        2D
+        <span class="nav-link-text ms-2 ps-1">Management</span>
       </a>
       <div class="collapse " id="applicationsExamples">
         <ul class="nav ">
@@ -256,8 +301,9 @@
   <li class="nav-item">
    <a data-bs-toggle="collapse" href="#ecommerceExamples" class="nav-link text-white " aria-controls="ecommerceExamples"
     role="button" aria-expanded="false">
-    <i class="material-icons-round {% if page.brand == 'RTL' %}ms-2{% else %} me-2{% endif %}">shopping_basket</i>
-    <span class="nav-link-text ms-2 ps-1">3D</span>
+    3D
+    {{-- <i class="material-icons-round {% if page.brand == 'RTL' %}ms-2{% else %} me-2{% endif %}">shopping_basket</i> --}}
+    <span class="nav-link-text ms-2 ps-1">Management</span>
    </a>
    <div class="collapse " id="ecommerceExamples">
     <ul class="nav ">
@@ -334,7 +380,7 @@
   </li>
   <li class="nav-item">
     <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="nav-link text-white">
-      <span class="sidenav-mini-icon"> <i class="fas fa-right-from-bracket"></i> </span>
+      <i class="fas fa-right-from-bracket"></i>
       <span class="sidenav-normal ms-2 ps-1">Logout</span>
     </a>
     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

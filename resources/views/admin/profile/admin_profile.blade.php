@@ -16,7 +16,7 @@
     </style>
 @endsection
 @section('content')
-    <div class="container-fluid py-3">
+    <div class="container-fluid">
         <div class="row mb-5">
             <div class="col-lg-3 position-sticky col-md-6">
                 <div class="card mb-3">
@@ -67,7 +67,7 @@
                         <h5 class="mb-0 d-none baht"> {{ number_format($balance_baht) }} BAHT</h5>
                     </div>
                 </div>
-                <div class="card-body">
+                {{-- <div class="card-body">
                     <div class="card mt-4" id="basic-info">
                         <div class="card-header">
                             <h5>Add Payment No</h5>
@@ -111,7 +111,7 @@
                             </div>
                         </form>
                     </div>
-                </div>
+                </div> --}}
             </div>
             <div class="col-lg-9 mt-lg-0 mt-4">
                 <!-- Card Profile -->
@@ -188,7 +188,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="card mt-4" id="password">
+                        <div class="card mt-4 pb-3" id="password">
                             <div class="card-header">
                                 <h5>Change Password</h5>
                             </div>

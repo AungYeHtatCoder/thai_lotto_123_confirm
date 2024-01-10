@@ -12,7 +12,7 @@
       @endguest
       @auth
       @if(Auth::user()->profile)
-      <img src="{{ Auth::user()->profile }}" class="rounded-circle mt-1" style="
+      <img src="{{ Auth::user()->img_url }}" width="50px" height="50px" class="rounded-circle mt-1" style="
                 padding: 10px;
                 background-color: #f6ffc3;
                 color: var(--green);
