@@ -15,27 +15,21 @@ class ProfileController extends Controller
 {
     public function profile()
     {
-        $roles = Auth::user()->roles;
-        foreach($roles as $role)
-        {
-            if($role->title == "Admin")
-            {
-                $currency = Currency::latest()->first();
-                return view('admin.profile.admin_profile', compact('currency'));
-            }else
-            {
-                return view('frontend.user-profile'); 
-            }
+        if (auth()->user()->hasRole('Admin')) {
+            $currency = Currency::latest()->first();
+            return view('admin.profile.admin_profile', compact('currency'));
+        }else{
+            return view('frontend.user-profile'); 
         }
-        
     }
 
-    public function update(UserRequest $request, User $user)
+    public function update(UserRequest $request)
     {
+        $user = Auth::user();
         $request->validate([
             'profile' => 'required|image'
         ]);
-        if (Auth::user()->profile) {
+        if ($user->profile) {
             //remove banner from localstorage
             File::delete(public_path('assets/img/profile/' . $user->profile));
         }
@@ -45,7 +39,7 @@ class ProfileController extends Controller
         $filename = uniqid('profile') . '.' . $ext; // Generate a unique filename
         $image->move(public_path('assets/img/profile/'), $filename); // Save the file
 
-        Auth::user()->update([
+        $user->update([
             'profile' => $filename,
         ]);
 
@@ -87,7 +81,7 @@ class ProfileController extends Controller
         //dd($request->all());
         $request->validate([
             'old_password' => 'required',
-            'password' => 'required|confirmed|min:8',
+            'password' => 'required|min:6',
 
         ]);
 
@@ -101,7 +95,7 @@ class ProfileController extends Controller
             if (auth()->user()->hasRole('Admin')) {
                 return redirect()->back()->with('toast_success', "Admin Password has been  Updated.");
             } else {
-                return redirect()->back()->with('toast_success', "Customer Password has been Updated.");
+                return redirect()->back()->with('success', "User Password has been Updated.");
             }
         } else {
             return redirect()->back()->with('error', "Old password does not match!");

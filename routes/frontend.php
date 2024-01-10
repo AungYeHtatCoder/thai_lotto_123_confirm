@@ -17,10 +17,11 @@ use Illuminate\Support\Facades\Route;
 //home route
 Route::get('/', [HomeController::class, 'index'])->name('welcome');
 
+
 Route::middleware('auth')->group(function () {
-    Route::get('/user-profile', [ProfileController::class, 'profile'])->name('home');
+    Route::get('/home', [ProfileController::class, 'profile'])->name('home');
     //profile management
-    Route::put('editProfile/{profile}', [ProfileController::class, 'update'])->name('editProfile');
+    Route::post('editProfile/', [ProfileController::class, 'update'])->name('editProfile');
     Route::post('editInfo', [ProfileController::class, 'editInfo'])->name('editInfo');
     Route::post('changePassword', [ProfileController::class, 'changePassword'])->name('changePassword');
     //profile management
@@ -59,7 +60,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/twod-holiday', [WelcomeController::class, 'twodHoliday']);
         Route::get('/twod-winDigitRecord', [WelcomeController::class, 'twodDigitRecord']);
         Route::get('/threed-live', [WelcomeController::class, 'threedLive']);
-        Route::get('/user-profile', [WelcomeController::class, 'userProfile']);
     });
 
     // Threed Routes

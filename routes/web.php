@@ -39,14 +39,7 @@ require __DIR__ . '/auth.php';
 require __DIR__ . '/two_d_play.php';
 require __DIR__ . '/frontend.php';
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
-
-
-
-
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Controllers\Admin', 'middleware' => ['auth']], function () {
-
-
     // Permissions
     Route::delete('permissions/destroy', [PermissionController::class, 'massDestroy'])->name('permissions.massDestroy');
     Route::resource('permissions', PermissionController::class);
