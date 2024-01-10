@@ -3,17 +3,21 @@
 namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Promotion;
 use Illuminate\Http\Request;
 
 class PromotionController extends Controller
 {
     public function promo()
     {
-        return view('frontend.promotion');
+        $promotions = Promotion::latest()->get();
+        // return $promotions;
+        return view('frontend.promotion', compact('promotions'));
     }
 
-    public function promoDetail()
+    public function promoDetail($id)
     {
-        return view('frontend.promoDetail');
+        $promotion = Promotion::find($id);
+        return view('frontend.promoDetail', compact('promotion'));
     }
 }
