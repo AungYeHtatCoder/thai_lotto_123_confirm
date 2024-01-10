@@ -44,7 +44,7 @@ Route::middleware('auth')->group(function () {
     // Promotion Routes
     Route::prefix('promotion')->group(function () {
         Route::get('/', [PromotionController::class, 'promo'])->name('promotion');
-        Route::get('/promoDetail', [PromotionController::class, 'promoDetail'])->name('promotionDetail');
+        Route::get('/promoDetail/{id}', [PromotionController::class, 'promoDetail'])->name('promotionDetail');
     });
 
     // Service Route
