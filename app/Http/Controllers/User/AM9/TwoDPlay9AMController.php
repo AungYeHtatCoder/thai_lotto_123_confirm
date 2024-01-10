@@ -54,7 +54,7 @@ class TwoDplay9AMController extends Controller
 
     public function store(Request $request)
     {
-
+        // dd($request->all());
         Log::info($request->all());
         $validatedData = $request->validate([
             'selected_digits' => 'required|string',
