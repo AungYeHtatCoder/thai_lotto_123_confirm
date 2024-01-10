@@ -36,6 +36,6 @@ Route::group(["middleware" => ['auth:sanctum']], function(){
     Route::get('/wallet/transferLogs', [WalletController::class, 'transferLog']);
 
     //Promotion Routes
-    Route::get('/promotion', [PromotionController::class, 'promotion']);
+    Route::get('/promotions', [PromotionController::class, 'promotion']);
     Route::get('/promotion/{id}', [PromotionController::class, 'promotionDetail']);
 });
