@@ -42,7 +42,7 @@
           padding: 12px 16px;
           border-radius: 24px;
         ">
-  <a href="#">
+  <a href="{{ url('wallet/topUp-bank') }}">
     <div class="menus">
       <img src="{{ asset('user_app/assets/img/2D/money-withdrawal 1.png') }}" width="20px" height="20px" alt="" />
     </div>
@@ -51,7 +51,7 @@
     </p>
   </a>
 
-  <a href="#">
+  <a href="{{ url('wallet/withdraw-bank') }}">
     <div class="menus">
       <img src="{{ asset('user_app/assets/img/2D/send-money 1.png') }}" width="20px" height="20px" alt="" />
     </div>
@@ -60,7 +60,7 @@
     </p>
   </a>
 
-  <a href="#">
+  <a href="{{ route('home') }}">
     <div class="menus">
       <img src="{{ asset('user_app/assets/img/2D/receipt.png') }}" width="20px" height="20px" alt="" />
     </div>

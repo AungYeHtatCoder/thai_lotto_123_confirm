@@ -71,7 +71,7 @@
 </div>
 
 <div class="d-flex justify-content-center align-items-center mt-3">
- <a href="{{ route('user.twod-play-index-9am') }}" class="quick-select mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+ <a href="{{ url('/user/two-d-play-index-simple') }}" class="quick-select mx-2">
   <span>ပုံမှန်ရွေး</span>
  </a>
 </div>
