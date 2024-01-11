@@ -121,7 +121,11 @@
         $end4Time = Carbon::parse('16:30');
         @endphp
         <button class="btn w-100 my-1" style="background: var(--linear)">
+          @if ($currentTime->lte(Carbon::parse('09:30')))
           <a href="{{ route('user.twod-play-index-9am') }}">09:30 AM</a>
+          @else
+          <span class="w-100 border-purple py-2 rounded d-block text-purple text-center">09:30 AM</span>
+          @endif
         </button>
         <button class="btn w-100 my-1" style="background: var(--linear)">
           @if ($currentTime->between($start9Time, $end12Time))

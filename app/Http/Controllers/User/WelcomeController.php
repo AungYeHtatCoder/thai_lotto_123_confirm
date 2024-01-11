@@ -173,6 +173,11 @@ class WelcomeController extends Controller
         return view('frontend.threed-history');
     }
 
+    public function threeDream()
+    {
+        return view('frontend.threed_dream');
+    }
+
     public function dashboard()
     {
         return view('frontend.dashboard');
@@ -215,9 +220,9 @@ class WelcomeController extends Controller
         return view('frontend.twod-winDigitRecord');
     }
 
-    public function twodDreamBook()
+    public function twoDream()
     {
-        return view('frontend.dream-book');
+        return view('frontend.twod_dream');
     }
 
     public function threedLive()

@@ -112,7 +112,7 @@ a {
   cursor: pointer;
 }
 
-.currency-active{
+.currency-active {
   background: var(--default);
   color: #fff;
 }
@@ -455,3 +455,41 @@ a {
   text-align: center;
   margin-right: 5px; /* Adjust the margin as needed */
 }
+
+.dream-header {
+  color: #fff;
+  text-align: center;
+  background-color: var(--default);
+  height: 40px;
+  padding: 10px 0;
+  margin: 0;
+  border: 1px solid #f5bd02;
+}
+
+.dream-img {
+  width: 100%;
+  height: 100px;
+  overflow: hidden;
+}
+
+.dream-img img {
+  width: inherit;
+  /* height: auto; */
+}
+
+.dream-btn {
+  background-color: var(--default);
+  border: none;
+  padding: 10px;
+  color: #fff;
+  border-bottom: 1px solid #f5bd02;
+}
+
+.dream-btn.selected {
+  background-color: #f5bd02;
+  color: #fff;
+}
+
+/* .winner-table {
+  background-color: var(--linear);
+} */

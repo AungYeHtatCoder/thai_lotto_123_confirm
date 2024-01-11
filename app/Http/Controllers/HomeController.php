@@ -9,7 +9,7 @@ use App\Models\Admin\Lottery;
 use App\Models\Admin\LotteryMatch;
 use App\Models\ThreeDigit\Lotto;
 
-class twoDHistoryController extends Controller
+class HomeController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -83,7 +83,7 @@ class twoDHistoryController extends Controller
             $playedEarlyEveningTwoDigits = User::getUserEarlyEveningTwoDigits($userId);
             $playedEveningTwoDigits = User::getUserEveningTwoDigits($userId);
             $currency = Currency::latest()->first();
-            return view('frontend.auth.profile', [
+            return view('frontend.user-profile', [
                 'earlymorningDigits' => $playedearlyMorningTwoDigits,
                 'morningDigits' => $playedMorningTwoDigits,
                 'earlyeveningDigit' => $playedEarlyEveningTwoDigits,
