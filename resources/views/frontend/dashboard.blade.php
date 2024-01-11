@@ -18,7 +18,7 @@
 
     <div class="d-flex justify-content-start align-items-start">
       <img src="{{ asset('user_app/assets/img/icons/profile_0.png') }}" class="mt-1 me-3" alt="" />
-      <a href="{{ route('home') }}">
+      <a href="{{ route('user-profile-home') }}">
         <p>ကိုယ်ရေးအချက်အလက် (Profile)</p>
       </a>
     </div>
@@ -28,7 +28,7 @@
 
     <div class="d-flex justify-content-start align-items-start">
       <img src="{{ asset('user_app/assets/img/icons/profile_1.png') }}" class="mt-1 me-3" alt="" />
-      <a href="{{ route('twodHistory') }}">
+      <a href="{{ route('home') }}">
         <p>2D ထီထိုးမှတ်တမ်း</p>
       </a>
     </div>

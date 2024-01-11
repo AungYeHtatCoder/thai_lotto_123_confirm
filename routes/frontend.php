@@ -19,14 +19,14 @@ Route::get('/', [HomeController::class, 'index'])->name('welcome');
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/home', [ProfileController::class, 'profile'])->name('home');
+    Route::get('/user-profile-home', [ProfileController::class, 'profile'])->name('user-profile-home');
     //profile management
     Route::post('editProfile/', [ProfileController::class, 'update'])->name('editProfile');
     Route::post('editInfo', [ProfileController::class, 'editInfo'])->name('editInfo');
     Route::post('changePassword', [ProfileController::class, 'changePassword'])->name('changePassword');
     //profile management
 
-    Route::get('/two_d/twod_history', [HomeController::class, 'index'])->name('twodHistory');
+    // Route::get('/two_d/twod_history', [HomeController::class, 'index'])->name('twodHistory');
 
     // Wallet Routes
     Route::prefix('wallet')->group(function () {

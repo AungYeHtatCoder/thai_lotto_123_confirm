@@ -59,9 +59,9 @@ class TwoDplay9AMController extends Controller
         $validatedData = $request->validate([
             'selected_digits' => 'required|string',
             'amounts' => 'required|array',
-            'amounts.*' => 'required|integer|min:100|max:50000',
+            'amounts.*' => 'required|integer|min:1|max:50000',
             //'totalAmount' => 'required|integer|min:100',
-            'totalAmount' => 'required|numeric|min:100', // Changed from integer to numeric
+            'totalAmount' => 'required|numeric|min:1', // Changed from integer to numeric
             'user_id' => 'required|exists:users,id',
         ]);
 
@@ -130,7 +130,7 @@ class TwoDplay9AMController extends Controller
 
             DB::commit();
             session()->flash('SuccessRequest', 'Successfully placed bet.');
-            return redirect()->route('twodHistory')->with('message', 'Data stored successfully!');
+            return redirect()->route('home')->with('message', 'Data stored successfully!');
         } catch (\Exception $e) {
             DB::rollback();
             Log::error('Error in store method: ' . $e->getMessage());
