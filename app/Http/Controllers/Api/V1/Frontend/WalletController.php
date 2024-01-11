@@ -14,6 +14,7 @@ use App\Models\Admin\TransferLog;
 use App\Models\User;
 use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Mail;
 
 class WalletController extends Controller
@@ -49,7 +50,7 @@ class WalletController extends Controller
         ]);
         $user = User::find(auth()->id());
         $rate = Currency::latest()->first()->rate;
-        $toMail = "delightdeveloper4@gmail.com";
+        $toMail = "mobiledeveloper117@gmail.com";
         $mail = [
             'status' => "Deposit",
             'name' => $user->name,
@@ -75,11 +76,15 @@ class WalletController extends Controller
             $rate = Currency::latest()->first()->rate;
             $balance = auth()->user()->balance / $rate;
             if($request->amount > $balance){
-                return $this->error("Insufficient balance");
+                return response()->json([
+                    'message' => 'Insufficient balance'
+                ], 422);
             }
         }
         if($request->amount > auth()->user()->balance){
-            return $this->error("Insufficient balance");
+            return response()->json([
+                'message' => 'Insufficient balance'
+            ], 422);
         }
         CashOutRequest::create([
             'payment_method' => $request->payment_method,
@@ -91,7 +96,7 @@ class WalletController extends Controller
         ]);
         $user = User::find(auth()->id());
         $rate = Currency::latest()->first()->rate;
-        $toMail = "delightdeveloper4@gmail.com";
+        $toMail = "mobiledeveloper117@gmail.com";
         $mail = [
             'status' => "Withdraw",
             'name' => $user->name,
