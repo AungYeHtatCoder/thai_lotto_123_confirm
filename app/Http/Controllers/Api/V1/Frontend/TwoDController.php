@@ -15,4 +15,18 @@ class TwoDController extends Controller
         $digits = TwoDigit::all();
         return $this->success($digits);
     }
+
+    public function play(Request $request)
+    {
+        $validatedData = $request->validate([
+            'selected_digits' => 'required|string',
+            'amounts' => 'required|array',
+            'amounts.*' => 'required|integer|max:50000',
+            'totalAmount' => 'required|numeric', // Changed from integer to numeric
+            'user_id' => 'required|exists:users,id',
+        ]);
+        $currentSession = date('H') < 12 ? 'morning' : 'evening';
+        $limitAmount = 50000; // Define the limit amount
+        
+    }
 }
