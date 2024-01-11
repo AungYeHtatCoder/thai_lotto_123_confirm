@@ -28,7 +28,9 @@
 
     <div class="d-flex justify-content-start align-items-start">
       <img src="{{ asset('user_app/assets/img/icons/profile_1.png') }}" class="mt-1 me-3" alt="" />
-      <a href="{{ route('home') }}">
+
+      <a href="{{ route('user.twodHistory') }}">
+
         <p>2D ထီထိုးမှတ်တမ်း</p>
       </a>
     </div>
@@ -88,7 +90,7 @@
 
     <div class="d-flex justify-content-start align-items-start">
       <img src="{{ asset('user_app/assets/img/icons/profile_3.png') }}" class="mt-1 me-3" alt="" />
-      <a href="{{ url('/dashboard/twod-history') }}">
+      <a href="{{ url('/dashboard/threed-live') }}">
         <p>3D ထွက်ဂဏန်းများ</p>
       </a>
     </div>
@@ -127,15 +129,15 @@
                 border-bottom: 0.5px solid var(--Overlay, rgba(0, 0, 0, 0.15));
               " />
 
-    <div class="d-flex justify-content-start align-items-start">
+    <!-- <div class="d-flex justify-content-start align-items-start">
       <img src="{{ asset('user_app/assets/img/icons/profile_7.png') }}" class="mt-1 me-3" alt="" />
       <a href="{{ url('/dashboard/threed-live') }}">
         <p>3D Live</p>
       </a>
-    </div>
-    <hr class="mt-0 ms-4" style="
+    </div> -->
+    <!-- <hr class="mt-0 ms-4" style="
                 border-bottom: 0.5px solid var(--Overlay, rgba(0, 0, 0, 0.15));
-              " />
+              " /> -->
 
     <div class="d-flex justify-content-start align-items-start">
       <img src="{{ asset('user_app/assets/img/icons/language 1.png') }}" class="me-3" alt="" />

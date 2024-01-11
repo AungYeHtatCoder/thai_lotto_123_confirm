@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\WithDrawController;
 use App\Http\Controllers\User\UserWalletController;
 use App\Http\Controllers\User\TwodPlayIndexController;
@@ -55,8 +56,11 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'App\Http\Cont
 
   // other route
   Route::get('/two-d-winners-history', [App\Http\Controllers\User\WinnerHistoryController::class, 'winnerHistory'])->name('winnerHistory');
-  Route::get('/morning-play-history-record', [App\Http\Controllers\User\UserPlayTwoDHistoryRecordController::class, 'MorningPlayHistoryRecord']);
-  Route::get('/evening-play-history-record', [App\Http\Controllers\User\UserPlayTwoDHistoryRecordController::class, 'EveningPlayHistoryRecord']);
+
+
+
+  Route::get('/twod_history', [App\Http\Controllers\User\UserPlayTwoDHistoryRecordController::class, 'twodHistory'])->name('twodHistory');
+  // Route::get('/evening-play-history-record', [App\Http\Controllers\User\UserPlayTwoDHistoryRecordController::class, 'EveningPlayHistoryRecord']);
 
   Route::get('/wallet-deposite', [App\Http\Controllers\User\UserWalletController::class, 'index'])->name('deposite-wallet');
   Route::get('/fill-balance', [App\Http\Controllers\User\UserWalletController::class, 'topUpWallet'])->name('topUpWallet');
