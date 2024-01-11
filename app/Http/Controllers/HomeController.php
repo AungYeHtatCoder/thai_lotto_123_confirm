@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\Admin\Lottery;
 use App\Models\Admin\LotteryMatch;
 use App\Models\ThreeDigit\Lotto;
-class HomeController extends Controller
+
+class twoDHistoryController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -31,38 +32,38 @@ class HomeController extends Controller
     {
         if (auth()->user()->hasRole('Admin')) {
             // Daily Total
-    $dailyTotal = Lottery::whereDate('created_at', '=', now()->today())->sum('total_amount');
+            $dailyTotal = Lottery::whereDate('created_at', '=', now()->today())->sum('total_amount');
 
-    // Weekly Total
-    $startOfWeek = now()->startOfWeek();
-    $endOfWeek = now()->endOfWeek();
-    $weeklyTotal = Lottery::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('total_amount');
+            // Weekly Total
+            $startOfWeek = now()->startOfWeek();
+            $endOfWeek = now()->endOfWeek();
+            $weeklyTotal = Lottery::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('total_amount');
 
-    // Monthly Total
-    $monthlyTotal = Lottery::whereMonth('created_at', '=', now()->month)
-                           ->whereYear('created_at', '=', now()->year)
-                           ->sum('total_amount');
+            // Monthly Total
+            $monthlyTotal = Lottery::whereMonth('created_at', '=', now()->month)
+                ->whereYear('created_at', '=', now()->year)
+                ->sum('total_amount');
 
-    // Yearly Total
-    $yearlyTotal = Lottery::whereYear('created_at', '=', now()->year)->sum('total_amount');
+            // Yearly Total
+            $yearlyTotal = Lottery::whereYear('created_at', '=', now()->year)->sum('total_amount');
 
-    // 3D Daily Total
-    $three_d_dailyTotal = Lotto::whereDate('created_at', '=', now()->today())->sum('total_amount');
+            // 3D Daily Total
+            $three_d_dailyTotal = Lotto::whereDate('created_at', '=', now()->today())->sum('total_amount');
 
-    // 3D Weekly Total
-    $startOfWeek = now()->startOfWeek();
-    $endOfWeek = now()->endOfWeek();
-    $three_d_weeklyTotal = Lotto::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('total_amount');
+            // 3D Weekly Total
+            $startOfWeek = now()->startOfWeek();
+            $endOfWeek = now()->endOfWeek();
+            $three_d_weeklyTotal = Lotto::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('total_amount');
 
-    // 3D Monthly Total
-    $three_d_monthlyTotal = Lotto::whereMonth('created_at', '=', now()->month)
-                           ->whereYear('created_at', '=', now()->year)
-                           ->sum('total_amount');
+            // 3D Monthly Total
+            $three_d_monthlyTotal = Lotto::whereMonth('created_at', '=', now()->month)
+                ->whereYear('created_at', '=', now()->year)
+                ->sum('total_amount');
 
-    // 3D Yearly Total
-    $three_d_yearlyTotal = Lotto::whereYear('created_at', '=', now()->year)->sum('total_amount');
+            // 3D Yearly Total
+            $three_d_yearlyTotal = Lotto::whereYear('created_at', '=', now()->year)->sum('total_amount');
 
-        $lottery_matches = LotteryMatch::where('id', 1)->whereNotNull('is_active')->first();
+            $lottery_matches = LotteryMatch::where('id', 1)->whereNotNull('is_active')->first();
             // Return the totals, you can adjust this part as per your needs
             return view('admin.dashboard', [
                 'dailyTotal'   => $dailyTotal,
@@ -82,7 +83,7 @@ class HomeController extends Controller
             $playedEarlyEveningTwoDigits = User::getUserEarlyEveningTwoDigits($userId);
             $playedEveningTwoDigits = User::getUserEveningTwoDigits($userId);
             $currency = Currency::latest()->first();
-            return view('frontend.two_d.twod_history', [
+            return view('frontend.auth.profile', [
                 'earlymorningDigits' => $playedearlyMorningTwoDigits,
                 'morningDigits' => $playedMorningTwoDigits,
                 'earlyeveningDigit' => $playedEarlyEveningTwoDigits,

@@ -130,7 +130,7 @@ class TwoDplay9AMController extends Controller
 
             DB::commit();
             session()->flash('SuccessRequest', 'Successfully placed bet.');
-            return redirect()->route('twodHistory')->with('message', 'Data stored successfully!');
+            return redirect()->route('user.twodHistory')->with('message', 'Data stored successfully!');
         } catch (\Exception $e) {
             DB::rollback();
             Log::error('Error in store method: ' . $e->getMessage());

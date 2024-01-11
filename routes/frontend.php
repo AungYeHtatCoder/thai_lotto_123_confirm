@@ -5,6 +5,7 @@ use App\Http\Controllers\Home\CashInRequestController;
 
 use App\Http\Controllers\Home\CashOutRequestController;
 use App\Http\Controllers\Home\HomeController;
+// use App\Http\Controllers\twoDHistoryController;
 use App\Http\Controllers\Home\ProfileController;
 use App\Http\Controllers\Home\PromotionController;
 use App\Http\Controllers\Home\WalletController;
@@ -26,7 +27,9 @@ Route::middleware('auth')->group(function () {
     Route::post('changePassword', [ProfileController::class, 'changePassword'])->name('changePassword');
     //profile management
 
-    Route::get('/two_d/twod_history', [HomeController::class, 'index'])->name('twodHistory');
+
+    //two D history
+    //Route::get('/two_d/twod_history', [twoDHistoryController::class, 'index'])->name('twodHistory');
 
     // Wallet Routes
     Route::prefix('wallet')->group(function () {
