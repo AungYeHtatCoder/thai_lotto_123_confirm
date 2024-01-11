@@ -83,7 +83,7 @@
     <span>အမြန်ရွေးရန်</span>
   </a>
 
-  <a href="#" type="button" class="d-flex justify-content-center align-items-center btn mx-2 px-3 py-2" style="
+  <a href="{{ url('twod/dream') }}" type="button" class="d-flex justify-content-center align-items-center btn mx-2 px-3 py-2" style="
             border-radius: 26.471px;
             background: #78d6c6;
             box-shadow: 0px 0px 21.176px 0px rgba(240, 252, 172, 0.9);

@@ -62,7 +62,7 @@
     <img src="../assets/img/Border light.png" alt="" />
   </div>
 
-  <div class="text-dark mx-auto mb-3" style="
+  <a href="{{ url('threed/dream') }}" class="text-dark mx-auto mb-3" style="
             display: flex;
             width: 358px;
             height: 51px;
@@ -76,7 +76,7 @@
           ">
     <span>အိမ်မက်ဂဏန်း</span>
     <img src="{{ asset('user_app/assets/img/2D/image 4.png') }}" style="position: absolute; bottom: 0; right: 10px" alt="" />
-  </div>
+  </a>
 
   <!-- <div class="btn-section">
     <a href="{{ url('/threed-quick') }}" class="text-decoration-none">
