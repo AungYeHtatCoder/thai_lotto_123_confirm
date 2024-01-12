@@ -35,6 +35,7 @@ use App\Http\Controllers\Home\CashOutRequestController;
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// sub route
 require __DIR__ . '/auth.php';
 require __DIR__ . '/two_d_play.php';
 require __DIR__ . '/frontend.php';
