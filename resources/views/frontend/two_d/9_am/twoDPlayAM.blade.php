@@ -93,6 +93,18 @@
   </a>
 </div>
 
+<div class=" mt-4">
+  <div class="text-center">
+    <label for="" class="form-label text-dark ">ထိုးမည့် ငွေအမျိုးအစား ရွေးချယ်ပါ။</label>
+  </div>
+  
+  <div class="d-flex justify-content-around">
+    <label for="kyat" class="btn btn-outline-secondary d-block kyat w-75">ကျပ်</label>
+    <label for="baht" class="btn btn-outline-secondary d-block baht w-75">ဘတ်</label>
+  </div>
+</div>
+
+
 <div class="d-flex justify-content-center align-items-center mt-3" style="font-size: 16px">
   <div class="px-4" style="width: 100%">
     <input type="text " class="form-control" name="amount" id="all_amount" placeholder="ငွေပမာဏထည့်ပါ" />
@@ -118,6 +130,10 @@
   <form action="" method="post" class="p-1">
     <div class="p-1">
       @csrf
+      <div class="d-none">
+        <input type="radio" name="currency" value="kyat" id="kyat">
+        <input type="radio" name="currency" value="baht" id="baht">
+      </div>
       <div class="row">
         <div class="col-md-12">
           <label for="selected_digits" class="text-dark" style="font-size: 14px;">ရွှေးချယ်ထားသောဂဏန်းများ</label>
@@ -441,7 +457,7 @@
       amountInput.setAttribute('name', 'amounts[' + num + ']');
       amountInput.setAttribute('id', 'amount_' + num);
       amountInput.setAttribute('placeholder', 'Amount for ' + num);
-      amountInput.setAttribute('min', '100');
+      amountInput.setAttribute('min', '1');
       amountInput.setAttribute('max', '50000');
       amountInput.setAttribute('class', 'form-control mt-2');
       // amountInputsDiv.appendChild(amountLabel);
@@ -457,14 +473,15 @@
     document.querySelectorAll('input[name^="amounts["]').forEach(input => {
       let digit = input.name.match(/\[(.*?)\]/)[1];
       let amount = input.value;
-      if (amount) { // only add to selections if an amount is entered
+      if (amount) {
         selections[digit] = amount;
       }
     });
-    localStorage.setItem('twoDigitSelections', JSON.stringify(selections));
-    //window.location.href = "{{ url('/user/two-d-play-9-30-early-morning-confirm') }}";
-  }
+    let currency = document.querySelector('input[name="currency"]:checked').value;
 
+    localStorage.setItem('twoDigitSelections', JSON.stringify(selections));
+    localStorage.setItem('selectedCurrency', currency);
+  }
 
   function permuteDigits() {
     const outputField = document.getElementById('selected_digits');
@@ -609,4 +626,23 @@
     el.style.backgroundColor = getRandomColor();
   });
 </script>
+<script>
+  $(document).ready(function() {
+    $("#kyat").change(function() {
+      if ($(this).prop("checked")) {
+        $(".kyat").addClass('btn-secondary').removeClass('btn-outline-secondary');
+        $(".baht").addClass('btn-outline-secondary').removeClass('btn-secondary');
+      }
+    });
+
+    $("#baht").change(function() {
+      if ($(this).prop("checked")) {
+        $(".baht").addClass('btn-secondary').removeClass('btn-outline-secondary');
+        $(".kyat").addClass('btn-outline-secondary').removeClass('btn-secondary');
+      }
+    });
+  });
+</script>
+
+
 @endsection

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User\AM9;
 
+use App\Models\Admin\Currency;
 use App\Models\Lottery;
 use Illuminate\Http\Request;
 use App\Models\Admin\TwoDigit;
@@ -58,6 +59,7 @@ class TwoDplay9AMController extends Controller
         Log::info($request->all());
         // return $request->all();
         $validatedData = $request->validate([
+            'currency' => 'required',
             'selected_digits' => 'required|string',
             'amounts' => 'required|array',
             'amounts.*' => 'required|integer|min:1|max:50000',
@@ -94,6 +96,13 @@ class TwoDplay9AMController extends Controller
                 $totalBetAmountForTwoDigit = DB::table('lottery_two_digit_copy')
                     ->where('two_digit_id', $two_digit_id)
                     ->sum('sub_amount');
+
+                //currency auto exchange
+                if($request->currency == "baht"){
+                    $rate = Currency::latest()->first()->rate;
+                    $sub_amount = $sub_amount * $rate;
+                    // return $sub_amount;
+                }
 
                 if ($totalBetAmountForTwoDigit + $sub_amount <= $limitAmount) {
                     $pivot = new LotteryTwoDigitPivot([
@@ -132,7 +141,7 @@ class TwoDplay9AMController extends Controller
             DB::commit();
             session()->flash('SuccessRequest', 'Successfully placed bet.');
 
-            return redirect()->route('user.twodHistory')->with('message', 'Data stored successfully!');
+            return redirect()->route('user.twodHistory')->with('success', 'Data stored successfully!');
         } catch (\Exception $e) {
             DB::rollback();
             Log::error('Error in store method: ' . $e->getMessage());

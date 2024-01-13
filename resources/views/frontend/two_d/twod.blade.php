@@ -142,11 +142,11 @@
           @endif
         </button>
         <button class="btn w-100 my-1" style="background: var(--linear)">
-          @if ($currentTime->between($start2Time, $end4Time))
+          {{-- @if ($currentTime->between($start2Time, $end4Time)) --}}
           <a href="{{ route('user.twod-play-index-9am') }}">4:00 PM</a>
-          @else
+          {{-- @else
           <span class="w-100 border-purple py-2 rounded d-block text-purple text-center">04:30 PM</span>
-          @endif
+          @endif --}}
         </button>
       </div>
       <!-- <div class="modal-footer d-flex justify-content-center align-items-center">

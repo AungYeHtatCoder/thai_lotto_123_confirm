@@ -433,7 +433,7 @@
       amountInput.setAttribute('name', 'amounts[' + num + ']');
       amountInput.setAttribute('id', 'amount_' + num);
       amountInput.setAttribute('placeholder', 'Amount for ' + num);
-      amountInput.setAttribute('min', '100');
+      amountInput.setAttribute('min', '1');
       amountInput.setAttribute('max', '50000');
       amountInput.setAttribute('class', 'form-control mt-2');
       // amountInputsDiv.appendChild(amountLabel);
