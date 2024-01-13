@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\User\TwodQuick;
 
-use App\Models\Lottery;
-use Illuminate\Http\Request;
-use App\Models\Admin\TwoDigit;
+use App\Http\Controllers\Controller;
+use App\Models\Admin\Currency;
 use App\Models\Admin\LotteryMatch;
+use App\Models\Admin\TwoDigit;
+use App\Models\Lottery;
+use App\Models\LotteryTwoDigitPivot;
+use App\Models\Two\LotteryTwoDigitOverLimit;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use App\Http\Controllers\Controller;
-use App\Models\LotteryTwoDigitPivot;
-use Illuminate\Support\Facades\Auth;
-use App\Models\Two\LotteryTwoDigitOverLimit;
 
 class TwoDQicklyPlayController extends Controller
 {
@@ -50,11 +51,14 @@ class TwoDQicklyPlayController extends Controller
         return view('frontend.two_d.9_am.twoDQuickPlayAMConfirm', compact('twoDigits', 'remainingAmounts', 'lottery_matches'));
     }
 
+
     public function store(Request $request)
     {
-
-        //Log::info($request->all());
+        // dd($request->all());
+        Log::info($request->all());
+        // return $request->all();
         $validatedData = $request->validate([
+            'currency' => 'required',
             'selected_digits' => 'required|string',
             'amounts' => 'required|array',
             'amounts.*' => 'required|integer|min:1|max:50000',
@@ -92,6 +96,13 @@ class TwoDQicklyPlayController extends Controller
                     ->where('two_digit_id', $two_digit_id)
                     ->sum('sub_amount');
 
+                //currency auto exchange
+                if($request->currency == "baht"){
+                    $rate = Currency::latest()->first()->rate;
+                    $sub_amount = $sub_amount * $rate;
+                    // return $sub_amount;
+                }
+
                 if ($totalBetAmountForTwoDigit + $sub_amount <= $limitAmount) {
                     $pivot = new LotteryTwoDigitPivot([
                         'lottery_id' => $lottery->id,
@@ -128,7 +139,8 @@ class TwoDQicklyPlayController extends Controller
 
             DB::commit();
             session()->flash('SuccessRequest', 'Successfully placed bet.');
-            return redirect()->route('home')->with('message', 'Data stored successfully!');
+
+            return redirect()->route('user.twodHistory')->with('success', 'Data stored successfully!');
         } catch (\Exception $e) {
             DB::rollback();
             Log::error('Error in store method: ' . $e->getMessage());
