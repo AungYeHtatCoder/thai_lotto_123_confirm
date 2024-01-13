@@ -55,9 +55,7 @@ class TwoDplay9AMController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
         Log::info($request->all());
-        // return $request->all();
         $validatedData = $request->validate([
             'currency' => 'required',
             'selected_digits' => 'required|string',
@@ -74,8 +72,15 @@ class TwoDplay9AMController extends Controller
         DB::beginTransaction();
 
         try {
+            $rate = Currency::latest()->first()->rate;
+            if($request->currency == 'baht'){
+                $totalAmount = $request->totalAmount * $rate;
+            }else{
+                $totalAmount = $request->totalAmount;
+            }
+
             $user = Auth::user();
-            $user->balance -= $request->totalAmount;
+            $user->balance -= $totalAmount;
 
             if ($user->balance < 0) {
                 throw new \Exception('Insufficient balance.');
@@ -83,9 +88,10 @@ class TwoDplay9AMController extends Controller
 
             $user->save();
 
+
             $lottery = Lottery::create([
-                'pay_amount' => $request->totalAmount,
-                'total_amount' => $request->totalAmount,
+                'pay_amount' => $totalAmount,
+                'total_amount' => $totalAmount,
                 'user_id' => $request->user_id,
                 'session' => $currentSession
             ]);
@@ -99,9 +105,7 @@ class TwoDplay9AMController extends Controller
 
                 //currency auto exchange
                 if($request->currency == "baht"){
-                    $rate = Currency::latest()->first()->rate;
                     $sub_amount = $sub_amount * $rate;
-                    // return $sub_amount;
                 }
 
                 if ($totalBetAmountForTwoDigit + $sub_amount <= $limitAmount) {
