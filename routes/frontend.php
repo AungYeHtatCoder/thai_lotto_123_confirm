@@ -75,7 +75,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/confirm', [WelcomeController::class, 'threedConfirm']);
         Route::get('/winner', [WelcomeController::class, 'threedWinner']);
         Route::get('/history', [WelcomeController::class, 'threedHistory']);
-        Route::get('/dream', [WelcomeController::class, 'threeDream']);
+        
     });
 
     // Twod Routes
@@ -83,6 +83,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [WelcomeController::class, 'twoD']);
         Route::get('/play', [WelcomeController::class, 'twoDPlay']);
         Route::get('/confirm', [WelcomeController::class, 'twoDConfirm']);
-        Route::get('/dream', [WelcomeController::class, 'twoDream']);
+        
     });
 });
+
+Route::get('twod/dream', [WelcomeController::class, 'twoDream']);
+Route::get('threed/dream', [WelcomeController::class, 'threeDream']);
