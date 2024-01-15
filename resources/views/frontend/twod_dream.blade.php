@@ -577,8 +577,7 @@
    imgSrc: "user_app/assets/img/2ddreambook/2ddream94.png",
    btn1: "99",
    btn2: "66"
-  },
-
+  }
  ];
 
  const dreamContainer = document.getElementById("dreamContainer");
