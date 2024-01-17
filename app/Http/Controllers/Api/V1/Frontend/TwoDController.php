@@ -119,6 +119,8 @@ class TwoDController extends Controller
                 // ... Your betting logic here ...
                 if($request->currency == 'baht'){
                     $sub_amount = $bet['amount'] * $rate;
+                }else{
+                    $sub_amount = $bet['amount'];
                 }
 
     
