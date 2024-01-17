@@ -24,12 +24,13 @@ use App\Http\Controllers\Admin\TwoDLimitController;
 use App\Http\Controllers\Admin\BannerTextController;
 use App\Http\Controllers\Admin\CommissionController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\ThreeDListController;
 use App\Http\Controllers\Admin\TwoDWinnerController;
 use App\Http\Controllers\Admin\ThreeDLimitController;
 use App\Http\Controllers\Admin\TransferLogController;
 use App\Http\Controllers\Admin\TwoDLotteryController;
-use App\Http\Controllers\Admin\TwoDMorningController;
 
+use App\Http\Controllers\Admin\TwoDMorningController;
 use App\Http\Controllers\Home\CashInRequestController;
 use App\Http\Controllers\Admin\ThreedHistoryController;
 use App\Http\Controllers\Home\CashOutRequestController;
@@ -68,6 +69,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
     Route::resource('/two-digit-limit', TwoDLimitController::class);
     // three Ditgit Limit
     Route::resource('/three-digit-limit', ThreeDLimitController::class);
+    // display limit 
+    Route::get('/three-d-display-limit-amount', [App\Http\Controllers\Admin\ThreeDLimitController::class, 'overLimit'])->name('three-d-display-limit-amount');
+    Route::get('/three-d-same-id-display-limit-amount', [App\Http\Controllers\Admin\ThreeDLimitController::class, 'SameThreeDigitIDoverLimit'])->name('three-d-display-same-id-limit-amount');
     //cash in lists
     Route::get('/cashIn', [CashInRequestController::class, 'index'])->name('cashIn');
     Route::get('/cashIn/{id}', [CashInRequestController::class, 'show'])->name('cashIn.show');

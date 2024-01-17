@@ -33,7 +33,7 @@
                 <div class="card-header pb-0">
                     <div class="d-lg-flex">
                         <div>
-                            <h5 class="mb-0">3D တပါတ်အတွင်းထိုးထားသော စာရင်း  Dashboards
+                            <h5 class="mb-0">3D Over Amount Limit Dashboards
                                 <span>
                                      <h6>Thai 3D Lottery Match Times for {{ Carbon\Carbon::now()->format('F Y') }}</h6>
                                 </span>
@@ -56,53 +56,28 @@
        <table class="table table-flush" id="twod-search">
            <thead class="thead-light">
                <th>#</th>
-               {{-- <th>Lottery ID</th> --}}
-               <th>Name</th>
                <th>3D</th>
                <th>Total Amount</th>
-               <th>Date</th>
-               <th>Action</th>
+               
            </thead>
            <tbody>
-     @foreach ($lotteries as $lottery)
-         <tr>
-             <td class="text-sm font-weight-normal">{{ $lottery->id }}</td>
-             <td class="text-sm font-weight-normal">
-                 <span class="badge badge-secondary">{{ $lottery->user->name }}</span>
-             </td>
-             
-             <td class="text-sm font-weight-normal">
-                 <ul class="navbar-nav">
-                     @foreach ($lottery->threedDigits as $threeDigit)
-                         <li class="nav-item">
-                             <button type="button" class="btn btn btn-primary">
-                                 <span>{{ $threeDigit->three_digit }} </span>
-                                 <span class="badge badge-pill badge-lg bg-gradient-success table-font-myanmar">
-                                  Amount &nbsp; &nbsp; - {{ $threeDigit->pivot->sub_amount }} || &nbsp; &nbsp;</span>
-                             </button>
-                         </li>
-                     @endforeach
-                 </ul>
-             </td>
-             <td class="text-sm font-weight-normal">
-                 <button type="button" class="btn btn-success">
-                     <span class="table-font-myanmar"> Total Amount - &nbsp; &nbsp;{{ $lottery->total_amount }} </span>
-                     {{-- <span
-                         class="badge badge-sm badge-circle badge-danger border border-white border-2"></span> --}}
-                 </button>
-             </td>
-             {{-- <td>{{ $lottery->created_at->format('d M Y (l) h:i:s A') }}</td> --}}
-             <td class="text-sm font-weight-normal">
-
-                 <span
-                     class="badge bg-gradient-info">{{ $lottery->created_at->format('d-m-Y (l) (h:i a)') }}</span>
-             </td>
-             <td class="text-sm font-weight-normal">
-                 <a href="{{ route('admin.three-d-list-show', $lottery->id )}}" class="btn btn-warning btn-sm">Show</a>
-             </td>
-         </tr>
-         <hr class="mt-2">
-     @endforeach
+       @foreach ($aggregatedData as $three_digit_id => $total_sub_amount)
+            <tr>
+                <td>{{ $loop->index + 1 }}</td>
+                <td>
+                 @php 
+                 $zero_digit = $three_digit_id - 1;
+                 @endphp
+                 @if ($zero_digit == 0)
+                 000
+                 @else
+                 {{ $three_digit_id - 1 }}
+                 @endif
+                </td>
+                <td>{{ $total_sub_amount }}</td>
+               
+            </tr>
+        @endforeach
            </tbody>
        </table>
    </div>
@@ -136,7 +111,7 @@
                     };
 
                     if (type === "csv") {
-                        data.columnDelimiter = "|";
+                        data.columnDelimiter = ",";
                     }
 
                     dataTableSearch.export(data);

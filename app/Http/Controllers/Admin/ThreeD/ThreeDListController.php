@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\ThreeD;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Models\Lotto;
+use App\Models\ThreeDigit\Lotto;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
@@ -59,4 +59,5 @@ class ThreeDListController extends Controller
         return view('admin.three_d.three_d_list_show', compact('lottery', 'prize_no', 'matchTime'));
     }
 
+    
 }

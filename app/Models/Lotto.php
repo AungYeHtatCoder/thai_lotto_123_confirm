@@ -7,7 +7,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Admin\LotteryMatch;
 use App\Models\Admin\ThreedMatchTime;
-use App\Models\ThreeDigit\ThreeDigit;
+use App\Models\ThreeDigit;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -44,6 +44,11 @@ class Lotto extends Model
     public function DisplayThreeDigits()
     { 
         return $this->belongsToMany(ThreeDigit::class, 'lotto_three_digit_copy', 'lotto_id', 'three_digit_id')->withPivot('sub_amount', 'prize_sent', 'created_at');
+    }
+
+    public function DisplayThreeDigitsOver()
+    { 
+        return $this->belongsToMany(ThreeDigit::class, 'lotto_three_digit_over', 'lotto_id', 'three_digit_id')->withPivot('sub_amount', 'prize_sent', 'created_at');
     }
 
     public function threedDigitWinner()

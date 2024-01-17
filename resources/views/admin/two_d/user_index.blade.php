@@ -106,7 +106,7 @@ if (document.getElementById('users-search')) {
    };
 
    if (type === "csv") {
-    data.columnDelimiter = "|";
+    data.columnDelimiter = ",";
    }
 
    dataTableSearch.export(data);
