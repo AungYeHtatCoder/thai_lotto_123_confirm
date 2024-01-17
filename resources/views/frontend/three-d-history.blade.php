@@ -134,6 +134,30 @@
         </p>
         @endif
 
+       {{-- @if(!empty($displayThreeDigits))
+    @foreach($displayThreeDigits as $index => $digit)
+        <tr>
+            <td>{{ $index + 1 }}</td>
+            <td>{{ $digit['three_digit_id'] ?? 'N/A' }}</td>
+            <td>{{ $digit['sub_amount'] ?? 'N/A' }}</td>
+        </tr>
+    @endforeach
+@else
+    <tr>
+        <td colspan="3">No digits to display.</td>
+    </tr>
+@endif --}}
+
+        {{-- @if(isset($displayThreeDigits) && is_array($displayThreeDigits))
+    @foreach ($displayThreeDigits as $index => $digit)
+        <tr>
+            <td>{{ $index + 1 }}</td>
+            <td>{{ $digit['three_digit'] ?? 'N/A' }}</td>
+            <td>{{ $digit['pivot']['sub_amount'] ?? 'N/A' }}</td>
+        </tr>
+    @endforeach
+@endif --}}
+
         @if($displayThreeDigits)
         @foreach ($displayThreeDigits['threeDigit'] as $index => $digit)
         <tr>
@@ -148,6 +172,11 @@
     <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow border border-1">
       <p class="text-end pt-1" style="color: #ffffff">Total Amount for 3D: ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
         <strong>{{ $displayThreeDigits['total_amount'] }} MMK</strong>
+      </p>
+    </div>
+    <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow border border-1">
+      <p class="text-end pt-1" style="color: #ffffff">Total Amount for both 3D and 3D Over: ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
+        <strong>{{ $displayThreeDigits['total_amount_both'] }} MMK</strong>
       </p>
     </div>
   </div>

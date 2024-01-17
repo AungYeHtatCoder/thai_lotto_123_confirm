@@ -67,8 +67,11 @@ class TwoDplay9AMController extends Controller
         ]);
 
         $currentSession = date('H') < 12 ? 'morning' : 'evening';
-        $limitAmount = 50000; // Define the limit amount
-
+        //$limitAmount = 50000; // Define the limit amount
+        $limit = DB::table('two_d_limits')->first(); // Define the limit amount
+        $limitAmount = $limit->two_d_limit;
+        // get first commission From Commission Table
+        $commission_percent = DB::table('commissions')->first();
         DB::beginTransaction();
 
         try {
@@ -85,10 +88,10 @@ class TwoDplay9AMController extends Controller
             if ($user->balance < 0) {
                 throw new \Exception('Insufficient balance.');
             }
-
+            /** @var \App\Models\User $user */
             $user->save();
-
-
+            // commission calculation
+        
             $lottery = Lottery::create([
                 'pay_amount' => $totalAmount,
                 'total_amount' => $totalAmount,

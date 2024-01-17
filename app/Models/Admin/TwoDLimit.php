@@ -5,10 +5,10 @@ namespace App\Models\Admin;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Commission extends Model
+class TwoDLimit extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'commission',
+        'two_d_limit',
     ];
 }

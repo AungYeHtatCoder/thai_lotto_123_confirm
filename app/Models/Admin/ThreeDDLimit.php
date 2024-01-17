@@ -5,10 +5,10 @@ namespace App\Models\Admin;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Commission extends Model
+class ThreeDDLimit extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'commission',
+        'three_d_limit',
     ];
 }

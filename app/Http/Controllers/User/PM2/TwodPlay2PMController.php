@@ -77,7 +77,7 @@ class TwodPlay2PMController extends Controller
             if ($user->balance < 0) {
                 throw new \Exception('Insufficient balance.');
             }
-
+            /** @var \App\Models\User $user */
             $user->save();
 
             $lottery = Lottery::create([

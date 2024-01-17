@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('wavepay_no')->nullable()->default('N/A');
             $table->string('ayapay_no')->nullable()->default('N/A');
             $table->integer('balance')->default(50000);
+            $table->integer('commission_balance')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

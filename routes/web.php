@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\Admin\BankController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\BankController;
 
 use App\Http\Controllers\Admin\GameController;
 use App\Http\Controllers\Admin\RolesController;
@@ -18,20 +18,23 @@ use App\Http\Controllers\Admin\PlayTwoDController;
 use App\Http\Controllers\Admin\TwoDigitController;
 use App\Http\Controllers\Admin\PromotionController;
 
+use App\Http\Controllers\Admin\TwoDLimitController;
+
+
 use App\Http\Controllers\Admin\BannerTextController;
-
-
+use App\Http\Controllers\Admin\CommissionController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\TwoDWinnerController;
+use App\Http\Controllers\Admin\ThreeDLimitController;
+use App\Http\Controllers\Admin\TransferLogController;
 use App\Http\Controllers\Admin\TwoDLotteryController;
 use App\Http\Controllers\Admin\TwoDMorningController;
-use App\Http\Controllers\Admin\ThreedHistoryController;
-use App\Http\Controllers\Admin\ThreedMatchTimeController;
-use App\Http\Controllers\Admin\FillBalanceReplyController;
-use App\Http\Controllers\Admin\TransferLogController;
 
 use App\Http\Controllers\Home\CashInRequestController;
+use App\Http\Controllers\Admin\ThreedHistoryController;
 use App\Http\Controllers\Home\CashOutRequestController;
+use App\Http\Controllers\Admin\ThreedMatchTimeController;
+use App\Http\Controllers\Admin\FillBalanceReplyController;
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -59,7 +62,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
     Route::resource('games', GameController::class);
     Route::resource('/promotions', PromotionController::class);
     Route::resource('/banks', BankController::class);
-
+    //commissions route
+    Route::resource('/commissions', CommissionController::class);
+    // Two Digit Limit
+    Route::resource('/two-digit-limit', TwoDLimitController::class);
+    // three Ditgit Limit
+    Route::resource('/three-digit-limit', ThreeDLimitController::class);
     //cash in lists
     Route::get('/cashIn', [CashInRequestController::class, 'index'])->name('cashIn');
     Route::get('/cashIn/{id}', [CashInRequestController::class, 'show'])->name('cashIn.show');

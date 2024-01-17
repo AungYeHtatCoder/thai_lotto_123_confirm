@@ -231,6 +231,40 @@ public function twodWiners()
     {
         return asset('assets/img/profile/' . $this->profile);
     }
+//     public static function getUserThreeDigits($userId) {
+//     $displayThreeDigitsQuery = Lotto::where('user_id', $userId)->with('DisplayThreeDigits');
+
+//     // Ensure we clone the query since it is executed once `get()` is called
+//     $displayThreeDigits = (clone $displayThreeDigitsQuery)->get()
+//                                ->pluck('DisplayThreeDigits')
+//                                ->collapse(); 
+
+//     $totalAmount = $displayThreeDigits->sum('pivot.sub_amount');
+
+//     // DisplayThreeDigitsOver
+//     $displayThreeDigitsOver = (clone $displayThreeDigitsQuery)->with('DisplayThreeDigitsOver')
+//                                ->get()
+//                                ->pluck('DisplayThreeDigitsOver')
+//                                ->collapse();
+
+//     $totalAmountOver = $displayThreeDigitsOver->sum('pivot.sub_amount');
+
+//     // Merge the collections
+//     $mergedCollection = $displayThreeDigits->merge($displayThreeDigitsOver);
+
+//     // Now if you want to return an array, convert the merged collection to an array
+//     $mergedArray = $mergedCollection->toArray();
+
+//     $totalAmountBoth = $totalAmount + $totalAmountOver;
+
+//     return [
+//         'threeDigit' => $mergedArray, // This is now a merged array
+//         'total_amount' => $totalAmount,
+//         'threeDigitOver' => $displayThreeDigitsOver->toArray(), // Keep as an array if needed separately
+//         'total_amount_over' => $totalAmountOver,
+//         'total_amount_both' => $totalAmountBoth
+//     ];
+// }
 
     public static function getUserThreeDigits($userId) {
     $displayThreeDigits = Lotto::where('user_id', $userId)
@@ -241,10 +275,22 @@ public function twodWiners()
     $totalAmount = $displayThreeDigits->sum(function ($threeDigit) {
         return $threeDigit->pivot->sub_amount;
     });
-
+    // DisplayThreeDigitsOver
+    $displayThreeDigitsOver = Lotto::where('user_id', $userId)
+                               ->with('DisplayThreeDigitsOver')
+                               ->get()
+                               ->pluck('DisplayThreeDigitsOver')
+                               ->collapse();
+    $totalAmountOver = $displayThreeDigitsOver->sum(function ($threeDigit) {
+        return $threeDigit->pivot->sub_amount;
+    });
+    $totalAmountBoth = $totalAmount + $totalAmountOver;
     return [
         'threeDigit' => $displayThreeDigits,
-        'total_amount' => $totalAmount
+        'total_amount' => $totalAmount,
+        'threeDigitOver' => $displayThreeDigitsOver,
+        'total_amount_over' => $totalAmountOver,
+        'total_amount_both' => $totalAmountBoth
     ];
 }
 

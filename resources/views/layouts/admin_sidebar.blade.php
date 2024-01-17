@@ -68,6 +68,12 @@
               <span class="sidenav-normal  ms-2  ps-1"> Banks </span>
             </a>
           </li>
+           <li class="nav-item ">
+            <a class="nav-link text-white " href="{{ route('admin.commissions.index') }}">
+              <span class="sidenav-mini-icon"> <i class="fas fa-coins"></i> </span>
+              <span class="sidenav-normal  ms-2  ps-1"> Commission Create </span>
+            </a>
+          </li>
 
           @endcan
         </ul>
@@ -186,6 +192,14 @@
             <a class="nav-link text-white " href="{{ route('admin.tow-d-win-number.index') }}">
               <span class="sidenav-mini-icon"> K </span>
               <span class="sidenav-normal  ms-2  ps-1"> 2D Prize No Create </span>
+            </a>
+          </li>
+          @endcan
+           @can('user_access')
+          <li class="nav-item ">
+            <a class="nav-link text-white " href="{{ route('admin.two-digit-limit.index') }}">
+              <span class="sidenav-mini-icon"> K </span>
+              <span class="sidenav-normal  ms-2  ps-1"> 2D LimitAmount Create </span>
             </a>
           </li>
           @endcan
@@ -330,6 +344,12 @@
          <a class="nav-link text-white " href="{{ url('/admin/three-d-prize-number-create') }}">
           <span class="sidenav-mini-icon"> 3D </span>
           <span class="sidenav-normal  ms-2  ps-1"> PrizeNoCreate </span>
+         </a>
+        </li>
+         <li class="nav-item">
+         <a class="nav-link text-white " href="{{ route('admin.three-digit-limit.index') }}">
+          <span class="sidenav-mini-icon"> 3D </span>
+          <span class="sidenav-normal  ms-2  ps-1"> LimitAmountCreate </span>
          </a>
         </li>
         <li class="nav-item">

@@ -58,11 +58,69 @@ class ThreeDPlayController extends Controller
         //return view('three_d.three_d_choice_play');
     }
 
+//     public function user_play()
+// {
+//     $userId = auth()->id(); // Get the logged-in user's ID
+
+//     $displayThreeDigits = User::getUserThreeDigits($userId);
+
+//     // Log the content of $displayThreeDigits for debugging
+//     Log::debug('DisplayThreeDigits content:', $displayThreeDigits);
+
+//     // Use optional helper to safely access properties and avoid errors if the key is missing
+//     $threeDigitArray = optional($displayThreeDigits['threeDigit'] ?? null)->toArray() ?? [];
+//     $threeDigitOverArray = optional($displayThreeDigits['threeDigitOver'] ?? null)->toArray() ?? [];
+    
+//     $mergedArray = array_merge($threeDigitArray, $threeDigitOverArray);
+
+//     return view('frontend.three_d.three-d-history', [
+//         'displayThreeDigits' => $mergedArray,
+//     ]);
+// }
+
+// //     public function user_play()
+// // {
+// //     $userId = auth()->id(); // Get the logged-in user's ID
+
+// //     $displayThreeDigits = User::getUserThreeDigits($userId);
+    
+// //     // Check if the key 'threeDigit' exists before trying to use it
+// //     if (!array_key_exists('threeDigit', $displayThreeDigits)) {
+// //         // Handle the error appropriately, maybe log it or return a default value
+// //         Log::error("The key 'threeDigit' was not found in the array returned by getUserThreeDigits");
+// //         $threeDigitArray = []; // Default value if the key does not exist
+// //     } else {
+// //         $threeDigitArray = $displayThreeDigits['threeDigit']->toArray();
+// //     }
+
+// //     // Check for 'threeDigitOver' key as well
+// //     $threeDigitOverArray = array_key_exists('threeDigitOver', $displayThreeDigits) 
+// //                            ? $displayThreeDigits['threeDigitOver']->toArray() 
+// //                            : [];
+    
+// //     $mergedArray = array_merge($threeDigitArray, $threeDigitOverArray);
+
+// //     return view('frontend.three_d.three-d-history', [
+// //         'displayThreeDigits' => $mergedArray,
+// //     ]);
+// // }
+
+    // public function user_play()
+    // {
+    //     $userId = auth()->id(); // Get logged in user's ID
+
+    //     $displayThreeDigits = User::getUserThreeDigits($userId);
+    //     $mergedArray = array_merge($displayThreeDigits['threeDigit']->toArray(), $displayThreeDigits['threeDigitOver']->toArray());
+
+    //     return view('frontend.three_d.three-d-history', [
+    //         'displayThreeDigits' => $mergedArray,
+    //     ]);
+    // }
     public function user_play()
     {
         $userId = auth()->id(); // Get logged in user's ID
-
         $displayThreeDigits = User::getUserThreeDigits($userId);
+        // dd($displayThreeDigits);
         return view('frontend.three_d.three-d-history', [
             'displayThreeDigits' => $displayThreeDigits,
         ]);
@@ -76,14 +134,17 @@ class ThreeDPlayController extends Controller
         $validatedData = $request->validate([
             'selected_digits' => 'required|string',
             'amounts' => 'required|array',
-            'amounts.*' => 'required|integer|min:100|max:50000',
-            'totalAmount' => 'required|numeric|min:100',
+            'amounts.*' => 'required|integer',
+            'totalAmount' => 'required|numeric',
             'user_id' => 'required|exists:users,id',
         ]);
 
-        //$currentSession = date('H') < 12 ? 'morning' : 'evening';
-        $limitAmount = 50000; // Define the limit amount
-
+        
+        $limit = DB::table('three_d_d_limits')->first(); // Define the limit amount
+        $limitAmount = $limit->three_d_limit;
+        // get first commission From Commission Table
+        $commission_percent = DB::table('commissions')->first();
+        
         DB::beginTransaction();
 
         try {
@@ -93,8 +154,14 @@ class ThreeDPlayController extends Controller
             if ($user->balance < 0) {
                 throw new \Exception('Insufficient balance.');
             }
-
+            /** @var \App\Models\User $user */
             $user->save();
+            // commission calculation
+           if($request->totalAmount >= 1000){
+            $commission = ($request->totalAmount * $commission_percent->commission) / 100;
+            $user->commission_balance += $commission;
+            $user->save();
+            }
 
             $lottery = Lotto::create([
                 //'pay_amount' => $request->totalAmount,
@@ -134,8 +201,8 @@ class ThreeDPlayController extends Controller
 
                     if ($overLimit > 0) {
                         $pivotOver = new ThreeDigitOverLimit([
-                            'lottery_id' => $lottery->id,
-                            'two_digit_id' => $three_digit_id,
+                            'lotto_id' => $lottery->id, // corrected from 'lottery_id'
+                            'three_digit_id' => $three_digit_id,
                             'sub_amount' => $overLimit,
                             'prize_sent' => false
                         ]);
