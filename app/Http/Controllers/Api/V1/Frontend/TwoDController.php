@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\Currency;
 use App\Models\Admin\LotteryMatch;
 use App\Models\Admin\TwoDigit;
+use App\Models\Admin\TwoDLimit;
 use App\Models\Lottery;
+use App\Models\LotteryTwoDigitCopy;
 use App\Models\LotteryTwoDigitPivot;
 use App\Models\Two\LotteryTwoDigitOverLimit;
 use App\Models\User;
@@ -23,19 +25,16 @@ class TwoDController extends Controller
     public function index()
     {
         $digits = TwoDigit::all();
-        $remainingAmounts = [];
-        foreach ($digits as $digit) {
-            $totalBetAmountForTwoDigit = DB::table('lottery_two_digit_copy')
-                ->where('two_digit_id', $digit->id)
-                ->sum('sub_amount');
-
-            $remainingAmounts[$digit->id] = 50000 - $totalBetAmountForTwoDigit; 
+        $break = TwoDLimit::latest()->first()->two_d_limit;
+        foreach($digits as $digit)
+        {
+            $totalAmount = LotteryTwoDigitCopy::where('two_digit_id', $digit->id)->sum('sub_amount');
+            $remaining = $break-$totalAmount;
+            $digit->remaining = $remaining;
         }
-        $lottery_matches = LotteryMatch::where('id', 1)->whereNotNull('is_active')->first();
         return $this->success([
+            'break' => $break,
             'two_digits' => $digits,
-            'remaining_amounts' => $remainingAmounts,
-            'lottery_matches' => $lottery_matches
         ]);
     }
 
@@ -43,7 +42,7 @@ class TwoDController extends Controller
     {
         // Log the entire request
         Log::info($request->all());
-    
+        $break = TwoDLimit::latest()->first()->two_d_limit;
         // Convert JSON request to an array
         $data = $request->json()->all();
     
@@ -53,7 +52,7 @@ class TwoDController extends Controller
             'totalAmount' => 'required|numeric|min:1',
             'amounts' => 'required|array',
             'amounts.*.num' => 'required|integer',
-            'amounts.*.amount' => 'required|integer|min:1|max:50000',
+            'amounts.*.amount' => 'required|integer|min:1|max:'.$break,
         ]);
     
         // Check for validation errors
@@ -69,15 +68,14 @@ class TwoDController extends Controller
             $rate = Currency::latest()->value('rate');
             $subAmount = array_sum(array_column($request->amounts, 'amount')) * $rate;
 
-            if ($subAmount > 50000) {
+            if ($subAmount > $break) {
                 return response()->json(['error' => 'Sub Amount is over limit'], 422);
             }
         }
 
         // Determine the current session based on time
         $currentSession = date('H') < 12 ? 'morning' : 'evening';
-        $limitAmount = 50000;
-        if ($validatedData['totalAmount'] > $limitAmount) {
+        if ($validatedData['totalAmount'] > $break) {
             return response()->json(['error' => 'Total Amount is over limit'], 422);
         }
     
@@ -124,7 +122,7 @@ class TwoDController extends Controller
                 }
 
     
-                if ($totalBetAmountForTwoDigit + $sub_amount <= $limitAmount) {
+                if ($totalBetAmountForTwoDigit + $sub_amount <= $break) {
                     $pivot = new LotteryTwoDigitPivot([
                         'lottery_id' => $lottery->id,
                         'two_digit_id' => $two_digit_id,
@@ -133,7 +131,7 @@ class TwoDController extends Controller
                     ]);
                     $pivot->save();
                 } else {
-                    $withinLimit = $limitAmount - $totalBetAmountForTwoDigit;
+                    $withinLimit = $break - $totalBetAmountForTwoDigit;
                     $overLimit = $sub_amount - $withinLimit;
 
                     if ($withinLimit > 0) {
