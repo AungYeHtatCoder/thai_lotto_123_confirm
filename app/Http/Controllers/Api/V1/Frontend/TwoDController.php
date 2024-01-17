@@ -175,14 +175,10 @@ class TwoDController extends Controller
     public function playHistory()
     {
         $userId = auth()->id();
-        $history9am = Lottery::with('user')->where('user_id', $userId)->whereTime('created_at', '>=', '00:00:00')
-        ->whereTime('created_at', '<=', '09:30:00')->latest()->paginate(10);
-        $history12pm = Lottery::with('user')->where('user_id', $userId)->whereTime('created_at', '>=', '09:30:00')
-        ->whereTime('created_at', '<=', '12:00:00')->latest()->paginate(10);;
-        $history2pm = Lottery::with('user')->where('user_id', $userId)->whereTime('created_at', '>=', '12:00:00')
-        ->whereTime('created_at', '<=', '02:00:00')->latest()->paginate(10);;
-        $history4pm = Lottery::with('user')->where('user_id', $userId)->whereTime('created_at', '>=', '02:00:00')
-        ->whereTime('created_at', '<=', '04:30:00')->latest()->paginate(10);;
+        $history9am = User::getUserEarlyMorningTwoDigits($userId);
+        $history12pm = User::getUserMorningTwoDigits($userId);
+        $history2pm = User::getUserEarlyEveningTwoDigits($userId);
+        $history4pm = User::getUserEveningTwoDigits($userId);
 
         return $this->success([
             'history9am' => $history9am,

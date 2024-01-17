@@ -15,91 +15,91 @@ class ThreeDigitPlayController extends Controller
 {
 
      public function ThreeDigitPlaystore(Request $request)
-{
-    $validatedData = $request->validate([
-        'digit' => 'required|array',
-        'sub_amount' => 'required|array',
-        'sub_amount.*' => 'required|integer|min:100|max:5000',
-        'total_amount' => 'required|numeric|min:100',
-        'user_id' => 'required|exists:users,id',
-    ]);
+    {
+        $validatedData = $request->validate([
+            'digit' => 'required|array',
+            'sub_amount' => 'required|array',
+            'sub_amount.*' => 'required|integer|min:100|max:5000',
+            'total_amount' => 'required|numeric|min:100',
+            'user_id' => 'required|exists:users,id',
+        ]);
 
-    DB::beginTransaction();
+        DB::beginTransaction();
 
-    try {
-        $user = $this->deductUserBalance($request->total_amount);
-        $lottery = $this->createLottery($request->total_amount, $request->user_id);
-        $this->attachDigitsToLottery($lottery, $request->digit, $request->input('sub_amount'), $request->input('match_time'));
+        try {
+            $user = $this->deductUserBalance($request->total_amount);
+            $lottery = $this->createLottery($request->total_amount, $request->user_id);
+            $this->attachDigitsToLottery($lottery, $request->digit, $request->input('sub_amount'), $request->input('match_time'));
 
-        DB::commit();
-        session()->flash('SuccessRequest', 'Your betting was successful.');
-        return back()->with(['success' => 'Digits played successfully.', 'new_balance' => $user->balance]);
-        
-    } catch (\Exception $e) {
-        DB::rollBack();
-        session()->flash('error', 'Error: ' . $e->getMessage());
-        return back();
-    }
-}
-
-private function deductUserBalance($totalAmount)
-{
-    $user = Auth::user();
-    $user->balance -= $totalAmount;
-
-    if ($user->balance < 0) {
-        throw new \Exception('Not enough balance.');
+            DB::commit();
+            session()->flash('SuccessRequest', 'Your betting was successful.');
+            return back()->with(['success' => 'Digits played successfully.', 'new_balance' => $user->balance]);
+            
+        } catch (\Exception $e) {
+            DB::rollBack();
+            session()->flash('error', 'Error: ' . $e->getMessage());
+            return back();
+        }
     }
 
-    $user->save();
+    private function deductUserBalance($totalAmount)
+    {
+        $user = Auth::user();
+        $user->balance -= $totalAmount;
 
-    return $user;
-}
-
-private function createLottery($totalAmount, $userId)
-{
-    return BetLottery::create([
-        'total_amount' => $totalAmount,
-        'user_id' => $userId,
-        'lottery_match_id' => 2, // This should be dynamically determined or validated
-    ]);
-}
-
-private function attachDigitsToLottery($lottery, $digits, $subAmounts, $matchTimeId)
-{
-    foreach ($digits as $key => $digit) {
-        $totalBetAmountForDigit = DB::table('bet_lottery_matching_copy')
-            ->where('digit_entry', $digit)
-            ->sum('sub_amount');
-
-        if ($totalBetAmountForDigit + $subAmounts[$key] > 5000) {
-            throw new \Exception("The bet amount limit for digit {$digit} is exceeded.");
+        if ($user->balance < 0) {
+            throw new \Exception('Not enough balance.');
         }
 
-        $matchTime = Matching::find($matchTimeId);
-        if (!$matchTime) {
-            throw new \Exception('Invalid match time.');
-        }
+        $user->save();
 
-        // $lottery->matchings()->attach($matchTimeId, [
-        //     'digit_entry' => $digit,
-        //     'sub_amount' => $subAmounts[$key],
-        //     'prize_sent' => false,
-        //     'created_at' => Carbon::now(),
-        //     'updated_at' => Carbon::now(),
-        // ]);
-        $pivot = new BetLotteryMatchingCopy();
-        $pivot->matching_id = $matchTimeId;
-        $pivot->bet_lottery_id = $lottery->id;
-        $pivot->digit_entry = $digit;
-        $pivot->sub_amount = $subAmounts[$key];
-        $pivot->prize_sent = false;
-        $pivot->created_at = Carbon::now();
-        $pivot->updated_at = Carbon::now();
-        $pivot->save();
-        
+        return $user;
     }
-}
+
+    private function createLottery($totalAmount, $userId)
+    {
+        return BetLottery::create([
+            'total_amount' => $totalAmount,
+            'user_id' => $userId,
+            'lottery_match_id' => 2, // This should be dynamically determined or validated
+        ]);
+    }
+
+    private function attachDigitsToLottery($lottery, $digits, $subAmounts, $matchTimeId)
+    {
+        foreach ($digits as $key => $digit) {
+            $totalBetAmountForDigit = DB::table('bet_lottery_matching_copy')
+                ->where('digit_entry', $digit)
+                ->sum('sub_amount');
+
+            if ($totalBetAmountForDigit + $subAmounts[$key] > 5000) {
+                throw new \Exception("The bet amount limit for digit {$digit} is exceeded.");
+            }
+
+            $matchTime = Matching::find($matchTimeId);
+            if (!$matchTime) {
+                throw new \Exception('Invalid match time.');
+            }
+
+            // $lottery->matchings()->attach($matchTimeId, [
+            //     'digit_entry' => $digit,
+            //     'sub_amount' => $subAmounts[$key],
+            //     'prize_sent' => false,
+            //     'created_at' => Carbon::now(),
+            //     'updated_at' => Carbon::now(),
+            // ]);
+            $pivot = new BetLotteryMatchingCopy();
+            $pivot->matching_id = $matchTimeId;
+            $pivot->bet_lottery_id = $lottery->id;
+            $pivot->digit_entry = $digit;
+            $pivot->sub_amount = $subAmounts[$key];
+            $pivot->prize_sent = false;
+            $pivot->created_at = Carbon::now();
+            $pivot->updated_at = Carbon::now();
+            $pivot->save();
+            
+        }
+    }
     //     public function ThreeDigitPlaystore(Request $request)
 // {
 //     // $request->validate([
