@@ -39,7 +39,7 @@
      <thead class="thead-light">
       <th>#</th>
       <th>UserName</th>
-      <th>Email</th>
+      <th>Commission</th>
       <th>Role</th>
       <th>Created_at</th>
       <th>Action</th>
@@ -49,7 +49,7 @@
       <tr>
        <td class="text-sm font-weight-normal">{{ ++$key }}</td>
        <td class="text-sm font-weight-normal">{{ $user->name }}</td>
-       <td class="text-sm font-weight-normal">{{ $user->email }}</td>
+       <td class="text-sm font-weight-normal">{{ $user->commission_balance }}</td>
        <td class="text-sm font-weight-normal">
         @foreach ($user->roles as $role)
         <span class="badge badge-info">

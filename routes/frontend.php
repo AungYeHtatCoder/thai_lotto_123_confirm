@@ -25,6 +25,8 @@ Route::middleware('auth')->group(function () {
     Route::post('editProfile/', [ProfileController::class, 'update'])->name('editProfile');
     Route::post('editInfo', [ProfileController::class, 'editInfo'])->name('editInfo');
     Route::post('changePassword', [ProfileController::class, 'changePassword'])->name('changePassword');
+    // user balance update 
+    Route::put('balanceUpdate', [ProfileController::class, 'balanceUpdate'])->name('balanceUpdate');
     //profile management
 
 

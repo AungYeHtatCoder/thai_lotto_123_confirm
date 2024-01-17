@@ -13,6 +13,18 @@ use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
+    //balanceUpdate 
+    public function balanceUpdate(Request $request)
+    {
+        $user = User::find(Auth::id());
+        $commission = $request->balance;
+        $user->balance += $commission;
+        // commission_balance deduct
+        $user->commission_balance -= $commission;
+        $user->save();
+        return redirect()->back()->with('toast_success', 'Balance updated successfully');
+    }
+
     public function profile()
     {
         if (auth()->user()->hasRole('Admin')) {

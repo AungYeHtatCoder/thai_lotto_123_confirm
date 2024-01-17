@@ -4,7 +4,55 @@
 @include('user_layout.nav')
 <!-- content section start -->
 <div style="padding-top: 30px;">
+  <div class="row" style="padding-top: 30px;">
+    <div class="col-6">
+      <div class="card">
+      <div class="row">
+        <div class="col-12">
+          <div class="card-header">
+        <h6 class="text-center text-dark">
+          Balance -
+          {{ Auth::user()->balance }} 
+        </h6>
+      </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="col-6">
+      <div class="card">
+        <div class="card-header">
+      <h6>
+            @if(Auth::user()->commission_balance > 0)
+            Com - Balance
+            {{ Auth::user()->commission_balance }}
+            @else
+            00
+            @endif
+          </h6>
+    </div>
+      </div>
+      <div class="card">
+{{-- update balance form --}}
+        <div class="card-header">
+          <form action="{{ route('balanceUpdate') }}" method="post">
+            @csrf
+            @method('PUT')
+            <div class="d-flex justify-content-center align-items-center my-2">
+              <input type="hidden" name="balance" value="{{ Auth::user()->commission_balance }}" class="w-75 rounded border border-none p-2" style="font-size: 14px;line-height: 20px;outline: none;color: #757575;" />
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+              <button type="submit" class="w-75 mx-2 py-2 rounded text-white border border-none" style="background: var(--linear);font-size: 18px;">ပိုက်ဆံအိပ်ထဲသို့ပြောင်းပါ</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
   <div class="d-flex justify-content-around align-items-center">
+    
+    
     <div class="mt-5 me-0">
       @if(Auth::user()->profile)
       <div class="d-flex justify-content-center pt-2 mb-3">
