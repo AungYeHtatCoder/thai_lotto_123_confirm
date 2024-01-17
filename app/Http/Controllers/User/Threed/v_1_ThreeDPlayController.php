@@ -177,10 +177,7 @@ class ThreeDPlayController extends Controller
                     ->where('three_digit_id', $three_digit_id)
                     ->sum('sub_amount');
 
-                $withinLimit = $limitAmount - $totalBetAmountForTwoDigit;
-                $overLimit = $sub_amount - $withinLimit;
-
-                if ($totalBetAmountForTwoDigit >= 0) {
+                if ($totalBetAmountForTwoDigit + $sub_amount <= $limitAmount) {
                     $pivot = new LotteryThreeDigitPivot([
                         'lotto_id' => $lottery->id,
                         'three_digit_id' => $three_digit_id,
@@ -188,16 +185,29 @@ class ThreeDPlayController extends Controller
                         'prize_sent' => false
                     ]);
                     $pivot->save();
-                }
+                } else {
+                    $withinLimit = $limitAmount - $totalBetAmountForTwoDigit;
+                    $overLimit = $sub_amount - $withinLimit;
 
-                if ($overLimit > 0) {
-                    $pivotOver = new ThreeDigitOverLimit([
-                        'lotto_id' => $lottery->id,
-                        'three_digit_id' => $three_digit_id,
-                        'sub_amount' => $overLimit,
-                        'prize_sent' => false
-                    ]);
-                    $pivotOver->save();
+                    if ($withinLimit > 0) {
+                        $pivotWithin = new LotteryThreeDigitPivot([
+                            'lotto_id' => $lottery->id,
+                            'three_digit_id' => $three_digit_id,
+                            'sub_amount' => $withinLimit,
+                            'prize_sent' => false
+                        ]);
+                        $pivotWithin->save();
+                    }
+
+                    if ($overLimit > 0) {
+                        $pivotOver = new ThreeDigitOverLimit([
+                            'lotto_id' => $lottery->id, // corrected from 'lottery_id'
+                            'three_digit_id' => $three_digit_id,
+                            'sub_amount' => $overLimit,
+                            'prize_sent' => false
+                        ]);
+                        $pivotOver->save();
+                    }
                 }
             }
 
