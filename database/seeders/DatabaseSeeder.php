@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
 
             CountryCodeSeeder::class,
             CurrencySeeder::class,
+            TwoDBreakSeeder::class,
         ]);
     }
 }
