@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\BetLottery;
+use App\Models\Admin\Currency;
 use App\Models\Admin\Matching;
 use App\Models\BetLotteryMatchingCopy;
 use App\Models\ThreeDigit\ThreeDigit;
@@ -25,6 +26,7 @@ class ThreeDController extends Controller
     public function play(Request $request)
     {
         $request->validate([
+            'currency' => 'required|string',
             'digit' => 'required|array',
             'sub_amount' => 'required|array',
             'sub_amount.*' => 'required|integer|min:1',
@@ -34,16 +36,24 @@ class ThreeDController extends Controller
         DB::beginTransaction();
 
         try {
-            $user = $this->deductUserBalance($request->total_amount);
-            $lottery = $this->createLottery($request->total_amount, Auth::user()->id);
-            $this->attachDigitsToLottery($lottery, $request->digit, $request->input('sub_amount'), $request->input('match_time'));
+            $rate = Currency::latest()->first()->rate;
+            if($request->currency == 'baht'){
+                $totalAmount = $request->total_amount * $rate;
+                $sub_amount = $request->sub_amount * $rate;
+            }else{
+                $totalAmount = $request->total_amount;
+                $sub_amount = $request->sub_amount;
+            }
+            $user = $this->deductUserBalance($totalAmount);
+            $lottery = $this->createLottery($totalAmount, Auth::user()->id);
+            $this->attachDigitsToLottery($lottery, $request->digit, $sub_amount, $request->input('match_time'));
 
             DB::commit();
             return response()->json(['success' => 'Digits played successfully.', 'new_balance' => $user->balance]);
             
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json(['error' => $e->getMessage()], 422);
+            return response()->json(['error' => $e->getMessage()], 400);
         }
     }
 
