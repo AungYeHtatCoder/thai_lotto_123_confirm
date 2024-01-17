@@ -123,7 +123,6 @@ class TwoDController extends Controller
                     $sub_amount = $bet['amount'];
                 }
 
-    
                 if ($totalBetAmountForTwoDigit + $sub_amount <= $break) {
                     $pivot = new LotteryTwoDigitPivot([
                         'lottery_id' => $lottery->id,
@@ -176,10 +175,14 @@ class TwoDController extends Controller
     public function playHistory()
     {
         $userId = auth()->id();
-        $history9am = User::getUserEarlyMorningTwoDigits($userId);
-        $history12pm = User::getUserMorningTwoDigits($userId);
-        $history2pm = User::getUserEarlyEveningTwoDigits($userId);
-        $history4pm = User::getUserEveningTwoDigits($userId);
+        $history9am = LotteryTwoDigitCopy::where('user_id', $userId)->whereTime('created_at', '>=', '00:00:00')
+        ->whereTime('created_at', '<=', '09:30:00')->latest()->paginate(10);
+        $history12pm = LotteryTwoDigitCopy::where('user_id', $userId)->whereTime('created_at', '>=', '09:30:00')
+        ->whereTime('created_at', '<=', '12:30:00')->latest()->paginate(10);;
+        $history2pm = LotteryTwoDigitCopy::where('user_id', $userId)->whereTime('created_at', '>=', '12:30:00')
+        ->whereTime('created_at', '<=', '02:30:00')->latest()->paginate(10);;
+        $history4pm = LotteryTwoDigitCopy::where('user_id', $userId)->whereTime('created_at', '>=', '02:30:00')
+        ->whereTime('created_at', '<=', '04:30:00')->latest()->paginate(10);;
 
         return $this->success([
             'history9am' => $history9am,
