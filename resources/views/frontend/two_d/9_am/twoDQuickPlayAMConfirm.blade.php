@@ -22,6 +22,7 @@
 
           </tbody>
         </table>
+        <input type="text" readonly name="currency" id="currency">
         <div class="col-md-12 mb-3">
           <label for="totalAmount">Total Amount</label>
           <input type="text" id="totalAmount" name="totalAmount" class="form-control" readonly>
@@ -82,6 +83,9 @@
 @section('script')
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
+<script>
+  document.getElementById("currency").value = localStorage.getItem('selectedCurrency');
+</script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     @if(session('SuccessRequest'))

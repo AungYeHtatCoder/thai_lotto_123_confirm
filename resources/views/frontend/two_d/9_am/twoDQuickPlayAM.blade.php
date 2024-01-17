@@ -77,6 +77,17 @@
  </a>
 </div>
 
+<div class=" mt-4">
+  <div class="text-center">
+    <label for="" class="form-label text-dark ">ထိုးမည့် ငွေအမျိုးအစား ရွေးချယ်ပါ။</label>
+  </div>
+  
+  <div class="d-flex justify-content-around">
+    <label for="kyat" class="btn btn-outline-secondary d-block kyat w-75">ကျပ်</label>
+    <label for="baht" class="btn btn-outline-secondary d-block baht w-75">ဘတ်</label>
+  </div>
+</div>
+
 <div class="d-flex justify-content-center align-items-center mt-3" style="font-size: 16px">
  <div class="px-4" style="width: 100%">
   <input type="text " class="form-control" name="amount" id="all_amount" placeholder="ငွေပမာဏထည့်ပါ" />
@@ -100,6 +111,10 @@
 <div class="mx-3">
  <form action="" method="post" class="p-1">
   @csrf
+  <div class="d-none">
+    <input type="radio" name="currency" value="kyat" id="kyat">
+    <input type="radio" name="currency" value="baht" id="baht">
+  </div>
   <div class="">
    <input type="text" id="outputField" name="selected_digits" class="form-control form-control-sm" placeholder="Selected digits">
   </div>
@@ -376,7 +391,7 @@
    amountInput.setAttribute('name', 'amounts[' + num + ']');
    amountInput.setAttribute('id', 'amount_' + num);
    amountInput.setAttribute('placeholder', 'Amount for ' + num);
-   amountInput.setAttribute('min', '100');
+   amountInput.setAttribute('min', '1');
    amountInput.setAttribute('max', '50000');
    amountInput.setAttribute('class', 'form-control mt-2 d-none');
    amountInput.onchange = function() {
@@ -405,17 +420,19 @@
  }
 
  function storeSelectionsInLocalStorage() {
-  let selections = {};
-  document.querySelectorAll('input[name^="amounts["]').forEach(input => {
-   let digit = input.name.match(/\[(.*?)\]/)[1];
-   let amount = input.value;
-   if (amount) { // only add to selections if an amount is entered
-    selections[digit] = amount;
-   }
-  });
-  localStorage.setItem('twoDigitSelections', JSON.stringify(selections));
-  //window.location.href = "{{ url('/user/two-d-play-9-30-early-morning-confirm') }}";
- }
+    let selections = {};
+    document.querySelectorAll('input[name^="amounts["]').forEach(input => {
+      let digit = input.name.match(/\[(.*?)\]/)[1];
+      let amount = input.value;
+      if (amount) {
+        selections[digit] = amount;
+      }
+    });
+    let currency = document.querySelector('input[name="currency"]:checked').value;
+
+    localStorage.setItem('twoDigitSelections', JSON.stringify(selections));
+    localStorage.setItem('selectedCurrency', currency);
+  }
 
  // permulation
  function permuteDigits() {
@@ -818,5 +835,22 @@
  document.querySelectorAll('.digit.disabled').forEach(el => {
   el.style.backgroundColor = getRandomColor();
  });
+</script>
+<script>
+  $(document).ready(function() {
+    $("#kyat").change(function() {
+      if ($(this).prop("checked")) {
+        $(".kyat").addClass('btn-secondary').removeClass('btn-outline-secondary');
+        $(".baht").addClass('btn-outline-secondary').removeClass('btn-secondary');
+      }
+    });
+
+    $("#baht").change(function() {
+      if ($(this).prop("checked")) {
+        $(".baht").addClass('btn-secondary').removeClass('btn-outline-secondary');
+        $(".kyat").addClass('btn-outline-secondary').removeClass('btn-secondary');
+      }
+    });
+  });
 </script>
 @endsection

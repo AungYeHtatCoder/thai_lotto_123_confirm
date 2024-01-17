@@ -45,6 +45,7 @@ Route::group(["middleware" => ['auth:sanctum']], function(){
     //2D Routes
     Route::get('/twoD', [TwoDController::class, 'index']);
     Route::post('/twoD/play', [TwoDController::class, 'play']);
+    Route::get('/twoD/playHistory', [TwoDController::class, 'playHistory']);
 
     //3D Routes
     Route::get('/threeD', [ThreeDController::class, 'index']);

@@ -7,6 +7,7 @@
 @if ($lottery_matches->is_active == 1)
 <form action="{{ route('user.twod-play-index-9am.store') }}" method="POST" class="pt-5 mt-5">
   @csrf
+  
   <div class="row mx-2">
     <div class="" style="padding-bottom:100px;">
       <div>
@@ -22,6 +23,7 @@
 
           </tbody>
         </table>
+        <input type="text" readonly name="currency" id="currency">
         <div class="col-md-12 mb-3">
           <label for="totalAmount">Total Amount</label>
           <input type="text" id="totalAmount" name="totalAmount" class="form-control" readonly>
@@ -82,6 +84,9 @@
 @section('script')
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
+<script>
+  document.getElementById("currency").value = localStorage.getItem('selectedCurrency');
+</script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     @if(session('SuccessRequest'))
@@ -251,6 +256,7 @@
   function confirmPlay() {
     // Clear the local storage
     localStorage.removeItem('twoDigitSelections');
+    localStorage.removeItem('selectedCurrency');
 
     // You can call `updateTotalAmount` if needed or redirect the user after this
     // For example:

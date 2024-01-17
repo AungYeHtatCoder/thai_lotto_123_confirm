@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User\AM9;
 
+use App\Models\Admin\Currency;
 use App\Models\Lottery;
 use Illuminate\Http\Request;
 use App\Models\Admin\TwoDigit;
@@ -54,9 +55,9 @@ class TwoDplay9AMController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
         Log::info($request->all());
         $validatedData = $request->validate([
+            'currency' => 'required',
             'selected_digits' => 'required|string',
             'amounts' => 'required|array',
             'amounts.*' => 'required|integer|min:1|max:50000',
@@ -71,8 +72,15 @@ class TwoDplay9AMController extends Controller
         DB::beginTransaction();
 
         try {
+            $rate = Currency::latest()->first()->rate;
+            if($request->currency == 'baht'){
+                $totalAmount = $request->totalAmount * $rate;
+            }else{
+                $totalAmount = $request->totalAmount;
+            }
+
             $user = Auth::user();
-            $user->balance -= $request->totalAmount;
+            $user->balance -= $totalAmount;
 
             if ($user->balance < 0) {
                 throw new \Exception('Insufficient balance.');
@@ -80,9 +88,10 @@ class TwoDplay9AMController extends Controller
 
             $user->save();
 
+
             $lottery = Lottery::create([
-                'pay_amount' => $request->totalAmount,
-                'total_amount' => $request->totalAmount,
+                'pay_amount' => $totalAmount,
+                'total_amount' => $totalAmount,
                 'user_id' => $request->user_id,
                 'session' => $currentSession
             ]);
@@ -93,6 +102,11 @@ class TwoDplay9AMController extends Controller
                 $totalBetAmountForTwoDigit = DB::table('lottery_two_digit_copy')
                     ->where('two_digit_id', $two_digit_id)
                     ->sum('sub_amount');
+
+                //currency auto exchange
+                if($request->currency == "baht"){
+                    $sub_amount = $sub_amount * $rate;
+                }
 
                 if ($totalBetAmountForTwoDigit + $sub_amount <= $limitAmount) {
                     $pivot = new LotteryTwoDigitPivot([
@@ -131,7 +145,7 @@ class TwoDplay9AMController extends Controller
             DB::commit();
             session()->flash('SuccessRequest', 'Successfully placed bet.');
 
-            return redirect()->route('user.twodHistory')->with('message', 'Data stored successfully!');
+            return redirect()->route('user.twodHistory')->with('success', 'Data stored successfully!');
         } catch (\Exception $e) {
             DB::rollback();
             Log::error('Error in store method: ' . $e->getMessage());
