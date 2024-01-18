@@ -54,11 +54,11 @@
     <span class="text-danger d-block">*{{ $message }}</span>
   @enderror
 
-  <label for="name" class="my-2"> သင်၏ {{ $bank->bank }} ငွေလွှဲသူအမည် </label>
+  {{-- <label for="name" class="my-2"> သင်၏ {{ $bank->bank }} ငွေလွှဲသူအမည် </label>
   <input type="text" name="name" class="form-control input" placeholder="" />
   @error('name')
     <span class="text-danger d-block">*{{ $message }}</span>
-  @enderror
+  @enderror --}}
 
   <label for="ph-digit" class="my-2">လုပ်ဆောင်မှုအမှတ်စဥ် (နောက်ဆုံးဂဏန်း ၆ လုံး)</label>
   <input name="last_6_num" type="number" class="form-control input" placeholder="" />

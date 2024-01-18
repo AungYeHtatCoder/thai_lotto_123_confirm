@@ -68,6 +68,13 @@ class CashOutRequestController extends Controller
             'created_by' => null
         ]);
         $user = User::find(auth()->id());
+        if($request->currency == "baht"){
+            $user->balance -= $request->amount * $rate;
+            $user->save();
+        }else{
+            $user->balance -= $request->amount;
+            $user->save();
+        }
         
         $toMail = "delightdeveloper4@gmail.com";
         

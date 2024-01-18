@@ -41,7 +41,6 @@ class CashInRequestController extends Controller
             'last_6_num' => 'required',
             'amount' => 'required|numeric',
             'phone' => 'required|numeric',
-            'name' => 'required|string',
             'currency' => 'required|string',
         ]);
         CashInRequest::create([
@@ -49,7 +48,6 @@ class CashInRequestController extends Controller
             'last_6_num' => $request->last_6_num,
             'amount' => $request->amount,
             'phone' => $request->phone,
-            'name' => $request->name,
             'currency' => $request->currency,
             'user_id' => auth()->user()->id,
         ]);
@@ -66,7 +64,6 @@ class CashInRequestController extends Controller
             'status' => "Deposit",
             'name' => $user->name,
             'balance' => $user->balance,
-            'receiver' => $request->name,
             'payment_method'=> $request->payment_method,
             'phone' => $request->phone,
             'amount' => $request->amount,
