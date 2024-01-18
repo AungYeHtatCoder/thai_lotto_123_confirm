@@ -50,5 +50,4 @@ Route::group(["middleware" => ['auth:sanctum']], function(){
 
     //3D Routes
     Route::get('/threeD', [ThreeDController::class, 'index']);
-    Route::post('/threeD/play', [TestController::class, 'store']);
 });
