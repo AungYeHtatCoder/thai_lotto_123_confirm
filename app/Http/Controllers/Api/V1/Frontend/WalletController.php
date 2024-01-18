@@ -39,6 +39,8 @@ class WalletController extends Controller
     public function deposit(DepositRequest $request)
     {
         $request->validated($request->all());
+        $rate = Currency::latest()->first()->rate;
+
         CashInRequest::create([
             'payment_method' => $request->payment_method,
             'last_6_num' => $request->last_6_num,
@@ -49,13 +51,12 @@ class WalletController extends Controller
         ]);
         TransferLog::create([
             'user_id' => auth()->user()->id,
-            'amount' => $request->amount,
+            'amount' => $request->currency == "baht" ? $request->amount * $rate : $request->amount,
             'type' => 'Deposit',
             'created_by' => null
         ]);
 
         $user = User::find(auth()->id());
-        $rate = Currency::latest()->first()->rate;
         $toMail = "mobiledeveloper117@gmail.com";
         $mail = [
             'status' => "Deposit",
@@ -101,7 +102,7 @@ class WalletController extends Controller
         ]);
         TransferLog::create([
             'user_id' => auth()->user()->id,
-            'amount' => $request->amount,
+            'amount' => $request->currency == "baht" ? $request->amount * $rate : $request->amount,
             'type' => 'Withdraw',
             'created_by' => null
         ]);
@@ -115,7 +116,7 @@ class WalletController extends Controller
             $user->balance -= $request->amount;
             $user->save();
         }
-        
+
         $toMail = "mobiledeveloper117@gmail.com";
         $mail = [
             'status' => "Withdraw",
