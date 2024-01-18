@@ -26,7 +26,6 @@ class DepositRequest extends FormRequest
             'last_6_num' => 'required',
             'amount' => 'required|numeric',
             'phone' => 'required|numeric',
-            'name' => 'required|string',
             'currency' => 'required|string',
         ];
     }

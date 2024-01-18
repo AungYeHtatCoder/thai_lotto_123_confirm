@@ -44,10 +44,16 @@ class WalletController extends Controller
             'last_6_num' => $request->last_6_num,
             'amount' => $request->amount,
             'phone' => $request->phone,
-            'name' => $request->name,
-            'currency' => $request->currency,
+            'currency' => $request->currency, 
             'user_id' => auth()->user()->id,
         ]);
+        TransferLog::create([
+            'user_id' => auth()->user()->id,
+            'amount' => $request->amount,
+            'type' => 'Deposit',
+            'created_by' => null
+        ]);
+
         $user = User::find(auth()->id());
         $rate = Currency::latest()->first()->rate;
         $toMail = "mobiledeveloper117@gmail.com";
@@ -55,7 +61,6 @@ class WalletController extends Controller
             'status' => "Deposit",
             'name' => $user->name,
             'balance' => $user->balance,
-            'receiver' => $request->name,
             'payment_method'=> $request->payment_method,
             'phone' => $request->phone,
             'amount' => $request->amount,
@@ -94,8 +99,23 @@ class WalletController extends Controller
             'user_id' => auth()->id(),
             'currency' => $request->currency,
         ]);
+        TransferLog::create([
+            'user_id' => auth()->user()->id,
+            'amount' => $request->amount,
+            'type' => 'Withdraw',
+            'created_by' => null
+        ]);
         $user = User::find(auth()->id());
         $rate = Currency::latest()->first()->rate;
+
+        if($request->currency == "baht"){
+            $user->balance -= $request->amount * $rate;
+            $user->save();
+        }else{
+            $user->balance -= $request->amount;
+            $user->save();
+        }
+        
         $toMail = "mobiledeveloper117@gmail.com";
         $mail = [
             'status' => "Withdraw",

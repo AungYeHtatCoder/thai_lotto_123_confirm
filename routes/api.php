@@ -46,10 +46,10 @@ Route::group(["middleware" => ['auth:sanctum']], function(){
     //2D Routes
     Route::get('/twoD', [TwoDController::class, 'index']);
     Route::post('/twoD/play', [TwoDController::class, 'play']);
-    Route::get('/twoD/playHistory', [TwoDController::class, 'playHistory']);
+    Route::get('/twoD/playHistory', [TwoDController::class, 'playHistory']); //unfinished
 
     //3D Routes
     Route::get('/threeD', [ThreeDController::class, 'index']);
     Route::post('/threeD/play', [ThreeDController::class, 'play']);
-    Route::get('/threeD/playHistory', [ThreeDController::class, 'playHistory']);
+    Route::get('/threeD/playHistory', [ThreeDController::class, 'playHistory']); //unfinished
 });

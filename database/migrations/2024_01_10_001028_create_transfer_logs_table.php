@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('transfer_logs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('status');
+            $table->string('type');
+            $table->tinyInteger('status')->default(0); //0-pending, 1-accept, 2-reject
             $table->string('amount');
-            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('created_by')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

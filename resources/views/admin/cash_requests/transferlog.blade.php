@@ -32,6 +32,7 @@
       <th>UserName</th>
       <th>Phone</th>
       <th>Amount</th>
+      <th>Type</th>
       <th>Status</th>
       <th>Transfered By</th>
       <th>Created_at</th>
@@ -46,10 +47,13 @@
                 </td>
             <td>{{ $log->user->phone }}</td>
             <td>{{ number_format($log->amount) }} MMK</td>
+            <td>{{ $log->type }}</td>
             <td>
-                <span class="badge badge-primary">{{ $log->status }}</span>
+                <span class="badge badge-{{ $log->status == 0 ? "warning" : ($log->status == 1 ? "success" : ($log->status == 2 ? "danger" : "")) }}">
+                  {{ $log->status == 0 ? "pending" : ($log->status == 1 ? "accepted" : ($log->status == 2 ? "rejected" : "")) }}
+                </span>
             </td>      
-            <td>{{ $log->createdBy->name }}</td>
+            <td>{{ $log->createdBy->name ?? "" }}</td>
             <td>{{ $log->created_at->format('d-m-Y') }}</td>
         </tr>
         @endforeach

@@ -61,6 +61,12 @@ class CashOutRequestController extends Controller
             'user_id' => auth()->id(),
             'currency' => $request->currency,
         ]);
+        TransferLog::create([
+            'user_id' => auth()->user()->id,
+            'amount' => $request->amount,
+            'type' => 'Withdraw',
+            'created_by' => null
+        ]);
         $user = User::find(auth()->id());
         $rate = Currency::latest()->first()->rate;
         $toMail = "delightdeveloper4@gmail.com";
@@ -90,65 +96,81 @@ class CashOutRequestController extends Controller
         return view('admin.cash_requests.cash_out_detail', compact('cash'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-    public function status($id)
+    public function accept($id)
     {
         $cash = CashOutRequest::find($id);
-        $cash->status = $cash->status == 1 ? 0 : 1;
+        $cash->status = 1;
         $cash->save();
-        return redirect()->back()->with('success', 'Filled the cash into user successfully');
+
+        $log = TransferLog::where('user_id', $cash->user_id)
+        ->where('created_at', $cash->created_at)
+        ->first();
+
+        $log->update([
+            'status' => 1,
+            'created_by' => auth()->user()->id,
+        ]);
+
+        return redirect()->back()->with('toast_success', 'Filled the cash into user successfully');
     }
 
-    public function withdraw(Request $request, $id)
+    public function reject($id)
     {
-        $request->validate([
-            'amount' => 'required|numeric',
-            'currency' => 'required|string'
-        ]);
-        $user = User::find($id);
-        if($request->currency == 'kyat')
-        {
-            $user->balance -= $request->amount;
-            TransferLog::create([
-                'user_id' => $user->id,
-                'amount' => $request->amount,
-                'status' => "withdraw",
-                'created_by' => auth()->user()->id,
-            ]);
+        $cash = CashOutRequest::find($id);
+        $currency = $cash->currency;
+        $amount = $cash->amount;
+        $rate = Currency::latest()->first()->rate;
+        
+        if($currency == 'baht'){
+            User::where('id', $cash->user_id)->increment('balance', $amount * $rate);
         }else{
-            $rate = Currency::latest()->first()->rate;
-            $user->balance -= $request->amount * $rate;
-            TransferLog::create([
-                'user_id' => $user->id,
-                'amount' => $request->amount * $rate,
-                'status' => "withdraw",
-                'created_by' => auth()->user()->id,
-            ]);
+            User::where('id', $cash->user_id)->increment('balance', $amount);
         }
-        $user->save();
-        return redirect()->back()->with('success', 'Withdraw the cash from user successfully');
+
+        $cash->status = 2;
+        $cash->save();
+
+        $log = TransferLog::where('user_id', $cash->user_id)
+        ->where('created_at', $cash->created_at)
+        ->first();
+
+        $log->update([
+            'status' => 2,
+            'created_by' => auth()->user()->id,
+        ]);
+
+        return redirect()->back()->with('toast_success', 'Filled the cash into user successfully');
     }
+
+    
+
+    // public function withdraw(Request $request, $id)
+    // {
+    //     $request->validate([
+    //         'amount' => 'required|numeric',
+    //         'currency' => 'required|string'
+    //     ]);
+    //     $user = User::find($id);
+    //     if($request->currency == 'kyat')
+    //     {
+    //         $user->balance -= $request->amount;
+    //         TransferLog::create([
+    //             'user_id' => $user->id,
+    //             'amount' => $request->amount,
+    //             'status' => "withdraw",
+    //             'created_by' => auth()->user()->id,
+    //         ]);
+    //     }else{
+    //         $rate = Currency::latest()->first()->rate;
+    //         $user->balance -= $request->amount * $rate;
+    //         TransferLog::create([
+    //             'user_id' => $user->id,
+    //             'amount' => $request->amount * $rate,
+    //             'status' => "withdraw",
+    //             'created_by' => auth()->user()->id,
+    //         ]);
+    //     }
+    //     $user->save();
+    //     return redirect()->back()->with('success', 'Withdraw the cash from user successfully');
+    // }
 }

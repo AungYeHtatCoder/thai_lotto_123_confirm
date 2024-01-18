@@ -35,41 +35,38 @@
       <th>Method</th>
       <th>Status</th>
       <th>Created_at</th>
-      <th>Action</th> 
+      {{-- <th>Action</th>  --}}
      </thead>
      <tbody>
       @foreach ($cashes as $cash)
-      <tr>
-       <td>{{ $loop->iteration }}</td>
-        <td>
-          <span class="d-block">{{ $cash->user->name }}</span>
-        </td>
-       <td>{{ $cash->phone }}</td>
-       <td>{{ number_format($cash->amount)." ".$cash->currency }}</td>
-       <td>{{ $cash->payment_method }}</td>
-       <td>
-        <span class="badge text-bg-{{ $cash->status == 0 ? 'danger' : 'success' }} text-white mb-2">{{ $cash->status == 0 ? "pending" : "done" }}</span>
-        <a href="#" onclick="event.preventDefault(); document.getElementById('statusChange{{ $cash->id }}').submit();"><i class="fas fa-pen-to-square"></i></a>
-        <form id="statusChange{{ $cash->id }}" action="{{ url('/admin/cashIn/status/'.$cash->id) }}" method="post" style="display: none;">
-          @csrf
-          {{-- <input type="hidden" name="status" value="{{ $cash->status == 0 ? 1 : 0 }}"> --}}
-        </form>
-      </td>      
-       <td>{{ $cash->created_at->format('d-m-Y') }}</td>
-       <td>
-        <a  class="btn btn-warning py-1 px-2 me-1" href="{{ url('/admin/cashIn/'.$cash->id) }}"><i class="fas fa-eye"></i></a>
-                {{-- <a href="{{ route('admin.getTransfer', $cash->id) }}" data-bs-toggle="tooltip" data-bs-original-title="Cash IN To Player" class="btn btn-info btn-sm">
-                  <i class="fas fa-right-left text-white me-1"></i>
-                  <i class="material-icons text-secondary position-relative text-lg" style="font-size: 25px">currency_exchange</i>
-                  ငွေလွဲမည်
-                </a> --}}
-                {{-- <a href="{{ route('admin.getCashOut', $cash->id) }}" data-bs-toggle="tooltip" data-bs-original-title="Cash Out To Player" class="btn btn-warning btn-sm">
-                  <i class="fas fa-right-left text-white me-1"></i>
-                  <i class="material-icons text-secondary position-relative text-lg" style="font-size: 25px">currency_exchange</i>
-                  ငွေထုတ်မည်
-                </a> --}}
-
+        <tr>
+          <td>{{ $loop->iteration }}</td>
+          <td>
+            <span class="d-block">{{ $cash->user->name }}</span>
           </td>
+          <td>{{ $cash->phone }}</td>
+          <td>{{ number_format($cash->amount)." ".$cash->currency }}</td>
+          <td>{{ $cash->payment_method }}</td>
+          <td>
+            <span class="badge text-bg-{{ $cash->status == 0 ? "warning" : ($cash->status == 1 ? "success" : ($cash->status == 2 ? "danger" : "")) }} text-white mb-2">{{ $cash->status == 0 ? "pending" : ($cash->status == 1 ? "accepted" : ($cash->status == 2 ? "rejected" : "")) }}</span>
+            @if($cash->status == 0)
+            <div>
+              <a class="badge text-bg-success text-white" href="#" onclick="event.preventDefault(); document.getElementById('accept{{ $cash->id }}').submit();"><i class="fas fa-check"></i></a>
+              <a class="badge text-bg-danger text-white" href="#" onclick="event.preventDefault(); document.getElementById('reject{{ $cash->id }}').submit();"><i class="fas fa-xmark"></i></a>
+            </div>
+            @endif
+            
+            <form id="accept{{ $cash->id }}" action="{{ url('/admin/cashIn/accept/'.$cash->id) }}" method="post" style="display: none;">
+              @csrf
+            </form>
+            <form id="reject{{ $cash->id }}" action="{{ url('/admin/cashIn/reject/'.$cash->id) }}" method="post" style="display: none;">
+              @csrf
+            </form>
+          </td>      
+          <td>{{ $cash->created_at->format('d-m-Y') }}</td>
+          {{-- <td>
+            <a  class="btn btn-warning py-1 px-2 me-1" href="{{ url('/admin/cashIn/'.$cash->id) }}"><i class="fas fa-eye"></i></a>
+          </td> --}}
         </tr>
         @endforeach
       </tbody>

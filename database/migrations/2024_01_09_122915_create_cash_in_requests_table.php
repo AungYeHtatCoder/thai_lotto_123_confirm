@@ -17,10 +17,9 @@ return new class extends Migration
             $table->integer('amount');
             $table->string('currency');
             $table->string('phone');
-            $table->string('name');
             $table->integer('last_6_num');
             $table->unsignedBigInteger('user_id');
-            $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('status')->default(0); //0-pending, 1-accept, 2-reject
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
