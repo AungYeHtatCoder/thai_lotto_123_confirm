@@ -1,14 +1,15 @@
 <?php
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\V1\TestController;
 use App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Controllers\Api\V1\Auth\ProfileController;
 use App\Http\Controllers\Api\V1\Frontend\HomeController;
-use App\Http\Controllers\Api\V1\Frontend\PromotionController;
-use App\Http\Controllers\Api\V1\Frontend\ThreeDController;
 use App\Http\Controllers\Api\V1\Frontend\TwoDController;
+use App\Http\Controllers\Api\V1\Frontend\ThreeDController;
 use App\Http\Controllers\Api\V1\Frontend\WalletController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\V1\Frontend\PromotionController;
 
 
 
@@ -49,4 +50,5 @@ Route::group(["middleware" => ['auth:sanctum']], function(){
 
     //3D Routes
     Route::get('/threeD', [ThreeDController::class, 'index']);
+    Route::post('/threeD/play', [TestController::class, 'store']);
 });
