@@ -70,7 +70,7 @@
                     {{ $mail['phone'] }}
                 </td>
                 <td>
-                    {{ $mail['receiver'] }}
+                    {{ $mail['receiver'] ?? "" }}
                 </td>   
                 <td>
                     {{ number_format($mail['amount']) .$mail['currency'] }} 

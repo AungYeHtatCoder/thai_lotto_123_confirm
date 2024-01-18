@@ -72,18 +72,22 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
     // display limit 
     Route::get('/three-d-display-limit-amount', [App\Http\Controllers\Admin\ThreeDLimitController::class, 'overLimit'])->name('three-d-display-limit-amount');
     Route::get('/three-d-same-id-display-limit-amount', [App\Http\Controllers\Admin\ThreeDLimitController::class, 'SameThreeDigitIDoverLimit'])->name('three-d-display-same-id-limit-amount');
+    
     //cash in lists
     Route::get('/cashIn', [CashInRequestController::class, 'index'])->name('cashIn');
     Route::get('/cashIn/{id}', [CashInRequestController::class, 'show'])->name('cashIn.show');
-    Route::post('/cashIn/status/{id}', [CashInRequestController::class, 'status'])->name('statusInChange');
+    Route::post('/cashIn/accept/{id}', [CashInRequestController::class, 'accept'])->name('acceptCashIn');
+    Route::post('/cashIn/reject/{id}', [CashInRequestController::class, 'reject'])->name('rejectCashIn');
     Route::post('/transfer/{id}', [CashInRequestController::class, "transfer"]);
     //cash out lists
     Route::get('/cashOut', [CashOutRequestController::class, 'index'])->name('cashOut');
     Route::get('/cashOut/{id}', [CashOutRequestController::class, 'show'])->name('cashOut.show');
-    Route::post('/cashOut/status/{id}', [CashOutRequestController::class, 'status'])->name('statusOutChange');
-    Route::post('/withdraw/{id}', [CashOutRequestController::class, "withdraw"]);
+    Route::post('/cashOut/accept/{id}', [CashOutRequestController::class, 'accept'])->name('acceptCashOut');
+    Route::post('/cashOut/reject/{id}', [CashOutRequestController::class, 'reject'])->name('rejectCashOut');
+    // Route::post('/withdraw/{id}', [CashOutRequestController::class, "withdraw"]);
     //transfer logs lists
     Route::get('/transferlogs', [TransferLogController::class, 'index'])->name('transferLog');
+    
     
     //Currency
     Route::resource('currency', CurrencyController::class);

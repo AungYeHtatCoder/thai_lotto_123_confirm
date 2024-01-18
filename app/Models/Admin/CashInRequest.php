@@ -17,7 +17,6 @@ class CashInRequest extends Model
         'user_id', 
         'last_6_num', 
         'status',
-        'name'
     ];
 
     public function user(){

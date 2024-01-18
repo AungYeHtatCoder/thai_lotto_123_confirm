@@ -37,6 +37,7 @@ class ThreeDController extends Controller
 
     public function play(Request $request)
     {
+        Log::info($request->all());
         $break = ThreeDDLimit::latest()->first()->three_d_limit;
         $rate = Currency::latest()->first()->rate;
 
