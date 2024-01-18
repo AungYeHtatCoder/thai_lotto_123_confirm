@@ -26,15 +26,21 @@
     <p>
       <span class="d-block" style="color: goldenrod"><i class="fas fa-money-bill-wave"></i></span>
       
-      {{ number_format($log->amount) }} MMK
+      K {{ number_format($log->amount) }}
     </p>
     <p>
       <span class="d-block" style="color: goldenrod"><i class="fas fa-money-bill-transfer"></i></span>
-      {{ $log->status }}
+      <small class="badge text-bg-{{ $log->status == 0 ? "warning" : ($log->status == 1 ? "success" : ($log->status == 2 ? "danger" : "")) }}">
+        {{ $log->status == 0 ? "pending" : ($log->status == 1 ? "accepted" : ($log->status == 2 ? "rejected" : "")) }}  
+      </small>
+    </p>
+    <p>
+      <span class="d-block" style="color: goldenrod">Type</span>
+      {{ $log->type }}
     </p>
     <p>
       <span class="d-block" style="color: goldenrod"><i class="fas fa-calendar"></i></span>
-      {{ $log->created_at->format('M j, Y') }}
+      {{ $log->created_at->format('d-m-Y') }}
     </p>
   </div>
 </div>
