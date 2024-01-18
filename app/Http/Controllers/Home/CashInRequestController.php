@@ -35,6 +35,7 @@ class CashInRequestController extends Controller
      */
     public function store(Request $request)
     {
+        $rate = Currency::latest()->first()->rate;
         $request->validate([
             'payment_method' => 'required',
             'last_6_num' => 'required',
@@ -54,12 +55,12 @@ class CashInRequestController extends Controller
         ]);
         TransferLog::create([
             'user_id' => auth()->user()->id,
-            'amount' => $request->amount,
+            'amount' => $request->currency == "baht" ? $request->amount * $rate : $request->amount,
             'type' => 'Deposit',
             'created_by' => null
         ]);
         $user = User::find(auth()->id());
-        $rate = Currency::latest()->first()->rate;
+       
         $toMail = "delightdeveloper4@gmail.com";
         $mail = [
             'status' => "Deposit",

@@ -36,6 +36,7 @@ class CashOutRequestController extends Controller
      */
     public function store(Request $request)
     {
+        $rate = Currency::latest()->first()->rate;
         $request->validate([
             'payment_method' => 'required',
             'amount' => 'required|numeric',
@@ -44,7 +45,6 @@ class CashOutRequestController extends Controller
             'currency' => 'required'
         ]);
         if($request->currency == "baht"){
-            $rate = Currency::latest()->first()->rate;
             $balance = auth()->user()->balance / $rate;
             if($request->amount > $balance){
                 return redirect()->back()->with('error', 'Insufficient balance');
@@ -63,12 +63,12 @@ class CashOutRequestController extends Controller
         ]);
         TransferLog::create([
             'user_id' => auth()->user()->id,
-            'amount' => $request->amount,
+            'amount' => $request->currency == "baht" ? $request->amount * $rate : $request->amount,
             'type' => 'Withdraw',
             'created_by' => null
         ]);
         $user = User::find(auth()->id());
-        $rate = Currency::latest()->first()->rate;
+        
         $toMail = "delightdeveloper4@gmail.com";
         
         $mail = [
