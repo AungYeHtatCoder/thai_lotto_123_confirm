@@ -235,5 +235,22 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
         // three d reset
         Route::post('/three-d-reset', [App\Http\Controllers\Admin\ThreeD\ThreeDResetController::class, 'ThreeDReset'])->name('ThreeDReset');
 
+    // jack pot
+    Route::get('/once-week-jackpot-list', [App\Http\Controllers\Admin\Jackpot\JackpotController::class, 'index'])->name('displayjackpot');
+    // jack pot show
+    Route::get('/once-week-jackpot-show/{id}', [App\Http\Controllers\Admin\Jackpot\JackpotController::class, 'show'])->name('displayjackpotshow');
+    // jack pot history
+    Route::get('/jackpot-history', [App\Http\Controllers\Admin\Jackpot\JackpotHistoryController::class, 'JackpotHistoryindex'])->name('jackpotHistory');
+
+    // jack pot history show
+    Route::get('/jackpot-history-show/{id}', [App\Http\Controllers\Admin\Jackpot\JackpotHistoryController::class, 'JackpotHistoryshow'])->name('jackpotHistoryshow');
+    // jackpot over
+    Route::get('/jackpot-over', [App\Http\Controllers\Admin\Jackpot\JackpotOverLimitController::class, 'overLimit'])->name('jackpot-over');
+    // jackpot over same id
+    Route::get('/jackpot-over-same-id', [App\Http\Controllers\Admin\Jackpot\JackpotOverLimitController::class, 'SameThreeDigitIDoverLimit'])->name('jackpot-over-same-id');
+    // jackpot prize number create
+    Route::get('/jackpot-prize-number-create', [App\Http\Controllers\Admin\Jackpot\JackpotController::class, 'Jackpotindex'])->name('jackpot-prize-number-create');
+    // jackpot prize number store
+    Route::post('/jackpot-prize-number-store', [App\Http\Controllers\Admin\Jackpot\JackpotController::class, 'store'])->name('jackpot-prize-number-create.store');
 
 });

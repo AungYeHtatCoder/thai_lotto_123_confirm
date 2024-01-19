@@ -26,6 +26,12 @@ class MatchTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+             [
+                'match_name' => 'Jackpot',
+                'is_active' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
             // Add more sample data as needed
         ]);
     }

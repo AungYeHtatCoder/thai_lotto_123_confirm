@@ -311,4 +311,18 @@ public function twodWiners()
     ];
 }
 
+public static function getAdminJackpotDigits() {
+    $displayJackpotDigits = Jackpot::with('DisplayJackpotDigits')
+                               ->get()
+                               ->pluck('DisplayJackpotDigits')
+                               ->collapse(); 
+    $totalAmount = $displayJackpotDigits->sum(function ($jackpotDigit) {
+        return $jackpotDigit->pivot->sub_amount;
+    });
+    return [
+        'jackpotDigit' => $displayJackpotDigits,
+        'total_amount' => $totalAmount,
+    ];
+}
+
 }

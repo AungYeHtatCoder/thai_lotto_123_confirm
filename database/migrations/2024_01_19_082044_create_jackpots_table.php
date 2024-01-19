@@ -16,9 +16,9 @@ return new class extends Migration
             $table->integer('pay_amount')->default(0);
             $table->integer('total_amount')->default(0);
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('jackmatch_id')->default(1);
+            $table->unsignedBigInteger('lottery_match_id')->default(3);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('jackmatch_id')->references('id')->on('jackmatches')->onDelete('cascade');
+            $table->foreign('lottery_match_id')->references('id')->on('lottery_matches')->onDelete('cascade');
 
             $table->timestamps();
         });

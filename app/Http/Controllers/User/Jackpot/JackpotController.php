@@ -54,7 +54,7 @@ class JackpotController extends Controller
         }
         $lottery_matches = Jackmatch::where('id', 1)->whereNotNull('is_active')->first();
 
-        return view('jackpot.jackpot_play_confirm', compact('twoDigits', 'remainingAmounts', 'lottery_matches'));
+        return view('jackpot.jackpot_play_confirm', compact('twoDigits', 'remainingAmounts', 'lottery_matches', 'limitAmount'));
     }
 
 
@@ -74,7 +74,7 @@ class JackpotController extends Controller
         }
         $lottery_matches = Jackmatch::where('id', 1)->whereNotNull('is_active')->first();
 
-        return view('jackpot.jackpot_quick_index', compact('twoDigits', 'remainingAmounts', 'lottery_matches'));
+        return view('jackpot.jackpot_quick_index', compact('twoDigits', 'remainingAmounts', 'lottery_matches', 'limitAmount'));
     }
 
     public function Quickplay_confirm()
@@ -93,7 +93,7 @@ class JackpotController extends Controller
         }
         $lottery_matches = Jackmatch::where('id', 1)->whereNotNull('is_active')->first();
 
-        return view('jackpot.jackpot_play_confirm', compact('twoDigits', 'remainingAmounts', 'lottery_matches'));
+        return view('jackpot.jackpot_play_confirm', compact('twoDigits', 'remainingAmounts', 'lottery_matches', 'limitAmount'));
     }
 
 
@@ -165,7 +165,7 @@ class JackpotController extends Controller
                     $pivot->save();
                 } 
 
-                    if ($limitAmount > 0) {
+                    if ($overLimit > 0) {
                         $pivotOver = new JackpotTwoDigitOver([
                             'jackpot_id' => $lottery->id,
                             'two_digit_id' => $two_digit_id,
@@ -255,7 +255,7 @@ class JackpotController extends Controller
                     $pivot->save();
                 } 
 
-                    if ($limitAmount > 0) {
+                    if ($overLimit > 0) {
                         $pivotOver = new JackpotTwoDigitOver([
                             'jackpot_id' => $lottery->id,
                             'two_digit_id' => $two_digit_id,

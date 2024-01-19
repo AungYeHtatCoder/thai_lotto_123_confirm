@@ -382,24 +382,42 @@
      <li class="nav-item ">
       <a class="nav-link text-white " data-bs-toggle="collapse" aria-expanded="false" href="#ordersExample">
        <span class="sidenav-mini-icon"> O </span>
-       <span class="sidenav-normal  ms-2  ps-1"> Orders <b class="caret"></b></span>
+       <span class="sidenav-normal  ms-2  ps-1"> အောက်နှစ်လုံးထီ <b class="caret"></b></span>
       </a>
       <div class="collapse " id="ordersExample">
        <ul class="nav nav-sm flex-column">
-        <li class="nav-item">
-         <a class="nav-link text-white " href="../../pages/ecommerce/orders/list.html">
+         <li class="nav-item">
+         <a class="nav-link text-white " href="{{ url('/admin/jackpot-prize-number-create')}}">
           <span class="sidenav-mini-icon"> O </span>
-          <span class="sidenav-normal  ms-2  ps-1"> Order List </span>
+          <span class="sidenav-normal  ms-2  ps-1"> ထွက်ဂဏန်းထဲ့ရန် </span>
          </a>
         </li>
         <li class="nav-item">
-         <a class="nav-link text-white " href="../../pages/ecommerce/orders/details.html">
+         <a class="nav-link text-white " href="{{ url('/admin/once-week-jackpot-list')}}">
           <span class="sidenav-mini-icon"> O </span>
-          <span class="sidenav-normal  ms-2  ps-1"> Order Details </span>
+          <span class="sidenav-normal  ms-2  ps-1"> တပါတ်စာရင်း </span>
+         </a>
+        </li>
+        <li class="nav-item">
+         <a class="nav-link text-white " href="{{ url('/admin/jackpot-history') }}">
+          <span class="sidenav-mini-icon"> O </span>
+          <span class="sidenav-normal  ms-2  ps-1"> တလစာရင်း </span>
+         </a>
+        </li>
+        <li class="nav-item">
+         <a class="nav-link text-white " href="{{ url('/admin/jackpot-over-same-id') }}">
+          <span class="sidenav-mini-icon"> O </span>
+          <span class="sidenav-normal  ms-2  ps-1"> OverList </span>
+         </a>
+        </li>
+        <li class="nav-item">
+         <a class="nav-link text-white " href="{{ url('/admin/jackpot-over') }}">
+          <span class="sidenav-mini-icon"> O </span>
+          <span class="sidenav-normal  ms-2  ps-1"> OverListDetail </span>
          </a>
         </li>
        </ul>
-      </div>
+      </div> 
      </li>
      <li class="nav-item ">
       <a class="nav-link text-white " href="../../pages/ecommerce/referral.html">

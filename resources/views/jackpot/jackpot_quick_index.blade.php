@@ -178,17 +178,17 @@
    @foreach ($twoDigits as $digit)
    <div class="column">
     @php
-    $totalBetAmountForTwoDigit = DB::table('lottery_two_digit_copy')
+    $totalBetAmountForTwoDigit = DB::table('jackpot_two_digit_copy')
     ->where('two_digit_id', $digit->id)
     ->sum('sub_amount');
     @endphp
-    @if ($totalBetAmountForTwoDigit < 50000) <div class="text-center digit digit-button" style="background-color: javascript:getRandomColor();" data-digit="{{ $digit->two_digit }}" onclick="selectDigit('{{ $digit->two_digit }}', this)">
+    @if ($totalBetAmountForTwoDigit < $limitAmount) <div class="text-center digit digit-button" style="background-color: javascript:getRandomColor();" data-digit="{{ $digit->two_digit }}" onclick="selectDigit('{{ $digit->two_digit }}', this)">
      <p style="font-size: 20px">
       {{ $digit->two_digit }}
      </p>
      <div class="progress">
       @php
-      $totalAmount = 50000;
+      $totalAmount = $limitAmount;
       $betAmount = $totalBetAmountForTwoDigit; // the amount already bet
       $remainAmount = $totalAmount - $betAmount; // the amount remaining that can be bet
       $percentage = ($betAmount / $totalAmount) * 100;
@@ -392,7 +392,7 @@
    amountInput.setAttribute('id', 'amount_' + num);
    amountInput.setAttribute('placeholder', 'Amount for ' + num);
    amountInput.setAttribute('min', '1');
-   amountInput.setAttribute('max', '50000');
+   //amountInput.setAttribute('max', '50000');
    amountInput.setAttribute('class', 'form-control mt-2 d-none');
    amountInput.onchange = function() {
     updateTotalAmount();

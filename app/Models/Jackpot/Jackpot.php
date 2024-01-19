@@ -5,6 +5,8 @@ namespace App\Models\Jackpot;
 use App\Models\User;
 use App\Models\Admin\TwoDigit;
 use App\Models\User\Jackmatch;
+use App\Models\ThreedMatchTime;
+use App\Models\Admin\LotteryMatch;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -25,10 +27,15 @@ class Jackpot extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function JackMatch()
+    public function lotteryMatch()
     {
-        return $this->belongsTo(Jackmatch::class, 'jackmatch_id');
+        return $this->belongsTo(LotteryMatch::class, 'lottery_match_id');
     }
+    public function threedMatchTime()
+    {
+        return $this->hasOne(ThreedMatchTime::class, 'id', 'lottery_match_id');
+    }
+
 
     public function twoDigits() {
         return $this->belongsToMany(TwoDigit::class, 'jackpot_two_digit')->withPivot('sub_amount', 'prize_sent')->withTimestamps();
