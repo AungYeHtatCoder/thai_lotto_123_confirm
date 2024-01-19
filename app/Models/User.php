@@ -15,6 +15,7 @@ use App\Models\Admin\FillBalance;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Admin\LotteryTwoDigit;
+use App\Models\Jackpot\Jackpot;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -291,6 +292,22 @@ public function twodWiners()
         'threeDigitOver' => $displayThreeDigitsOver,
         'total_amount_over' => $totalAmountOver,
         'total_amount_both' => $totalAmountBoth
+    ];
+}
+
+// jackpot 
+    public static function getUserJackpotDigits($userId) {
+    $displayJackpotDigits = Jackpot::where('user_id', $userId)
+                               ->with('DisplayJackpotDigits')
+                               ->get()
+                               ->pluck('DisplayJackpotDigits')
+                               ->collapse(); 
+    $totalAmount = $displayJackpotDigits->sum(function ($jackpotDigit) {
+        return $jackpotDigit->pivot->sub_amount;
+    });
+    return [
+        'jackpotDigit' => $displayJackpotDigits,
+        'total_amount' => $totalAmount,
     ];
 }
 

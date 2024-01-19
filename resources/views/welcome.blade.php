@@ -96,6 +96,16 @@
       ၃လုံးထီ
     </p>
   </div>
+  
+</div>
+
+<div class="d-flex justify-content-around align-items-center" style="padding-top: 16px">
+  <div>
+    <a href="{{ route('user.jackport-play') }}" class="btns">အောက်နှစ်လုံးထီ</a>
+    <p class="d-block mt-2 text-center" style="font-size: 14px; font-weight: 700; color: var(--default)">
+      အောက်နှစ်လုံးထီ
+    </p>
+  </div>
 </div>
 
 <div class="row my-3 mx-2">

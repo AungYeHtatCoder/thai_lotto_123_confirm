@@ -109,12 +109,19 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'App\Http\Cont
   Route::get('/three-d-dream-book', [App\Http\Controllers\User\Threed\ThreeDreamBookController::class, 'index'])->name('three-d-dream-book-index');
   // three d winner history
   Route::get('/three-d-winners-history', [App\Http\Controllers\User\Threed\ThreedWinnerHistoryController::class, 'index'])->name('three-d-winners-history');
-
-
-
   Route::get('/user-dashboard', [App\Http\Controllers\User\WelcomeController::class, 'user_dashboard']);
-
-  // Route::get('/user-dashboard/twod-live', [App\Http\Controllers\User\WelcomeController::class, 'twodLive']);
-  // Route::get('/user-dashboard/twod-calendar', [App\Http\Controllers\User\WelcomeController::class, 'twodCalendar']);
-  // Route::get('/user-dashboard/threed-result', [App\Http\Controllers\User\WelcomeController::class, 'threedResult']);
+  // jackport play
+  Route::get('/jackport-play', [App\Http\Controllers\User\Jackpot\JackpotController::class, 'index'])->name('jackport-play');
+  // jackport play confirm
+  Route::get('/jackport-play-confirm', [App\Http\Controllers\User\Jackpot\JackpotController::class, 'play_confirm'])->name('jackport-play-confirm');
+  // jackport play store
+  Route::post('/jackport-play-store', [App\Http\Controllers\User\Jackpot\JackpotController::class, 'store'])->name('jackport-play-store');
+  // jackport play history
+  Route::get('/jackport-play-history', [App\Http\Controllers\User\Jackpot\JackpotController::class, 'OnceWeekJackpotHistory'])->name('jackport-play-history');
+  // jackport quick play
+  Route::get('/jackport-quick-play', [App\Http\Controllers\User\Jackpot\JackpotController::class, 'Quickindex'])->name('jackport-quick-play');
+  // jackport quick play confirm
+  Route::get('/jackport-quick-play-confirm', [App\Http\Controllers\User\Jackpot\JackpotController::class, 'Quickplay_confirm'])->name('jackport-quick-play-confirm');
+  // jackport quick play store
+  Route::post('/jackport-quick-play-store', [App\Http\Controllers\User\Jackpot\JackpotController::class, 'Quickstore'])->name('jackport-quick-play-store');
 });

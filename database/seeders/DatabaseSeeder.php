@@ -33,7 +33,12 @@ class DatabaseSeeder extends Seeder
 
             CountryCodeSeeder::class,
             CurrencySeeder::class,
-            TwoDBreakSeeder::class,
+            //TwoDBreakSeeder::class,
+            JaktpotMatchSeederTable::class,
+            JaktpotLimitSeeder::class,
+            TwoDLimitTableSeeder::class,
+            ThreeDLimitTableSeeder::class,
+            CommissionTableSeeder::class,
         ]);
     }
 }

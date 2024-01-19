@@ -6,9 +6,11 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\ThreeDigit\Lotto;
 use App\Models\Admin\LotteryMatch;
+use App\Models\Admin\ThreeDDLimit;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Commission;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ThreeDigit\ThreeDigit;
 use App\Models\ThreeDigit\ThreeDigitOverLimit;
@@ -140,10 +142,9 @@ class ThreeDPlayController extends Controller
         ]);
 
         
-        $limit = DB::table('three_d_d_limits')->first(); // Define the limit amount
-        $limitAmount = $limit->three_d_limit;
+        $limitAmount = ThreeDDLimit::latest()->first()->three_d_limit; // Define the 
         // get first commission From Commission Table
-        $commission_percent = DB::table('commissions')->first();
+        $commission_percent = Commission::latest()->first()->commission;
         
         DB::beginTransaction();
 

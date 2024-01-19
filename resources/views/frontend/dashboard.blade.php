@@ -43,6 +43,12 @@
         <p>3D ထီထိုးမှတ်တမ်း</p>
       </a>
     </div>
+    <div class="d-flex justify-content-start align-items-start">
+      <img src="{{ asset('user_app/assets/img/icons/profile_1.png') }}" class="mt-1 me-3" alt="" />
+      <a href="{{ url('user/jackport-play-history') }}">
+        <p>အောက်နှစ်လုံး ထီထိုးမှတ်တမ်း</p>
+      </a>
+    </div>
   </div>
 
   <div class="my-2 px-3 py-2" style="background: var(--Scondary, #419197)">
