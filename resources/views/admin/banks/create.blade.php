@@ -11,19 +11,15 @@
     appearance: none;
     /* For some browsers */
   }
-
-
   .custom-form-group {
     margin-bottom: 20px;
   }
-
   .custom-form-group label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
     color: #555;
   }
-
   .custom-form-group input,
   .custom-form-group select {
     width: 100%;
@@ -33,7 +29,6 @@
     font-size: 16px;
     color: #333;
   }
-
   .custom-form-group input:focus,
   .custom-form-group select:focus {
     border-color: #d33a9e;
