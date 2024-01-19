@@ -201,7 +201,7 @@
       <div class="progress-bar">
 
         @php
-        $totalAmount = 50000;
+        $totalAmount = $limitAmount;
         $betAmount = $totalBetAmountForTwoDigit; // the amount already bet
         $remainAmount = $totalAmount - $betAmount; // the amount remaining that can be bet
         $percentage = ($betAmount / $totalAmount) * 100;
@@ -450,7 +450,7 @@
       amountInput.setAttribute('id', 'amount_' + num);
       amountInput.setAttribute('placeholder', 'Amount for ' + num);
       amountInput.setAttribute('min', '1');
-      amountInput.setAttribute('max', '50000');
+      //amountInput.setAttribute('max', '50000');
       amountInput.setAttribute('class', 'form-control mt-2');
       // amountInputsDiv.appendChild(amountLabel);
       amountInputsDiv.appendChild(amountInput);

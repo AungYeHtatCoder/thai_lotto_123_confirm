@@ -22,6 +22,7 @@ class JackpotController extends Controller
     public function index()
     {
         $twoDigits = TwoDigit::all();
+        $limitAmount = JackpotLimit::latest()->first()->jack_limit; // Define the limit amount
 
         // Calculate remaining amounts for each two-digit
         $remainingAmounts = [];
@@ -30,16 +31,17 @@ class JackpotController extends Controller
                 ->where('two_digit_id', $digit->id)
                 ->sum('sub_amount');
 
-            $remainingAmounts[$digit->id] = 50000 - $totalBetAmountForTwoDigit; // Assuming 5000 is the session limit
+            $remainingAmounts[$digit->id] = $limitAmount - $totalBetAmountForTwoDigit; // Assuming 5000 is the session limit
         }
         $lottery_matches = Jackmatch::where('id', 1)->whereNotNull('is_active')->first();
 
-        return view('jackpot.jackpot_index', compact('twoDigits', 'remainingAmounts', 'lottery_matches'));
+        return view('jackpot.jackpot_index', compact('twoDigits', 'remainingAmounts', 'lottery_matches', 'limitAmount'));
     }
 
     public function play_confirm()
     {
         $twoDigits = TwoDigit::all();
+        $limitAmount = JackpotLimit::latest()->first()->jack_limit; // Define the limit amount
 
         // Calculate remaining amounts for each two-digit
         $remainingAmounts = [];
@@ -48,7 +50,7 @@ class JackpotController extends Controller
                 ->where('two_digit_id', $digit->id)
                 ->sum('sub_amount');
 
-            $remainingAmounts[$digit->id] = 50000 - $totalBetAmountForTwoDigit; // Assuming 5000 is the session limit
+            $remainingAmounts[$digit->id] = $limitAmount - $totalBetAmountForTwoDigit; // Assuming 5000 is the session limit
         }
         $lottery_matches = Jackmatch::where('id', 1)->whereNotNull('is_active')->first();
 
@@ -59,6 +61,7 @@ class JackpotController extends Controller
     public function Quickindex()
     {
         $twoDigits = TwoDigit::all();
+        $limitAmount = JackpotLimit::latest()->first()->jack_limit; // Define the limit amount
 
         // Calculate remaining amounts for each two-digit
         $remainingAmounts = [];
@@ -67,7 +70,7 @@ class JackpotController extends Controller
                 ->where('two_digit_id', $digit->id)
                 ->sum('sub_amount');
 
-            $remainingAmounts[$digit->id] = 50000 - $totalBetAmountForTwoDigit; // Assuming 5000 is the session limit
+            $remainingAmounts[$digit->id] = $limitAmount - $totalBetAmountForTwoDigit; // Assuming 5000 is the session limit
         }
         $lottery_matches = Jackmatch::where('id', 1)->whereNotNull('is_active')->first();
 
@@ -77,15 +80,16 @@ class JackpotController extends Controller
     public function Quickplay_confirm()
     {
         $twoDigits = TwoDigit::all();
+        $limitAmount = JackpotLimit::latest()->first()->jack_limit; // Define the limit amount
 
         // Calculate remaining amounts for each two-digit
         $remainingAmounts = [];
         foreach ($twoDigits as $digit) {
-            $totalBetAmountForTwoDigit = DB::table('lottery_two_digit_copy')
+            $totalBetAmountForTwoDigit = DB::table('jackpot_two_digit_copy')
                 ->where('two_digit_id', $digit->id)
                 ->sum('sub_amount');
 
-            $remainingAmounts[$digit->id] = 50000 - $totalBetAmountForTwoDigit; // Assuming 5000 is the session limit
+            $remainingAmounts[$digit->id] = $limitAmount - $totalBetAmountForTwoDigit; // Assuming 5000 is the session limit
         }
         $lottery_matches = Jackmatch::where('id', 1)->whereNotNull('is_active')->first();
 
