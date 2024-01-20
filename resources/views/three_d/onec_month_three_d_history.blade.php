@@ -8,7 +8,7 @@
         ">
   <!-- content section start -->
   <p class="text-center" style="font-size: 20px; color: var(--Font-Body, #5a5a5a)">
-    တစ်လအတွင်း 2D ထိုးမှတ်တမ်း
+    တစ်လအတွင်း 3D ထိုးမှတ်တမ်း
   </p>
 
 
@@ -34,7 +34,7 @@
       <thead>
         <tr>
           <th>No</th>
-          <th>2D</th>
+          <th>3D</th>
           <th>ထိုးကြေး</th>
           <th>Date</th>
         </tr>
@@ -42,10 +42,10 @@
       <tbody>
        
         @if($displayThreeDigits)
-        @foreach ($displayThreeDigits['two_digits'] as $index => $digit)
+        @foreach ($displayThreeDigits['three_digits'] as $index => $digit)
         <tr>
           <td>{{ $index + 1 }}</td>
-          <td>{{ $digit->two_digit }}</td>
+          <td>{{ $digit->three_digit }}</td>
           <td>{{ $digit->pivot->sub_amount }}</td>
           {{-- date with format --}}
           <td>{{ date('d-m-Y', strtotime($digit->pivot->created_at)) }}</td>

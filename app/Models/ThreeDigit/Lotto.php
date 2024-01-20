@@ -2,8 +2,9 @@
 
 namespace App\Models\ThreeDigit;
 
-use App\Models\User;
+use Carbon\Carbon;
 // use App\Models\Admin\ThreedDigit;
+use App\Models\User;
 use App\Models\Admin\LotteryMatch;
 use App\Models\Admin\ThreedMatchTime;
 use App\Models\ThreeDigit\ThreeDigit;
@@ -37,7 +38,7 @@ class Lotto extends Model
     }
 
      public function threedDigits() {
-        return $this->belongsToMany(ThreeDigit::class, 'lotto_three_digit_pivot')->withPivot('sub_amount', 'prize_sent')->withTimestamps();
+        return $this->belongsToMany(ThreeDigit::class, 'lotto_three_digit_copy')->withPivot('sub_amount', 'prize_sent')->withTimestamps();
     }
 
     public function DisplayThreeDigits()
@@ -48,5 +49,13 @@ class Lotto extends Model
     public function DisplayThreeDigitsOver()
     { 
         return $this->belongsToMany(ThreeDigit::class, 'lotto_three_digit_over', 'lotto_id', 'three_digit_id')->withPivot('sub_amount', 'prize_sent', 'created_at');
+    }
+    // three digit once month history
+    public function DisplayThreeDigitsOnceMonth()
+    {
+        $onceMonthStart = Carbon::now()->startOfMonth();
+        $onceMonthEnd = Carbon::now()->endOfMonth();
+        return $this->belongsToMany(ThreeDigit::class, 'lotto_three_digit_pivot', 'lotto_id', 'three_digit_id')->withPivot('sub_amount', 'prize_sent', 'created_at')
+                    ->wherePivotBetween('created_at', [$onceMonthStart, $onceMonthEnd]);               
     }
 }

@@ -128,4 +128,6 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'App\Http\Cont
   Route::get('/jackport-once-month-play-history', [App\Http\Controllers\User\Jackpot\JackpotController::class, 'OnceMonthJackpotHistory'])->name('jackport-once-month-play-history');
   // two d once month play history
   Route::get('/two-d-once-month-play-history', [App\Http\Controllers\User\TwodPlayIndexController::class, 'TwoDigitOnceMonthHistory'])->name('two-d-once-month-play-history');
+  // three d once month play history
+  Route::get('/three-d-once-month-play-history', [App\Http\Controllers\User\Threed\ThreedWinnerHistoryController::class, 'OnceMonthThreeDHistory'])->name('three-d-once-month-play-history');
 });

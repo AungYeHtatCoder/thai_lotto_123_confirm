@@ -331,5 +331,21 @@ public static function getAdminJackpotDigits() {
         'total_amount' => $totalAmount
     ];
 }
+
+// get three digit one month history
+public static function getUserOneMonthThreeDigits($userId) {
+    $displayThreeDigits = Lotto::where('user_id', $userId)
+                               ->with('DisplayThreeDigitsOnceMonth')
+                               ->get()
+                               ->pluck('DisplayThreeDigitsOnceMonth')
+                               ->collapse(); // Collapse the collection to a single dimension
+    $totalAmount = $displayThreeDigits->sum(function ($threeDigit) {
+        return $threeDigit->pivot->sub_amount;
+    });
+    return [
+        'three_digits' => $displayThreeDigits,
+        'total_amount' => $totalAmount
+    ];
+}
     
 }

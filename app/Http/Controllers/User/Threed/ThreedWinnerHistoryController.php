@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User\Threed;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\ThreeDigit\Lotto;
 use App\Http\Controllers\Controller;
@@ -17,5 +18,14 @@ class ThreedWinnerHistoryController extends Controller
         }])->get();
         return view('three_d.three-d-winner-list', compact('winners'));
         //return response()->json($winners);
+    }
+
+    public function OnceMonthThreeDHistory()
+    {
+        $userId = auth()->id(); // Get logged in user's ID
+        $displayJackpotDigit = User::getUserOneMonthThreeDigits($userId);
+        return view('three_d.onec_month_three_d_history', [
+            'displayThreeDigits' => $displayJackpotDigit,
+        ]);
     }
 }

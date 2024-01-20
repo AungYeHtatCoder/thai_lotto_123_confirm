@@ -49,7 +49,12 @@
       <img src="{{ asset('user_app/assets/img/icons/profile_1.png') }}" class="mt-1 me-3" alt="" />
       <a href="{{ route('user.display') }}">
         <p>3D ထီထိုးမှတ်တမ်း</p>
-      </a>
+      </a> 
+    </div>
+     <div class="d-flex justify-content-start align-items-start">
+      <img src="{{ asset('user_app/assets/img/icons/profile_1.png') }}" class="mt-1 me-3" alt="" />
+      <a href="{{ url('/user/three-d-once-month-play-history') }}">
+        <p> တစ်လအတွင်း 3D ထီထိုးမှတ်တမ်း</p>
     </div>
     <div class="d-flex justify-content-start align-items-start">
       <img src="{{ asset('user_app/assets/img/icons/profile_1.png') }}" class="mt-1 me-3" alt="" />
