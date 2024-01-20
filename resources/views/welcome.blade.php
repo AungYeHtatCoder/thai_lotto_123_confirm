@@ -9,9 +9,12 @@
 @auth
   <!-- kyat-baht -->
   <div class="my-2 d-flex justify-content-around align-items-center">
+    @if(Auth::user()->user_currency == 'MMK')
     <div class="money currency-active" id="mmk">Kyat / ကျပ်</div>
     <img src="{{ asset('user_app/assets/img/arrow.png') }}" width="32px" height="32px" alt="" />
+    @else
     <div class="money" id="bht">Baht / ဘတ်</div>
+    @endif
   </div>
 
   <div class="d-flex justify-content-around align-items-center mx-auto mmk" style="
@@ -30,7 +33,11 @@
               font-weight: 700;
               font-family: 'Lato', sans-serif;
             ">
-      {{ number_format(Auth::user()->balance) }} Kyats
+      @if(Auth::user()->user_currency == 'MMK')
+      {{ number_format(Auth::user()->balance) }} MMK
+      @endif
+      {{-- {{ number_format(Auth::user()->balance * $rate) }} MMK --}}
+      {{-- {{ number_format(Auth::user()->balance) }} Kyats --}}
     </p>
 
     <img src="{{ asset('user_app/assets/img/plus.png') }}" class="rounded-circle" style="padding: 10px; color: var(--blue); background-color: #fff" alt="" />
@@ -55,7 +62,10 @@
           $rate = App\Models\Admin\Currency::latest()->first()->rate;
           // dd($rate);
       @endphp
+      @if(Auth::user()->user_currency == 'Baht')
       {{ number_format(Auth::user()->balance / $rate) }} Bahts
+      @endif
+      {{-- {{ number_format(Auth::user()->balance / $rate) }} Bahts --}}
     </p>
 
     <img src="{{ asset('user_app/assets/img/plus.png') }}" class="rounded-circle" style="padding: 10px; color: var(--blue); background-color: #fff" alt="" />

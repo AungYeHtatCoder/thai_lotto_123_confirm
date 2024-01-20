@@ -71,6 +71,22 @@
                     <span class="text-danger">*{{ $message }}</span>
                 @enderror
             </div>
+            {{-- currency selection --}}
+            <div class="mb-3">
+                <label for="" class="form-label">Currency</label>
+                <select name="user_currency" id="currency" class="form-control form-select border border-1 border-secondary input-width">
+                    {{-- choose default --}}
+                    @foreach ($currencies as $currency)
+                        <option value="{{ $currency->name }}">{{ $currency->name }}</option>
+                    @endforeach
+                </select>
+               
+            </div>
+            <div class="mb-3">
+                 @error('user_currency')
+                <span class="text-danger">* {{ message }}</span>
+                @enderror
+            </div>
             <div class="mb-3">
                 <label for="country_code" class="form-label">ဖုန်းနံပါတ်</label>
                 <div class="d-flex">

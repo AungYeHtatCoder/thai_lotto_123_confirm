@@ -13,6 +13,19 @@ class CurrencySeeder extends Seeder
      */
     public function run(): void
     {
-        Currency::create(['name'=>'BAHT', 'rate'=>100]);
+        Currency::insert([
+            [
+                'id'=>1, 
+                'name'=>'BAHT', 
+                'rate'=>100, 
+                'user_id'=>1
+            ],
+            [
+                'id'=>2, 
+                'name' => 'MMK', 
+                'rate' => 1,
+                'user_id' => 2
+            ]
+        ]);
     }
 }

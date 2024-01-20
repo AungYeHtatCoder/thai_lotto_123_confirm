@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Authentication;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\CountryCode;
+use App\Models\Admin\Currency;
 use App\Models\User;
 use App\Rules\UniquePhone;
 use Illuminate\Http\Request;
@@ -42,18 +43,21 @@ class AuthController extends Controller
             return redirect()->back()->with('error', "Already Logged In.");
         }
         $countryCodes = CountryCode::all();
-        return view('frontend.register', compact('countryCodes'));
+        $currencies = Currency::all();
+        return view('frontend.register', compact('countryCodes', 'currencies'));
     }
 
     public function register(Request $request)
     {
         $request->validate([
             'name' => ['required', 'string'],
+            'user_currency' => ['required', 'string'],
             'phone' => ['required', 'unique:users,phone'],
             'password' => ['required', 'min:6']
         ]);
         $user = User::create([
             'name' => $request->name,
+            'user_currency' => $request->user_currency,
             'country_code' => $request->country_code,
             'phone' => $request->phone,
             'password' => Hash::make($request->password),

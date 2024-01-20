@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Jackpot;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Models\Jackpot\Jackpot;
+use App\Models\User\Jackpot;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Jackpot\JackpotWinner;

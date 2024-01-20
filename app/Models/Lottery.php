@@ -70,6 +70,8 @@ class Lottery extends Model
                     ->wherePivotBetween('created_at', [$eveningStart, $eveningEnd]);
     }
 
+    
+
     // public function twoDigitsMorning()
     // {
     //     $morningStart = Carbon::now()->startOfDay()->addHours(6);

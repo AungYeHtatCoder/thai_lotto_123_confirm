@@ -34,6 +34,14 @@
         <p>2D ထီထိုးမှတ်တမ်း</p>
       </a>
     </div>
+    <div class="d-flex justify-content-start align-items-start">
+      <img src="{{ asset('user_app/assets/img/icons/profile_1.png') }}" class="mt-1 me-3" alt="" />
+
+      <a href="{{ route('user.two-d-once-month-play-history') }}">
+
+        <p>2D တလအတွင်းမှတ်တမ်း</p>
+      </a>
+    </div>
     <hr class="mt-0 ms-4" style="
                 border-bottom: 0.5px solid var(--Overlay, rgba(0, 0, 0, 0.15));
               " />
@@ -47,6 +55,12 @@
       <img src="{{ asset('user_app/assets/img/icons/profile_1.png') }}" class="mt-1 me-3" alt="" />
       <a href="{{ url('user/jackport-play-history') }}">
         <p>အောက်နှစ်လုံး ထီထိုးမှတ်တမ်း</p>
+      </a>
+    </div>
+     <div class="d-flex justify-content-start align-items-start">
+      <img src="{{ asset('user_app/assets/img/icons/profile_1.png') }}" class="mt-1 me-3" alt="" />
+      <a href="{{ url('user/jackport-once-month-play-history') }}">
+        <p>တလအတွင်းအောက်နှစ်လုံးမှတ်တမ်း</p>
       </a>
     </div>
   </div>

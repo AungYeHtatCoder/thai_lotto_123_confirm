@@ -15,6 +15,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Jackpot\JackpotLimit;
 use App\Models\User\JackpotTwoDigit;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User\JackpotTwoDigitCopy;
 use App\Models\User\JackpotTwoDigitOver;
 
 class JackpotController extends Controller
@@ -156,7 +157,7 @@ class JackpotController extends Controller
                 }
 
                 if ($totalBetAmountForTwoDigit >= 0) {
-                    $pivot = new JackpotTwoDigit([
+                    $pivot = new JackpotTwoDigitCopy([
                         'jackpot_id' => $lottery->id,
                         'two_digit_id' => $two_digit_id,
                         'sub_amount' => $sub_amount,
@@ -282,6 +283,15 @@ class JackpotController extends Controller
         $userId = auth()->id(); // Get logged in user's ID
         $displayJackpotDigit = User::getUserJackpotDigits($userId);
         return view('jackpot.onec_week_jackpot_history', [
+            'displayThreeDigits' => $displayJackpotDigit,
+        ]);
+    }
+
+    public function OnceMonthJackpotHistory()
+    {
+        $userId = auth()->id(); // Get logged in user's ID
+        $displayJackpotDigit = User::getUserOneMonthJackpotDigits($userId);
+        return view('jackpot.onec_month_jackpot_history', [
             'displayThreeDigits' => $displayJackpotDigit,
         ]);
     }

@@ -7,7 +7,9 @@ use Carbon\Carbon;
 use App\Models\Admin\Role;
 use App\Models\Admin\Event;
 use App\Models\Admin\Lottery;
+use App\Models\Admin\Currency;
 use App\Models\Admin\TwodWiner;
+use App\Models\Jackpot\Jackpot;
 use App\Models\Admin\BetLottery;
 use App\Models\Admin\Permission;
 use App\Models\ThreeDigit\Lotto;
@@ -15,7 +17,6 @@ use App\Models\Admin\FillBalance;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Admin\LotteryTwoDigit;
-use App\Models\Jackpot\Jackpot;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -43,6 +44,8 @@ class User extends Authenticatable
         'wavepay_no',
         'ayapay_no',
         'balance',
+        'commission_balance',
+        'user_currency',
     ];
     protected $appends = ['img_url'];
 
@@ -126,6 +129,12 @@ class User extends Authenticatable
     public function hasPermission($permission)
     {
         return $this->roles->flatMap->permissions->pluck('title')->contains($permission);
+    }
+
+    // currency relationship
+    public function currency()
+    {
+        return $this->belongsTo(Currency::class);
     }
 
     public function lotteries()
@@ -232,40 +241,7 @@ public function twodWiners()
     {
         return asset('assets/img/profile/' . $this->profile);
     }
-//     public static function getUserThreeDigits($userId) {
-//     $displayThreeDigitsQuery = Lotto::where('user_id', $userId)->with('DisplayThreeDigits');
 
-//     // Ensure we clone the query since it is executed once `get()` is called
-//     $displayThreeDigits = (clone $displayThreeDigitsQuery)->get()
-//                                ->pluck('DisplayThreeDigits')
-//                                ->collapse(); 
-
-//     $totalAmount = $displayThreeDigits->sum('pivot.sub_amount');
-
-//     // DisplayThreeDigitsOver
-//     $displayThreeDigitsOver = (clone $displayThreeDigitsQuery)->with('DisplayThreeDigitsOver')
-//                                ->get()
-//                                ->pluck('DisplayThreeDigitsOver')
-//                                ->collapse();
-
-//     $totalAmountOver = $displayThreeDigitsOver->sum('pivot.sub_amount');
-
-//     // Merge the collections
-//     $mergedCollection = $displayThreeDigits->merge($displayThreeDigitsOver);
-
-//     // Now if you want to return an array, convert the merged collection to an array
-//     $mergedArray = $mergedCollection->toArray();
-
-//     $totalAmountBoth = $totalAmount + $totalAmountOver;
-
-//     return [
-//         'threeDigit' => $mergedArray, // This is now a merged array
-//         'total_amount' => $totalAmount,
-//         'threeDigitOver' => $displayThreeDigitsOver->toArray(), // Keep as an array if needed separately
-//         'total_amount_over' => $totalAmountOver,
-//         'total_amount_both' => $totalAmountBoth
-//     ];
-// }
 
     public static function getUserThreeDigits($userId) {
     $displayThreeDigits = Lotto::where('user_id', $userId)
@@ -325,4 +301,35 @@ public static function getAdminJackpotDigits() {
     ];
 }
 
+// jackpot one month
+ public static function getUserOneMonthJackpotDigits($userId) {
+    $displayJackpotDigits = Jackpot::where('user_id', $userId)
+                               ->with('OnceMonthDisplayJackpotDigits')
+                               ->get()
+                               ->pluck('OnceMonthDisplayJackpotDigits')
+                               ->collapse(); 
+    $totalAmount = $displayJackpotDigits->sum(function ($jackpotDigit) {
+        return $jackpotDigit->pivot->sub_amount;
+    });
+    return [
+        'jackpotDigit' => $displayJackpotDigits,
+        'total_amount' => $totalAmount,
+    ];
+}
+    // get two digit one month history
+    public static function getUserOneMonthTwoDigits($userId) {
+    $displayTwoDigits = Lottery::where('user_id', $userId)
+                               ->with('twoDigitsOnceMonth')
+                               ->get()
+                               ->pluck('twoDigitsOnceMonth')
+                               ->collapse(); // Collapse the collection to a single dimension
+    $totalAmount = $displayTwoDigits->sum(function ($twoDigit) {
+        return $twoDigit->pivot->sub_amount;
+    });
+    return [
+        'two_digits' => $displayTwoDigits,
+        'total_amount' => $totalAmount
+    ];
+}
+    
 }

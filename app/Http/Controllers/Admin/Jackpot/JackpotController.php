@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Admin\Jackpot;
 
 use Carbon\Carbon;
 use App\Models\User;
-use App\Models\User\Jackpot;
+use App\Models\Jackpot\Jackpot;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Jackpot\JackpotWinner;
+use App\Models\User\JackpotTwoDigitCopy;
 
 class JackpotController extends Controller
 {
@@ -125,6 +126,13 @@ class JackpotController extends Controller
         
         $three_digits_prize = JackpotWinner::orderBy('id', 'desc')->first();
         return view('admin.jackpot.prize_index', compact('three_digits_prize'));
+    }
+
+    public function JackpotReset()
+    {
+        JackpotTwoDigitCopy::truncate();
+        session()->flash('SuccessRequest', 'Successfully အောက်နှစ်လုံး Reset.');
+    return redirect()->back()->with('message', 'Data reset successfully!');
     }
 
     /**

@@ -33,7 +33,7 @@ class Lottery extends Model
     }
 
     public function twoDigits() {
-        return $this->belongsToMany(TwoDigit::class, 'lottery_two_digit_copy')->withPivot('sub_amount', 'prize_sent')->withTimestamps();
+        return $this->belongsToMany(TwoDigit::class, 'lottery_two_digit_pivot')->withPivot('sub_amount', 'prize_sent')->withTimestamps();
     }
     // two digit early morning
     public function twoDigitsEarlyMorning()
@@ -68,4 +68,14 @@ class Lottery extends Model
         return $this->belongsToMany(TwoDigit::class, 'lottery_two_digit_pivot', 'lottery_id', 'two_digit_id')->withPivot('sub_amount', 'prize_sent', 'created_at')
                     ->wherePivotBetween('created_at', [$eveningStart, $eveningEnd]);
     }
+
+    // once month two digit history
+    public function twoDigitsOnceMonth()
+    {
+        $onceMonthStart = Carbon::now()->startOfMonth();
+        $onceMonthEnd = Carbon::now()->endOfMonth();
+        return $this->belongsToMany(TwoDigit::class, 'lottery_two_digit_pivot', 'lottery_id', 'two_digit_id')->withPivot('sub_amount', 'prize_sent', 'created_at')
+                    ->wherePivotBetween('created_at', [$onceMonthStart, $onceMonthEnd]);
+    }
+    
 }

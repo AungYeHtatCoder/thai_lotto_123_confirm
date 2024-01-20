@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('ayapay_no')->nullable()->default('N/A');
             $table->integer('balance')->default(50000);
             $table->integer('commission_balance')->default(0);
+            $table->string('user_currency')->default('N/A');
             $table->rememberToken();
             $table->timestamps();
         });

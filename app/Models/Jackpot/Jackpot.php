@@ -38,12 +38,21 @@ class Jackpot extends Model
 
 
     public function twoDigits() {
-        return $this->belongsToMany(TwoDigit::class, 'jackpot_two_digit')->withPivot('sub_amount', 'prize_sent')->withTimestamps();
+        return $this->belongsToMany(TwoDigit::class, 'jackpot_two_digit_copy')->withPivot('sub_amount', 'prize_sent')->withTimestamps()->orderBy('created_at', 'desc');
     }
 
     public function DisplayJackpotDigits()
     { 
-        return $this->belongsToMany(TwoDigit::class, 'jackpot_two_digit', 'jackpot_id', 'two_digit_id')->withPivot('sub_amount', 'prize_sent', 'created_at');
+        return $this->belongsToMany(TwoDigit::class, 'jackpot_two_digit_copy', 'jackpot_id', 'two_digit_id')->withPivot('sub_amount', 'prize_sent', 'created_at');
+    }
+
+    public function JackpotDigits() {
+        return $this->belongsToMany(TwoDigit::class, 'jackpot_two_digit')->withPivot('sub_amount', 'prize_sent')->withTimestamps();
+    }
+
+    public function OnceMonthDisplayJackpotDigits()
+    { 
+        return $this->belongsToMany(TwoDigit::class, 'jackpot_two_digit', 'jackpot_id', 'two_digit_id')->withPivot('sub_amount', 'prize_sent', 'created_at')->orderBy('created_at', 'desc');
     }
 
 }

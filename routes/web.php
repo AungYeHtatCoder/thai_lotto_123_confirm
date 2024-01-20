@@ -253,4 +253,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
     // jackpot prize number store
     Route::post('/jackpot-prize-number-store', [App\Http\Controllers\Admin\Jackpot\JackpotController::class, 'store'])->name('jackpot-prize-number-create.store');
 
+     Route::post('/jackpot-reset', [App\Http\Controllers\Admin\Jackpot\JackpotController::class, 'JackpotReset'])->name('JackpotReset');
+
 });

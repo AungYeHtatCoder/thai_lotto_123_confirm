@@ -124,4 +124,8 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'App\Http\Cont
   Route::get('/jackport-quick-play-confirm', [App\Http\Controllers\User\Jackpot\JackpotController::class, 'Quickplay_confirm'])->name('jackport-quick-play-confirm');
   // jackport quick play store
   Route::post('/jackport-quick-play-store', [App\Http\Controllers\User\Jackpot\JackpotController::class, 'Quickstore'])->name('jackport-quick-play-store');
+  // jackport once month play history
+  Route::get('/jackport-once-month-play-history', [App\Http\Controllers\User\Jackpot\JackpotController::class, 'OnceMonthJackpotHistory'])->name('jackport-once-month-play-history');
+  // two d once month play history
+  Route::get('/two-d-once-month-play-history', [App\Http\Controllers\User\TwodPlayIndexController::class, 'TwoDigitOnceMonthHistory'])->name('two-d-once-month-play-history');
 });
