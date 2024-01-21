@@ -16,13 +16,13 @@ class CurrencySeeder extends Seeder
         Currency::insert([
             [
                 'id'=>1, 
-                'name'=>'BAHT', 
+                'name'=>'mmk', 
                 'rate'=>100, 
                 'user_id'=>1
             ],
             [
                 'id'=>2, 
-                'name' => 'MMK', 
+                'name' => 'mmk', 
                 'rate' => 1,
                 'user_id' => 2
             ]
