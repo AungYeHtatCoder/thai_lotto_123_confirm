@@ -97,7 +97,7 @@ class TwoDController extends Controller
             if ($user->balance < 0) {
                 return response()->json(['error' => 'Insufficient balance'], 422);
             }
-
+            /** @var \App\Models\User $user */
             $user->save();
     
             // Create a new lottery entry
@@ -185,6 +185,14 @@ class TwoDController extends Controller
             'history12pm' => $history12pm,
             'history2pm' => $history2pm,
             'history4pm' => $history4pm,
+        ]);
+    }
+    public function TwoDigitOnceMonthHistory()
+    {
+        $userId = auth()->id(); // Get logged in user's ID
+        $twod_once_month_history = User::getUserOneMonthTwoDigits($userId);
+        return response()->json([
+            'twod_once_month_history' => $twod_once_month_history,
         ]);
     }
 }

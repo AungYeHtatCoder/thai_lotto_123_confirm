@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\TestController;
 use App\Http\Controllers\Api\V1\Auth\AuthController;
+use App\Http\Controllers\Api\Jackpot\JackpotController;
 use App\Http\Controllers\Api\V1\Auth\ProfileController;
 use App\Http\Controllers\Api\V1\Frontend\HomeController;
 use App\Http\Controllers\Api\V1\Frontend\TwoDController;
@@ -52,4 +53,12 @@ Route::group(["middleware" => ['auth:sanctum']], function(){
     Route::get('/threeD', [ThreeDController::class, 'index']);
     Route::post('/threeD/play', [ThreeDController::class, 'play']);
     Route::get('/threeD/playHistory', [ThreeDController::class, 'playHistory']); //unfinished
+    // two once month history
+    Route::get('/twoDigitOnceMonthHistory', [TwoDController::class, 'TwoDigitOnceMonthHistory']);
+    // three once month history
+    Route::get('/threeDigitOnceMonthHistory', [ThreeDController::class, 'OnceMonthThreeDHistory']);
+    // jackpot once month history
+    Route::get('/jackpotOnceMonthHistory', [JackpotController::class, 'OnceMonthJackpotHistory']);
+    // jackpot play
+    Route::post('/jackpot-play', [JackpotController::class, 'store']);
 });

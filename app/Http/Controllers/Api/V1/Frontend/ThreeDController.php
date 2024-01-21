@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers\Api\V1\Frontend;
 
-use App\Http\Controllers\Controller;
-use App\Models\Admin\Currency;
-use App\Models\Admin\ThreeDDLimit;
-use App\Models\ThreeDigit\LotteryThreeDigitCopy;
-use App\Models\ThreeDigit\LotteryThreeDigitPivot;
-use App\Models\ThreeDigit\ThreeDigit;
-use App\Models\ThreeDigit\ThreeDigitOverLimit;
-use App\Traits\HttpResponses;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Traits\HttpResponses;
+use App\Models\Admin\Currency;
+use App\Models\ThreeDigit\Lotto;
+use App\Models\Admin\ThreeDDLimit;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use App\Models\ThreeDigit\Lotto;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Models\ThreeDigit\ThreeDigit;
+use App\Models\ThreeDigit\ThreeDigitOverLimit;
+use App\Models\ThreeDigit\LotteryThreeDigitCopy;
+use App\Models\ThreeDigit\LotteryThreeDigitPivot;
 
 class ThreeDController extends Controller
 {
@@ -67,6 +68,7 @@ class ThreeDController extends Controller
                 throw new \Exception('Insufficient balance.');
             }
 
+            /** @var \App\Models\User $user */
             $user->save();
 
             // Commission calculation
@@ -127,5 +129,15 @@ class ThreeDController extends Controller
 
             return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
         }
+    }
+
+    // three once month history
+    public function OnceMonthThreeDHistory()
+    {
+        $userId = auth()->id(); // Get logged in user's ID
+        $displayJackpotDigit = User::getUserOneMonthThreeDigits($userId);
+        return response()->json([
+            'displayThreeDigits' => $displayJackpotDigit,
+        ]);
     }
 }
