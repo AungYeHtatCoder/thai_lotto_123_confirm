@@ -254,5 +254,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
     Route::post('/jackpot-prize-number-store', [App\Http\Controllers\Admin\Jackpot\JackpotController::class, 'store'])->name('jackpot-prize-number-create.store');
 
      Route::post('/jackpot-reset', [App\Http\Controllers\Admin\Jackpot\JackpotController::class, 'JackpotReset'])->name('JackpotReset');
+     // jackpot one week history conclude
+        Route::get('/jackpot-one-week-history-conclude', [App\Http\Controllers\Admin\Jackpot\JackpotController::class, 'OnceWeekJackpotHistoryConclude'])->name('JackpotHistoryConclude');
+        // three digit history conclude
+        Route::get('/three-digit-history-conclude', [App\Http\Controllers\Admin\ThreeD\ThreeDRecordHistoryController::class, 'OnceWeekThreedigitHistoryConclude'])->name('ThreeDigitHistoryConclude');
 
 });

@@ -202,8 +202,63 @@
               </div>
             </div>
           </div>
-
           {{-- 3d income end --}}
+          {{-- jackpot start --}}
+          <div class="row mb-3 mt-5">
+            <div class="col-lg-3 col-md-6 col-sm-6 mb-3">
+              <div class="card">
+                <div class="card-header p-3 pt-2 bg-transparent">
+                  <div class="icon icon-lg icon-shape bg-gradient-success shadow-dark shadow text-center border-radius-xl mt-n4 position-absolute">
+                    <i class="fas fa-wallet text-white"></i>
+                  </div>
+                  <div class="text-end pt-1">
+                    <p class="text-sm mb-0 text-capitalize">Jackpot Daily Income</p>
+                    <h4 class="mb-0">{{ number_format($jackpot_dailyTotal) }} <small>MMK</small></h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 mb-3">
+              <div class="card">
+                <div class="card-header p-3 pt-2 bg-transparent">
+                  <div class="icon icon-lg icon-shape bg-info shadow-primary shadow text-center border-radius-xl mt-n4 position-absolute">
+                    <i class="fas fa-wallet"></i>
+                  </div>
+                  <div class="text-end pt-1">
+                    <p class="text-sm mb-0 text-capitalize">Jackpot Weekly Income</p>
+                    <h4 class="mb-0">{{ number_format($jackpot_weeklyTotal) }} <small>MMK</small></h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 mb-3">
+              <div class="card">
+                <div class="card-header p-3 pt-2 bg-transparent">
+                  <div class="icon icon-lg icon-shape bg-gradient-warning shadow-success text-center border-radius-xl mt-n4 position-absolute">
+                    <i class="fas fa-wallet"></i>
+                  </div>
+                  <div class="text-end pt-1">
+                    <p class="text-sm mb-0 text-capitalize ">Jackpot Monthly Income</p>
+                    <h4 class="mb-0 ">{{ number_format($jackpot_monthlyTotal) }} <small>MMK</small></h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 mb-3">
+              <div class="card">
+                <div class="card-header p-3 pt-2 bg-transparent">
+                  <div class="icon icon-lg icon-shape bg-gradient-danger shadow-info text-center border-radius-xl mt-n4 position-absolute">
+                    <i class="fas fa-wallet"></i>
+                  </div>
+                  <div class="text-end pt-1">
+                    <p class="text-sm mb-0 text-capitalize ">Jackpot Yearly Income </p>
+                    <h4 class="mb-0 ">{{ number_format($jackpot_yearlyTotal) }} <small>MMK</small></h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {{-- jackpot end --}}
           {{-- second row start --}}
           <div class="row mt-5">
             {{-- session two reset start 1 --}}

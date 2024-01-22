@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Admin\Lottery;
 use App\Models\Admin\LotteryMatch;
+use App\Models\Jackpot\Jackpot;
 use App\Models\ThreeDigit\Lotto;
 
 class HomeController extends Controller
@@ -30,7 +31,9 @@ class HomeController extends Controller
 
     public function index()
     {
-        if (auth()->user()->hasRole('Admin')) {
+            /** @var bool $isAdmin */
+             $isAdmin = auth()->user()->hasRole('Admin');
+            if ($isAdmin) {
             // Daily Total
             $dailyTotal = Lottery::whereDate('created_at', '=', now()->today())->sum('total_amount');
 
@@ -63,6 +66,20 @@ class HomeController extends Controller
             // 3D Yearly Total
             $three_d_yearlyTotal = Lotto::whereYear('created_at', '=', now()->year)->sum('total_amount');
 
+            // Jackpot Daily Total
+            $jackpot_dailyTotal = Jackpot::whereDate('created_at', '=', now()->today())->sum('total_amount');
+            // Jackpot Weekly Total
+            $startOfWeek = now()->startOfWeek();
+            $endOfWeek = now()->endOfWeek();
+            $jackpot_weeklyTotal = Jackpot::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('total_amount');
+            // Jackpot Monthly Total
+            $jackpot_monthlyTotal = Jackpot::whereMonth('created_at', '=', now()->month)
+                ->whereYear('created_at', '=', now()->year)
+                ->sum('total_amount');
+            // Jackpot Yearly Total
+            $jackpot_yearlyTotal = Jackpot::whereYear('created_at', '=', now()->year)->sum('total_amount');
+
+
             $lottery_matches = LotteryMatch::where('id', 1)->whereNotNull('is_active')->first();
             // Return the totals, you can adjust this part as per your needs
             return view('admin.dashboard', [
@@ -74,6 +91,10 @@ class HomeController extends Controller
                 'three_d_weeklyTotal'  => $three_d_weeklyTotal,
                 'three_d_monthlyTotal' => $three_d_monthlyTotal,
                 'three_d_yearlyTotal'  => $three_d_yearlyTotal,
+                'jackpot_dailyTotal'   => $jackpot_dailyTotal,
+                'jackpot_weeklyTotal'  => $jackpot_weeklyTotal,
+                'jackpot_monthlyTotal' => $jackpot_monthlyTotal,
+                'jackpot_yearlyTotal'  => $jackpot_yearlyTotal,
                 'lottery_matches' => $lottery_matches,
             ]);
         } else {

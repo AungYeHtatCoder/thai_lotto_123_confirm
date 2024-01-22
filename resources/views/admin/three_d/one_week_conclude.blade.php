@@ -42,7 +42,7 @@
                             <div class="ms-auto my-auto">
                                 
                                 <a class="btn btn-outline-primary btn-sm export mb-0 mt-sm-0 mt-1"
-                                    href="{{ url('/admin/jackpot-one-week-history-conclude') }}" >တပါတ်အတွင်းထိုးထားသောစာရင်းချုပ်ကြည့်ရန်</a>
+                                    href="{{ url('/admin/once-week-jackpot-list') }}" >Back</a>
                             </div>
                         </div>
                                 </span>
@@ -60,58 +60,66 @@
                     </div>
                 </div>
    <div class="table-responsive">
+   
        <table class="table table-flush" id="twod-search">
            <thead class="thead-light">
-               <th>#</th>
-               {{-- <th>Lottery ID</th> --}}
-               <th>Name</th>
-               <th>အောက်နှစ်လုံးထီ</th>
-               <th>Total Amount</th>
-               <th>Date</th>
-               <th>Action</th>
+                <tr>
+                <th>No</th>
+                <th>အောက်နှစ်လုံး</th>
+                <th>ထိုးကြေး</th>
+                <th>ရက်စွဲ</th>
+                <th>Win/Lose</th>
+                </tr>
            </thead>
-           <tbody>
-     @foreach ($lotteries as $lottery)
-         <tr>
-             <td class="text-sm font-weight-normal">{{ $lottery->id }}</td>
-             <td class="text-sm font-weight-normal">
-                 <span class="badge badge-secondary">{{ $lottery->user->name }}</span>
-             </td>
-             
-             <td class="text-sm font-weight-normal">
-                 <ul class="navbar-nav">
-                     @foreach ($lottery->twoDigits as $jackpot_digit)
-                         <li class="nav-item">
-                             <button type="button" class="btn btn btn-primary">
-                                 <span>{{ $jackpot_digit->two_digit }} </span>
-                                 <span class="badge badge-pill badge-lg bg-gradient-success table-font-myanmar">
-                                  Amount &nbsp; &nbsp; - {{ $jackpot_digit->pivot->sub_amount }} || &nbsp; &nbsp;</span>
-                             </button>
-                         </li>
-                     @endforeach
-                 </ul>
-             </td>
-             <td class="text-sm font-weight-normal">
-                 <button type="button" class="btn btn-success">
-                     <span class="table-font-myanmar"> Total Amount - &nbsp; &nbsp;{{ $lottery->total_amount }} </span>
-                     {{-- <span
-                         class="badge badge-sm badge-circle badge-danger border border-white border-2"></span> --}}
-                 </button>
-             </td>
-             {{-- <td>{{ $lottery->created_at->format('d M Y (l) h:i:s A') }}</td> --}}
-             <td class="text-sm font-weight-normal">
+            <tbody>
+        @if(isset($displayThreeDigits['jackpotDigit']) && count($displayThreeDigits['jackpotDigit']) == 0)
+        <p class="text-center text-white px-3 py-2 mt-3" style="background-color: #c50408">
+          ကံစမ်းထားသော အောက်နှစ်လုံး ထီဂဏန်းများ မရှိသေးပါ
+          {{-- <span>
+            <a href="{{ url('/user/jackport-play')}}" style="color: #f5bd02; text-decoration:none">
+              <strong>ထီးထိုးရန် နိုပ်ပါ</strong></a>
+          </span> --}}
+        </p>
+        @endif
+
+        @if($displayThreeDigits)
+        @foreach ($displayThreeDigits['threeDigit'] as $index => $digit)
+        <tr>
+          <td>{{ $index + 1 }}</td>
+          <td>{{ $digit->three_digit }}</td>
+          <td>
+           @if($digit->pivot->sub_amount >= $three_limits->three_d_limit)
+           <span class="text-danger">
+            {{ $digit->pivot->sub_amount }}
+           </span>
+           @else
+           <p class="text-info">
+            {{ $digit->pivot->sub_amount }}
+           </p>
+           @endif
+          </td>
+          <td class="text-sm font-weight-normal">
 
                  <span
-                     class="badge bg-gradient-info">{{ $lottery->created_at->format('d-m-Y (l) (h:i a)') }}</span>
+                     class="badge bg-gradient-info">{{ $digit->created_at->format('d-m-Y (l) (h:i a)') }}</span>
              </td>
-             <td class="text-sm font-weight-normal">
-                 <a href="{{ route('admin.displayjackpotshow', $lottery->id )}}" class="btn btn-warning btn-sm">Show</a>
+             <td>
+                 @if ($digit->pivot->prize_sent == 1)
+                     <span class="text-success">Win</span>
+                 @else
+                     <span class="text-danger">Pending</span>
+                 @endif
              </td>
-         </tr>
-         <hr class="mt-2">
-     @endforeach
-           </tbody>
+        </tr>
+        @endforeach
+        @endif
+      </tbody>
        </table>
+        <div class="mb-3 d-flex justify-content-around text-white p-2 shadow border border-1" style="border-radius: 10px; background: var(--Primary, #12486b)">
+      <p class="text-end pt-1" style="color: #fff">Total Amount : ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
+        <strong>{{ $displayThreeDigits['total_amount'] }} MMK</strong>
+      </p>
+    </div>
    </div>
             </div>
         </div>

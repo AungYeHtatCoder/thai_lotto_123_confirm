@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin\ThreeD;
 
 use Carbon\Carbon;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\ThreeDigit\Lotto;
+use App\Models\Admin\ThreeDDLimit;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
@@ -57,6 +59,17 @@ class ThreeDRecordHistoryController extends Controller
             ->whereDay('match_time', '=', $targetDay)
             ->first();
         return view('admin.three_d.three_d_history_show', compact('lottery', 'prize_no', 'matchTime'));
+    }
+
+     public function OnceWeekThreedigitHistoryConclude()
+    {
+        $userId = auth()->id(); // Get logged in user's ID
+        $displayJackpotDigit = User::getAdminthreeDigitsHistory();
+        $three_limits = ThreeDDLimit::orderBy('id', 'desc')->first();
+        return view('admin.three_d.one_week_conclude', [
+            'displayThreeDigits' => $displayJackpotDigit,
+            'three_limits' => $three_limits,
+        ]);
     }
 
 }

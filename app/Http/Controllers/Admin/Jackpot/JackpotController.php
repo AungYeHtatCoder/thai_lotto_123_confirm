@@ -8,6 +8,7 @@ use App\Models\Jackpot\Jackpot;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Jackpot\JackpotLimit;
 use App\Models\Jackpot\JackpotWinner;
 use App\Models\User\JackpotTwoDigitCopy;
 
@@ -45,7 +46,16 @@ class JackpotController extends Controller
             ->whereYear('match_time', '=', $today->year)
             ->whereDay('match_time', '=', $targetDay)
             ->first();
-        $lotteries = Jackpot::with(['twoDigits', 'lotteryMatch.threedMatchTime'])->orderBy('id', 'desc')->get();
+       // i want to show only once week jackpot history start from 1st to 17th and 16th to 2st
+        $start = Carbon::now()->startOfMonth();
+        $end_in_st_17 = Carbon::now()->startOfMonth()->addDays(16);
+        $statr_in_nd_2 = Carbon::now()->startOfMonth()->addDays(17);
+        $end = Carbon::now()->endOfMonth();
+        $lotteries = Jackpot::with(['JackpotDigits', 'lotteryMatch.threedMatchTime'])
+        ->whereBetween('created_at', [$start, $end_in_st_17])
+        ->orWhereBetween('created_at', [$statr_in_nd_2, $end])
+        ->orderBy('id', 'desc')->get();
+
         $prize_no = JackpotWinner::whereDate('created_at', Carbon::today())->orderBy('id', 'desc')->first();
     
         return view('admin.jackpot.once_week_jackpot_history', compact('lotteries', 'prize_no', 'matchTime'));
@@ -155,6 +165,17 @@ class JackpotController extends Controller
         session()->flash('SuccessRequest', 'Three Digit Lottery Prize Number Created Successfully');
 
         return redirect()->back()->with('success', 'Three Digit Lottery Prize Number Created Successfully');
+    }
+
+    public function OnceWeekJackpotHistoryConclude()
+    {
+        $userId = auth()->id(); // Get logged in user's ID
+        $displayJackpotDigit = User::getAdminJackpotDigitsHistory();
+        $jackpot_limits = JackpotLimit::orderBy('id', 'desc')->first();
+        return view('admin.jackpot.one_week_conclude', [
+            'displayThreeDigits' => $displayJackpotDigit,
+            'jackpot_limits' => $jackpot_limits,
+        ]);
     }
 
 

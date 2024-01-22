@@ -37,6 +37,16 @@
                                 <span>
                                      <h6>Thai 3D Lottery Match Times for {{ Carbon\Carbon::now()->format('F Y') }}</h6>
                                 </span>
+
+                                <span>
+                                    <div class="ms-auto my-auto mt-lg-0 mt-4">
+                            <div class="ms-auto my-auto">
+                                
+                                <a class="btn btn-outline-primary btn-sm export mb-0 mt-sm-0 mt-1"
+                                    href="{{ url('/admin/three-digit-history-conclude') }}" >တပါတ်အတွင်းထိုးထားသောစာရင်းချုပ်ကြည့်ရန်</a>
+                            </div>
+                        </div>
+                                </span>
                             </h5>
 
                         </div>

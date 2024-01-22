@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User\Jackpot;
 
+use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Admin\Currency;

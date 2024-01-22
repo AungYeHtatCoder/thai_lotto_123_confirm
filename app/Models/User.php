@@ -272,20 +272,99 @@ public function twodWiners()
 }
 
 // jackpot 
-    public static function getUserJackpotDigits($userId) {
-    $displayJackpotDigits = Jackpot::where('user_id', $userId)
-                               ->with('DisplayJackpotDigits')
-                               ->get()
-                               ->pluck('DisplayJackpotDigits')
-                               ->collapse(); 
-    $totalAmount = $displayJackpotDigits->sum(function ($jackpotDigit) {
-        return $jackpotDigit->pivot->sub_amount;
-    });
-    return [
-        'jackpotDigit' => $displayJackpotDigits,
-        'total_amount' => $totalAmount,
-    ];
-}
+//     public static function getUserJackpotDigits($userId) {
+//     $displayJackpotDigits = Jackpot::where('user_id', $userId)
+//                                ->with('DisplayJackpotDigits')
+//                                ->get()
+//                                ->pluck('DisplayJackpotDigits')
+//                                ->collapse(); 
+//     $totalAmount = $displayJackpotDigits->sum(function ($jackpotDigit) {
+//         return $jackpotDigit->pivot->sub_amount;
+//     });
+//     return [
+//         'jackpotDigit' => $displayJackpotDigits,
+//         'total_amount' => $totalAmount,
+//     ];
+// }
+// Assuming this is in a controller or similar
+        public static function getUserJackpotDigits($userId)
+        {
+            $jackpots = Jackpot::where('user_id', $userId)->with('displayJackpotDigits')->get();
+
+            $displayJackpotDigits = $jackpots->flatMap->displayJackpotDigits;
+            $totalAmount = $displayJackpotDigits->sum(function ($jackpotDigit) {
+                return $jackpotDigit->pivot->sub_amount;
+            });
+
+            return [
+                'jackpotDigit' => $displayJackpotDigits,
+                'total_amount' => $totalAmount,
+            ];
+        }
+
+// jackpot admin
+                public static function getAdminJackpotDigitsHistory()
+        {
+            $jackpots = Jackpot::with('displayJackpotDigits')->get();
+
+            $displayJackpotDigits = $jackpots->flatMap->displayJackpotDigits;
+            $totalAmount = $displayJackpotDigits->sum(function ($jackpotDigit) {
+                return $jackpotDigit->pivot->sub_amount;
+            });
+
+            return [
+                'jackpotDigit' => $displayJackpotDigits,
+                'total_amount' => $totalAmount,
+            ];
+        }
+        // // one week history
+        //  public static function getAdminthreeDigitsHistory()
+        // {
+        //     $jackpots = Lotto::with('displayThreeDigitsOneWeekHistory')->get();
+
+        //     $displayJackpotDigits = $jackpots->flatMap->displayJackpotDigits;
+        //     $totalAmount = $displayJackpotDigits->sum(function ($jackpotDigit) {
+        //         return $jackpotDigit->pivot->sub_amount;
+        //     });
+
+        //     return [
+        //         'threeDigit' => $displayJackpotDigits,
+        //         'total_amount' => $totalAmount,
+        //     ];
+        // }
+
+            public static function getAdminthreeDigitsHistory()
+    {
+        $jackpots = Lotto::with('displayThreeDigitsOneWeekHistory')->get();
+
+        $displayJackpotDigits = $jackpots->flatMap(function ($jackpot) {
+            return $jackpot->displayThreeDigitsOneWeekHistory;
+        });
+        $totalAmount = $displayJackpotDigits->sum('pivot.sub_amount');
+
+        return [
+            'threeDigit' => $displayJackpotDigits,
+            'total_amount' => $totalAmount,
+        ];
+    }
+
+    // one week three ditgy for api response
+     public static function getAdminthreeDigitsHistoryApi($userId)
+    {
+        $jackpots = Lotto::where('user_id', $userId)->with('displayThreeDigitsOneWeekHistory')->get();
+
+        $displayJackpotDigits = $jackpots->flatMap(function ($jackpot) {
+            return $jackpot->displayThreeDigitsOneWeekHistory;
+        });
+        $totalAmount = $displayJackpotDigits->sum('pivot.sub_amount');
+
+        return [
+            'threeDigit' => $displayJackpotDigits,
+            'total_amount' => $totalAmount,
+        ];
+    }
+
+
 
 public static function getAdminJackpotDigits() {
     $displayJackpotDigits = Jackpot::with('DisplayJackpotDigits')

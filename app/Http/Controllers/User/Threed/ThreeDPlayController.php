@@ -144,7 +144,8 @@ class ThreeDPlayController extends Controller
         
         $limitAmount = ThreeDDLimit::latest()->first()->three_d_limit; // Define the 
         // get first commission From Commission Table
-        $commission_percent = Commission::latest()->first()->commission;
+       // $commission_percent = Commission::latest()->first()->commission;
+        $commission_percent = Commission::orderBy('id', 'desc')->first();
         
         DB::beginTransaction();
 

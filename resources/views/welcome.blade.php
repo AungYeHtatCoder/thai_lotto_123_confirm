@@ -33,7 +33,7 @@
               font-weight: 700;
               font-family: 'Lato', sans-serif;
             ">
-      @if(Auth::user()->user_currency == 'MMK')
+      @if(Auth::user()->user_currency == 'mmk')
       {{ number_format(Auth::user()->balance) }} MMK
       @endif
       {{-- {{ number_format(Auth::user()->balance * $rate) }} MMK --}}
@@ -62,7 +62,7 @@
           $rate = App\Models\Admin\Currency::latest()->first()->rate;
           // dd($rate);
       @endphp
-      @if(Auth::user()->user_currency == 'Baht')
+      @if(Auth::user()->user_currency == 'bath')
       {{ number_format(Auth::user()->balance / $rate) }} Bahts
       @endif
       {{-- {{ number_format(Auth::user()->balance / $rate) }} Bahts --}}

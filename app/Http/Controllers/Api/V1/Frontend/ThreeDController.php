@@ -130,6 +130,19 @@ class ThreeDController extends Controller
             return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
         }
     }
+    // three once week history
+     public function OnceWeekThreedigitHistoryConclude()
+    {
+        $userId = auth()->id(); // Get logged in user's ID
+        $displayJackpotDigit = User::getAdminthreeDigitsHistoryApi($userId);
+       // $three_limits = ThreeDDLimit::orderBy('id', 'desc')->first();
+        return response()->json([
+            'displayThreeDigits' => $displayJackpotDigit,
+           // 'three_limits' => $three_limits,
+        
+        ]);
+    }
+
 
     // three once month history
     public function OnceMonthThreeDHistory()
