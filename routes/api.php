@@ -63,4 +63,6 @@ Route::group(["middleware" => ['auth:sanctum']], function(){
     Route::post('/jackpot-play', [JackpotController::class, 'store']);
     // three digit one week play history
     Route::get('/threeDigitOneWeekHistory', [ThreeDController::class, 'OnceWeekThreedigitHistoryConclude']);
+    // three digit one month play history
+    Route::get('/threeDigitOneMonthHistory', [ThreeDController::class, 'OnceMonthThreedigitHistoryConclude']);
 });
