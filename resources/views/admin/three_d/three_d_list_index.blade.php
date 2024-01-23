@@ -83,7 +83,7 @@
              
              <td class="text-sm font-weight-normal">
                  <ul class="navbar-nav">
-                     @foreach ($lottery->threedDigits as $threeDigit)
+                     @foreach ($lottery->DisplayThreeDigits as $threeDigit)
                          <li class="nav-item">
                              <button type="button" class="btn btn btn-primary">
                                  <span>{{ $threeDigit->three_digit }} </span>

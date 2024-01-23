@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Traits\HttpResponses;
 use App\Models\Admin\Currency;
+use App\Models\Admin\Commission;
 use App\Models\ThreeDigit\Lotto;
 use App\Models\Admin\ThreeDDLimit;
 use Illuminate\Support\Facades\DB;
@@ -39,19 +40,20 @@ class ThreeDController extends Controller
     public function play(Request $request)
 {
     Log::info($request->all());
-    $break = ThreeDDLimit::latest()->first()->three_d_limit;
     $rate = Currency::latest()->first()->rate;
+    Log::info('Currency rate: ' . $rate);
 
     $validated = $request->validate([
-        'currency' => 'required|string',
+        'currency' => 'required|string|in:baht,bath,mmk',
         'totalAmount' => 'required|numeric|min:1',
         'amounts' => 'required|array',
         'amounts.*.num' => 'required|integer',
-        'amounts.*.amount' => 'required|integer|min:1|max:'.$break,
+        'amounts.*.amount' => 'required|integer|min:1',
     ]);
 
-    $totalAmount = $request->currency === 'baht' ? $request->totalAmount * $rate : $request->totalAmount;
-    $commission_percent = DB::table('commissions')->latest()->first()->commission ?? 0;
+    // Convert total amount based on currency
+//    $totalAmount = $request->currency === 'baht' ? $request->totalAmount * $rate : $request->totalAmount;
+$totalAmount = in_array($request->currency, ['baht', 'bath']) ? $request->totalAmount * $rate : $request->totalAmount;
 
     DB::beginTransaction();
 
@@ -65,8 +67,10 @@ class ThreeDController extends Controller
         /** @var \App\Models\User $user */
         $user->save();
 
-        if ($totalAmount >= 1000) {
-            $commission = ($totalAmount * $commission_percent) / 100;
+        // Commission calculation
+        $commission_percent = DB::table('commissions')->latest()->first();
+        if ($commission_percent && $totalAmount >= 1000) {
+            $commission = ($totalAmount * $commission_percent->commission) / 100;
             $user->commission_balance += $commission;
             $user->save();
         }
@@ -78,32 +82,31 @@ class ThreeDController extends Controller
 
         foreach ($request->amounts as $item) {
             $num = str_pad($item['num'], 3, '0', STR_PAD_LEFT);
-            $sub_amount = $request->currency === 'baht' ? $item['amount'] * $rate : $item['amount'];
+            // $sub_amount = $request->currency === 'baht' ? $item['amount'] * $rate : $item['amount'];
+            $sub_amount = in_array($request->currency, ['baht', 'bath']) ? $item['amount'] * $rate : $item['amount'];
             
             $three_digit = ThreeDigit::where('three_digit', $num)->firstOrFail();
-            $three_digit_id = $three_digit->id;
 
+            // Store every bet in the LotteryThreeDigitPivot model
+            LotteryThreeDigitPivot::create([
+                'lotto_id' => $lottery->id,
+                'three_digit_id' => $three_digit->id,
+                'sub_amount' => $sub_amount,
+                'prize_sent' => false
+            ]);
+
+            // Check if the bet is over the limit
+            $break = ThreeDDLimit::latest()->first()->three_d_limit;
             $totalBetAmount = DB::table('lotto_three_digit_copy')
-                               ->where('three_digit_id', $three_digit_id)
+                               ->where('three_digit_id', $three_digit->id)
                                ->sum('sub_amount');
+            $overLimit = $totalBetAmount + $sub_amount - $break;
 
-            $withinLimit = $break - $totalBetAmount;
-            $amountToBet = min($sub_amount, $withinLimit);
-
-            if ($amountToBet > 0) {
-                LotteryThreeDigitPivot::create([
-                    'lotto_id' => $lottery->id,
-                    'three_digit_id' => $three_digit_id,
-                    'sub_amount' => $amountToBet,
-                    'prize_sent' => false
-                ]);
-            }
-
-            $overLimit = $sub_amount - $amountToBet;
+            // Store only the over-limit amount in the ThreeDigitOverLimit model
             if ($overLimit > 0) {
                 ThreeDigitOverLimit::create([
                     'lotto_id' => $lottery->id,
-                    'three_digit_id' => $three_digit_id,
+                    'three_digit_id' => $three_digit->id,
                     'sub_amount' => $overLimit,
                     'prize_sent' => false
                 ]);
@@ -115,9 +118,11 @@ class ThreeDController extends Controller
     } catch (\Exception $e) {
         DB::rollback();
         Log::error('Error in play method: ' . $e->getMessage());
+        Log::error($e->getTraceAsString()); // Log the stack trace
         return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
     }
 }
+
 
 //         public function play(Request $request)
 // {
