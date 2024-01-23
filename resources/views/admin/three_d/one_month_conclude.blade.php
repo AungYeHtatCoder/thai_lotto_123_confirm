@@ -42,7 +42,7 @@
                             <div class="ms-auto my-auto">
                                 
                                 <a class="btn btn-outline-primary btn-sm export mb-0 mt-sm-0 mt-1"
-                                    href="{{ url('/admin/once-week-jackpot-list') }}" >Back</a>
+                                    href="{{ url('/admin/three-d-history') }}" >Back</a>
                             </div>
                         </div>
                                 </span>
@@ -68,6 +68,7 @@
                 <th>အောက်နှစ်လုံး</th>
                 <th>ထိုးကြေး</th>
                 <th>ရက်စွဲ</th>
+                <th>Win/Lose</th>
                 </tr>
            </thead>
             <tbody>
@@ -82,12 +83,12 @@
         @endif
 
         @if($displayThreeDigits)
-        @foreach ($displayThreeDigits['jackpotDigit'] as $index => $digit)
+        @foreach ($displayThreeDigits['threeDigit'] as $index => $digit)
         <tr>
           <td>{{ $index + 1 }}</td>
-          <td>{{ $digit->two_digit }}</td>
+          <td>{{ $digit->three_digit }}</td>
           <td>
-           @if($digit->pivot->sub_amount >= $jackpot_limits->jack_limit)
+           @if($digit->pivot->sub_amount >= $three_limits->three_d_limit)
            <span class="text-danger">
             {{ $digit->pivot->sub_amount }}
            </span>
@@ -101,6 +102,13 @@
 
                  <span
                      class="badge bg-gradient-info">{{ $digit->pivot->created_at->format('d-m-Y (l) (h:i a)') }}</span>
+             </td>
+             <td>
+                 @if ($digit->pivot->prize_sent == 1)
+                     <span class="text-success">Win</span>
+                 @else
+                     <span class="text-danger">Pending</span>
+                 @endif
              </td>
         </tr>
         @endforeach

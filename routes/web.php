@@ -258,5 +258,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
         Route::get('/jackpot-one-week-history-conclude', [App\Http\Controllers\Admin\Jackpot\JackpotController::class, 'OnceWeekJackpotHistoryConclude'])->name('JackpotHistoryConclude');
         // three digit history conclude
         Route::get('/three-digit-history-conclude', [App\Http\Controllers\Admin\ThreeD\ThreeDRecordHistoryController::class, 'OnceWeekThreedigitHistoryConclude'])->name('ThreeDigitHistoryConclude');
+        // three digit one month history conclude
+        Route::get('/three-digit-one-month-history-conclude', [App\Http\Controllers\Admin\ThreeD\ThreeDRecordHistoryController::class, 'OnceMonthThreedigitHistoryConclude'])->name('ThreeDigitOneMonthHistoryConclude');
 
 });

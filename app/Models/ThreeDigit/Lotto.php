@@ -37,8 +37,13 @@ class Lotto extends Model
         return $this->hasOne(ThreedMatchTime::class, 'id', 'lottery_match_id');
     }
 
-     public function threedDigits() {
-        return $this->belongsToMany(ThreeDigit::class, 'lotto_three_digit_copy')->withPivot('sub_amount', 'prize_sent')->withTimestamps();
+    //  public function threedDigits() {
+    //     return $this->belongsToMany(ThreeDigit::class, 'lotto_three_digit_copy')->withPivot('sub_amount', 'prize_sent')->withTimestamps();
+    // }
+    public function threeDigits()
+    {
+        return $this->belongsToMany(ThreeDigit::class, 'lotto_three_digit_pivot', 'lotto_id', 'three_digit_id')
+            ->withPivot(['sub_amount', 'prize_sent', 'created_at', 'updated_at']);
     }
 
     public function DisplayThreeDigits()

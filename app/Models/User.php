@@ -380,6 +380,25 @@ public function twodWiners()
     }
 
 
+    // three d one month history for admin 
+    public static function getAdminthreeDigitsOneMonthHistory()
+    {
+        $jackpots = Lotto::with('displayThreeDigitsOneMonthHistory')->get();
+
+        $displayJackpotDigits = $jackpots->flatMap(function ($jackpot) {
+            return $jackpot->displayThreeDigitsOneWeekHistory;
+        });
+        $totalAmount = $displayJackpotDigits->sum('pivot.sub_amount');
+
+        return [
+            'threeDigit' => $displayJackpotDigits,
+            'total_amount' => $totalAmount,
+        ];
+    }
+
+
+
+
 
 public static function getAdminJackpotDigits() {
     $displayJackpotDigits = Jackpot::with('DisplayJackpotDigits')

@@ -35,7 +35,7 @@ class ThreeDRecordHistoryController extends Controller
         $lotteries = Lotto::with(['threedDigits', 'lotteryMatch.threedMatchTime'])->orderBy('id', 'desc')->get();
         $prize_no = ThreeWinner::whereDate('created_at', Carbon::today())->orderBy('id', 'desc')->first();
     
-        return view('admin.three_d.v_1_three_d_history', compact('lotteries', 'prize_no', 'matchTime'));
+        return view('admin.three_d.three_d_history', compact('lotteries', 'prize_no', 'matchTime'));
     }
     
     public function show(string $id)
@@ -67,6 +67,17 @@ class ThreeDRecordHistoryController extends Controller
         $displayJackpotDigit = User::getAdminthreeDigitsHistory();
         $three_limits = ThreeDDLimit::orderBy('id', 'desc')->first();
         return view('admin.three_d.one_week_conclude', [
+            'displayThreeDigits' => $displayJackpotDigit,
+            'three_limits' => $three_limits,
+        ]);
+    }
+
+    public function OnceMonthThreedigitHistoryConclude()
+    {
+        $userId = auth()->id(); // Get logged in user's ID
+        $displayJackpotDigit = User::getAdminthreeDigitsOneMonthHistory();
+        $three_limits = ThreeDDLimit::orderBy('id', 'desc')->first();
+        return view('admin.three_d.one_month_conclude', [
             'displayThreeDigits' => $displayJackpotDigit,
             'three_limits' => $three_limits,
         ]);

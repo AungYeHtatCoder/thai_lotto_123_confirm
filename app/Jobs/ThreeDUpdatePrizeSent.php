@@ -51,13 +51,7 @@ class ThreeDUpdatePrizeSent implements ShouldQueue
         DB::transaction(function () use ($entry) {
             // Retrieve the lottery for this entry
             $lottery = Lotto::findOrFail($entry->lotto_id);
-            $methodToUpdatePivot = 'threedDigits';
-
-            // Update user's balance
-            // $user = $lottery->user;
-            // $user->balance += $entry->sub_amount * 700; // Update based on your prize calculation
-            // $user->save();
-
+            $methodToUpdatePivot = 'DisplayThreeDigits';
             // Update prize_sent in pivot
             $lottery->$methodToUpdatePivot()->updateExistingPivot($entry->three_digit_id, ['prize_sent' => 1]);
         });
