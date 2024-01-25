@@ -48,13 +48,14 @@
                     </div>
                 </div>
                 <div class="table-responsive">
+                    @php 
+                    $totalPrizeAmount = 0; // Initialize the variable here
+                    @endphp
                     @if($winners->isEmpty())
    <p style="color: #f5bd02">No winners found for the past month.</p>
    @else
    <table class="table table-flush" id="users-search">
-        @php 
-    $totalPrizeAmount = 0; // Initialize the variable here
-    @endphp
+    
     @foreach($winners as $index => $winner)
     <tr>
      {{-- <td class="mt-2">1.</td> --}}
@@ -115,7 +116,6 @@
 
    </table>
    @endif
-
                 </div>
             </div>
         <p>
