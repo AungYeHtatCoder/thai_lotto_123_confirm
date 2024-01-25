@@ -51,8 +51,8 @@ class CheckForJackpotWinner implements ShouldQueue
             $user->balance += $entry->sub_amount * 85; // Assuming the prize multiplier is 85
             $user->save();
 
-            // Update prize_sent to true for the winning entry
-            $lottery->twoDigits()->updateExistingPivot($entry->two_digit_id, ['prize_sent' => 1]);
+            // Update prize_sent to true for the winning entry in the jackpot_two_digit_copy table
+            $lottery->twoDigitsCopy()->updateExistingPivot($entry->two_digit_id, ['prize_sent' => 1]);
         });
     }
 }

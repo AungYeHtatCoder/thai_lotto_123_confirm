@@ -46,6 +46,13 @@ class Jackpot extends Model
         return $this->belongsToMany(TwoDigit::class, 'jackpot_two_digit')->withPivot('sub_amount', 'prize_sent')->withTimestamps();
     }
 
+    public function twoDigitsCopy()
+{
+    return $this->belongsToMany(TwoDigit::class, 'jackpot_two_digit_copy')
+        ->withPivot('prize_sent')
+        ->withTimestamps();
+}
+
     //  public function DisplayJackpotDigits()
     // {
     //     $start = Carbon::now()->startOfMonth();

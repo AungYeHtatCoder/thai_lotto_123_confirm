@@ -33,16 +33,16 @@
                 <div class="card-header pb-0">
                     <div class="d-lg-flex">
                         <div>
-                            <h5 class="mb-0">အောက်နှစ်လုံးထီ တပါတ်အတွင်းထိုးထားသော စာရင်း  Dashboards
+                            <h5 class="mb-0">3D တပါတ်အတွင်းထိုးထားသော စာရင်း ပေါင်းချုပ် -   Dashboards
                                 <span>
-                                     <h6>အောက်နှစ်လုံးထီ  Lottery Match Times for {{ Carbon\Carbon::now()->format('F Y') }}</h6>
+                                     <h6>3D  Lottery Match Times for {{ Carbon\Carbon::now()->format('F Y') }}</h6>
                                 </span>
                                 <span>
                                     <div class="ms-auto my-auto mt-lg-0 mt-4">
                             <div class="ms-auto my-auto">
                                 
                                 <a class="btn btn-outline-primary btn-sm export mb-0 mt-sm-0 mt-1"
-                                    href="{{ url('/admin/once-week-jackpot-list') }}" >Back</a>
+                                    href="{{ url('/admin/three-digit-history-conclude') }}" >Back</a>
                             </div>
                         </div>
                                 </span>
@@ -65,7 +65,7 @@
            <thead class="thead-light">
                 <tr>
                 <th>No</th>
-                <th>အောက်နှစ်လုံး</th>
+                <th>3D</th>
                 <th>ထိုးကြေး</th>
                 <th>ရက်စွဲ</th>
                 <th>Win/Lose</th>
@@ -74,7 +74,7 @@
             <tbody>
         @if(isset($displayThreeDigits['jackpotDigit']) && count($displayThreeDigits['jackpotDigit']) == 0)
         <p class="text-center text-white px-3 py-2 mt-3" style="background-color: #c50408">
-          ကံစမ်းထားသော အောက်နှစ်လုံး ထီဂဏန်းများ မရှိသေးပါ
+          ကံစမ်းထားသော 3D ထီဂဏန်းများ မရှိသေးပါ
           {{-- <span>
             <a href="{{ url('/user/jackport-play')}}" style="color: #f5bd02; text-decoration:none">
               <strong>ထီးထိုးရန် နိုပ်ပါ</strong></a>

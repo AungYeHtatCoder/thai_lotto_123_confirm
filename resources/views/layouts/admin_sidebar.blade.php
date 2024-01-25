@@ -420,9 +420,10 @@
       </div> 
      </li>
      <li class="nav-item ">
-      <a class="nav-link text-white " href="../../pages/ecommerce/referral.html">
+      <a class="nav-link text-white " href="{{ url('/admin/jackpot-history') }}">
        <span class="sidenav-mini-icon"> R </span>
-       <span class="sidenav-normal  ms-2  ps-1"> Referral </span>
+       <span class="sidenav-normal  ms-2  ps-1"> အောက်နှစ်လုံးပေါက်သူများ
+         </span>
       </a>
      </li>
     </ul>

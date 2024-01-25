@@ -65,4 +65,7 @@ Route::group(["middleware" => ['auth:sanctum']], function(){
     Route::get('/threeDigitOneWeekHistory', [ThreeDController::class, 'OnceWeekThreedigitHistoryConclude']);
     // three digit one month play history
     Route::get('/threeDigitOneMonthHistory', [ThreeDController::class, 'OnceMonthThreedigitHistoryConclude']);
+
+     Route::get('/jackpot-winner-history', [App\Http\Controllers\Admin\Jackpot\JackpotWinnerHistoryController::class, 'getWinnersHistoryForAdminApi'])->name('JackpotHistory');
+
 });

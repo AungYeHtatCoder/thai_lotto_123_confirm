@@ -11,4 +11,10 @@ class JackpotTwoDigit extends Model
     use HasFactory;
 protected $table = 'jackpot_two_digit';
     protected $fillable = ['jackpot_id', 'two_digit_id', 'sub_amount', 'prize_sent'];
+     protected static function booted()
+    {
+        static::created(function ($pivot) {
+            JackpotTwoDigitCopy::create($pivot->toArray());
+        });
+    }
 }

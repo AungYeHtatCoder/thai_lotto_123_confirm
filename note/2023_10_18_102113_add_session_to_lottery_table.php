@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('lotteries', function (Blueprint $table) {
-        $table->enum('session', ['morning', 'evening'])->after('user_id'); // 'after' is optional but places the column after user_id for readability
+        $table->enum('session', ['early-morning','morning', 'early-evening', 'evening'])->after('user_id'); 
+        //$table->enum('session', ['morning', 'evening'])->after('user_id'); // 'after' is optional but places the column after user_id for readability
     });
     }
 

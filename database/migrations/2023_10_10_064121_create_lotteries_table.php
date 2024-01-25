@@ -18,8 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('lottery_match_id')->default(1);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->enum('session', ['early-morning','morning', 'early-evening', 'evening']); 
             $table->foreign('lottery_match_id')->references('id')->on('lottery_matches')->onDelete('cascade');
-
             $table->timestamps();
 
         });
