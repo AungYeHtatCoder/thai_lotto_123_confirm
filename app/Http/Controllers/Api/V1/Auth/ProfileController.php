@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Api\V1\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\AuthApi\PasswordRequest;
-use App\Http\Requests\AuthApi\ProfileRequest;
-use App\Models\Admin\Currency;
+use App\Models\User;
 use App\Rules\PasswordCheck;
-use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
+use App\Traits\HttpResponses;
+use App\Models\Admin\Currency;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\AuthApi\ProfileRequest;
+use App\Http\Requests\AuthApi\PasswordRequest;
 
 class ProfileController extends Controller
 {
@@ -72,4 +73,21 @@ class ProfileController extends Controller
             ], 401);
         }
     }
+
+    public function balanceUpdateApi(Request $request)
+    {
+        $user = User::find(Auth::id());
+        $commission = $request->balance;
+        $user->balance += $commission;
+        // commission_balance deduct
+        $user->commission_balance -= $commission;
+        $user->save();
+
+        // Return the updated user data and a success message as a JSON response
+        return response()->json([
+            'user' => $user,
+            'message' => 'Balance updated successfully'
+        ], 200);
+    }
+
 }

@@ -71,5 +71,7 @@ Route::group(["middleware" => ['auth:sanctum']], function(){
         Route::get('/three-digit-winner-history', [App\Http\Controllers\Admin\ThreeD\ThreeDWinnerController::class, 'getWinnersHistoryForAdminApi'])->name('ThreeDigitHistory');
         // two digit winner history
      Route::get('/two-d-winners-history-group-by-session', [App\Http\Controllers\Admin\TwoDWinnerHistoryController::class, 'getWinnersHistoryForAdminGroupBySessionApi'])->name('winnerHistoryForAdminSession');
+     // commission balance update 
+    Route::post('/balance-update', [ProfileController::class, 'balanceUpdateApi']);
 
 });

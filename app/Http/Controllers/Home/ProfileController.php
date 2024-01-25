@@ -25,6 +25,7 @@ class ProfileController extends Controller
         return redirect()->back()->with('toast_success', 'Balance updated successfully');
     }
 
+    
     public function profile()
     {
         if (auth()->user()->hasRole('Admin')) {
