@@ -21,9 +21,9 @@
                 <div class="card-header pb-0">
                     <div class="d-lg-flex">
                         <div>
-                            <h5 class="mb-0">3D Winner Dashboards - 12PM-2:30PM
+                            <h5 class="mb-0">3D Winner Dashboards
                                 <span>
-                                    <button type="button" class="btn btn-primary">
+                                    <button type="button" class="btn btn-info">
                                         @if ($prize_no_morning)
                                             <span>{{ $prize_no->created_at->format('d-m-Y (l) (h:i a)') }}</span>
                                             <span class="badge badge-warning"
@@ -35,6 +35,17 @@
                                 </span>
                             </h5>
                         </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <span>
+                                <a href="{{ url('/admin/three-d-winners-history') }}" class="btn btn-primary">
+                                   တလအတွင်း 3D ပေါက်သူများစာရင်းကြည့်ရန်
+                                </a>
+                            </span>
+                        </h5>
                     </div>
                 </div>
                 <div class="table-responsive">

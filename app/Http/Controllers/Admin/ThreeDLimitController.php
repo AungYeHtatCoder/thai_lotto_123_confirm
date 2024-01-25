@@ -92,11 +92,21 @@ public function SameThreeDigitIDoverLimit()
                     ->get();
 
     // Aggregate sub_amounts for each three_digit_id
-    $aggregatedData = DB::table('lotto_three_digit_over')
-                        ->selectRaw('three_digit_id, SUM(sub_amount) as total_sub_amount')
-                        ->groupBy('three_digit_id')
-                        ->pluck('total_sub_amount', 'three_digit_id');
+    // $aggregatedData = DB::table('lotto_three_digit_over')
+    //                     ->selectRaw('three_digit_id, SUM(sub_amount) as total_sub_amount')
+    //                     ->groupBy('three_digit_id')
+    //                     ->pluck('total_sub_amount', 'three_digit_id');
+    // $aggregatedData = DB::table('lotto_three_digit_over')
+    //                     ->join('three_digits', 'lotto_three_digit_over.three_digit_id', '=', 'three_digits.id')
+    //                     ->selectRaw('three_digits.three_digit, SUM(lotto_three_digit_over.sub_amount) as total_sub_amount')
+    //                     ->groupBy('three_digits.three_digit')
+    //                     ->pluck('total_sub_amount', 'three_digits.three_digit');
 
+    $aggregatedData = DB::table('lotto_three_digit_over')
+                        ->join('three_digits', 'lotto_three_digit_over.three_digit_id', '=', 'three_digits.id')
+                        ->selectRaw('lotto_three_digit_over.three_digit_id, three_digits.three_digit, SUM(lotto_three_digit_over.sub_amount) as total_sub_amount')
+                        ->groupBy('lotto_three_digit_over.three_digit_id', 'three_digits.three_digit')
+                        ->get();
     $prize_no = ThreeWinner::whereDate('created_at', Carbon::today())
                            ->orderBy('id', 'desc')
                            ->first();

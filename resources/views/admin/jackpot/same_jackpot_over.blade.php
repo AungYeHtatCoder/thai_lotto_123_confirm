@@ -33,9 +33,9 @@
                 <div class="card-header pb-0">
                     <div class="d-lg-flex">
                         <div>
-                            <h5 class="mb-0">3D Over Amount Limit Dashboards
+                            <h5 class="mb-0">အောက်နှစ်လုံးထီ Over Amount Limit Dashboards
                                 <span>
-                                     <h6>Thai 3D Lottery Match Times for {{ Carbon\Carbon::now()->format('F Y') }}</h6>
+                                     <h6>အောက်နှစ်လုံးထီ  Lottery Match Times for {{ Carbon\Carbon::now()->format('F Y') }}</h6>
                                 </span>
                             </h5>
 
@@ -56,7 +56,7 @@
        <table class="table table-flush" id="twod-search">
            <thead class="thead-light">
                <th>#</th>
-               <th>3D</th>
+               <th>အောက်နှစ်လုံးထီ</th>
                <th>Total Amount</th>
                
            </thead>

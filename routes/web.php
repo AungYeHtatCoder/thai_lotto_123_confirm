@@ -262,5 +262,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
         Route::get('/three-digit-one-month-history-conclude', [App\Http\Controllers\Admin\ThreeD\ThreeDRecordHistoryController::class, 'OnceMonthThreedigitHistoryConclude'])->name('ThreeDigitOneMonthHistoryConclude');
         // jackpot history 
         Route::get('/jackpot-history', [App\Http\Controllers\Admin\Jackpot\JackpotWinnerHistoryController::class, 'getWinnersHistoryForAdmin'])->name('JackpotHistory');
+        // three d winners history
+        Route::get('/three-d-winners-history', [App\Http\Controllers\Admin\ThreeD\ThreeDWinnerController::class, 'getWinnersHistoryForAdmin'])->name('ThreeDWinnersHistory'); 
 
 });

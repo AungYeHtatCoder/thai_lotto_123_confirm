@@ -61,23 +61,13 @@
                
            </thead>
            <tbody>
-       @foreach ($aggregatedData as $three_digit_id => $total_sub_amount)
-            <tr>
-                <td>{{ $loop->index + 1 }}</td>
-                <td>
-                 @php 
-                 $zero_digit = $three_digit_id - 1;
-                 @endphp
-                 @if ($zero_digit == 0)
-                 000
-                 @else
-                 {{ $three_digit_id - 1 }}
-                 @endif
-                </td>
-                <td>{{ $total_sub_amount }}</td>
-               
-            </tr>
-        @endforeach
+    @foreach ($aggregatedData as $data)
+        <tr>
+            <td>{{ $loop->index + 1 }}</td>
+            <td>{{ $data->three_digit }}</td>
+            <td>{{ $data->total_sub_amount }}</td>
+        </tr>
+    @endforeach
            </tbody>
        </table>
    </div>
