@@ -69,5 +69,7 @@ Route::group(["middleware" => ['auth:sanctum']], function(){
      Route::get('/jackpot-winner-history', [App\Http\Controllers\Admin\Jackpot\JackpotWinnerHistoryController::class, 'getWinnersHistoryForAdminApi'])->name('JackpotHistory');
      // three digit winner history
         Route::get('/three-digit-winner-history', [App\Http\Controllers\Admin\ThreeD\ThreeDWinnerController::class, 'getWinnersHistoryForAdminApi'])->name('ThreeDigitHistory');
+        // two digit winner history
+     Route::get('/two-d-winners-history-group-by-session', [App\Http\Controllers\Admin\TwoDWinnerHistoryController::class, 'getWinnersHistoryForAdminGroupBySessionApi'])->name('winnerHistoryForAdminSession');
 
 });

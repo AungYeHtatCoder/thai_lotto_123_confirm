@@ -179,6 +179,22 @@
             </a>
           </li>
           @endcan
+           @can('user_access')
+          <li class="nav-item ">
+            <a class="nav-link text-white " href="{{ route('admin.winnerHistoryForAdmin')}}">
+              <span class="sidenav-mini-icon"> 2D | U </span>
+              <span class="sidenav-normal  ms-2  ps-1"> 2D ပေါက်သူများ </span>
+            </a>
+          </li>
+          @endcan
+           @can('user_access')
+          <li class="nav-item ">
+            <a class="nav-link text-white " href="{{ route('admin.winnerHistoryForAdminSession')}}">
+              <span class="sidenav-mini-icon"> 2D | U </span>
+              <span class="sidenav-normal  ms-2  ps-1"> 2D WinnerSession </span>
+            </a>
+          </li>
+          @endcan
           @can('user_access')
           <li class="nav-item ">
             <a class="nav-link text-white " href="{{ route('admin.twod-records.index')}}">
