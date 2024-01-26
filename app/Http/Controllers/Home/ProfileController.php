@@ -21,6 +21,9 @@ class ProfileController extends Controller
         $user->balance += $commission;
         // commission_balance deduct
         $user->commission_balance -= $commission;
+        if($request->balance > $user->commission_balance){
+            return redirect()->back()->with('error', 'Insufficient balance');
+        }
         $user->save();
         return redirect()->back()->with('toast_success', 'Balance updated successfully');
     }

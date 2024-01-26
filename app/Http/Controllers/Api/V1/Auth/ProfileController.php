@@ -25,6 +25,13 @@ class ProfileController extends Controller
             "currency_rate" => $rate
         ]);
     }
+    public function error($data, $status, $headers = []) {
+        // Create a response with the provided data, status code, and headers
+        $response = response()->json($data, $status, $headers);
+
+        // Return the response
+        return $response;
+    }
 
     public function updateProfile(ProfileRequest $request)
     {
@@ -78,6 +85,14 @@ class ProfileController extends Controller
     {
         $user = User::find(Auth::id());
         $commission = $request->balance;
+
+        // Check if the user has enough balance before making deductions
+        if($commission > $user->commission_balance){
+            return $this->error([
+                "message" => "You don't have enough balance",
+            ], 401);
+        }
+
         $user->balance += $commission;
         // commission_balance deduct
         $user->commission_balance -= $commission;
