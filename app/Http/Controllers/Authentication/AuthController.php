@@ -32,7 +32,14 @@ class AuthController extends Controller
         ]);
         $credentials = $request->only('country_code', 'phone', 'password');
         if (Auth::attempt($credentials)) {
-            return redirect()->route('home')->with('success', "Login Successfully.");
+            $user = User::where('phone', $request->phone)->first();
+            foreach($user->roles as $role){
+                if($role->title == "Admin"){
+                    return redirect()->route('home')->with('success', "Login Successfully.");
+                }else{
+                    abort(403, "You have no authorized.");
+                }
+            } 
         }
         return redirect()->back()->with(['error' => 'Invalid credentials']);
     }
