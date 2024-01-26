@@ -207,7 +207,7 @@ class TwoDWinnerHistoryController extends Controller
             'twod_winers.prize_no', 
             'twod_winers.created_at',
                 DB::raw('COUNT(*) as count'),
-                DB::raw('SUM(lottery_two_digit_pivot.sub_amount * 85) as total_prize_amount')
+                DB::raw('SUM(lottery_two_digit_pivot.sub_amount * 85) as prize_amount')
             )
             ->get();
 
