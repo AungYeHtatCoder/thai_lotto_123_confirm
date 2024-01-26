@@ -421,6 +421,7 @@ public static function getAdminJackpotDigits() {
                                ->get()
                                ->pluck('OnceMonthDisplayJackpotDigits')
                                ->collapse(); 
+                               //Log::info($jackpots);
     $totalAmount = $displayJackpotDigits->sum(function ($jackpotDigit) {
         return $jackpotDigit->pivot->sub_amount;
     });

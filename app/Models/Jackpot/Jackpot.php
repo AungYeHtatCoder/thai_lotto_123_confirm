@@ -53,46 +53,7 @@ class Jackpot extends Model
         ->withTimestamps();
 }
 
-    //  public function DisplayJackpotDigits()
-    // {
-    //     $start = Carbon::now()->startOfMonth();
-    //     $end_in_st_17 = Carbon::now()->startOfMonth()->addDays(16);
-    //     $start_in_nd_2 = Carbon::now()->startOfMonth()->addDays(17);
-    //     $end = Carbon::now()->endOfMonth();
-
-    //     return $this->belongsToMany(TwoDigit::class, 'jackpot_two_digit', 'jackpot_id', 'two_digit_id')
-    //         ->withPivot('sub_amount', 'prize_sent', 'created_at')
-    //         ->whereHas('pivot', function ($query) use ($start, $end_in_st_17, $start_in_nd_2, $end) {
-    //             $query->whereBetween('created_at', [$start, $end_in_st_17])
-    //                   ->orWhereBetween('created_at', [$start_in_nd_2, $end]);
-    //         });
-    // }
-    // In Jackpot model
-//         public function displayJackpotDigits()
-// {
-//     // Define your date ranges using Carbon
-//     $startDateFirstRange = Carbon::now()->startOfMonth();
-//     $endDateFirstRange = Carbon::now()->startOfMonth()->addDays(16);
-//     $startDateSecondRange = Carbon::now()->startOfMonth()->addDays(17);
-//     $endDateSecondRange = Carbon::now()->endOfMonth();
-
-//     return $this->belongsToMany(TwoDigit::class, 'jackpot_two_digit_copy', 'jackpot_id', 'two_digit_id')
-//         ->select([
-//             'two_digits.*', 
-//             'jackpot_two_digit_copy.jackpot_id AS pivot_jackpot_id', 
-//             'jackpot_two_digit_copy.two_digit_id AS pivot_two_digit_id', 
-//             'jackpot_two_digit_copy.sub_amount AS pivot_sub_amount', 
-//             'jackpot_two_digit_copy.prize_sent AS pivot_prize_sent', 
-//             'jackpot_two_digit_copy.created_at AS pivot_created_at', 
-//             'jackpot_two_digit_copy.updated_at AS pivot_updated_at'
-//         ])
-//         ->where(function ($query) use ($startDateFirstRange, $endDateFirstRange, $startDateSecondRange, $endDateSecondRange) {
-//             $query->whereBetween('jackpot_two_digit_copy.created_at', [$startDateFirstRange, $endDateFirstRange])
-//                   ->orWhereBetween('jackpot_two_digit_copy.created_at', [$startDateSecondRange, $endDateSecondRange]);
-//         })
-//         ->whereIn('jackpot_two_digit_copy.jackpot_id', [1, 2, 3, 4, 7, 8, 9])
-//         ->orderBy('jackpot_two_digit_copy.created_at', 'desc');
-// }
+   
     public function displayJackpotDigits($jackpotIds = [])
 {
     // If no specific jackpot IDs are provided, fetch all jackpot IDs
