@@ -101,7 +101,7 @@
           <td>
             
             <p class="text-info">
-             {{ $digit->pivot->user->name }}
+             {{ $digit->pivot->user->user_name }}
             </p>
            
           </td>
