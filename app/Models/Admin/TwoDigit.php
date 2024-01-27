@@ -2,6 +2,7 @@
 
 namespace App\Models\Admin;
 
+use App\Models\User;
 use App\Models\Admin\Lottery;
 use App\Models\Jackpot\Jackpot;
 use Illuminate\Database\Eloquent\Model;
@@ -22,6 +23,14 @@ class TwoDigit extends Model
      public function jackpots() {
         return $this->belongsToMany(Jackpot::class, 'jackpot_two_digit')->withPivot('sub_amount');
     }
+
+   
+
+    public function user()
+    {
+        return $this->belongsToThrough(User::class, Jackpot::class);
+    }
+
 
 
 }
