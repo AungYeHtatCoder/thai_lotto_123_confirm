@@ -289,7 +289,7 @@ public function twodWiners()
 // Assuming this is in a controller or similar
         public static function getUserJackpotDigits($userId)
         {
-            $jackpots = Jackpot::where('user_id', $userId)->with('displayJackpotDigits')->get();
+            $jackpots = Jackpot::where('user_id', $userId)->with('DisplayJackpotDigits')->get();
 
             $displayJackpotDigits = $jackpots->flatMap->displayJackpotDigits;
             $totalAmount = $displayJackpotDigits->sum(function ($jackpotDigit) {
@@ -305,7 +305,7 @@ public function twodWiners()
 // jackpot admin
                 public static function getAdminJackpotDigitsHistory()
         {
-            $jackpots = Jackpot::with('displayJackpotDigits')->get();
+            $jackpots = Jackpot::with('DisplayJackpotDigits')->get();
 
             $displayJackpotDigits = $jackpots->flatMap->displayJackpotDigits;
             $totalAmount = $displayJackpotDigits->sum(function ($jackpotDigit) {
@@ -401,9 +401,9 @@ public function twodWiners()
 
 
 public static function getAdminJackpotDigits() {
-    $displayJackpotDigits = Jackpot::with('DisplayJackpotDigits')
+    $displayJackpotDigits = Jackpot::with('displayJackpotDigits')
                                ->get()
-                               ->pluck('DisplayJackpotDigits')
+                               ->pluck('displayJackpotDigits')
                                ->collapse(); 
     $totalAmount = $displayJackpotDigits->sum(function ($jackpotDigit) {
         return $jackpotDigit->pivot->sub_amount;
@@ -417,9 +417,9 @@ public static function getAdminJackpotDigits() {
 // jackpot one month
  public static function getUserOneMonthJackpotDigits($userId) {
     $displayJackpotDigits = Jackpot::where('user_id', $userId)
-                               ->with('OnceMonthDisplayJackpotDigits')
+                               ->with('displayJackpotDigits')
                                ->get()
-                               ->pluck('OnceMonthDisplayJackpotDigits')
+                               ->pluck('displayJackpotDigits')
                                ->collapse(); 
                                //Log::info($jackpots);
     $totalAmount = $displayJackpotDigits->sum(function ($jackpotDigit) {
