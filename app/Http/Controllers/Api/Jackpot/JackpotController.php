@@ -27,7 +27,8 @@ class JackpotController extends Controller
         // Convert JSON request to an array
         $data = $request->json()->all();
         $validator = Validator::make($data, [
-            'currency' => 'required|string',
+            //'currency' => 'required|string',
+            'currency' => 'required|string|in:baht,bath,mmk',
             'totalAmount' => 'required|numeric|min:1',
             'amounts' => 'required|array',
             'amounts.*.num' => 'required|integer',
