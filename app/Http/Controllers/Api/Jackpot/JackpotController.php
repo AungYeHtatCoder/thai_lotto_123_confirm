@@ -86,7 +86,8 @@ class JackpotController extends Controller
                 }
 
                 if ($totalBetAmountForTwoDigit >= 0) {
-                    $pivot = new JackpotTwoDigitCopy([
+                    $pivot = new JackpotTwoDigit([
+                        
                         'jackpot_id' => $lottery->id,
                         'two_digit_id' => $two_digit_id,
                         'sub_amount' => $sub_amount,
