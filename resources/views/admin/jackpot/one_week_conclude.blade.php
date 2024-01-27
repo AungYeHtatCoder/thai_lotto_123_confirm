@@ -67,6 +67,7 @@
                 <th>No</th>
                 <th>အောက်နှစ်လုံး</th>
                 <th>ထိုးကြေး</th>
+                <th>Name</th>
                 <th>ရက်စွဲ</th>
                 </tr>
            </thead>
@@ -96,6 +97,13 @@
             {{ $digit->pivot->sub_amount }}
            </p>
            @endif
+          </td>
+          <td>
+            
+            <p class="text-info">
+             {{ $digit->pivot->user->name }}
+            </p>
+           
           </td>
           <td class="text-sm font-weight-normal">
 
