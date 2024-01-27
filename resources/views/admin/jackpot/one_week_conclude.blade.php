@@ -67,7 +67,7 @@
                 <th>No</th>
                 <th>အောက်နှစ်လုံး</th>
                 <th>ထိုးကြေး</th>
-                <th>Name</th>
+                {{-- <th>Name</th> --}}
                 <th>ရက်စွဲ</th>
                 </tr>
            </thead>
@@ -98,7 +98,7 @@
            </p>
            @endif
           </td>
-          <td>
+          {{-- <td>
             
             @if($digit->user)
             <p class="text-info">
@@ -110,7 +110,7 @@
             </p>
             @endif
            
-          </td>
+          </td> --}}
           <td class="text-sm font-weight-normal">
 
                  <span
