@@ -2,6 +2,7 @@
 
 namespace App\Models\User;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User\JackpotTwoDigitCopy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,6 +16,7 @@ class JackpotTwoDigit extends Model
     protected static function booted()
     {
         static::created(function ($jackpotTwoDigit) {
+            Log::info('JackpotTwoDigit created event triggered');
             JackpotTwoDigitCopy::create([
                 'jackpot_id' => $jackpotTwoDigit->jackpot_id,
                 'two_digit_id' => $jackpotTwoDigit->two_digit_id,
