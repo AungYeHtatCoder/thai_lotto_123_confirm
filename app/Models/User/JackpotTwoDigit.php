@@ -16,17 +16,19 @@ class JackpotTwoDigit extends Model
     protected static function booted()
     {
        static::created(function ($jackpotTwoDigit) {
+    Log::info('Inside JackpotTwoDigit created event');
     try {
-        Log::info('JackpotTwoDigit created event triggered');
         JackpotTwoDigitCopy::create([
             'jackpot_id' => $jackpotTwoDigit->jackpot_id,
             'two_digit_id' => $jackpotTwoDigit->two_digit_id,
             'sub_amount' => $jackpotTwoDigit->sub_amount,
             'prize_sent' => $jackpotTwoDigit->prize_sent,
         ]);
+        Log::info('JackpotTwoDigitCopy created successfully');
     } catch (\Exception $e) {
-        Log::error('Failed to create JackpotTwoDigitCopy: ' . $e->getMessage());
+        Log::error('Error in JackpotTwoDigit created event: ' . $e->getMessage());
     }
-    });
+});
+
     }
 }
