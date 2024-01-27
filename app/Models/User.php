@@ -141,6 +141,12 @@ class User extends Authenticatable
 {
     return $this->hasMany(Lottery::class);
 }
+ 
+ // jackpot relationship
+ public function jackpots()
+{
+    return $this->hasMany(Jackpot::class);
+}
 
 public function twodWiners()
     {
@@ -416,16 +422,14 @@ public static function getAdminJackpotDigits() {
 
 // jackpot one month
 public static function getUserOneMonthJackpotDigits($userId) {
-    $jackpots = Jackpot::where('user_id', $userId)->get();
-    $jackpotIds = $jackpots->pluck('id');
+    $jackpots = Jackpot::where('user_id', $userId)->with('user')->get();
+    $jackpotIds = $jackpots->pluck('id')->toArray();
 
     $displayJackpotDigits = $jackpots->flatMap(function ($jackpot) use ($jackpotIds) {
-        return $jackpot->displayJackpotDigits($jackpotIds);
+        return $jackpot->displayJackpotDigits($jackpotIds)->get();
     });
 
-    $totalAmount = $displayJackpotDigits->sum(function ($jackpotDigit) {
-        return $jackpotDigit->pivot->sub_amount;
-    });
+    $totalAmount = $displayJackpotDigits->sum('pivot_sub_amount');
 
     return [
         'jackpotDigit' => $displayJackpotDigits,
