@@ -100,9 +100,15 @@
           </td>
           <td>
             
+            @if($digit->user)
             <p class="text-info">
-             {{ $digit->user->name }}
+            {{ $digit->user->name }}
             </p>
+            @else
+            <p class="text-danger">
+            No user associated
+            </p>
+            @endif
            
           </td>
           <td class="text-sm font-weight-normal">
