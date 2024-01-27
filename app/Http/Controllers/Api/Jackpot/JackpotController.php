@@ -23,7 +23,7 @@ class JackpotController extends Controller
     public function store(Request $request)
     {
         // Log the entire request
-        Log::info($request->all());
+        //Log::info($request->all());
         $limitAmount = JackpotLimit::latest()->first()->jack_limit;
         // Convert JSON request to an array
         $data = $request->json()->all();
@@ -123,14 +123,7 @@ class JackpotController extends Controller
         }
     }
 
-    public function OnceMonthJackpotHistory()
-    {
-        $userId = auth()->id(); // Get logged in user's ID
-        $displayJackpotDigit = User::getUserOneMonthJackpotDigits($userId);
-        return response()->json([
-            'displayThreeDigits' => $displayJackpotDigit,
-        ]);
-    }
+   
 
     public function getOneMonthJackpotHistory($startDate, $endDate)
     {

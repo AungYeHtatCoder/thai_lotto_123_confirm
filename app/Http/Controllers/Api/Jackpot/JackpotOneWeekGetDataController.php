@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Jackpot;
 
 use Carbon\Carbon;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Jackpot\Jackpot;
 use Illuminate\Support\Facades\DB;
@@ -11,6 +12,15 @@ use App\Models\Jackpot\JackpotWinner;
 
 class JackpotOneWeekGetDataController extends Controller
 {
+   
+    public function OnceMonthJackpotHistory()
+    {
+        $userId = auth()->user()->id;
+        $displayJackpotDigit = User::getUserOneMonthJackpotDigits($userId);
+        return response()->json([
+            'displayThreeDigits' => $displayJackpotDigit,
+        ]);
+    }
     public function index()
     {
          try {
