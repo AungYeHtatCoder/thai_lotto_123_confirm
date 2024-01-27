@@ -237,6 +237,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
 
     // jack pot
     Route::get('/once-week-jackpot-list', [App\Http\Controllers\Admin\Jackpot\JackpotController::class, 'index'])->name('displayjackpot');
+    // jackpot one month history
+    Route::get('/jackpot-one-month-history', [App\Http\Controllers\Admin\Jackpot\JackpotController::class, 'getOneMonthJackpotHistory'])->name('JackpotHistory');
     // jack pot show
     Route::get('/once-week-jackpot-show/{id}', [App\Http\Controllers\Admin\Jackpot\JackpotController::class, 'show'])->name('displayjackpotshow');
     // jack pot history

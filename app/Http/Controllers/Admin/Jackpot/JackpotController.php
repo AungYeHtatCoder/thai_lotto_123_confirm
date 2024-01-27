@@ -145,10 +145,41 @@ class JackpotController extends Controller
     return redirect()->back()->with('message', 'Data reset successfully!');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    
+    // public function getOneMonthJackpotHistory()
+    // {
+    //     $oneMonthAgo = Carbon::now()->subMonth();
+
+    //     $history = DB::table('jackpot_two_digit')
+    //         ->join('jackpots', 'jackpot_two_digit.jackpot_id', '=', 'jackpots.id')
+    //         ->join('two_digits', 'jackpot_two_digit.two_digit_id', '=', 'two_digits.id')
+    //         ->join('users', 'jackpots.user_id', '=', 'users.id')
+    //         ->where('jackpot_two_digit.created_at', '>=', $oneMonthAgo)
+    //         ->select('jackpot_two_digit.*', 'jackpots.pay_amount', 'jackpots.total_amount', 'two_digits.two_digit', 'users.name as user_name')
+    //         ->orderBy('jackpot_two_digit.created_at', 'desc')
+    //         ->get();
+
+    //     return view('admin.jackpot.one_month_history', compact('history'));
+    // }
+
+    public function getOneMonthJackpotHistory()
+    {
+        $startDate = Carbon::now()->subMonth()->startOfMonth();
+        $endDate = Carbon::now()->subMonth()->endOfMonth();
+
+        $history = DB::table('jackpot_two_digit')
+            ->join('jackpots', 'jackpot_two_digit.jackpot_id', '=', 'jackpots.id')
+            ->join('two_digits', 'jackpot_two_digit.two_digit_id', '=', 'two_digits.id')
+            ->join('users', 'jackpots.user_id', '=', 'users.id')
+            ->whereBetween('jackpot_two_digit.created_at', [$startDate, $endDate])
+            ->select(DB::raw('MONTH(jackpot_two_digit.created_at) as month'), DB::raw('YEAR(jackpot_two_digit.created_at) as year'), DB::raw('SUM(jackpots.pay_amount) as total_pay_amount'), DB::raw('SUM(jackpots.total_amount) as total_total_amount'))
+            ->groupBy(DB::raw('MONTH(jackpot_two_digit.created_at)'), DB::raw('YEAR(jackpot_two_digit.created_at)'))
+            ->orderBy('jackpot_two_digit.created_at', 'desc')
+            ->get();
+
+        //dd($history);
+
+        return view('admin.jackpot.one_month_history', compact('history'));
+    }
 
     /**
      * Store a newly created resource in storage.

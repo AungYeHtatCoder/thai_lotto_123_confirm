@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Api\Jackpot;
 
+use Carbon\Carbon;
 use App\Models\User;
-use App\Models\Jackpot\Jackpot;
 use Illuminate\Http\Request;
 use App\Models\Admin\Currency;
+use App\Models\Jackpot\Jackpot;
 use App\Models\Admin\Commission;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -130,4 +131,54 @@ class JackpotController extends Controller
             'displayThreeDigits' => $displayJackpotDigit,
         ]);
     }
+
+    public function getOneMonthJackpotHistory($startDate, $endDate)
+    {
+        $startDate = Carbon::createFromFormat('d-M-Y', $startDate);
+        $endDate = Carbon::createFromFormat('d-M-Y', $endDate);
+
+        $history = DB::table('jackpot_two_digit')
+            ->join('jackpots', 'jackpot_two_digit.jackpot_id', '=', 'jackpots.id')
+            ->join('two_digits', 'jackpot_two_digit.two_digit_id', '=', 'two_digits.id')
+            ->join('users', 'jackpots.user_id', '=', 'users.id')
+            ->whereBetween('jackpot_two_digit.created_at', [$startDate, $endDate])
+            ->select('jackpot_two_digit.*', 'jackpots.pay_amount', 'jackpots.total_amount', 'two_digits.two_digit', 'users.name as user_name')
+            ->orderBy('jackpot_two_digit.created_at', 'desc')
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data retrieved successfully',
+            'data' => $history
+        ]);
+    }
+
+    // public function getOneMonthJackpotHistory()
+    // {
+    //     try {
+    //         $oneMonthAgo = Carbon::now()->subMonth();
+    //         $userId = Auth::id(); // Get the authenticated user's ID
+
+    //         $history = DB::table('jackpot_two_digit')
+    //             ->join('jackpots', 'jackpot_two_digit.jackpot_id', '=', 'jackpots.id')
+    //             ->join('two_digits', 'jackpot_two_digit.two_digit_id', '=', 'two_digits.id')
+    //             ->join('users', 'jackpots.user_id', '=', 'users.id')
+    //             ->where('jackpot_two_digit.created_at', '>=', $oneMonthAgo)
+    //             ->where('jackpots.user_id', '=', $userId) // Filter by user ID
+    //             ->select('jackpot_two_digit.*', 'jackpots.pay_amount', 'jackpots.total_amount', 'two_digits.two_digit', 'users.name as user_name')
+    //             ->orderBy('jackpot_two_digit.created_at', 'desc')
+    //             ->get();
+
+    //         return response()->json([
+    //             'success' => true,
+    //             'message' => 'Data retrieved successfully',
+    //             'data' => $history
+    //         ]);
+    //     } catch (\Exception $e) {
+    //         return response()->json([
+    //             'success' => false,
+    //             'message' => 'An error occurred: ' . $e->getMessage()
+    //         ], 500);
+    //     }
+    // }
 }

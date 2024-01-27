@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\V1\Frontend\TwoDController;
 use App\Http\Controllers\Api\V1\Frontend\ThreeDController;
 use App\Http\Controllers\Api\V1\Frontend\WalletController;
 use App\Http\Controllers\Api\V1\Frontend\PromotionController;
+use App\Http\Controllers\Api\Jackpot\JackpotOneWeekGetDataController;
 
 
 
@@ -58,7 +59,7 @@ Route::group(["middleware" => ['auth:sanctum']], function(){
     // three once month history
     Route::get('/threeDigitOnceMonthHistory', [ThreeDController::class, 'OnceMonthThreeDHistory']);
     // jackpot once month history
-    Route::get('/jackpotOnceMonthHistory', [JackpotController::class, 'OnceMonthJackpotHistory']);
+    Route::get('/jackpotOnceMonthHistory', [JackpotOneWeekGetDataController::class, 'index']);
     // jackpot play
     Route::post('/jackpot-play', [JackpotController::class, 'store']);
     // three digit one week play history

@@ -415,7 +415,7 @@
          </a>
         </li>
         <li class="nav-item">
-         <a class="nav-link text-white " href="{{ url('/admin/jackpot-history') }}">
+         <a class="nav-link text-white " href="{{ url('/admin/jackpot-one-month-history') }}">
           <span class="sidenav-mini-icon"> O </span>
           <span class="sidenav-normal  ms-2  ps-1"> တလစာရင်း </span>
          </a>
