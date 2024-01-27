@@ -415,16 +415,18 @@ public static function getAdminJackpotDigits() {
 }
 
 // jackpot one month
- public static function getUserOneMonthJackpotDigits($userId) {
-    $displayJackpotDigits = Jackpot::where('user_id', $userId)
-                               ->with('displayJackpotDigits')
-                               ->get()
-                               ->pluck('displayJackpotDigits')
-                               ->collapse(); 
-                               //Log::info($jackpots);
+public static function getUserOneMonthJackpotDigits($userId) {
+    $jackpots = Jackpot::where('user_id', $userId)->get();
+    $jackpotIds = $jackpots->pluck('id');
+
+    $displayJackpotDigits = $jackpots->flatMap(function ($jackpot) use ($jackpotIds) {
+        return $jackpot->displayJackpotDigits($jackpotIds);
+    });
+
     $totalAmount = $displayJackpotDigits->sum(function ($jackpotDigit) {
         return $jackpotDigit->pivot->sub_amount;
     });
+
     return [
         'jackpotDigit' => $displayJackpotDigits,
         'total_amount' => $totalAmount,
