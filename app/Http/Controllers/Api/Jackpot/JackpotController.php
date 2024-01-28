@@ -35,7 +35,7 @@ class JackpotController extends Controller
             'totalAmount' => 'required|numeric|min:1',
             'amounts' => 'required|array',
             'amounts.*.num' => 'required|integer',
-            'amounts.*.amount' => 'required|integer|min:1|max:'.$limitAmount,
+            'amounts.*.amount' => 'required|integer|min:1',
         ]);
         // Check for validation errors
         if ($validator->fails()) {
