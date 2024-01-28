@@ -57,7 +57,7 @@ class TwoDController extends Controller
     
         // Check for validation errors
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 401);
+            return response()->json(['message' => $validator->errors()], 401);
         }
     
         // Extract validated data
@@ -69,14 +69,14 @@ class TwoDController extends Controller
             $subAmount = array_sum(array_column($request->amounts, 'amount')) * $rate;
 
             if ($subAmount > $break) {
-                return response()->json(['error' => 'Sub Amount is over limit'], 401);
+                return response()->json(['message' => 'Sub Amount is over limit'], 401);
             }
         }
 
         // Determine the current session based on time
         $currentSession = date('H') < 12 ? 'morning' : 'evening';
         if ($validatedData['totalAmount'] > $break) {
-            return response()->json(['error' => 'Total Amount is over limit'], 401);
+            return response()->json(['message' => 'Total Amount is over limit'], 401);
         }
     
         // Start database transaction
@@ -95,7 +95,7 @@ class TwoDController extends Controller
     
             // Check if the user has sufficient balance
             if ($user->balance < 0) {
-                return response()->json(['error' => 'Insufficient balance'], 401);
+                return response()->json(['message' => 'လက်ကျန်ငွေ မလုံလောက်ပါ။'], 401);
             }
             /** @var \App\Models\User $user */
             $user->save();
@@ -171,7 +171,7 @@ class TwoDController extends Controller
             Log::error('Error in play method: ' . $e->getMessage());
     
             // Return an error response
-            return response()->json(['error' => 'An error occurred while placing the bet: ' . $e->getMessage()], 500);
+            return response()->json(['message' => $e->getMessage()], 401);
         }
     }
 
