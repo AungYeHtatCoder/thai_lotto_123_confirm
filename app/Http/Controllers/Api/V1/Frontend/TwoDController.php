@@ -52,7 +52,8 @@ class TwoDController extends Controller
             'totalAmount' => 'required|numeric|min:1',
             'amounts' => 'required|array',
             'amounts.*.num' => 'required|integer',
-            'amounts.*.amount' => 'required|integer|min:1|max:'.$break,
+            'amounts.*.amount' => 'required|integer|min:1',
+            // 'amounts.*.amount' => 'required|integer|min:1|max:'.$break,
         ]);
     
         // Check for validation errors
@@ -69,7 +70,7 @@ class TwoDController extends Controller
             $subAmount = array_sum(array_column($request->amounts, 'amount')) * $rate;
 
             if ($subAmount > $break) {
-                return response()->json(['message' => 'Sub Amount is over limit'], 401);
+                return response()->json(['message' => 'Limit ပမာဏထက်ကျော်ထိုးလို့ မရပါ။'], 401);
             }
         }
 
