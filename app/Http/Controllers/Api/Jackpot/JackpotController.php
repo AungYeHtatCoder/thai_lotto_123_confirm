@@ -56,7 +56,7 @@ class JackpotController extends Controller
             $user->balance -= $totalAmount;
 
             if ($user->balance < 0) {
-                throw new \Exception('Insufficient balance.');
+                throw new \Exception('လက်ကျန်ငွေ မလုံလောက်ပါ။');
             }
             /** @var \App\Models\User $user */
             $user->save();
