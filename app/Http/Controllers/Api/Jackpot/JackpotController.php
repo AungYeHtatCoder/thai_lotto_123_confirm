@@ -46,10 +46,21 @@ class JackpotController extends Controller
 
         try {
             $rate = Currency::latest()->first()->rate;
+            //total_amount
             if($request->currency == 'baht'){
                 $totalAmount = $request->totalAmount * $rate;
             }else{
                 $totalAmount = $request->totalAmount;
+            }
+            //sub_amount
+            if ($request->currency == "baht") {
+                $subAmount = array_sum(array_column($request->amounts, 'amount')) * $rate;
+            }else{
+                $subAmount = array_sum(array_column($request->amounts, 'amount'));
+            }
+            
+            if ($subAmount > $limitAmount) {
+                return response()->json(['message' => 'Limit ပမာဏထက်ကျော်ထိုးလို့ မရပါ။'], 401);
             }
 
             $user = Auth::user();
