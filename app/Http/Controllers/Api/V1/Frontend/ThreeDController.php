@@ -114,7 +114,9 @@ $totalAmount = in_array($request->currency, ['baht', 'bath']) ? $request->totalA
         }
 
         DB::commit();
-        return response()->json(['success' => true, 'message' => 'Successfully placed bet.']);
+        return $this->success([
+            'message' => 'Bet placed successfully.'
+        ]);
     } catch (\Exception $e) {
         DB::rollback();
         Log::error('Error in play method: ' . $e->getMessage());
@@ -126,26 +128,18 @@ $totalAmount = in_array($request->currency, ['baht', 'bath']) ? $request->totalA
      public function OnceWeekThreedigitHistoryConclude()
     {
         $userId = auth()->id(); // Get logged in user's ID
-        $displayJackpotDigit = User::getAdminthreeDigitsHistoryApi($userId);
+        $displayThreeDDigit = User::getAdminthreeDigitsHistoryApi($userId);
        // $three_limits = ThreeDDLimit::orderBy('id', 'desc')->first();
-        return response()->json([
-            'displayThreeDigits' => $displayJackpotDigit,
-           // 'three_limits' => $three_limits,
-        
-        ]);
+       return $this->success($displayThreeDDigit);
     }
 
      // three once week history
      public function OnceMonthThreedigitHistoryConclude()
     {
         $userId = auth()->id(); // Get logged in user's ID
-        $displayJackpotDigit = User::getAdminthreeDigitsOneMonthHistoryApi($userId);
+        $displayThreeDDigit = User::getAdminthreeDigitsOneMonthHistoryApi($userId);
        // $three_limits = ThreeDDLimit::orderBy('id', 'desc')->first();
-        return response()->json([
-            'displayThreeDigits' => $displayJackpotDigit,
-           // 'three_limits' => $three_limits,
-        
-        ]);
+       return $this->success($displayThreeDDigit);
     }
 
 
@@ -153,9 +147,7 @@ $totalAmount = in_array($request->currency, ['baht', 'bath']) ? $request->totalA
     public function OnceMonthThreeDHistory()
     {
         $userId = auth()->id(); // Get logged in user's ID
-        $displayJackpotDigit = User::getUserOneMonthThreeDigits($userId);
-        return response()->json([
-            'displayThreeDigits' => $displayJackpotDigit,
-        ]);
+        $displayThreeDDigit = User::getUserOneMonthThreeDigits($userId);
+        return $this->success($displayThreeDDigit);
     }
 }
