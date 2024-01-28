@@ -57,7 +57,7 @@ class TwoDController extends Controller
     
         // Check for validation errors
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
+            return response()->json(['errors' => $validator->errors()], 401);
         }
     
         // Extract validated data
@@ -69,14 +69,14 @@ class TwoDController extends Controller
             $subAmount = array_sum(array_column($request->amounts, 'amount')) * $rate;
 
             if ($subAmount > $break) {
-                return response()->json(['error' => 'Sub Amount is over limit'], 422);
+                return response()->json(['error' => 'Sub Amount is over limit'], 401);
             }
         }
 
         // Determine the current session based on time
         $currentSession = date('H') < 12 ? 'morning' : 'evening';
         if ($validatedData['totalAmount'] > $break) {
-            return response()->json(['error' => 'Total Amount is over limit'], 422);
+            return response()->json(['error' => 'Total Amount is over limit'], 401);
         }
     
         // Start database transaction
@@ -95,7 +95,7 @@ class TwoDController extends Controller
     
             // Check if the user has sufficient balance
             if ($user->balance < 0) {
-                return response()->json(['error' => 'Insufficient balance'], 422);
+                return response()->json(['error' => 'Insufficient balance'], 401);
             }
             /** @var \App\Models\User $user */
             $user->save();
@@ -161,7 +161,10 @@ class TwoDController extends Controller
             DB::commit();
     
             // Return a success response
-            return response()->json(['message' => 'Bet placed successfully'], 200);
+            return $this->success([
+                'message' => 'Bet placed successfully',
+            ]);
+            // return response()->json(['message' => 'Bet placed successfully'], 200);
         } catch (\Exception $e) {
             // Roll back the transaction in case of error
             DB::rollback();
@@ -191,8 +194,8 @@ class TwoDController extends Controller
     {
         $userId = auth()->id(); // Get logged in user's ID
         $twod_once_month_history = User::getUserOneMonthTwoDigits($userId);
-        return response()->json([
-            'twod_once_month_history' => $twod_once_month_history,
+        return $this->success([
+            $twod_once_month_history
         ]);
     }
 }

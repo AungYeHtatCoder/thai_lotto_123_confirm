@@ -83,14 +83,14 @@ class WalletController extends Controller
             $balance = auth()->user()->balance / $rate;
             if($request->amount > $balance){
                 return response()->json([
-                    'message' => 'Insufficient balance'
-                ], 422);
+                    'message' => 'လက်ကျန်ငွေ မလုံလောက်ပါ။'
+                ], 401);
             }
         }
         if($request->amount > auth()->user()->balance){
             return response()->json([
-                'message' => 'Insufficient balance'
-            ], 422);
+                'message' => 'လက်ကျန်ငွေ မလုံလောက်ပါ။'
+            ], 401);
         }
         CashOutRequest::create([
             'payment_method' => $request->payment_method,
