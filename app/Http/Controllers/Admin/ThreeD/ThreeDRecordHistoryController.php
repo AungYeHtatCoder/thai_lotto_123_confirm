@@ -14,7 +14,7 @@ use App\Models\ThreeDigit\ThreeWinner;
 
 class ThreeDRecordHistoryController extends Controller
 {
-    public function index()
+   public function index()
     {
             $today = Carbon::now();
             if ($today->day <= 1) {

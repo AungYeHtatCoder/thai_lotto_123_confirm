@@ -161,24 +161,72 @@ class JackpotController extends Controller
     //     return view('admin.jackpot.one_month_history', compact('history'));
     // }
 
+    // public function getOneMonthJackpotHistory()
+    // {
+    //     $startDate = Carbon::now()->subMonth()->startOfMonth();
+    //     $endDate = Carbon::now()->subMonth()->endOfMonth();
+
+    //     $history = DB::table('jackpot_two_digit')
+    //         ->join('jackpots', 'jackpot_two_digit.jackpot_id', '=', 'jackpots.id')
+    //         ->join('two_digits', 'jackpot_two_digit.two_digit_id', '=', 'two_digits.id')
+    //         ->join('users', 'jackpots.user_id', '=', 'users.id')
+    //         ->whereBetween('jackpot_two_digit.created_at', [$startDate, $endDate])
+    //         ->select(DB::raw('MONTH(jackpot_two_digit.created_at) as month'), DB::raw('YEAR(jackpot_two_digit.created_at) as year'), DB::raw('SUM(jackpots.pay_amount) as total_pay_amount'), DB::raw('SUM(jackpots.total_amount) as total_total_amount'))
+    //         ->groupBy(DB::raw('MONTH(jackpot_two_digit.created_at)'), DB::raw('YEAR(jackpot_two_digit.created_at)'))
+    //         ->orderBy('jackpot_two_digit.created_at', 'desc')
+    //         ->get();
+
+    //     //dd($history);
+
+    //     return view('admin.jackpot.one_month_history', compact('history'));
+    // }
+
     public function getOneMonthJackpotHistory()
     {
-        $startDate = Carbon::now()->subMonth()->startOfMonth();
-        $endDate = Carbon::now()->subMonth()->endOfMonth();
+            $today = Carbon::now();
+            if ($today->day <= 1) {
+                $targetDay = 1;
+            } else {
+            $targetDay = 16;
+            // If today is after the 16th, then target the 1st of next month
+            if ($today->day > 16) {
+                $today->addMonthNoOverflow();
+                $today->day = 1;
+            }
+        }
+        $matchTime = DB::table('threed_match_times')
+            ->whereMonth('match_time', '=', $today->month)
+            ->whereYear('match_time', '=', $today->year)
+            ->whereDay('match_time', '=', $targetDay)
+            ->first();
+        $history = Jackpot::with(['twoDigits', 'lotteryMatch.threedMatchTime'])->orderBy('id', 'desc')->get();
+        $prize_no = JackpotWinner::whereDate('created_at', Carbon::today())->orderBy('id', 'desc')->first();
+    
+        return view('admin.jackpot.one_month_history', compact('history', 'prize_no', 'matchTime'));
+    }
 
-        $history = DB::table('jackpot_two_digit')
-            ->join('jackpots', 'jackpot_two_digit.jackpot_id', '=', 'jackpots.id')
-            ->join('two_digits', 'jackpot_two_digit.two_digit_id', '=', 'two_digits.id')
-            ->join('users', 'jackpots.user_id', '=', 'users.id')
-            ->whereBetween('jackpot_two_digit.created_at', [$startDate, $endDate])
-            ->select(DB::raw('MONTH(jackpot_two_digit.created_at) as month'), DB::raw('YEAR(jackpot_two_digit.created_at) as year'), DB::raw('SUM(jackpots.pay_amount) as total_pay_amount'), DB::raw('SUM(jackpots.total_amount) as total_total_amount'))
-            ->groupBy(DB::raw('MONTH(jackpot_two_digit.created_at)'), DB::raw('YEAR(jackpot_two_digit.created_at)'))
-            ->orderBy('jackpot_two_digit.created_at', 'desc')
-            ->get();
-
-        //dd($history);
-
-        return view('admin.jackpot.one_month_history', compact('history'));
+    public function getOneMonthJackpotHistoryOnlyDigit()
+    {
+            $today = Carbon::now();
+            if ($today->day <= 1) {
+                $targetDay = 1;
+            } else {
+            $targetDay = 16;
+            // If today is after the 16th, then target the 1st of next month
+            if ($today->day > 16) {
+                $today->addMonthNoOverflow();
+                $today->day = 1;
+            }
+        }
+        $matchTime = DB::table('threed_match_times')
+            ->whereMonth('match_time', '=', $today->month)
+            ->whereYear('match_time', '=', $today->year)
+            ->whereDay('match_time', '=', $targetDay)
+            ->first();
+        $history = Jackpot::with(['twoDigits', 'lotteryMatch.threedMatchTime'])->orderBy('id', 'desc')->get();
+        $prize_no = JackpotWinner::whereDate('created_at', Carbon::today())->orderBy('id', 'desc')->first();
+    
+        return view('admin.jackpot.one_month_history_only_digit', compact('history', 'prize_no', 'matchTime'));
     }
 
     /**

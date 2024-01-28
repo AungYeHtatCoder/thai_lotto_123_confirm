@@ -40,50 +40,61 @@
                             </h5>
 
                         </div>
-                    <div class="ms-auto my-auto mt-lg-0 mt-4 d-flex">
-                        <div class="me-2">
-                            <a class="btn btn-outline-primary btn-sm export mb-0 mt-sm-0 mt-1"
-                                href="{{ url('/admin/jackpot-one-month-history-only-digit') }}">အသေးစိပ်ကြည့်ရန်</a>
+                       
+                        <div class="ms-auto my-auto mt-lg-0 mt-4">
+                            <div class="ms-auto my-auto">
+                                
+                                <button class="btn btn-outline-primary btn-sm export mb-0 mt-sm-0 mt-1" data-type="csv"
+                                    type="button" name="button">Export</button>
+                            </div>
                         </div>
-                        <div>
-                            <button class="btn btn-outline-primary btn-sm export mb-0 mt-sm-0 mt-1" data-type="csv"
-                                type="button" name="button">Export</button>
-                        </div>
-                    </div>
                     </div>
                 </div>
-   <div class="table-responsive">
-    <table class="table table-flush" id="twod-search">
-        <thead class="thead-light">
-            <th>#</th>
-            <th>Two Digit</th>
-            <th>Sub Amount</th>
-            <th>Prize Sent</th>
-            <th>User Name</th>
-            <th>Created At</th>
-        </thead>
-        <tbody>
-            @foreach($history as $record)
-                @foreach($record->twoDigits as $twoDigit)
-                    <tr>
-                        <td>{{ $loop->parent->index * $record->twoDigits->count() + $loop->index + 1 }}</td>
-                        <td>{{ $twoDigit->two_digit }}</td>
-                        <td>{{ $twoDigit->pivot->sub_amount }}</td>
-                        <td>
-                            @if($twoDigit->pivot->prize_sent)
-                                <span class="badge badge-success">လျော်ပြီး</span>
-                            @else
-                                <span class="badge badge-danger">မလျော်ရသေး</span>
-                            @endif
-                        </td>
-                        <td>{{ $record->user->name }}</td>
-                        <td>{{ $record->created_at }}</td>
-                    </tr>
-                @endforeach
-            @endforeach
-        </tbody>
-    </table>
-   </div>
+  
+               <div class="table-responsive">
+                <table class="table table-flush" id="twod-search">
+                 <thead class="thead-light">
+                  <th>#</th>
+                  <th>Two Digit</th>
+                  <th>Sub Amount</th>
+                  {{-- <th>Total Amount</th> --}}
+                  <th>Created At</th>
+                 </thead>
+                 <tbody>
+                  <tbody>
+                   @php
+                    $totalSubAmount = 0;
+                   @endphp
+                   @foreach($history as $record)
+                    @foreach($record->twoDigits as $twoDigit)
+                     <tr>
+                      <td>{{ $loop->parent->index * $record->twoDigits->count() + $loop->index + 1 }}</td>
+                      <td>{{ $twoDigit->two_digit }}</td>
+                      <td>{{ $twoDigit->pivot->sub_amount }}</td>
+                      @php
+                       $totalSubAmount += $twoDigit->pivot->sub_amount;
+                      @endphp
+                      <td>{{ $record->created_at }}</td>
+                     </tr>
+                    @endforeach
+                   @endforeach
+                  </tbody>
+                  </table>
+                  {{-- all total sub_amount  --}}
+                  <div class="row">
+                   <div class="col-md-12">
+                    <div class="card">
+                     <div class="card-header">
+                      <h6 class="text-center">Total Sub Amount: {{ $totalSubAmount }}</h6>
+                     </div>
+                    </div>
+                   </div>
+                  </div>
+                  
+                {{-- all total sub_amount  --}}
+                
+               </div>
+   
             </div>
         </div>
     </div>

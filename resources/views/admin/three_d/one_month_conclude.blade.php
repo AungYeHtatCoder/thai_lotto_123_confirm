@@ -33,9 +33,9 @@
                 <div class="card-header pb-0">
                     <div class="d-lg-flex">
                         <div>
-                            <h5 class="mb-0">အောက်နှစ်လုံးထီ တပါတ်အတွင်းထိုးထားသော စာရင်း  Dashboards
+                            <h5 class="mb-0">3D တလအတွင်းထိုးထားသော စာရင်း  Dashboards
                                 <span>
-                                     <h6>အောက်နှစ်လုံးထီ  Lottery Match Times for {{ Carbon\Carbon::now()->format('F Y') }}</h6>
+                                     <h6>3D  Lottery Match Times for {{ Carbon\Carbon::now()->format('F Y') }}</h6>
                                 </span>
                                 <span>
                                     <div class="ms-auto my-auto mt-lg-0 mt-4">
