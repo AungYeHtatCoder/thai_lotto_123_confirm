@@ -16,10 +16,12 @@ use App\Models\User\JackpotTwoDigit;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User\JackpotTwoDigitCopy;
 use App\Models\User\JackpotTwoDigitOver;
+use App\Traits\HttpResponses;
 use Illuminate\Support\Facades\Validator;
 
 class JackpotController extends Controller
 {
+    use HttpResponses;
     public function store(Request $request)
     {
         // Log the entire request
@@ -37,7 +39,7 @@ class JackpotController extends Controller
         ]);
         // Check for validation errors
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
+            return response()->json(['errors' => $validator->errors()], 401);
         }
         $commission_percent = Commission::latest()->first()->commission;
         DB::beginTransaction();
@@ -109,11 +111,10 @@ class JackpotController extends Controller
             }
 
             DB::commit();
-            return response()->json([
+            return $this->success([
                 'message' => 'Successfully placed bet.',
-                'status' => 'success',
                 'data' => $lottery
-            ], 201);
+            ]);
         } catch (\Exception $e) {
             DB::rollback();
             Log::error('Error in store method: ' . $e->getMessage());
@@ -127,51 +128,10 @@ class JackpotController extends Controller
 
     public function getOneMonthJackpotHistory($startDate, $endDate)
     {
-        $startDate = Carbon::createFromFormat('d-M-Y', $startDate);
-        $endDate = Carbon::createFromFormat('d-M-Y', $endDate);
-
-        $history = DB::table('jackpot_two_digit')
-            ->join('jackpots', 'jackpot_two_digit.jackpot_id', '=', 'jackpots.id')
-            ->join('two_digits', 'jackpot_two_digit.two_digit_id', '=', 'two_digits.id')
-            ->join('users', 'jackpots.user_id', '=', 'users.id')
-            ->whereBetween('jackpot_two_digit.created_at', [$startDate, $endDate])
-            ->select('jackpot_two_digit.*', 'jackpots.pay_amount', 'jackpots.total_amount', 'two_digits.two_digit', 'users.name as user_name')
-            ->orderBy('jackpot_two_digit.created_at', 'desc')
-            ->get();
-
+        $userId = auth()->id(); // Get logged in user's ID
+        $displayJackpotDigit = User::getUserOneMonthJackpotDigits($userId);
         return response()->json([
-            'success' => true,
-            'message' => 'Data retrieved successfully',
-            'data' => $history
+            'displayThreeDigits' => $displayJackpotDigit,
         ]);
     }
-
-    // public function getOneMonthJackpotHistory()
-    // {
-    //     try {
-    //         $oneMonthAgo = Carbon::now()->subMonth();
-    //         $userId = Auth::id(); // Get the authenticated user's ID
-
-    //         $history = DB::table('jackpot_two_digit')
-    //             ->join('jackpots', 'jackpot_two_digit.jackpot_id', '=', 'jackpots.id')
-    //             ->join('two_digits', 'jackpot_two_digit.two_digit_id', '=', 'two_digits.id')
-    //             ->join('users', 'jackpots.user_id', '=', 'users.id')
-    //             ->where('jackpot_two_digit.created_at', '>=', $oneMonthAgo)
-    //             ->where('jackpots.user_id', '=', $userId) // Filter by user ID
-    //             ->select('jackpot_two_digit.*', 'jackpots.pay_amount', 'jackpots.total_amount', 'two_digits.two_digit', 'users.name as user_name')
-    //             ->orderBy('jackpot_two_digit.created_at', 'desc')
-    //             ->get();
-
-    //         return response()->json([
-    //             'success' => true,
-    //             'message' => 'Data retrieved successfully',
-    //             'data' => $history
-    //         ]);
-    //     } catch (\Exception $e) {
-    //         return response()->json([
-    //             'success' => false,
-    //             'message' => 'An error occurred: ' . $e->getMessage()
-    //         ], 500);
-    //     }
-    // }
 }
