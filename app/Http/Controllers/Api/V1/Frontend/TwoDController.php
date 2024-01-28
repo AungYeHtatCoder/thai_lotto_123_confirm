@@ -65,20 +65,22 @@ class TwoDController extends Controller
         $validatedData = $validator->validated();
 
         // Currency auto exchange
-        if ($request->currency === "baht") {
+        if ($request->currency == "baht") {
             $rate = Currency::latest()->value('rate');
             $subAmount = array_sum(array_column($request->amounts, 'amount')) * $rate;
-
-            if ($subAmount > $break) {
-                return response()->json(['message' => 'Limit ပမာဏထက်ကျော်ထိုးလို့ မရပါ။'], 401);
-            }
+        }else{
+            $subAmount = array_sum(array_column($request->amounts, 'amount'));
+        }
+        
+        if ($subAmount > $break) {
+            return response()->json(['message' => 'Limit ပမာဏထက်ကျော်ထိုးလို့ မရပါ။'], 401);
         }
 
         // Determine the current session based on time
         $currentSession = date('H') < 12 ? 'morning' : 'evening';
-        if ($validatedData['totalAmount'] > $break) {
-            return response()->json(['message' => 'Total Amount is over limit'], 401);
-        }
+        // if ($validatedData['totalAmount'] > $break) {
+        //     return response()->json(['message' => 'Total Amount is over limit'], 401);
+        // }
     
         // Start database transaction
         DB::beginTransaction();
