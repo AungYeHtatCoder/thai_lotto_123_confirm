@@ -51,7 +51,7 @@
               <td class="text-sm font-weight-normal">{{ $currency->name }}</td>
               <td class="text-sm font-weight-normal">1 Baht - {{ $currency->rate }} MMK</td>
               
-              <td class="text-sm font-weight-normal">{{ $currency->created_at->format('F j, Y') ?? "" }}</td>
+              <td class="text-sm font-weight-normal">{{ optional($currency->created_at)->format('F j, Y') }}</td>
               <td>
                 <a href="{{ route('admin.currency.edit', $currency->id) }}" data-bs-toggle="tooltip" data-bs-original-title="Edit Banner"><i class="material-icons-round text-secondary position-relative text-lg">mode_edit</i></a>
                 {{-- <a href="{{ route('admin.currency.show', $currency->id) }}" data-bs-toggle="tooltip" data-bs-original-title="Preview Banner Detail">
