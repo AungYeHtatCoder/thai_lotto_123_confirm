@@ -19,7 +19,9 @@ class Jackpot extends Model
         'total_amount',
         'user_id',
         'session',
-        'jackmatch_id'
+        'jackmatch_id',
+        'comission',
+        'commission_amount',
     ];
     protected $dates = ['created_at', 'updated_at'];
 

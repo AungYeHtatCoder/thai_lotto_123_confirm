@@ -114,6 +114,30 @@
         </span>
       </a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link text-white " href="{{ url('/admin/two-d-commission') }}">
+        <i class="fas fa-coins"></i>
+        <span class="sidenav-normal  ms-2  ps-1"> 
+          2D Commission
+        </span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-white " href="{{ url('/admin/three-d-commission') }}">
+        <i class="fas fa-coins"></i>
+        <span class="sidenav-normal  ms-2  ps-1"> 
+          3D Commission
+        </span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-white " href="{{ url('/admin/jackpot-commission') }}">
+        <i class="fas fa-coins"></i>
+        <span class="sidenav-normal  ms-2  ps-1"> 
+          Jackpot Commission
+        </span>
+      </a>
+    </li>
     @endcan
     {{-- <li class="nav-item ">
       <a class="nav-link text-white " data-bs-toggle="collapse" aria-expanded="false" href="#userRequest">

@@ -18,7 +18,10 @@ class Lotto extends Model
         'total_amount',
         'user_id',
         //'session',
-        'lottery_match_id'
+        'lottery_match_id',
+        'comission',
+        'commission_amount',
+        'status',
     ];
     protected $dates = ['created_at', 'updated_at'];
 

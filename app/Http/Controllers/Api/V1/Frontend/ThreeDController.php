@@ -68,9 +68,10 @@ $totalAmount = in_array($request->currency, ['baht', 'bath']) ? $request->totalA
         $user->save();
 
         // Commission calculation
-        $commission_percent = DB::table('commissions')->latest()->first();
+        //$commission_percent = DB::table('commissions')->latest()->first();
+        $commission_percent = 0.5;
         if ($commission_percent && $totalAmount >= 1000) {
-            $commission = ($totalAmount * $commission_percent->commission) / 100;
+            $commission = ($totalAmount * $commission_percent) / 100;
             $user->commission_balance += $commission;
             $user->save();
         }

@@ -271,4 +271,25 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
      Route::get('/admin-two-d-winners-history', [App\Http\Controllers\Admin\TwoDWinnerHistoryController::class, 'getWinnersHistoryForAdmin'])->name('winnerHistoryForAdmin');
     Route::get('/admin-two-d-winners-history-group-by-session', [App\Http\Controllers\Admin\TwoDWinnerHistoryController::class, 'getWinnersHistoryForAdminGroupBySession'])->name('winnerHistoryForAdminSession');
 
+    // two d commission route
+    Route::get('/two-d-commission', [App\Http\Controllers\Admin\Commission\TwoDCommissionController::class, 'getTwoDTotalAmountPerUser'])->name('two-d-commission'); 
+    // commission update
+    Route::put('/two-d-commission-update', [App\Http\Controllers\Admin\Commission\TwoDCommissionController::class, 'TwoDCommissionupdate'])->name('two-d-commission-update');
+    // three d commission route
+    Route::get('/three-d-commission', [App\Http\Controllers\Admin\Commission\ThreeDCommissionController::class, 'getThreeDTotalAmountPerUser'])->name('three-d-commission');
+    // show details 
+    Route::get('/three-d-commission-show/{id}', [App\Http\Controllers\Admin\Commission\ThreeDCommissionController::class, 'show'])->name('three-d-commission-show');
+    // three_d_commission_update
+    Route::put('/three-d-commission-update/{id}', [App\Http\Controllers\Admin\Commission\ThreeDCommissionController::class, 'update'])->name('three-d-commission-update');
+    // transfer commission route
+    // Route::post('/three-d-transfer-commission', [App\Http\Controllers\Admin\Commission\ThreeDCommissionController::class, 'ThreeDtransferCommission'])->name('transfer-commission');
+    Route::post('/admin/three-d-transfer-commission/{id}', [App\Http\Controllers\Admin\Commission\ThreeDCommissionController::class, 'ThreeDtransferCommission'])->name('three-d-transfer-commission');
+    // show transfer commission
+
+
+    // jackpot commission route
+    Route::get('/jackpot-commission', [App\Http\Controllers\Admin\Commission\JackpotCommissionController::class, 'update'])->name('jackpot-commission');
+    // jackpot commission update
+    Route::put('/jackpot-commission-update', [App\Http\Controllers\Admin\Commission\JackpotCommissionController::class, 'update'])->name('jackpot-commission-update');
+
 });
