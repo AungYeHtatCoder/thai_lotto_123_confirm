@@ -56,116 +56,82 @@
                   <th>UserName</th>
                   <th>စုစုပေါင်းထိုးကြေး</th>
                   <th>ရနိုင်သောCommission</th>
-                  <th>Commission</th>
+                  <th>ပေးထားသောCommission</th>
                   <th>Status</th>
-                  <th>ကော်မစ်ရှင်းသတ်မှတ်ရန်</th>
-                  <th>update</th>
-                  <th>ကော်မစ်ရှင်းပေးရန်</th>
+                 <th>TransferCommission</th>
                  </thead>
                  <tbody>
-                  @foreach($totalAmounts as $index => $totalAmount)
-                   <tr>
-                    {{-- <td>{{ $index + 1 }}</td> --}}
-                    <td>{{ $totalAmount->id }}</td>
-                    <td>{{ $totalAmount->name }}</td>
-                    <td>{{ $totalAmount->total_amount }}</td>
+                  <tr>
+                   <td>{!! $lotto->id !!}</td>
+                   <td>{!! $lotto->user->name !!}</td>
+                   <td>{!! $lotto->total_amount !!}</td>
+                   <td>
+                     @php
+                        $commission = ($lotto->total_amount * $lotto->comission) / 100;
+                     @endphp
+                     {!! $commission !!}
+                 
+                   </td>
+                   <td>
+                        {!! $lotto->commission_amount !!}
+                   </td>
+                   
+                   <div class="row">
                     <td>
-                         @php
-                        $commission = ($totalAmount->total_amount * $totalAmount->comission) / 100;
-                        @endphp
-                            
-                            {{ $commission }}
-                    </td>
-                    <td>
-                        {{ $totalAmount->commission_amount }}            
-                    </td> 
-                    <td>
-                        @if($totalAmount->status == 'pending')
+                    <div class="col-md-6">
+                      @if($lotto->status == 'pending')
                             <span class="badge badge-warning">ကော်မစ်ရှင်းမပေးရသေးပါ</span>
-                        @elseif($totalAmount->status == 'approved')
+                        @elseif($lotto->status == 'approved')
                             <span class="badge badge-success">ကော်မစ်ရှင်းပေးပြီးပါပြီ</span>
                         @else
                             <span class="badge badge-danger">ကော်မစ်ရှင်းမပေးပါ</span>
                         @endif
+                    </div>
                     </td>
-                   
-                    <td>
-                        <input type="number" step="0.01" class="form-control commission-input border border-primary" placeholder="Enter Commission">
-                        @php
-                        $commission = ($totalAmount->total_amount * $totalAmount->comission) / 100;
-                        @endphp
-                        <input type="hidden" value="{{ $commission }}" class="commission-amount-input">
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn-primary btn-sm w-100 update-commission" data-lotto-id="{{ $totalAmount->id }}">
-                            <i class="material-icons" style="font-size: 24px;">update</i>
-                        </button>
-                    </td>
-                    <td>
-                    <a href="{{ route('admin.two-d-commission-show', $totalAmount->id) }}" class="btn btn-primary btn-sm">Transfer</a>
-                    </td> 
-                   </tr>
-                  @endforeach
+                     <td>
+
+                    <div class="col-md-6">
+                    <form action="{{ route('admin.two-d-transfer-commission', $lotto->id) }}" method="POST">
+                    @csrf
+                    @method('POST')
+                    <input type="hidden" name="lotto_id" value="{{ $lotto->id }}">
+                    <input type="hidden" name="commission_amount" value="{!! $lotto->commission_amount !!}">
+                    <button type="submit" class="btn btn-primary btn-sm w-100">
+                     <i class="material-icons" style="font-size: 10px;">update</i>TransferCommission
+                    </button>
+                   </form>
+                    </div>
+                   </td>
+                   </div>
+                  </tr>
                  </tbody>
                 </table>
                </div>
    
             </div>
+
         </div>
+
     </div>
+    
 @endsection
 @section('scripts')
     <script src="{{ asset('admin_app/assets/js/plugins/datatables.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
-    <script>
-        $(document).ready(function(){
-    $('.update-commission').click(function(){
-        var lottoId = $(this).data('lotto-id'); // Get the data-lotto-id attribute value
-        var commissionValue = $(this).closest('tr').find('.commission-input').val(); // Get the commission value from the input field
-        var commissionAmountValue = $(this).closest('tr').find('.commission-amount-input').val(); // Get the commission value from the input field
-        var statusValue = 'approved';
-
-        $.ajax({
-            url: "/admin/two-d-commission-update/" + lottoId, // Update with your actual path
-            type: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                'X-HTTP-Method-Override': 'PUT' // For overriding the POST method to PUT.
-            },
-            data: {
-                'commission': commissionValue,
-                'commission_amount': commissionAmountValue,
-                'status': 'approved'
-            },
-            success: function(response) {
-                // Handle the response from the server with SweetAlert
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success!',
-                    text: 'Commission updated successfully!',
-                    showConfirmButton: false,
-                    timer: 3000
-                }).then(function() {
-                    // Optional: You can refresh the page or make any UI updates here
-                    location.reload(); // For instance, this would refresh the page
-                });
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                // Handle any errors with SweetAlert
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Failed to update commission: ' + errorThrown,
-                });
-            }
-        });
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    @if(session('success'))
+    Swal.fire({
+      icon: 'success',
+      title: 'Success!',
+      text: '{{ session('success') }}', // Make sure the session key is 'success'
+      timer: 3000,
+      showConfirmButton: false
     });
-});
-
-
+    @endif
+  });
 </script>
-
 
     <script>
         if (document.getElementById('twod-search')) {
@@ -193,7 +159,34 @@
             });
         };
     </script>
-   
+    {{-- <script>
+$(document).ready(function(){
+    $('.update-commission').click(function(){
+        var lottoId = $(this).data('lotto-id'); // Get the data-lotto-id attribute value
+        var commissionValue = $(this).closest('tr').find('input[name="commission"]').val(); // Get the commission value from the input field
+
+        $.ajax({
+            url: "{{ url('admin/three-d-commission-update') }}/" + lottoId, // Update with your actual path
+            type: 'PUT',
+            data: {
+                '_token': '{{ csrf_token() }}',
+                'commission': commissionValue,
+                'lotto_id': lottoId // If your route or controller requires the lotto_id to be sent explicitly
+            },
+            success: function(response) {
+                // Handle the response from the server
+                alert('Commission updated successfully!');
+                // You might want to update the UI to reflect the new commission value
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                // Handle any errors
+                alert('Failed to update commission: ' + errorThrown);
+            }
+        });
+    });
+});
+</script> --}}
+
     <script>
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
         var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {

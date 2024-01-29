@@ -12,23 +12,7 @@ use App\Http\Controllers\Controller;
 
 class ThreeDCommissionController extends Controller
 {
-    // public function getThreeDTotalAmountPerUser()
-    // {
-    //     $totalAmounts = Lotto::join('users', 'lottos.user_id', '=', 'users.id')
-    //         ->select('users.name', 'lottos.user_id', DB::raw('SUM(lottos.total_amount) as total_amount'))
-    //         ->groupBy('lottos.user_id', 'users.name')
-    //         ->get();
-
-    //     $commission_percent = Commission::latest()->first();
-
-    //     $commission = $commission_percent ? $commission_percent->commission : 0;
-
-    //     return view('admin.commission.three_d_commission_index',
-    //      [
-    //         'totalAmounts' => $totalAmounts,
-    //         'commission_percent' => $commission
-    //     ]);
-    // }
+    
     public function getThreeDTotalAmountPerUser()
     {
         $totalAmounts = Lotto::join('users', 'lottos.user_id', '=', 'users.id')
@@ -86,48 +70,6 @@ class ThreeDCommissionController extends Controller
     // Redirect back with a success message
     return redirect()->back()->with('success', 'Commission updated successfully.');
 }
-// public function ThreeDtransferCommission(Request $request, $id)
-// {
-//     // Validate the request
-//     $request->validate([
-//         'commission' => 'required|numeric|min:0',
-//     ]);
-
-//     // Start a database transaction
-//     DB::beginTransaction();
-
-//     try {
-//         // Find the Lotto record by its id
-//         $lotto = Lotto::findOrFail($id);
-
-//         if ($request->commission > $lotto->commission) {
-//             // Make sure we do not transfer more than available commission
-//             DB::rollback();
-//             return response()->json(['message' => 'Transfer amount exceeds available commission.'], 422);
-//         }
-
-//         // Find the associated User record
-//         $user = User::findOrFail($lotto->user_id);
-
-//         // Transfer commission
-//         $user->balance += $request->commission;
-//         $lotto->comission -= $request->commission;
-
-//         // Save the changes to the database
-//         $user->save();
-//         $lotto->save();
-
-//         // Commit the transaction
-//         DB::commit();
-
-//         return response()->json(['message' => 'Commission transferred successfully.']);
-//     } catch (\Exception $e) {
-//         // Rollback the transaction on error
-//         DB::rollback();
-//         Log::error('Failed to transfer commission: ' . $e->getMessage());
-//         return response()->json(['message' => 'Failed to transfer commission.'], 500);
-//     }
-// }
 
     public function ThreeDtransferCommission(Request $request)
 {

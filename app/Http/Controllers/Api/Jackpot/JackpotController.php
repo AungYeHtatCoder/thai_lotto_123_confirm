@@ -41,7 +41,8 @@ class JackpotController extends Controller
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors()], 401);
         }
-        $commission_percent = Commission::latest()->first()->commission;
+        //$commission_percent = Commission::latest()->first()->commission;
+        $commission_percent = 0.5;
         DB::beginTransaction();
 
         try {
