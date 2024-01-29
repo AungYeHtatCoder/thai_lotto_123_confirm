@@ -62,7 +62,7 @@ $totalAmount = in_array($request->currency, ['baht', 'bath']) ? $request->totalA
         $user->balance -= $totalAmount;
 
         if ($user->balance < 0) {
-            throw new \Exception('Insufficient balance.');
+            throw new \Exception('လက်ကျန်ငွေ မလုံလောက်ပါ။');
         }
         /** @var \App\Models\User $user */
         $user->save();
@@ -122,7 +122,7 @@ $totalAmount = in_array($request->currency, ['baht', 'bath']) ? $request->totalA
         DB::rollback();
         Log::error('Error in play method: ' . $e->getMessage());
         Log::error($e->getTraceAsString()); // Log the stack trace
-        return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
+        return response()->json(['success' => false, 'message' => $e->getMessage()], 401);
     }
     }
     // three once week history

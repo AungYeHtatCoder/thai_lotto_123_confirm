@@ -26,7 +26,7 @@ class AuthController extends Controller
                 'token' => $user->createToken('Api Token of '. $user->name)->plainTextToken
             ], "Logged In Successfully.");
         } else {
-            return $this->error("", "Credentials do not match!", 401);
+            return $this->error("", "ဖုန်းနံပါတ်(သို့)လျို့ဝှက်နံပါတ် မှားယွင်းနေပါသည်။", 401);
         }
     }
 

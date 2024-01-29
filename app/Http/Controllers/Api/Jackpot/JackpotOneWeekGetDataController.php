@@ -65,9 +65,8 @@ class JackpotOneWeekGetDataController extends Controller
         ], 200);
     } catch (\Exception $e) {
         return response()->json([
-            'success' => false,
-            'message' => 'An error occurred while fetching data: ' . $e->getMessage()
-        ], 500);
+            'message' => $e->getMessage()
+        ], 401);
     }
 }
 }

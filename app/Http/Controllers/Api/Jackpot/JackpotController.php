@@ -35,28 +35,39 @@ class JackpotController extends Controller
             'totalAmount' => 'required|numeric|min:1',
             'amounts' => 'required|array',
             'amounts.*.num' => 'required|integer',
-            'amounts.*.amount' => 'required|integer|min:1|max:'.$limitAmount,
+            'amounts.*.amount' => 'required|integer|min:1',
         ]);
         // Check for validation errors
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 401);
+            return response()->json(['message' => $validator->errors()], 401);
         }
         $commission_percent = Commission::latest()->first()->commission;
         DB::beginTransaction();
 
         try {
             $rate = Currency::latest()->first()->rate;
+            //total_amount
             if($request->currency == 'baht'){
                 $totalAmount = $request->totalAmount * $rate;
             }else{
                 $totalAmount = $request->totalAmount;
+            }
+            //sub_amount
+            if ($request->currency == "baht") {
+                $subAmount = array_sum(array_column($request->amounts, 'amount')) * $rate;
+            }else{
+                $subAmount = array_sum(array_column($request->amounts, 'amount'));
+            }
+            
+            if ($subAmount > $limitAmount) {
+                return response()->json(['message' => 'Limit ပမာဏထက်ကျော်ထိုးလို့ မရပါ။'], 401);
             }
 
             $user = Auth::user();
             $user->balance -= $totalAmount;
 
             if ($user->balance < 0) {
-                throw new \Exception('Insufficient balance.');
+                throw new \Exception('လက်ကျန်ငွေ မလုံလောက်ပါ။');
             }
             /** @var \App\Models\User $user */
             $user->save();
@@ -120,13 +131,11 @@ class JackpotController extends Controller
             Log::error('Error in store method: ' . $e->getMessage());
 
             // Return an error response
-            return response()->json(['error' => 'An error occurred while placing the bet: ' . $e->getMessage()], 500);
+            return response()->json(['message' => $e->getMessage()], 401);
         }
     }
 
-   
-
-    public function getOneMonthJackpotHistory($startDate, $endDate)
+    public function OnceMonthJackpotHistory()
     {
         $userId = auth()->id(); // Get logged in user's ID
         $displayJackpotDigit = User::getUserOneMonthJackpotDigits($userId);
@@ -134,4 +143,54 @@ class JackpotController extends Controller
             'displayThreeDigits' => $displayJackpotDigit,
         ]);
     }
+
+    public function getOneMonthJackpotHistory($startDate, $endDate)
+    {
+        $startDate = Carbon::createFromFormat('d-M-Y', $startDate);
+        $endDate = Carbon::createFromFormat('d-M-Y', $endDate);
+
+        $history = DB::table('jackpot_two_digit')
+            ->join('jackpots', 'jackpot_two_digit.jackpot_id', '=', 'jackpots.id')
+            ->join('two_digits', 'jackpot_two_digit.two_digit_id', '=', 'two_digits.id')
+            ->join('users', 'jackpots.user_id', '=', 'users.id')
+            ->whereBetween('jackpot_two_digit.created_at', [$startDate, $endDate])
+            ->select('jackpot_two_digit.*', 'jackpots.pay_amount', 'jackpots.total_amount', 'two_digits.two_digit', 'users.name as user_name')
+            ->orderBy('jackpot_two_digit.created_at', 'desc')
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data retrieved successfully',
+            'data' => $history
+        ]);
+    }
+
+    // public function getOneMonthJackpotHistory()
+    // {
+    //     try {
+    //         $oneMonthAgo = Carbon::now()->subMonth();
+    //         $userId = Auth::id(); // Get the authenticated user's ID
+
+    //         $history = DB::table('jackpot_two_digit')
+    //             ->join('jackpots', 'jackpot_two_digit.jackpot_id', '=', 'jackpots.id')
+    //             ->join('two_digits', 'jackpot_two_digit.two_digit_id', '=', 'two_digits.id')
+    //             ->join('users', 'jackpots.user_id', '=', 'users.id')
+    //             ->where('jackpot_two_digit.created_at', '>=', $oneMonthAgo)
+    //             ->where('jackpots.user_id', '=', $userId) // Filter by user ID
+    //             ->select('jackpot_two_digit.*', 'jackpots.pay_amount', 'jackpots.total_amount', 'two_digits.two_digit', 'users.name as user_name')
+    //             ->orderBy('jackpot_two_digit.created_at', 'desc')
+    //             ->get();
+
+    //         return response()->json([
+    //             'success' => true,
+    //             'message' => 'Data retrieved successfully',
+    //             'data' => $history
+    //         ]);
+    //     } catch (\Exception $e) {
+    //         return response()->json([
+    //             'success' => false,
+    //             'message' => 'An error occurred: ' . $e->getMessage()
+    //         ], 500);
+    //     }
+    // }
 }
