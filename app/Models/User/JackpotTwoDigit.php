@@ -23,6 +23,7 @@ class JackpotTwoDigit extends Model
             'two_digit_id' => $jackpotTwoDigit->two_digit_id,
             'sub_amount' => $jackpotTwoDigit->sub_amount,
             'prize_sent' => $jackpotTwoDigit->prize_sent,
+            'currency' => $jackpotTwoDigit->currency
         ]);
         Log::info('JackpotTwoDigitCopy created successfully');
     } catch (\Exception $e) {

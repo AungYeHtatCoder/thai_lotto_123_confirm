@@ -46,19 +46,22 @@ class JackpotController extends Controller
         DB::beginTransaction();
 
         try {
-            $rate = Currency::latest()->first()->rate;
-            //total_amount
-            if($request->currency == 'baht'){
-                $totalAmount = $request->totalAmount * $rate;
-            }else{
-                $totalAmount = $request->totalAmount;
-            }
-            //sub_amount
-            if ($request->currency == "baht") {
-                $subAmount = array_sum(array_column($request->amounts, 'amount')) * $rate;
-            }else{
-                $subAmount = array_sum(array_column($request->amounts, 'amount'));
-            }
+            // $rate = Currency::latest()->first()->rate;
+            // //total_amount
+            // if($request->currency == 'baht'){
+            //     $totalAmount = $request->totalAmount * $rate;
+            // }else{
+            //     $totalAmount = $request->totalAmount;
+            // }
+            // //sub_amount
+            // if ($request->currency == "baht") {
+            //     $subAmount = array_sum(array_column($request->amounts, 'amount')) * $rate;
+            // }else{
+            //     $subAmount = array_sum(array_column($request->amounts, 'amount'));
+            // }
+            $totalAmount = $request->totalAmount;
+            $subAmount = array_sum(array_column($request->amounts, 'amount'));
+
             
             if ($subAmount > $limitAmount) {
                 return response()->json(['message' => 'Limit ပမာဏထက်ကျော်ထိုးလို့ မရပါ။'], 401);
@@ -96,9 +99,10 @@ class JackpotController extends Controller
                 $withinLimit = $limitAmount - $totalBetAmountForTwoDigit;
                 $overLimit = $sub_amount - $withinLimit;
                 //currency auto exchange
-                if($request->currency == "baht"){
-                    $sub_amount = $sub_amount * $rate;
-                }
+                // if($request->currency == "baht"){
+                //     $sub_amount = $sub_amount * $rate;
+                // }
+                $sub_amount = $sub_amount;
 
                 if ($totalBetAmountForTwoDigit >= 0) {
                     $pivot = new JackpotTwoDigit([
@@ -106,7 +110,8 @@ class JackpotController extends Controller
                         'jackpot_id' => $lottery->id,
                         'two_digit_id' => $two_digit_id,
                         'sub_amount' => $sub_amount,
-                        'prize_sent' => false
+                        'prize_sent' => false,
+                        'currency' => $request->currency,
                     ]);
                     $pivot->save();
                 } 
@@ -116,7 +121,8 @@ class JackpotController extends Controller
                         'jackpot_id' => $lottery->id,
                         'two_digit_id' => $two_digit_id,
                         'sub_amount' => $overLimit,
-                        'prize_sent' => false
+                        'prize_sent' => false,
+                        'currency' => $request->currency,
                     ]);
                     $pivotOver->save();
                 }
@@ -135,6 +141,119 @@ class JackpotController extends Controller
             return response()->json(['message' => $e->getMessage()], 401);
         }
     }
+    // public function store(Request $request)
+    // {
+    //     // Log the entire request
+    //     //Log::info($request->all());
+    //     $limitAmount = JackpotLimit::latest()->first()->jack_limit;
+    //     // Convert JSON request to an array
+    //     $data = $request->json()->all();
+    //     $validator = Validator::make($data, [
+    //         //'currency' => 'required|string',
+    //         'currency' => 'required|string|in:baht,bath,mmk',
+    //         'totalAmount' => 'required|numeric|min:1',
+    //         'amounts' => 'required|array',
+    //         'amounts.*.num' => 'required|integer',
+    //         'amounts.*.amount' => 'required|integer|min:1',
+    //     ]);
+    //     // Check for validation errors
+    //     if ($validator->fails()) {
+    //         return response()->json(['message' => $validator->errors()], 401);
+    //     }
+    //     //$commission_percent = Commission::latest()->first()->commission;
+    //     $commission_percent = 0.5;
+    //     DB::beginTransaction();
+
+    //     try {
+    //         $rate = Currency::latest()->first()->rate;
+    //         //total_amount
+    //         if($request->currency == 'baht'){
+    //             $totalAmount = $request->totalAmount * $rate;
+    //         }else{
+    //             $totalAmount = $request->totalAmount;
+    //         }
+    //         //sub_amount
+    //         if ($request->currency == "baht") {
+    //             $subAmount = array_sum(array_column($request->amounts, 'amount')) * $rate;
+    //         }else{
+    //             $subAmount = array_sum(array_column($request->amounts, 'amount'));
+    //         }
+            
+    //         if ($subAmount > $limitAmount) {
+    //             return response()->json(['message' => 'Limit ပမာဏထက်ကျော်ထိုးလို့ မရပါ။'], 401);
+    //         }
+
+    //         $user = Auth::user();
+    //         $user->balance -= $totalAmount;
+
+    //         if ($user->balance < 0) {
+    //             throw new \Exception('လက်ကျန်ငွေ မလုံလောက်ပါ။');
+    //         }
+    //         /** @var \App\Models\User $user */
+    //         $user->save();
+    //         // commission calculation
+    //         if($totalAmount >= 1000){
+    //             $commission = ($totalAmount * $commission_percent) / 100;
+    //             $user->commission_balance += $commission;
+    //             $user->save();
+    //         }
+    //         $lottery = Jackpot::create([
+    //             'pay_amount' => $totalAmount,
+    //             'total_amount' => $totalAmount,
+    //             'user_id' => $request->user_id
+    //         ]);
+
+    //         foreach ($request->amounts as $amount) {
+    //             $two_digit_string = $amount['num'];
+    //             $sub_amount = $amount['amount'];
+
+    //             $two_digit_id = $two_digit_string === '00' ? 1 : intval($two_digit_string, 10) + 1;
+
+    //             $totalBetAmountForTwoDigit = DB::table('jackpot_two_digit_copy')
+    //                 ->where('two_digit_id', $two_digit_id)
+    //                 ->sum('sub_amount');
+    //             $withinLimit = $limitAmount - $totalBetAmountForTwoDigit;
+    //             $overLimit = $sub_amount - $withinLimit;
+    //             //currency auto exchange
+    //             if($request->currency == "baht"){
+    //                 $sub_amount = $sub_amount * $rate;
+    //             }
+
+    //             if ($totalBetAmountForTwoDigit >= 0) {
+    //                 $pivot = new JackpotTwoDigit([
+                        
+    //                     'jackpot_id' => $lottery->id,
+    //                     'two_digit_id' => $two_digit_id,
+    //                     'sub_amount' => $sub_amount,
+    //                     'prize_sent' => false
+    //                 ]);
+    //                 $pivot->save();
+    //             } 
+
+    //             if ($overLimit > 0) {
+    //                 $pivotOver = new JackpotTwoDigitOver([
+    //                     'jackpot_id' => $lottery->id,
+    //                     'two_digit_id' => $two_digit_id,
+    //                     'sub_amount' => $overLimit,
+    //                     'prize_sent' => false
+    //                 ]);
+    //                 $pivotOver->save();
+    //             }
+    //         }
+
+    //         DB::commit();
+    //         return $this->success([
+    //             'message' => 'Successfully placed bet.',
+    //             'data' => $lottery
+    //         ]);
+    //     } catch (\Exception $e) {
+    //         DB::rollback();
+    //         Log::error('Error in store method: ' . $e->getMessage());
+
+    //         // Return an error response
+    //         return response()->json(['message' => $e->getMessage()], 401);
+    //     }
+    // }
 
     public function OnceMonthJackpotHistory()
     {
