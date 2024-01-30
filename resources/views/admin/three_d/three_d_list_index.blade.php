@@ -91,6 +91,18 @@
                                   Amount &nbsp; &nbsp; - {{ $threeDigit->pivot->sub_amount }} || &nbsp; &nbsp;</span>
                              </button>
                          </li>
+                         <li>
+                            @php 
+                            $bath = $threeDigit->pivot->sub_amount;
+                            $rate = $currency->rate;
+                            $sub_rate = $bath * $rate;
+                            @endphp
+                            <span class="badge badge-pill badge-lg bg-gradient-success table-font-myanmar">
+                                {{ $sub_rate }} Bath
+                            </span>
+                    
+                         </li>
+                         
                      @endforeach
                  </ul>
              </td>

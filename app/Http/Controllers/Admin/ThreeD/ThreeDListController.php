@@ -8,6 +8,7 @@ use App\Models\ThreeDigit\Lotto;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Currency;
 use App\Models\ThreeDigit\ThreeWinner;
 
 class ThreeDListController extends Controller
@@ -31,9 +32,11 @@ class ThreeDListController extends Controller
             ->whereDay('match_time', '=', $targetDay)
             ->first();
         $lotteries = Lotto::with(['DisplayThreeDigits', 'lotteryMatch.threedMatchTime'])->orderBy('id', 'desc')->get();
+        // currency latest first 
+        $currency = Currency::latest()->orderBy('id', 'desc')->first();
         $prize_no = ThreeWinner::whereDate('created_at', Carbon::today())->orderBy('id', 'desc')->first();
     
-        return view('admin.three_d.three_d_list_index', compact('lotteries', 'prize_no', 'matchTime'));
+        return view('admin.three_d.three_d_list_index', compact('lotteries', 'prize_no', 'matchTime', 'currency'));
     }
     
     public function show(string $id)
