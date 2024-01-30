@@ -9,6 +9,6 @@ class LotteryOverLimitCopy extends Model
 {
     use HasFactory;
     protected $table = 'lottery_over_limit_copy';
-    protected $fillable = ['lottery_id', 'two_digit_id', 'sub_amount', 'prize_sent'];
+    protected $fillable = ['lottery_id', 'two_digit_id', 'sub_amount', 'prize_sent', 'currency'];
      
 }

@@ -10,6 +10,6 @@ class JackpotTwoDigitCopy extends Model
 {
     use HasFactory;
     protected $table = 'jackpot_two_digit_copy';
-    protected $fillable = ['jackpot_id', 'two_digit_id', 'sub_amount', 'prize_sent'];
+    protected $fillable = ['jackpot_id', 'two_digit_id', 'sub_amount', 'prize_sent', 'currency'];
     
 }

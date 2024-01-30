@@ -18,6 +18,7 @@ return new class extends Migration
             //$table->string('digit_entry', 3); 
             $table->integer('sub_amount')->default(0);
             $table->boolean('prize_sent')->default(false);
+            $table->string('currency')->default('N/A');
             // $table->foreign('three_digit_id')->references('id')->on('three_digits')->onDelete('cascade');
             $table->foreign('lotto_id')->references('id')->on('lottos')->onDelete('cascade');
             $table->timestamps();

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('sub_amount')->default(0);
             //prize_sent 
             $table->boolean('prize_sent')->default(false);
+            $table->string('currency')->default('N/A');
             $table->foreign('jackpot_id')->references('id')->on('jackpots')->onDelete('cascade');
             $table->foreign('two_digit_id')->references('id')->on('two_digits')->onDelete('cascade');
             $table->timestamps();
