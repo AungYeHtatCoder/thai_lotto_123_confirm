@@ -69,6 +69,7 @@ class AuthController extends Controller
             'phone' => $request->phone,
             'password' => Hash::make($request->password),
         ]);
+        $user->roles()->sync([4]);
         Auth::login($user);
         return redirect()->route('home')->with('success', 'Registration successful');
     }

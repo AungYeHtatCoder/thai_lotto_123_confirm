@@ -42,8 +42,9 @@ class UsersController extends Controller
     public function store(Request $request)
 {
     $user = User::create([
+        'country_code' => '+95',
         'name' => $request->name,
-        'email' => $request->email,
+        'phone' => $request->phone,
         'password' => Hash::make($request->password),
     ]);
 
@@ -51,7 +52,8 @@ class UsersController extends Controller
     $user->roles()->sync($request->input('roles', []));
 
     // Return a JSON response
-    return response()->json(['message' => 'User created successfully'], 200);
+    //return response()->json(['message' => 'User created successfully'], 200);
+    return redirect()->route('admin.users.index')->with('toast_success', 'User created successfully');
 }
 
     // public function store(Request $request)
