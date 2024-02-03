@@ -36,12 +36,10 @@ class ThreeDController extends Controller
             'break', $break
         ]);
     }
-
-    public function play(Request $request)
+    //  limit version
+     public function play(Request $request)
 {
     Log::info($request->all());
-    $rate = Currency::latest()->first()->rate;
-    Log::info('Currency rate: ' . $rate);
 
     $validated = $request->validate([
         'currency' => 'required|string|in:baht,bath,mmk',
@@ -51,8 +49,11 @@ class ThreeDController extends Controller
         'amounts.*.amount' => 'required|integer|min:1',
     ]);
 
+    // Convert total amount based on currency
+//    $totalAmount = $request->currency === 'baht' ? $request->totalAmount * $rate : $request->totalAmount;
     $totalAmount = $request->totalAmount;
-    DB::beginTransaction(); 
+
+    DB::beginTransaction();
 
     try {
         $user = Auth::user();
@@ -64,6 +65,8 @@ class ThreeDController extends Controller
         /** @var \App\Models\User $user */
         $user->save();
 
+        // Commission calculation
+        //$commission_percent = DB::table('commissions')->latest()->first();
         $commission_percent = 0.5;
         if ($commission_percent && $totalAmount >= 1000) {
             $commission = ($totalAmount * $commission_percent) / 100;
@@ -76,47 +79,64 @@ class ThreeDController extends Controller
             'user_id' => $user->id,
         ]);
 
-        foreach ($request->amounts as $amountInfo) {
-            $num = str_pad($amountInfo['num'], 3, '0', STR_PAD_LEFT);
-            $sub_amount = $amountInfo['amount'];
+        $overLimitAmounts = [];
+        foreach ($request->amounts as $item) {
+            $num = str_pad($item['num'], 3, '0', STR_PAD_LEFT);
+            $sub_amount = $item['amount'];
             $three_digit = ThreeDigit::where('three_digit', $num)->firstOrFail();
-
-            LotteryThreeDigitPivot::create([
-                'lotto_id' => $lottery->id,
-                'three_digit_id' => $three_digit->id,
-                'sub_amount' => $sub_amount,
-                'prize_sent' => false,
-                'currency' => $request->currency,
-            ]);
-
             $break = ThreeDDLimit::latest()->first()->three_d_limit;
             $totalBetAmount = DB::table('lotto_three_digit_copy')
                                ->where('three_digit_id', $three_digit->id)
                                ->sum('sub_amount');
-            $overLimit = $totalBetAmount + $sub_amount - $break;
-
-            if ($overLimit > 0) {
-                ThreeDigitOverLimit::create([
+            if ($totalBetAmount + $sub_amount <= $break) {
+                $pivot = new LotteryThreeDigitPivot([
                     'lotto_id' => $lottery->id,
                     'three_digit_id' => $three_digit->id,
-                    'sub_amount' => $overLimit,
+                    'sub_amount' => $sub_amount,
                     'prize_sent' => false,
                     'currency' => $request->currency,
                 ]);
-            }
-        }
+                $pivot->save();
+            } else {
+                $withinLimit = $break - $totalBetAmount;
+                $overLimit = $sub_amount - $withinLimit;
 
+                if ($withinLimit > 0) {
+                    $pivotWithin = new LotteryThreeDigitPivot([
+                        'lotto_id' => $lottery->id,
+                        'three_digit_id' => $three_digit->id,
+                        'sub_amount' => $withinLimit,
+                        'prize_sent' => false,
+                        'currency' => $request->currency,
+                    ]);
+                    $pivotWithin->save();
+                     $overLimitAmounts[] = [
+            'num' => $num,
+            'amount' => $overLimit,
+        ];
+                }
+            }
+            
+        }
+        if(!empty($overLimitAmounts)){
+                    return response()->json([
+                        'overLimitAmounts' => $overLimitAmounts,
+                        'message' => 'သတ်မှတ်ထားသော ထိုးငွေပမာဏ ထက်ကျော်လွန်နေပါသည်။'
+                    ], 401);
+                }
+        
         DB::commit();
         return $this->success([
             'message' => 'Bet placed successfully.'
         ]);
     } catch (\Exception $e) {
         DB::rollback();
-        Log::error('Error in store method: ' . $e->getMessage());
-        return redirect()->back()->with('error', $e->getMessage());
+        Log::error('Error in play method: ' . $e->getMessage());
+        Log::error($e->getTraceAsString()); // Log the stack trace
+        return response()->json(['success' => false, 'message' => $e->getMessage()], 401);
     }
-}
-
+    }
+    // over limit version 
 //     public function play(Request $request)
 // {
 //     Log::info($request->all());
@@ -131,11 +151,8 @@ class ThreeDController extends Controller
 //         'amounts.*.amount' => 'required|integer|min:1',
 //     ]);
 
-//     // Convert total amount based on currency
-// //    $totalAmount = $request->currency === 'baht' ? $request->totalAmount * $rate : $request->totalAmount;
-// $totalAmount = in_array($request->currency, ['baht', 'bath']) ? $request->totalAmount * $rate : $request->totalAmount;
-
-//     DB::beginTransaction();
+//     $totalAmount = $request->totalAmount;
+//     DB::beginTransaction(); 
 
 //     try {
 //         $user = Auth::user();
@@ -147,8 +164,6 @@ class ThreeDController extends Controller
 //         /** @var \App\Models\User $user */
 //         $user->save();
 
-//         // Commission calculation
-//         //$commission_percent = DB::table('commissions')->latest()->first();
 //         $commission_percent = 0.5;
 //         if ($commission_percent && $totalAmount >= 1000) {
 //             $commission = ($totalAmount * $commission_percent) / 100;
@@ -161,35 +176,32 @@ class ThreeDController extends Controller
 //             'user_id' => $user->id,
 //         ]);
 
-//         foreach ($request->amounts as $item) {
-//             $num = str_pad($item['num'], 3, '0', STR_PAD_LEFT);
-//             // $sub_amount = $request->currency === 'baht' ? $item['amount'] * $rate : $item['amount'];
-//             $sub_amount = in_array($request->currency, ['baht', 'bath']) ? $item['amount'] * $rate : $item['amount'];
-            
+//         foreach ($request->amounts as $amountInfo) {
+//             $num = str_pad($amountInfo['num'], 3, '0', STR_PAD_LEFT);
+//             $sub_amount = $amountInfo['amount'];
 //             $three_digit = ThreeDigit::where('three_digit', $num)->firstOrFail();
 
-//             // Store every bet in the LotteryThreeDigitPivot model
 //             LotteryThreeDigitPivot::create([
 //                 'lotto_id' => $lottery->id,
 //                 'three_digit_id' => $three_digit->id,
 //                 'sub_amount' => $sub_amount,
-//                 'prize_sent' => false
+//                 'prize_sent' => false,
+//                 'currency' => $request->currency,
 //             ]);
 
-//             // Check if the bet is over the limit
 //             $break = ThreeDDLimit::latest()->first()->three_d_limit;
 //             $totalBetAmount = DB::table('lotto_three_digit_copy')
 //                                ->where('three_digit_id', $three_digit->id)
 //                                ->sum('sub_amount');
 //             $overLimit = $totalBetAmount + $sub_amount - $break;
 
-//             // Store only the over-limit amount in the ThreeDigitOverLimit model
 //             if ($overLimit > 0) {
 //                 ThreeDigitOverLimit::create([
 //                     'lotto_id' => $lottery->id,
 //                     'three_digit_id' => $three_digit->id,
 //                     'sub_amount' => $overLimit,
-//                     'prize_sent' => false
+//                     'prize_sent' => false,
+//                     'currency' => $request->currency,
 //                 ]);
 //             }
 //         }
@@ -200,11 +212,12 @@ class ThreeDController extends Controller
 //         ]);
 //     } catch (\Exception $e) {
 //         DB::rollback();
-//         Log::error('Error in play method: ' . $e->getMessage());
-//         Log::error($e->getTraceAsString()); // Log the stack trace
-//         return response()->json(['success' => false, 'message' => $e->getMessage()], 401);
+//         Log::error('Error in store method: ' . $e->getMessage());
+//         return redirect()->back()->with('error', $e->getMessage());
 //     }
-//     }
+// }
+
+
     // three once week history
      public function OnceWeekThreedigitHistoryConclude()
     {
