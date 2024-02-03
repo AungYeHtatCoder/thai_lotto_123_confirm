@@ -14,11 +14,24 @@ class TwoDCommissionController extends Controller
 {
    public function getTwoDTotalAmountPerUser()
     {
-        $totalAmounts = Lottery::join('users', 'lotteries.user_id', '=', 'users.id')
-            ->select('users.name', 'lotteries.user_id', 'lotteries.id', 'lotteries.comission', 'lotteries.commission_amount', 'lotteries.status', DB::raw('SUM(lotteries.total_amount) as total_amount'))
-            ->groupBy('lotteries.user_id', 'users.name', 'lotteries.id', 'lotteries.comission', 'lotteries.commission_amount', 'lotteries.status')
-            ->get();
-
+        // $totalAmounts = Lottery::join('users', 'lotteries.user_id', '=', 'users.id')
+        //     ->select('users.name', 'lotteries.user_id', 'lotteries.id', 'lotteries.comission', 'lotteries.commission_amount', 'lotteries.status', DB::raw('SUM(lotteries.total_amount) as total_amount'))
+        //     ->groupBy('lotteries.user_id')
+        //     ->get();
+    
+    $totalAmounts = Lottery::join('users', 'lotteries.user_id', '=', 'users.id')
+        ->select([
+            DB::raw('MAX(users.name) as name'),
+            DB::raw('MAX(users.phone) as phone'),
+            DB::raw('MAX(lotteries.id) as lottery_id'),
+            DB::raw('MAX(lotteries.comission) as comission'),
+            DB::raw('MAX(lotteries.commission_amount) as commission_amount'),
+            DB::raw('MAX(lotteries.status) as status'),
+            'lotteries.user_id',
+            DB::raw('SUM(lotteries.total_amount) as total_amount')
+        ])
+        ->groupBy('lotteries.user_id')
+        ->get();
         $commission_percent = Commission::latest()->first();
 
         //$commission = $commission_percent ? $commission_percent->commission : 0;
@@ -45,30 +58,52 @@ class TwoDCommissionController extends Controller
         return view('admin.commission.two_d_commission_show', compact('lotto', 'user'));
     }
 
-    public function update(Request $request, $id)
+//     public function update(Request $request, $id)
+// {
+//     Log::info($request->all());
+//     // Validate the request data
+//     $validatedData = $request->validate([
+//         'commission' => 'required|numeric',
+//         'commission_amount' => 'required|numeric',
+//         'status' => 'string',
+//     ]);
+
+//     // Find the Lotto record by its id
+//     $lotto = Lottery::findOrFail($id);
+
+//     // Update the commission field
+//     $lotto->comission = $validatedData['commission'];
+//     $lotto->commission_amount = $validatedData['commission_amount'];
+//     $lotto->status = $validatedData['status'];
+
+//     // Save the changes to the database
+//     $lotto->save();
+
+//     // Redirect back with a success message
+//     return redirect()->back()->with('success', 'Commission updated successfully.');
+// }
+public function update(Request $request, $userId)
 {
-    Log::info($request->all());
     // Validate the request data
     $validatedData = $request->validate([
         'commission' => 'required|numeric',
         'commission_amount' => 'required|numeric',
-        'status' => 'string',
+        'status' => 'required|string',
     ]);
 
-    // Find the Lotto record by its id
-    $lotto = Lottery::findOrFail($id);
-
-    // Update the commission field
-    $lotto->comission = $validatedData['commission'];
-    $lotto->commission_amount = $validatedData['commission_amount'];
-    $lotto->status = $validatedData['status'];
-
-    // Save the changes to the database
-    $lotto->save();
+    // Update records by user_id
+    Lottery::where('user_id', $userId)
+         ->update([
+             'comission' => $validatedData['commission'],
+             'commission_amount' => $validatedData['commission_amount'],
+             'status' => $validatedData['status'],
+         ]);
 
     // Redirect back with a success message
-    return redirect()->back()->with('success', 'Commission updated successfully.');
+    return redirect()->back()->with('success', 'Commissions updated successfully.');
 }
+
+
 
     public function TwoDtransferCommission(Request $request)
 {

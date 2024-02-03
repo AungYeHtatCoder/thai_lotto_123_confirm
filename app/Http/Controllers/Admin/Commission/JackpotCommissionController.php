@@ -12,18 +12,45 @@ use App\Http\Controllers\Controller;
 
 class JackpotCommissionController extends Controller
 {
-    public function getJackpotTotalAmountPerUser()
-    {
-        $totalAmounts = Jackpot::join('users', 'jackpots.user_id', '=', 'users.id')
-            ->select('users.name', 'jackpots.user_id', 'jackpots.id', 'jackpots.comission', 'jackpots.commission_amount', 'jackpots.status', DB::raw('SUM(jackpots.total_amount) as total_amount'))
-            ->groupBy('jackpots.user_id', 'users.name', 'jackpots.id', 'jackpots.comission', 'jackpots.commission_amount', 'jackpots.status')
-            ->get();
+    // public function getJackpotTotalAmountPerUser()
+    // {
+    //     $totalAmounts = Jackpot::join('users', 'jackpots.user_id', '=', 'users.id')
+    //         ->select('users.name', 'jackpots.user_id', 'jackpots.id', 'jackpots.comission', 'jackpots.commission_amount', 'jackpots.status', DB::raw('SUM(jackpots.total_amount) as total_amount'))
+    //         ->groupBy('jackpots.user_id', 'users.name', 'jackpots.id', 'jackpots.comission', 'jackpots.commission_amount', 'jackpots.status')
+    //         ->get();
 
+    //     $commission_percent = Commission::latest()->first();
+
+    //     //$commission = $commission_percent ? $commission_percent->commission : 0;
+
+    //     return view('admin.commission.jackpot_commission_index',
+    //      [
+    //         'totalAmounts' => $totalAmounts,
+    //        // 'commission_percent' => $commission
+    //     ]);
+    // }
+
+     public function getJackpotTotalAmountPerUser()
+    {
+       
+    $totalAmounts = Jackpot::join('users', 'jackpots.user_id', '=', 'users.id')
+        ->select([
+            DB::raw('MAX(users.name) as name'),
+            DB::raw('MAX(users.phone) as phone'),
+            DB::raw('MAX(jackpots.id) as lottery_id'),
+            DB::raw('MAX(jackpots.comission) as comission'),
+            DB::raw('MAX(jackpots.commission_amount) as commission_amount'),
+            DB::raw('MAX(jackpots.status) as status'),
+            'jackpots.user_id',
+            DB::raw('SUM(jackpots.total_amount) as total_amount')
+        ])
+        ->groupBy('jackpots.user_id')
+        ->get();
         $commission_percent = Commission::latest()->first();
 
         //$commission = $commission_percent ? $commission_percent->commission : 0;
 
-        return view('admin.commission.jackpot_commission_index',
+         return view('admin.commission.jackpot_commission_index',
          [
             'totalAmounts' => $totalAmounts,
            // 'commission_percent' => $commission
@@ -45,30 +72,52 @@ class JackpotCommissionController extends Controller
         return view('admin.commission.jackpot_commission_show', compact('lotto', 'user'));
     }
 
-    public function update(Request $request, $id)
+//     public function update(Request $request, $id)
+// {
+//     Log::info($request->all());
+//     // Validate the request data
+//     $validatedData = $request->validate([
+//         'commission' => 'required|numeric',
+//         'commission_amount' => 'required|numeric',
+//         'status' => 'string',
+//     ]);
+
+//     // Find the Lotto record by its id
+//     $lotto = Jackpot::findOrFail($id);
+
+//     // Update the commission field
+//     $lotto->comission = $validatedData['commission'];
+//     $lotto->commission_amount = $validatedData['commission_amount'];
+//     $lotto->status = $validatedData['status'];
+
+//     // Save the changes to the database
+//     $lotto->save();
+
+//     // Redirect back with a success message
+//     return redirect()->back()->with('success', 'Commission updated successfully.');
+// }
+
+    public function update(Request $request, $userId)
 {
-    Log::info($request->all());
     // Validate the request data
     $validatedData = $request->validate([
         'commission' => 'required|numeric',
         'commission_amount' => 'required|numeric',
-        'status' => 'string',
+        'status' => 'required|string',
     ]);
 
-    // Find the Lotto record by its id
-    $lotto = Jackpot::findOrFail($id);
-
-    // Update the commission field
-    $lotto->comission = $validatedData['commission'];
-    $lotto->commission_amount = $validatedData['commission_amount'];
-    $lotto->status = $validatedData['status'];
-
-    // Save the changes to the database
-    $lotto->save();
+    // Update records by user_id
+    Jackpot::where('user_id', $userId)
+         ->update([
+             'comission' => $validatedData['commission'],
+             'commission_amount' => $validatedData['commission_amount'],
+             'status' => $validatedData['status'],
+         ]);
 
     // Redirect back with a success message
-    return redirect()->back()->with('success', 'Commission updated successfully.');
+    return redirect()->back()->with('success', 'Commissions updated successfully.');
 }
+
 
     public function JackpottransferCommission(Request $request)
 {

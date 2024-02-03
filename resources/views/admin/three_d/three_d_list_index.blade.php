@@ -83,7 +83,23 @@
              
              <td class="text-sm font-weight-normal">
                  <ul class="navbar-nav">
-                     @foreach ($lottery->DisplayThreeDigits as $threeDigit)
+                    @foreach ($lottery->DisplayThreeDigits as $threeDigit)
+                        <li class="nav-item">
+                            <button type="button" class="btn btn btn-primary">
+                                <span>{{ $threeDigit->three_digit }} </span>
+                                <span class="badge badge-pill badge-lg bg-gradient-success table-font-myanmar">
+                                    Amount &nbsp; &nbsp; - 
+                                    @if($threeDigit->pivot->currency == 'mmk')
+                                        {{ $threeDigit->pivot->sub_amount / $currencies->rate }} bath
+                                    @else
+                                        {{ $threeDigit->pivot->sub_amount }} bath
+                                    @endif
+                                    || &nbsp; &nbsp;
+                                </span>
+                            </button>
+                        </li>
+                    @endforeach
+                     {{-- @foreach ($lottery->DisplayThreeDigits as $threeDigit)
                          <li class="nav-item">
                              <button type="button" class="btn btn btn-primary">
                                  <span>{{ $threeDigit->three_digit }} </span>
@@ -91,19 +107,7 @@
                                   Amount &nbsp; &nbsp; - {{ $threeDigit->pivot->sub_amount }} || &nbsp; &nbsp;</span>
                              </button>
                          </li>
-                         <li>
-                            @php 
-                            $bath = $threeDigit->pivot->sub_amount;
-                            $rate = $currency->rate;
-                            $sub_rate = $bath * $rate;
-                            @endphp
-                            <span class="badge badge-pill badge-lg bg-gradient-success table-font-myanmar">
-                                {{ $sub_rate }} Bath
-                            </span>
-                    
-                         </li>
-                         
-                     @endforeach
+                     @endforeach --}}
                  </ul>
              </td>
              <td class="text-sm font-weight-normal">
