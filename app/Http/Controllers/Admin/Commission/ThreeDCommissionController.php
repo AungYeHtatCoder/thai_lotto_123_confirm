@@ -34,7 +34,7 @@ class ThreeDCommissionController extends Controller
 
     public function getThreeDTotalAmountPerUser()
     {
-       
+       // join table lottos and users
     $totalAmounts = Lotto::join('users', 'lottos.user_id', '=', 'users.id')
         ->select([
             DB::raw('MAX(users.name) as name'),
