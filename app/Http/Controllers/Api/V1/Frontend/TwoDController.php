@@ -48,7 +48,6 @@ class TwoDController extends Controller
     
         // Validate the incoming data
         $validator = Validator::make($data, [
-            //'currency' => 'required|string',
             'currency' => 'required|string|in:baht,bath,mmk',
             'totalAmount' => 'required|numeric|min:1',
             'amounts' => 'required|array',
@@ -64,39 +63,20 @@ class TwoDController extends Controller
     
         // Extract validated data
         $validatedData = $validator->validated();
-
-        // Currency auto exchange
-        // if ($request->currency == "baht") {
-        //     $rate = Currency::latest()->value('rate');
-        //     $subAmount = array_sum(array_column($request->amounts, 'amount')) * $rate;
-        // }else{
-        //     $subAmount = array_sum(array_column($request->amounts, 'amount'));
-        // }
-        $subAmount = array_sum(array_column($request->amounts, 'amount'));
-
+        // $subAmount = array_sum(array_column($request->amounts, 'amount'));
         
-        if ($subAmount > $break) {
-            return response()->json(['message' => 'Limit ပမာဏထက်ကျော်ထိုးလို့ မရပါ။'], 401);
-        }
+        // if ($subAmount > $break) {
+        //     return response()->json(['message' => 'Limit ပမာဏထက်ကျော်ထိုးလို့ မရပါ။'], 401);
+        // }
 
         // Determine the current session based on time
         //$currentSession = date('H') < 12 ? 'morning' : 'evening';
+                 //$currentSession = date('H') < 12 ? 'morning' : 'evening';
          $currentSession = date('H') <= 9 ? 'early-morning' : (date('H') <= 12 ? 'morning' : (date('H') <= 14 ? 'early-evening' : (date('H') <= 16 ? 'afternoon' : 'evening')));
-        // if ($validatedData['totalAmount'] > $break) {
-        //     return response()->json(['message' => 'Total Amount is over limit'], 401);
-        // }
-    
         // Start database transaction
         DB::beginTransaction();
     
         try {
-            // $rate = Currency::latest()->first()->rate;
-            // if($request->currency == 'baht'){
-            //     $totalAmount = $request->totalAmount * $rate;
-            // }else{
-            //     $totalAmount = $request->totalAmount;
-            // }
-
             $totalAmount = $request->totalAmount;
             
             $user = Auth::user();
@@ -116,23 +96,19 @@ class TwoDController extends Controller
                 'user_id' => $user->id, // Use authenticated user's ID
                 'session' => $currentSession
             ]);
-    
+            
+            $overLimitAmounts = [];
             // Iterate through each bet and process it
             foreach ($validatedData['amounts'] as $bet) {
                 $two_digit_id = $bet['num'] === 0 ? 100 : $bet['num']; // Assuming '00' corresponds to 100
-
+                $break = TwoDLimit::latest()->first()->two_d_limit;
                 $totalBetAmountForTwoDigit = DB::table('lottery_two_digit_copy')
                 ->where('two_digit_id', $two_digit_id)
                 ->sum('sub_amount');
-    
-                // ... Your betting logic here ...
-                // if($request->currency == 'baht'){
-                //     $sub_amount = $bet['amount'] * $rate;
-                // }else{
-                //     $sub_amount = $bet['amount'];
-                // }
                 $sub_amount = $bet['amount'];
-                if ($totalBetAmountForTwoDigit + $sub_amount <= $break) {
+                $check_limit = $totalBetAmountForTwoDigit + $sub_amount;
+
+                if($totalBetAmountForTwoDigit + $sub_amount <= $break){
                     $pivot = new LotteryTwoDigitPivot([
                         'lottery_id' => $lottery->id,
                         'two_digit_id' => $two_digit_id,
@@ -141,7 +117,7 @@ class TwoDController extends Controller
                         'currency' => $request->currency,
                     ]);
                     $pivot->save();
-                } else {
+                }else{
                     $withinLimit = $break - $totalBetAmountForTwoDigit;
                     $overLimit = $sub_amount - $withinLimit;
 
@@ -154,20 +130,21 @@ class TwoDController extends Controller
                             'currency' => $request->currency,
                         ]);
                         $pivotWithin->save();
-                    }
-
-                    if ($overLimit > 0) {
-                        $pivotOver = new LotteryTwoDigitOverLimit([
-                            'lottery_id' => $lottery->id,
-                            'two_digit_id' => $two_digit_id,
-                            'sub_amount' => $overLimit,
-                            'prize_sent' => false,
-                            'currency' => $request->currency,
-                        ]);
-                        $pivotOver->save();
+                          $overLimitAmounts[] = [
+                            'num' => $bet['num'],
+                            'amount' => $overLimit,
+                        ];
                     }
                 }
+                
             }
+
+            if(!empty($overLimitAmounts)){
+                    return response()->json([
+                        'overLimitAmounts' => $overLimitAmounts,
+                        'message' => 'သတ်မှတ်ထားသော ထိုးငွေပမာဏ ထက်ကျော်လွန်နေပါသည်။'
+                    ], 401);
+                }
     
             // Commit the transaction
             DB::commit();
@@ -186,6 +163,155 @@ class TwoDController extends Controller
             return response()->json(['message' => $e->getMessage()], 401);
         }
     }
+
+    //  public function play(Request $request)
+    // {
+    //     // Log the entire request
+    //     Log::info($request->all());
+    //     $break = TwoDLimit::latest()->first()->two_d_limit;
+    //     // Convert JSON request to an array
+    //     $data = $request->json()->all();
+    
+    //     // Validate the incoming data
+    //     $validator = Validator::make($data, [
+    //         //'currency' => 'required|string',
+    //         'currency' => 'required|string|in:baht,bath,mmk',
+    //         'totalAmount' => 'required|numeric|min:1',
+    //         'amounts' => 'required|array',
+    //         'amounts.*.num' => 'required|integer',
+    //         'amounts.*.amount' => 'required|integer|min:1',
+    //         // 'amounts.*.amount' => 'required|integer|min:1|max:'.$break,
+    //     ]);
+    
+    //     // Check for validation errors
+    //     if ($validator->fails()) {
+    //         return response()->json(['message' => $validator->errors()], 401);
+    //     }
+    
+    //     // Extract validated data
+    //     $validatedData = $validator->validated();
+
+    //     // Currency auto exchange
+    //     // if ($request->currency == "baht") {
+    //     //     $rate = Currency::latest()->value('rate');
+    //     //     $subAmount = array_sum(array_column($request->amounts, 'amount')) * $rate;
+    //     // }else{
+    //     //     $subAmount = array_sum(array_column($request->amounts, 'amount'));
+    //     // }
+    //     $subAmount = array_sum(array_column($request->amounts, 'amount'));
+
+        
+    //     if ($subAmount > $break) {
+    //         return response()->json(['message' => 'Limit ပမာဏထက်ကျော်ထိုးလို့ မရပါ။'], 401);
+    //     }
+
+    //     // Determine the current session based on time
+    //     //$currentSession = date('H') < 12 ? 'morning' : 'evening';
+    //      $currentSession = date('H') <= 9 ? 'early-morning' : (date('H') <= 12 ? 'morning' : (date('H') <= 14 ? 'early-evening' : (date('H') <= 16 ? 'afternoon' : 'evening')));
+    //     // if ($validatedData['totalAmount'] > $break) {
+    //     //     return response()->json(['message' => 'Total Amount is over limit'], 401);
+    //     // }
+    
+    //     // Start database transaction
+    //     DB::beginTransaction();
+    
+    //     try {
+    //         // $rate = Currency::latest()->first()->rate;
+    //         // if($request->currency == 'baht'){
+    //         //     $totalAmount = $request->totalAmount * $rate;
+    //         // }else{
+    //         //     $totalAmount = $request->totalAmount;
+    //         // }
+
+    //         $totalAmount = $request->totalAmount;
+            
+    //         $user = Auth::user();
+    //         $user->balance -= $totalAmount;
+    
+    //         // Check if the user has sufficient balance
+    //         if ($user->balance < 0) {
+    //             return response()->json(['message' => 'လက်ကျန်ငွေ မလုံလောက်ပါ။'], 401);
+    //         }
+    //         /** @var \App\Models\User $user */
+    //         $user->save();
+    
+    //         // Create a new lottery entry
+    //         $lottery = Lottery::create([
+    //             'pay_amount' => $totalAmount,
+    //             'total_amount' => $totalAmount,
+    //             'user_id' => $user->id, // Use authenticated user's ID
+    //             'session' => $currentSession
+    //         ]);
+    
+    //         // Iterate through each bet and process it
+    //         foreach ($validatedData['amounts'] as $bet) {
+    //             $two_digit_id = $bet['num'] === 0 ? 100 : $bet['num']; // Assuming '00' corresponds to 100
+
+    //             $totalBetAmountForTwoDigit = DB::table('lottery_two_digit_copy')
+    //             ->where('two_digit_id', $two_digit_id)
+    //             ->sum('sub_amount');
+    
+    //             // ... Your betting logic here ...
+    //             // if($request->currency == 'baht'){
+    //             //     $sub_amount = $bet['amount'] * $rate;
+    //             // }else{
+    //             //     $sub_amount = $bet['amount'];
+    //             // }
+    //             $sub_amount = $bet['amount'];
+    //             if ($totalBetAmountForTwoDigit + $sub_amount <= $break) {
+    //                 $pivot = new LotteryTwoDigitPivot([
+    //                     'lottery_id' => $lottery->id,
+    //                     'two_digit_id' => $two_digit_id,
+    //                     'sub_amount' => $sub_amount,
+    //                     'prize_sent' => false,
+    //                     'currency' => $request->currency,
+    //                 ]);
+    //                 $pivot->save();
+    //             } else {
+    //                 $withinLimit = $break - $totalBetAmountForTwoDigit;
+    //                 $overLimit = $sub_amount - $withinLimit;
+
+    //                 if ($withinLimit > 0) {
+    //                     $pivotWithin = new LotteryTwoDigitPivot([
+    //                         'lottery_id' => $lottery->id,
+    //                         'two_digit_id' => $two_digit_id,
+    //                         'sub_amount' => $withinLimit,
+    //                         'prize_sent' => false,
+    //                         'currency' => $request->currency,
+    //                     ]);
+    //                     $pivotWithin->save();
+    //                 }
+
+    //                 if ($overLimit > 0) {
+    //                     $pivotOver = new LotteryTwoDigitOverLimit([
+    //                         'lottery_id' => $lottery->id,
+    //                         'two_digit_id' => $two_digit_id,
+    //                         'sub_amount' => $overLimit,
+    //                         'prize_sent' => false,
+    //                         'currency' => $request->currency,
+    //                     ]);
+    //                     $pivotOver->save();
+    //                 }
+    //             }
+    //         }
+    
+    //         // Commit the transaction
+    //         DB::commit();
+    
+    //         // Return a success response
+    //         return $this->success([
+    //             'message' => 'Bet placed successfully',
+    //         ]);
+    //         // return response()->json(['message' => 'Bet placed successfully'], 200);
+    //     } catch (\Exception $e) {
+    //         // Roll back the transaction in case of error
+    //         DB::rollback();
+    //         Log::error('Error in play method: ' . $e->getMessage());
+    
+    //         // Return an error response
+    //         return response()->json(['message' => $e->getMessage()], 401);
+    //     }
+    // }
 
     // public function play(Request $request)
     // {
