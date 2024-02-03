@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Validator;
 class JackpotController extends Controller
 {
     use HttpResponses;
-    public function play(Request $request)
+    public function store(Request $request)
     {
         // Log the entire request
         Log::info($request->all());
