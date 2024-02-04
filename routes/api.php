@@ -76,6 +76,6 @@ Route::group(["middleware" => ['auth:sanctum']], function(){
     Route::post('/balance-update', [ProfileController::class, 'balanceUpdateApi']);
 
     // two digit daily history for early morning
-    Route::get('/two-digit-daily-early-morning-history', [App\Http\Controllers\Api\V1\Two\DailyHistoryController::class, 'TwodDailyEarlyMorningHistory']);
+    Route::get('/two-digit-daily-early-morning-history', [App\Http\Controllers\Api\V1\Two\DailyHistoryController::class, 'get930Record']);
 
 });

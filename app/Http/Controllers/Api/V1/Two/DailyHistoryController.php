@@ -16,8 +16,9 @@ class DailyHistoryController extends Controller
        $records = $this->get930Record(Auth::user()->id);
        return response()->json($records);
     }
-    public function get930Record($user_id)
+    public function get930Record()
     {
+        $user_id = Auth::user()->id;
         try {
             $startTime = Carbon::today()->timezone('Asia/Yangon')->setHour(6)->setMinute(0);
             $endTime = Carbon::today()->timezone('Asia/Yangon')->setHour(9)->setMinute(30);
