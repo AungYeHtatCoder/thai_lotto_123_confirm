@@ -40,7 +40,7 @@ class DailyMorningHistoryController extends Controller
     public function TwodDailyEarlyMorningBathHistory()
     {
          $startTime = Carbon::today()->setHour(5)->setMinute(0); // Example: today at 2 PM
-        $endTime = Carbon::today()->setHour(9)->setMinute(30); // Example: today at 4 PM
+        $endTime = Carbon::today()->setHour(12)->setMinute(30); // Example: today at 4 PM
         //return $startTime;
     // Fetch the two digits within the specified time range
     $twoDigits = DB::table('lottery_two_digit_pivot')
