@@ -245,7 +245,8 @@
     <script src="{{ asset('admin_app/assets/js/plugins/datatables.js') }}"></script>
     <script>
     // Make sure to escape the output with htmlspecialchars
-    var conversionRate = {{ htmlspecialchars(json_encode($currencies->rate)) }};
+    //var conversionRate = {{ htmlspecialchars(json_encode($currencies->rate)) }};
+     var conversionRate = 30;
     </script>
     <script>
 document.getElementById('changeToMMK').addEventListener('click', function() {
