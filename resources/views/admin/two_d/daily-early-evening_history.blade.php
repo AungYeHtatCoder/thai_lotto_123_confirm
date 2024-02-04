@@ -167,8 +167,8 @@
                 <div class="card-header">
                     <button id="changeToMMK" class="btn btn-info">Change To MMK</button>
                     <span>
-                        <h6 class="btn btn-outline-primary">Currency Rate -
-                        <span><p id="rate"> </p></span></h6>
+                        <button class="btn btn-outline-primary">Currency Rate -
+                        <span><p id="rate"> </p></span></button>
                     </span>
                 </div>
             </div>
