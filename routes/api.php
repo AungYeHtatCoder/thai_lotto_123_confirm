@@ -86,6 +86,6 @@ Route::group(["middleware" => ['auth:sanctum']], function(){
     // jackpot weekly history
     Route::get('/jackpot-weekly-history-record', [App\Http\Controllers\Api\Jackpot\JackpotController::class, 'WeeklyJackpotHistory']);
     // three digit weekly history
-    Route::get('/three-digit-weekly-history-record', [App\Http\Controllers\Api\V1\Frontend\ThreeDController::class, 'WeeklyThreeDigitHistory']);
+    Route::get('/three-digit-weekly-history-record', [App\Http\Controllers\Api\V1\Frontend\ThreeDController::class, 'WeeklyThreedHistory']);
 
 });
