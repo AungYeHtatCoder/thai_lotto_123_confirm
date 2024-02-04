@@ -244,6 +244,33 @@
 @section('scripts')
     <script src="{{ asset('admin_app/assets/js/plugins/datatables.js') }}"></script>
     <script>
+        document.getElementById('changeToMMK').addEventListener('click', function() {
+    // Assuming you have the conversionRate available as a JavaScript variable
+    var conversionRate = 30; // Or whatever your conversion rate is
+
+    // Select all the rows with currency 'baht' and iterate over them
+    document.querySelectorAll('tr').forEach(function(row) {
+        // Get the currency and amount elements from the row
+        var currencyElement = row.querySelector('.currency');
+        var amountElement = row.querySelector('.sub_amount');
+
+        // If there is a currency element and its content is 'baht', perform the conversion
+        if (currencyElement && currencyElement.textContent.trim().toLowerCase() === 'baht') {
+            // Convert the Baht amount to MMK
+            var amountInBaht = parseFloat(amountElement.textContent);
+            var amountInMMK = amountInBaht * conversionRate;
+
+            // Update the amount element with the new value in MMK
+            amountElement.textContent = amountInMMK.toFixed(2); // Format to 2 decimal places
+
+            // Update the currency element to show 'MMK'
+            currencyElement.textContent = 'MMK';
+        }
+    });
+});
+
+    </script>
+    {{-- <script>
     // Make sure to escape the output with htmlspecialchars
     //var conversionRate = {{ htmlspecialchars(json_encode($currencies->rate)) }};
      var conversionRate = 30;
@@ -270,7 +297,7 @@ document.getElementById('changeToMMK').addEventListener('click', function() {
         amountElement.textContent = amountInMMK.toFixed(2);
     });
 });
-</script>
+</script> --}}
 
     <script>
         if (document.getElementById('twod-search')) {
