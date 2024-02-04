@@ -77,5 +77,8 @@ Route::group(["middleware" => ['auth:sanctum']], function(){
 
     // two digit daily history for early morning
     Route::get('/two-digit-daily-early-morning-history', [App\Http\Controllers\Api\V1\Two\DailyHistoryController::class, 'get930Record']);
+    // two digit daily history for  morning
+    Route::get('/two-digit-daily-12-1-morning-history', [App\Http\Controllers\Api\V1\Two\DailyHistoryController::class, 'get121Record']);
+    
 
 });
