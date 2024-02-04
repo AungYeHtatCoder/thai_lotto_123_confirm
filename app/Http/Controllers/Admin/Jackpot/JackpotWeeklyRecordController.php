@@ -54,7 +54,7 @@ class JackpotWeeklyRecordController extends Controller
         $totalSubAmount_baht = $twoDigits_baht->sum('sub_amount');
         $twod_limits_baht = JackpotLimit::orderBy('id', 'desc')->first();
 
-        return view('admin.jackpot.weekly_jackpot_history', [
+        return view('admin.jackpot.jackpot_weekly_history', [
             'displayTwoDigits' => $twoDigits,
             'totalSubAmount' => $totalSubAmount,
             'twod_limits' => $twod_limits,
