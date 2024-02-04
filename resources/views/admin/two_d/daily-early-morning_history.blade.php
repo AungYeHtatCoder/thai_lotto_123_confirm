@@ -27,7 +27,7 @@
 @endsection
 @section('content')
     <div class="row mt-4">
-        <div class="col-12">
+        <div class="col-6">
             <div class="card">
                 <!-- Card header -->
                 <div class="card-header pb-0">
@@ -68,8 +68,6 @@
            <thead class="thead-light">
                 <tr>
                 <th>No</th>
-                <th>==</th>
-                {{-- <th>Phone</th> --}}
                 <th>2D</th>
                 <th>ထိုးကြေး</th>
                 <th>ရက်စွဲ</th>
@@ -87,7 +85,6 @@
         @foreach ($displayTwoDigits as $index => $digit)
          <tr>
            <td>{{ $index + 1 }}</td>
-           <td><p>===</p></td>
            {{-- <td>{{ $digit->phone }}</td> --}}
            <td>{{ $digit->two_digit }}</td>
            <td>
@@ -127,8 +124,25 @@
       </p>
     </div>
    </div>
-            </div>
         </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <h5 class="card-title
+                        text-uppercase text-muted mb-0">2D - 9:30 စာရင်း ပေါင်းချုပ်</h5>
+                        <div class="d-flex justify-content-end">
+                            <a href="{{ url('/admin/twod-daily-early-morning-history') }}"
+                                class="btn bg-gradient-primary btn-sm mb-0"> > &nbsp; 9:30 စာရင်း ပေါင်းချုပ်</a>
+                            <button class="btn btn-outline-primary btn-sm export mb-0 mt-sm-0 mt-1" data-type="csv"
+                                type="button" name="button">Export</button>
+
+                        </div>
+                    </div>
+        </div>
+        </div>
+    </div>
     </div>
 @endsection
 @section('scripts')
