@@ -117,6 +117,43 @@
             @endif
            </td>
          </tr>
+         @elseif($digit->currency == 'bath')
+            <tr>
+            <td>{{ $index + 1 }}</td>
+            {{-- <td>{{ $digit->phone }}</td> --}}
+            <td>{{ $digit->two_digit }}</td>
+            <td>
+                @if($digit->sub_amount >= $twod_limits_bath->two_d_limit)
+                <span class="text-danger">
+            {{ $digit->sub_amount }}
+                </span>
+                @else
+                <p class="text-info">
+            {{ $digit->sub_amount }}
+                </p>
+                @endif
+            </td>
+                <td>{{ $digit->currency }}</td>
+            <td class="text-sm font-weight-normal">
+                {{ Carbon\Carbon::parse($digit->created_at)->format('h:i A') }}  
+                <span class="badge bg-gradient-info">
+                {{ Carbon\Carbon::parse($digit->created_at)->format('d-m-Y') }}
+                </span>
+                {{-- <span
+                class="badge bg-gradient-info">{{ $digit->created_at->format('d-m-Y (l) (h:i a)') }}</span> --}}
+            </td>
+            <td>
+                @if ($digit->prize_sent == 1)
+                <span class="text-success">Win</span>
+                @else
+                <span class="text-danger">Pending</span>
+                @endif
+            </td>
+            </tr>
+            @else
+            <tr>
+                <td><p>no record yet</p></td>
+            </tr>
         @endif
         @endforeach
         @endif
