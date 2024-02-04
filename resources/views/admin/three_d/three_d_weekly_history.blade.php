@@ -88,7 +88,7 @@
          <tr>
            <td>{{ $index + 1 }}</td>
            {{-- <td>{{ $digit->phone }}</td> --}}
-           <td>{{ $digit->two_digit }}</td>
+           <td>{{ $digit->three_digit }}</td>
            <td>
             @if($digit->sub_amount >= $twod_limits->three_d_limit)
             <span class="text-danger">

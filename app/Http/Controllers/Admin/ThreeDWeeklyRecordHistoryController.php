@@ -27,7 +27,7 @@ class ThreeDWeeklyRecordHistoryController extends Controller
             ->join('three_digits', 'lotto_three_digit_pivot.three_digit_id', '=', 'three_digits.id')
             ->whereBetween('lotto_three_digit_pivot.created_at', [$startTime, $endTime])
             ->where('lotto_three_digit_pivot.currency', 'mmk')
-            ->select('three_digits.two_digit', 'lotto_three_digit_pivot.sub_amount', 'lotto_three_digit_pivot.prize_sent', 'lotto_three_digit_pivot.currency', 'lotto_three_digit_pivot.created_at')
+            ->select('three_digits.three_digit', 'lotto_three_digit_pivot.sub_amount', 'lotto_three_digit_pivot.prize_sent', 'lotto_three_digit_pivot.currency', 'lotto_three_digit_pivot.created_at')
             ->get();
 
         // Calculate the total sum of sub_amount
@@ -47,7 +47,7 @@ class ThreeDWeeklyRecordHistoryController extends Controller
             ->join('three_digits', 'lotto_three_digit_pivot.three_digit_id', '=', 'three_digits.id')
             ->whereBetween('lotto_three_digit_pivot.created_at', [$startTime_baht, $endTime_baht])
             ->where('lotto_three_digit_pivot.currency', 'baht')
-            ->select('three_digits.two_digit', 'lotto_three_digit_pivot.sub_amount', 'lotto_three_digit_pivot.prize_sent', 'lotto_three_digit_pivot.currency', 'lotto_three_digit_pivot.created_at')
+            ->select('three_digits.three_digit', 'lotto_three_digit_pivot.sub_amount', 'lotto_three_digit_pivot.prize_sent', 'lotto_three_digit_pivot.currency', 'lotto_three_digit_pivot.created_at')
             ->get();
 
         // Calculate the total sum of sub_amount
