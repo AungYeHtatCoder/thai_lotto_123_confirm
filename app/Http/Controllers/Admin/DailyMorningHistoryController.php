@@ -214,8 +214,8 @@ class DailyMorningHistoryController extends Controller
 
     public function TwodDailyEveningHistory()
     {
-        $startTime = Carbon::today()->setHour(2)->setMinute(0); // Example: today at 2 PM
-        $endTime = Carbon::today()->setHour(4)->setMinute(30); // Example: today at 4 PM
+        $startTime = Carbon::today()->setHour(14)->setMinute(0); // Example: today at 2 PM
+        $endTime = Carbon::today()->setHour(16)->setMinute(30); // Example: today at 4 PM
         //return $startTime;
     // Fetch the two digits within the specified time range
     $twoDigits = DB::table('lottery_two_digit_pivot')
@@ -229,8 +229,8 @@ class DailyMorningHistoryController extends Controller
         $totalSubAmount = $twoDigits->sum('sub_amount');
         $twod_limits = TwoDLimit::orderBy('id', 'desc')->first();
 
-        $startTime_baht = Carbon::today()->setHour(2)->setMinute(0); // Example: today at 2 PM
-        $endTime_baht = Carbon::today()->setHour(4)->setMinute(30); // Example: today at 4 PM
+        $startTime_baht = Carbon::today()->setHour(14)->setMinute(0); // Example: today at 2 PM
+        $endTime_baht = Carbon::today()->setHour(16)->setMinute(30); // Example: today at 4 PM
         //return $startTime;
         // Fetch the two digits within the specified time range
         $twoDigits_baht = DB::table('lottery_two_digit_pivot')
