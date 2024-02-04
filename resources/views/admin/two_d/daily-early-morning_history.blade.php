@@ -54,8 +54,8 @@
                        
                         <div class="ms-auto my-auto mt-lg-0 mt-4">
                             <div class="ms-auto my-auto">
-                                 <a href="{{ url('/admin/twod-daily-early-morning-history') }}"
-                                    class="btn bg-gradient-primary btn-sm mb-0"> > &nbsp; 9:30 စာရင်း ပေါင်းချုပ်</a>
+                                 {{-- <a href="{{ url('/admin/twod-daily-early-morning-history') }}"
+                                    class="btn bg-gradient-primary btn-sm mb-0"> > &nbsp; 9:30 စာရင်း ပေါင်းချုပ်</a> --}}
                                 <button class="btn btn-outline-primary btn-sm export mb-0 mt-sm-0 mt-1" data-type="csv"
                                     type="button" name="button">Export</button>
                             </div>
@@ -158,9 +158,9 @@
                        
                         <div class="ms-auto my-auto mt-lg-0 mt-4">
                             <div class="ms-auto my-auto">
-                                 <a href="{{ url('/admin/twod-daily-early-morning-history') }}"
-                                    class="btn bg-gradient-primary btn-sm mb-0"> > &nbsp; 9:30 စာရင်း ပေါင်းချုပ်</a>
-                                <button class="btn btn-outline-primary btn-sm export mb-0 mt-sm-0 mt-1" data-type="csv"
+                                 {{-- <a href="{{ url('/admin/twod-daily-early-morning-history') }}"
+                                    class="btn bg-gradient-primary btn-sm mb-0"> > &nbsp; 9:30 စာရင်း ပေါင်းချုပ်</a> --}}
+                                <button class="btn btn-outline-primary btn-sm export-baht mb-0 mt-sm-0 mt-1" data-type="csv"
                                     type="button" name="button">Export</button>
                             </div>
                         </div>
@@ -168,7 +168,7 @@
                 </div>
    <div class="table-responsive">
    
-       <table class="table table-flush" id="twod-search">
+       <table class="table table-flush" id="baht-search">
            <thead class="thead-light">
                 <tr>
                 <th>No</th>
@@ -254,6 +254,33 @@
             });
 
             document.querySelectorAll(".export").forEach(function(el) {
+                el.addEventListener("click", function(e) {
+                    var type = el.dataset.type;
+
+                    var data = {
+                        type: type,
+                        filename: "material-" + type,
+                    };
+
+                    if (type === "csv") {
+                        data.columnDelimiter = ",";
+                    }
+
+                    dataTableSearch.export(data);
+                });
+            });
+        };
+    </script>
+
+     <script>
+        if (document.getElementById('baht-search')) {
+            const dataTableSearch = new simpleDatatables.DataTable("#baht-search", {
+                searchable: true,
+                fixedHeight: false,
+                perPage: 7
+            });
+
+            document.querySelectorAll(".export-baht").forEach(function(el) {
                 el.addEventListener("click", function(e) {
                     var type = el.dataset.type;
 
