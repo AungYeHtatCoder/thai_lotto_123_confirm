@@ -46,6 +46,7 @@ class DailyMorningHistoryController extends Controller
     $twoDigits = DB::table('lottery_two_digit_pivot')
         ->join('two_digits', 'lottery_two_digit_pivot.two_digit_id', '=', 'two_digits.id')
         ->whereBetween('lottery_two_digit_pivot.created_at', [$startTime, $endTime])
+        ->where('lottery_two_digit_pivot.currency', 'bath') // Add this line
         ->select('two_digits.two_digit', 'lottery_two_digit_pivot.sub_amount', 'lottery_two_digit_pivot.prize_sent', 'lottery_two_digit_pivot.currency', 'lottery_two_digit_pivot.created_at') // Select the columns you need
         ->get();
 
