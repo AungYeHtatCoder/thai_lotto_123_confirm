@@ -70,6 +70,7 @@
                 <th>No</th>
                 <th>2D</th>
                 <th>ထိုးကြေး</th>
+                <th>Currency</th>
                 <th>ရက်စွဲ</th>
                 <th>Win/Lose</th>
                 </tr>
@@ -99,6 +100,7 @@
             </p>
             @endif
            </td>
+           <td>{{ $digit->currency }}</td>
            <td class="text-sm font-weight-normal">
              {{ Carbon\Carbon::parse($digit->created_at)->format('h:i A') }}  
             <span class="badge bg-gradient-info">
@@ -152,6 +154,7 @@
                 <th>No</th>
                 <th>2D</th>
                 <th>ထိုးကြေး</th>
+                <th>Currency</th>
                 <th>ရက်စွဲ</th>
                 <th>Win/Lose</th>
                 </tr>
@@ -181,6 +184,7 @@
             </p>
             @endif
            </td>
+              <td>{{ $digit->currency }}</td>
            <td class="text-sm font-weight-normal">
              {{ Carbon\Carbon::parse($digit->created_at)->format('h:i A') }}  
             <span class="badge bg-gradient-info">
