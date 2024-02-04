@@ -309,5 +309,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
     Route::get('/twod-daily-evening-history', [App\Http\Controllers\Admin\DailyMorningHistoryController::class, 'TwodDailyEveningHistory'])->name('TwodDailyEveningHistory');
     // jackpot weelky history
     Route::get('/jackpot-weekly-record-history', [App\Http\Controllers\Admin\Jackpot\JackpotWeeklyRecordController::class, 'WeeklyJackpotHistory'])->name('JackpotWeeklyRecordHistory');
+    // three-d-weekly-history
+    Route::get('/three-d-weekly-history', [App\Http\Controllers\Admin\ThreeDWeeklyRecordHistoryController::class, 'WeeklyThreedHistory'])->name('WeeklyThreedHistoryRecord');
     
 });

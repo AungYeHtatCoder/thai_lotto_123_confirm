@@ -33,7 +33,7 @@
                 <div class="card-header pb-0">
                     <div class="d-lg-flex">
                         <div>
-                            <h5 class="mb-0">အောက်နှစ်လုံးထီ စာရင်း ပေါင်းချုပ် -   MMK - Dashboards
+                            <h5 class="mb-0">3D စာရင်း ပေါင်းချုပ် -   MMK - Dashboards
                                 <span>
                                      <h6 class="btn btn-primary">
                                     <span id="date_time"></span>
@@ -44,7 +44,7 @@
                             <div class="ms-auto my-auto">
                                 
                                 <a class="btn btn-outline-primary btn-sm export mb-0 mt-sm-0 mt-1"
-                                    href="{{ url('/admin/once-week-jackpot-list') }}" >Back</a>
+                                    href="{{ url('/admin/three-d-list-index') }}" >Back</a>
                             </div>
                         </div>
                                 </span>
@@ -78,7 +78,7 @@
             <tbody>
         @if(isset($displayTwoDigits) && count($displayTwoDigits) == 0)
         <p class="text-center text-white px-3 py-2 mt-3" style="background-color: #c50408">
-        ကံစမ်းထားသော အောက်နှစ်လုံးထီ ထီဂဏန်းများ မရှိသေးပါ
+        ကံစမ်းထားသော 3D ထီဂဏန်းများ မရှိသေးပါ
         </p>
         @endif
 
@@ -90,7 +90,7 @@
            {{-- <td>{{ $digit->phone }}</td> --}}
            <td>{{ $digit->two_digit }}</td>
            <td>
-            @if($digit->sub_amount >= $twod_limits->jack_limit)
+            @if($digit->sub_amount >= $twod_limits->three_d_limit)
             <span class="text-danger">
           {{ $digit->sub_amount }}
             </span>
@@ -137,13 +137,13 @@
                 <div class="card-header pb-0">
                     <div class="d-lg-flex">
                         <div>
-                            <h5 class="mb-0">အောက်နှစ်လုံးထီ စာရင်း ပေါင်းချုပ် -   Bath - Dashboards
+                            <h5 class="mb-0">3D စာရင်း ပေါင်းချုပ် -   Bath - Dashboards
                                 <span>
                                     <div class="ms-auto my-auto mt-lg-0 mt-4">
                             <div class="ms-auto my-auto">
                                 
                                 <a class="btn btn-outline-primary btn-sm export mb-0 mt-sm-0 mt-1"
-                                    href="{{ url('/admin/once-week-jackpot-list') }}" >Back</a>
+                                    href="{{ url('/admin/three-d-list-index') }}" >Back</a>
                             </div>
                         </div>
                                 </span>
@@ -187,9 +187,9 @@
          <tr>
            <td>{{ $index + 1 }}</td>
            {{-- <td>{{ $digit->phone }}</td> --}}
-           <td>{{ $digit->two_digit }}</td>
+           <td>{{ $digit->three_digit }}</td>
            <td>
-            @if($digit->sub_amount >= $twod_limits_baht->jack_limit)
+            @if($digit->sub_amount >= $twod_limits_baht->three_d_limit)
             <span class="text-danger">
           {{ $digit->sub_amount }}
             </span>
