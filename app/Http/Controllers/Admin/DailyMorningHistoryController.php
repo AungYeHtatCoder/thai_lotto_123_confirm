@@ -173,6 +173,24 @@ class DailyMorningHistoryController extends Controller
             
         ]);
     }
+    public function GetCurrency()
+    {
+        try {
+            $currencies = Currency::latest()->first();
+            $rate = $currencies->rate;
+            return response()->json([
+                'success' => true,
+                'message' => 'Data fetched successfully',
+                'data' => $rate
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data fetching failed',
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
     // public function TwodDailyEarlyEveningHistory()
     // {
     //     $startTime = Carbon::today()->setHour(12)->setMinute(0); // Example: today at 2 PM
