@@ -246,7 +246,7 @@
     <script src="{{ asset('admin_app/assets/js/plugins/datatables.js') }}"></script>
     <script>
         document.getElementById('changeToMMK').addEventListener('click', function() {
-            fetch('/currency-fetch')
+            fetch('/admin/currency-fetch')
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
