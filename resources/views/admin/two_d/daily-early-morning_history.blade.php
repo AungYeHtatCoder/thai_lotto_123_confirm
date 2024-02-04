@@ -83,6 +83,7 @@
 
         @if($displayTwoDigits)
         @foreach ($displayTwoDigits as $index => $digit)
+        @if($digit->currency == 'mmk')
          <tr>
            <td>{{ $index + 1 }}</td>
            {{-- <td>{{ $digit->phone }}</td> --}}
@@ -114,7 +115,8 @@
             @endif
            </td>
          </tr>
-         @endforeach
+        @endif
+        @endforeach
         @endif
       </tbody>
        </table>
@@ -129,6 +131,7 @@
         <div class="col-6">
             <div class="card">
                 <div class="card-body">
+                    <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
                         <h5 class="card-title
                         text-uppercase text-muted mb-0">2D - 9:30 စာရင်း ပေါင်းချုပ်</h5>
@@ -140,6 +143,71 @@
 
                         </div>
                     </div>
+                    </div>
+                       <div class="table-responsive">
+   
+       <table class="table table-flush" id="twod-search">
+           <thead class="thead-light">
+                <tr>
+                <th>No</th>
+                <th>2D</th>
+                <th>ထိုးကြေး</th>
+                <th>ရက်စွဲ</th>
+                <th>Win/Lose</th>
+                </tr>
+           </thead>
+            <tbody>
+        @if(isset($displayTwoDigits) && count($displayTwoDigits) == 0)
+        <p class="text-center text-white px-3 py-2 mt-3" style="background-color: #c50408">
+        ကံစမ်းထားသော 2D ထီဂဏန်းများ မရှိသေးပါ
+        </p>
+        @endif
+
+        @if($displayTwoDigits)
+        @foreach ($displayTwoDigits as $index => $digit)
+        @if($digit->currency == 'bath')
+         <tr>
+           <td>{{ $index + 1 }}</td>
+           {{-- <td>{{ $digit->phone }}</td> --}}
+           <td>{{ $digit->two_digit }}</td>
+           <td>
+            @if($digit->sub_amount >= $twod_limits->two_d_limit)
+            <span class="text-danger">
+          {{ $digit->sub_amount }}
+            </span>
+            @else
+            <p class="text-info">
+          {{ $digit->sub_amount }}
+            </p>
+            @endif
+           </td>
+           <td class="text-sm font-weight-normal">
+             {{ Carbon\Carbon::parse($digit->created_at)->format('h:i A') }}  
+            <span class="badge bg-gradient-info">
+             {{ Carbon\Carbon::parse($digit->created_at)->format('d-m-Y') }}
+            </span>
+            {{-- <span
+             class="badge bg-gradient-info">{{ $digit->created_at->format('d-m-Y (l) (h:i a)') }}</span> --}}
+           </td>
+           <td>
+            @if ($digit->prize_sent == 1)
+             <span class="text-success">Win</span>
+            @else
+             <span class="text-danger">Pending</span>
+            @endif
+           </td>
+         </tr>
+        @endif
+        @endforeach
+        @endif
+      </tbody>
+       </table>
+        <div class="mb-3 d-flex justify-content-around text-white p-2 shadow border border-1" style="border-radius: 10px; background: var(--Primary, #12486b)">
+      <p class="text-end pt-1" style="color: #fff">Total Amount : ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
+        <strong>{{ $totalSubAmount }} Bath</strong>
+      </p>
+    </div>
+   </div>
         </div>
         </div>
     </div>
