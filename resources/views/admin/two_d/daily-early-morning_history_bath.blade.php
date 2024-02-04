@@ -84,7 +84,7 @@
 
         @if($displayTwoDigits)
         @foreach ($displayTwoDigits as $index => $digit)
-        @if($digit->currency == 'bath')
+        {{-- @if($digit->currency == 'bath') --}}
          <tr>
            <td>{{ $index + 1 }}</td>
            {{-- <td>{{ $digit->phone }}</td> --}}
@@ -117,7 +117,7 @@
             @endif
            </td>
          </tr>
-        @endif
+        {{-- @endif --}}
         @endforeach
         @endif
       </tbody>
