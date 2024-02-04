@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\Frontend;
 
+use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Traits\HttpResponses;
@@ -243,5 +244,66 @@ class ThreeDController extends Controller
         $userId = auth()->id(); // Get logged in user's ID
         $displayThreeDDigit = User::getUserOneMonthThreeDigits($userId);
         return $this->success($displayThreeDDigit);
+    }
+
+    public function WeeklyThreedHistory()
+    {
+        $user_id = Auth::id();
+        $currentDay = Carbon::now()->day;
+
+        if ($currentDay >= 2 && $currentDay <= 16) {
+            $startTime = Carbon::now()->startOfMonth()->addDays(1);
+            $endTime = Carbon::now()->startOfMonth()->addDays(15);
+        } else {
+            $startTime = Carbon::now()->startOfMonth()->addDays(16);
+            $endTime = Carbon::now()->addMonth()->startOfMonth()->addDay();
+        }
+
+        // Fetch the three digits within the specified time range
+        $threeDigits = DB::table('lotto_three_digit_pivot')
+            ->join('three_digits', 'lotto_three_digit_pivot.three_digit_id', '=', 'three_digits.id')
+            ->join('lottos', 'lotto_three_digit_pivot.lotto_id', '=', 'lottos.id')
+            ->where('lottos.user_id', $user_id)
+            ->whereBetween('lotto_three_digit_pivot.created_at', [$startTime, $endTime])
+            ->where('lotto_three_digit_pivot.currency', 'mmk')
+            ->select('three_digits.three_digit', 'lotto_three_digit_pivot.sub_amount', 'lotto_three_digit_pivot.prize_sent', 'lotto_three_digit_pivot.currency', 'lotto_three_digit_pivot.created_at')
+            ->get();
+
+        // Calculate the total sum of sub_amount
+        $totalSubAmount = $threeDigits->sum('sub_amount');
+        $twod_limits = ThreeDDLimit::orderBy('id', 'desc')->first();
+
+        // Repeat the same for $threeDigits_baht
+        if ($currentDay >= 2 && $currentDay <= 16) {
+            $startTime_baht = Carbon::now()->startOfMonth()->addDays(1);
+            $endTime_baht = Carbon::now()->startOfMonth()->addDays(15);
+        } else {
+            $startTime_baht = Carbon::now()->startOfMonth()->addDays(16);
+            $endTime_baht = Carbon::now()->addMonth()->startOfMonth()->addDay();
+        }
+
+        $threeDigits_baht = DB::table('lotto_three_digit_pivot')
+            ->join('three_digits', 'lotto_three_digit_pivot.three_digit_id', '=', 'three_digits.id')
+            ->join('lottos', 'lotto_three_digit_pivot.lotto_id', '=', 'lottos.id')
+            ->where('lottos.user_id', $user_id)
+            ->whereBetween('lotto_three_digit_pivot.created_at', [$startTime_baht, $endTime_baht])
+            ->where('lotto_three_digit_pivot.currency', 'baht')
+            ->select('three_digits.three_digit', 'lotto_three_digit_pivot.sub_amount', 'lotto_three_digit_pivot.prize_sent', 'lotto_three_digit_pivot.currency', 'lotto_three_digit_pivot.created_at')
+            ->get();
+
+        // Calculate the total sum of sub_amount
+        $totalSubAmount_baht = $threeDigits_baht->sum('sub_amount');
+        $twod_limits_baht = ThreeDDLimit::orderBy('id', 'desc')->first();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data fetched successfully',
+            'three_digits' => $threeDigits,
+            'totalSubAmount' => $totalSubAmount,
+            'twod_limits' => $twod_limits,
+            'three_digits_baht' => $threeDigits_baht,
+            'totalSubAmount_baht' => $totalSubAmount_baht,
+            'twod_limits_baht' => $twod_limits_baht,
+        ]);
     }
 }
