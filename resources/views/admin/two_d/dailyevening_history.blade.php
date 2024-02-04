@@ -27,17 +27,16 @@
 @endsection
 @section('content')
     <div class="row mt-4">
-        <div class="col-12">
+        <div class="col-6">
             <div class="card">
                 <!-- Card header -->
                 <div class="card-header pb-0">
                     <div class="d-lg-flex">
                         <div>
-                            <h5 class="mb-0">2D - 4:30 စာရင်း ပေါင်းချုပ် -   Dashboards
+                            <h5 class="mb-0">2D - 4:30 စာရင်း ပေါင်းချုပ် -   MMK - Dashboards
                                 <span>
                                      <h6 class="btn btn-primary">
-                                      {{-- today date and time with js --}}
-                                     <span id="date_time"></span>
+                                    <span id="date_time"></span>
                                      </h6>
                                 </span>
                                 <span>
@@ -45,7 +44,7 @@
                             <div class="ms-auto my-auto">
                                 
                                 <a class="btn btn-outline-primary btn-sm export mb-0 mt-sm-0 mt-1"
-                                    href="{{ url('/admin/two-d-evening-number') }}" >Back</a>
+                                    href="{{ url('/admin/tow-d-morning-number') }}" >Back</a>
                             </div>
                         </div>
                                 </span>
@@ -55,7 +54,8 @@
                        
                         <div class="ms-auto my-auto mt-lg-0 mt-4">
                             <div class="ms-auto my-auto">
-                                
+                                 {{-- <a href="{{ url('/admin/twod-daily-early-morning-history') }}"
+                                    class="btn bg-gradient-primary btn-sm mb-0"> > &nbsp; 9:30 စာရင်း ပေါင်းချုပ်</a> --}}
                                 <button class="btn btn-outline-primary btn-sm export mb-0 mt-sm-0 mt-1" data-type="csv"
                                     type="button" name="button">Export</button>
                             </div>
@@ -68,10 +68,9 @@
            <thead class="thead-light">
                 <tr>
                 <th>No</th>
-                <th>==</th>
-                {{-- <th>Phone</th> --}}
                 <th>2D</th>
                 <th>ထိုးကြေး</th>
+                <th>Currency</th>
                 <th>ရက်စွဲ</th>
                 <th>Win/Lose</th>
                 </tr>
@@ -85,9 +84,9 @@
 
         @if($displayTwoDigits)
         @foreach ($displayTwoDigits as $index => $digit)
+        @if($digit->currency == 'mmk')
          <tr>
            <td>{{ $index + 1 }}</td>
-           <td><p>===</p></td>
            {{-- <td>{{ $digit->phone }}</td> --}}
            <td>{{ $digit->two_digit }}</td>
            <td>
@@ -101,6 +100,7 @@
             </p>
             @endif
            </td>
+           <td>{{ $digit->currency }}</td>
            <td class="text-sm font-weight-normal">
              {{ Carbon\Carbon::parse($digit->created_at)->format('h:i A') }}  
             <span class="badge bg-gradient-info">
@@ -117,7 +117,8 @@
             @endif
            </td>
          </tr>
-         @endforeach
+        @endif
+        @endforeach
         @endif
       </tbody>
        </table>
@@ -127,8 +128,113 @@
       </p>
     </div>
    </div>
-            </div>
         </div>
+        </div>
+
+        <div class="col-6">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header pb-0">
+                    <div class="d-lg-flex">
+                        <div>
+                            <h5 class="mb-0">2D - 4:30 စာရင်း ပေါင်းချုပ် -   Bath - Dashboards
+                                <span>
+                                     <h6 class="btn btn-primary">
+                                    <span id="date_time"></span>
+                                     </h6>
+                                </span>
+                                <span>
+                                    <div class="ms-auto my-auto mt-lg-0 mt-4">
+                            <div class="ms-auto my-auto">
+                                
+                                <a class="btn btn-outline-primary btn-sm export mb-0 mt-sm-0 mt-1"
+                                    href="{{ url('/admin/tow-d-morning-number') }}" >Back</a>
+                            </div>
+                        </div>
+                                </span>
+                            </h5>
+
+                        </div>
+                       
+                        <div class="ms-auto my-auto mt-lg-0 mt-4">
+                            <div class="ms-auto my-auto">
+                                 {{-- <a href="{{ url('/admin/twod-daily-early-morning-history') }}"
+                                    class="btn bg-gradient-primary btn-sm mb-0"> > &nbsp; 9:30 စာရင်း ပေါင်းချုပ်</a> --}}
+                                <button class="btn btn-outline-primary btn-sm export-baht mb-0 mt-sm-0 mt-1" data-type="csv"
+                                    type="button" name="button">Export</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+   <div class="table-responsive">
+   
+       <table class="table table-flush" id="baht-search">
+           <thead class="thead-light">
+                <tr>
+                <th>No</th>
+                <th>2D</th>
+                <th>ထိုးကြေး</th>
+                <th>Currency</th>
+                <th>ရက်စွဲ</th>
+                <th>Win/Lose</th>
+                </tr>
+           </thead>
+            <tbody>
+        @if(isset($displayTwoDigits_baht) && count($displayTwoDigits_baht) == 0)
+        <p class="text-center text-white px-3 py-2 mt-3" style="background-color: #c50408">
+        ကံစမ်းထားသော 2D ထီဂဏန်းများ မရှိသေးပါ
+        </p>
+        @endif
+
+        @if($displayTwoDigits_baht)
+        @foreach ($displayTwoDigits_baht as $index => $digit)
+        {{-- @if($digit->currency == 'mmk') --}}
+         <tr>
+           <td>{{ $index + 1 }}</td>
+           {{-- <td>{{ $digit->phone }}</td> --}}
+           <td>{{ $digit->two_digit }}</td>
+           <td>
+            @if($digit->sub_amount >= $twod_limits_baht->two_d_limit)
+            <span class="text-danger">
+          {{ $digit->sub_amount }}
+            </span>
+            @else
+            <p class="text-info">
+          {{ $digit->sub_amount }}
+            </p>
+            @endif
+           </td>
+           <td>{{ $digit->currency }}</td>
+           <td class="text-sm font-weight-normal">
+             {{ Carbon\Carbon::parse($digit->created_at)->format('h:i A') }}  
+            <span class="badge bg-gradient-info">
+             {{ Carbon\Carbon::parse($digit->created_at)->format('d-m-Y') }}
+            </span>
+            {{-- <span
+             class="badge bg-gradient-info">{{ $digit->created_at->format('d-m-Y (l) (h:i a)') }}</span> --}}
+           </td>
+           <td>
+            @if ($digit->prize_sent == 1)
+             <span class="text-success">Win</span>
+            @else
+             <span class="text-danger">Pending</span>
+            @endif
+           </td>
+         </tr>
+        {{-- @endif --}}
+        @endforeach
+        @endif
+      </tbody>
+       </table>
+        <div class="mb-3 d-flex justify-content-around text-white p-2 shadow border border-1" style="border-radius: 10px; background: var(--Primary, #12486b)">
+      <p class="text-end pt-1" style="color: #fff">Total Amount : ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
+        <strong>{{ $totalSubAmount_baht }} Baht</strong>
+      </p>
+    </div>
+   </div>
+        </div>
+        </div>
+        
     </div>
 @endsection
 @section('scripts')
@@ -148,6 +254,33 @@
             });
 
             document.querySelectorAll(".export").forEach(function(el) {
+                el.addEventListener("click", function(e) {
+                    var type = el.dataset.type;
+
+                    var data = {
+                        type: type,
+                        filename: "material-" + type,
+                    };
+
+                    if (type === "csv") {
+                        data.columnDelimiter = ",";
+                    }
+
+                    dataTableSearch.export(data);
+                });
+            });
+        };
+    </script>
+
+     <script>
+        if (document.getElementById('baht-search')) {
+            const dataTableSearch = new simpleDatatables.DataTable("#baht-search", {
+                searchable: true,
+                fixedHeight: false,
+                perPage: 7
+            });
+
+            document.querySelectorAll(".export-baht").forEach(function(el) {
                 el.addEventListener("click", function(e) {
                     var type = el.dataset.type;
 
