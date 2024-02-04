@@ -232,7 +232,9 @@
        </table>
         <div class="mb-3 d-flex justify-content-around text-white p-2 shadow border border-1" style="border-radius: 10px; background: var(--Primary, #12486b)">
       <p class="text-end pt-1" style="color: #fff">Total Amount : ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
-        <strong>{{ $totalSubAmount_baht }} Baht</strong>
+        <strong>{{ $totalSubAmount_baht }} Baht
+        <span><p id="rate"></p></span>
+        </strong>
       </p>
     </div>
    </div>
@@ -269,6 +271,22 @@
     });
 });
 
+    </script>
+    <script>
+        fetch('/admin/currency-fetch')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                // Display the rate in an HTML element with the id 'rate'
+                if (data.success) {
+                    document.getElementById('rate').textContent = data.data;
+                } else {
+                    console.error(data.message);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     </script>
     {{-- <script>
     // Make sure to escape the output with htmlspecialchars
