@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Admin\Lottery;
 use App\Models\Admin\TwoDLimit;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 
 class DailyMorningHistoryController extends Controller
@@ -46,14 +47,14 @@ class DailyMorningHistoryController extends Controller
     $twoDigits = DB::table('lottery_two_digit_pivot')
         ->join('two_digits', 'lottery_two_digit_pivot.two_digit_id', '=', 'two_digits.id')
         ->whereBetween('lottery_two_digit_pivot.created_at', [$startTime, $endTime])
-        ->where('lottery_two_digit_pivot.currency', 'bath') // Add this line
+        ->where('lottery_two_digit_pivot.currency', 'baht') // Add this line
         ->select('two_digits.two_digit', 'lottery_two_digit_pivot.sub_amount', 'lottery_two_digit_pivot.prize_sent', 'lottery_two_digit_pivot.currency', 'lottery_two_digit_pivot.created_at') // Select the columns you need
         ->get();
 
         // Calculate the total sum of sub_amount
         $totalSubAmount = $twoDigits->sum('sub_amount');
         $twod_limits = TwoDLimit::orderBy('id', 'desc')->first();
-
+       // Log::info($query->toSql(), $query->getBindings());
     
         return view('admin.two_d.daily-early-morning_history_bath', [
            'displayTwoDigits' => $twoDigits,
