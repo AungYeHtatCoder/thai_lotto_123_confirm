@@ -130,7 +130,7 @@ class DailyMorningHistoryController extends Controller
     public function TwodDailyEarlyEveningHistory()
     {
         $startTime = Carbon::today()->timezone('Asia/Yangon')->setHour(12)->setMinute(0); // Example: today at 2 PM
-        $endTime = Carbon::today()->timezone('Asia/Yangon')->setHour(2)->setMinute(0); // Example: today at 4 PM
+        $endTime = Carbon::today()->timezone('Asia/Yangon')->setHour(14)->setMinute(0); // Example: today at 4 PM
 
         // Fetch the two digits within the specified time range
         $twoDigits = DB::table('lottery_two_digit_pivot')
@@ -145,7 +145,7 @@ class DailyMorningHistoryController extends Controller
         $twod_limits = TwoDLimit::orderBy('id', 'desc')->first();
 
         $startTime_baht = Carbon::today()->timezone('Asia/Yangon')->setHour(12)->setMinute(0); // Example: today at 2 PM
-        $endTime_baht = Carbon::today()->timezone('Asia/Yangon')->setHour(2)->setMinute(0); // Example: today at 4 PM
+        $endTime_baht = Carbon::today()->timezone('Asia/Yangon')->setHour(14)->setMinute(0); // Example: today at 4 PM
 
         // Fetch the two digits within the specified time range
         $twoDigits_baht = DB::table('lottery_two_digit_pivot')
