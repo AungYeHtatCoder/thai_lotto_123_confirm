@@ -15,7 +15,7 @@
           <li class="nav-item">
             <a class="nav-link text-white" href="{{ route('admin.profiles.index') }}">
               <span class="sidenav-mini-icon"> <i class="fa-regular fa-user-circle"></i> </span>
-              <span class="sidenav-normal  ms-3  ps-1"> My Profile </span>
+              <span class="sidenav-normal  ms-3  ps-1"> ပရိုဖိုင် </span>
             </a>
           </li>
           @endcan

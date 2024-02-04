@@ -39,7 +39,7 @@
      <thead class="thead-light">
       <th>#</th>
       <th>UserName</th>
-      <th>Email</th>
+      {{-- <th>Email</th> --}}
       <th>Phone</th>
       <th>Balance</th>
       <th>Created_at</th>
@@ -50,7 +50,7 @@
       <tr>
        <td class="text-sm font-weight-normal">{{ ++$key }}</td>
        <td class="text-sm font-weight-normal">{{ $user->name }}</td>
-       <td class="text-sm font-weight-normal">{{ $user->email }}</td>
+       {{-- <td class="text-sm font-weight-normal">{{ $user->email }}</td> --}}
        <td class="text-sm font-weight-normal">{{ $user->phone }}</td>
        <td class="text-sm font-weight-normal">{{ $user->balance }}</td>
        <td class="text-sm font-weight-normal">{{ $user->created_at->format('F j, Y') }}</td>
