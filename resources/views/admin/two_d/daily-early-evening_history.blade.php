@@ -140,7 +140,8 @@
                             <h5 class="mb-0">2D - 2: စာရင်း ပေါင်းချုပ် -   Bath - Dashboards
                                 <span>
                                      <h6 class="btn btn-primary">
-                                    <span id="date_time"></span>
+                                    <span><p id="rate">Currency Rate - </p></span>
+
                                      </h6>
                                 </span>
                                 <span>
@@ -233,7 +234,6 @@
         <div class="mb-3 d-flex justify-content-around text-white p-2 shadow border border-1" style="border-radius: 10px; background: var(--Primary, #12486b)">
       <p class="text-end pt-1" style="color: #fff">Total Amount : ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
         <strong>{{ $totalSubAmount_baht }} Baht
-        <span><p id="rate"></p></span>
         </strong>
       </p>
     </div>
