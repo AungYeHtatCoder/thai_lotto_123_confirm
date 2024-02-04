@@ -138,12 +138,7 @@
                     <div class="d-lg-flex">
                         <div>
                             <h5 class="mb-0">2D - 2: စာရင်း ပေါင်းချုပ် -   Bath - Dashboards
-                                <span>
-                                     <h6 class="btn btn-primary">
-                                    <span><p id="rate">Currency Rate - </p></span>
-
-                                     </h6>
-                                </span>
+                                
                                 <span>
                                     <div class="ms-auto my-auto mt-lg-0 mt-4">
                             <div class="ms-auto my-auto">
@@ -171,6 +166,10 @@
             <div class="card">
                 <div class="card-header">
                     <button id="changeToMMK" class="btn btn-info">Change To MMK</button>
+                    <span>
+                        <h6 class="btn btn-outline-primary">Currency Rate -
+                        <span><p id="rate"> </p></span></h6>
+                    </span>
                 </div>
             </div>
        <table class="table table-flush" id="baht-search">
