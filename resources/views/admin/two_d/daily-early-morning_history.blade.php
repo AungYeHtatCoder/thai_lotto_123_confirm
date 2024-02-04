@@ -188,7 +188,7 @@
 
         @if($displayTwoDigits_baht)
         @foreach ($displayTwoDigits_baht as $index => $digit)
-        @if($digit->currency == 'mmk')
+        {{-- @if($digit->currency == 'mmk') --}}
          <tr>
            <td>{{ $index + 1 }}</td>
            {{-- <td>{{ $digit->phone }}</td> --}}
@@ -221,7 +221,7 @@
             @endif
            </td>
          </tr>
-        @endif
+        {{-- @endif --}}
         @endforeach
         @endif
       </tbody>
