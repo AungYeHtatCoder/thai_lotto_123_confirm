@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Admin\Lottery;
+use App\Models\Admin\Currency;
 use App\Models\Admin\TwoDLimit;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -44,7 +45,7 @@ class DailyMorningHistoryController extends Controller
         // Calculate the total sum of sub_amount
         $totalSubAmount_baht = $twoDigits_baht->sum('sub_amount');
         $twod_limits_baht = TwoDLimit::orderBy('id', 'desc')->first();
-
+        $currencies = Currency::latest()->first();
     
         return view('admin.two_d.daily-early-morning_history', [
            'displayTwoDigits' => $twoDigits,
@@ -53,6 +54,7 @@ class DailyMorningHistoryController extends Controller
             'displayTwoDigits_baht' => $twoDigits_baht,
             'totalSubAmount_baht' => $totalSubAmount_baht,
             'twod_limits_baht' => $twod_limits_baht,
+            'currencies' => $currencies,
             
         ]);
     }
@@ -158,6 +160,7 @@ class DailyMorningHistoryController extends Controller
         // Calculate the total sum of sub_amount
         $totalSubAmount_baht = $twoDigits_baht->sum('sub_amount');
         $twod_limits_baht = TwoDLimit::orderBy('id', 'desc')->first();
+        $currencies = Currency::latest()->first();
 
         return view('admin.two_d.daily-early-evening_history', [
            'displayTwoDigits' => $twoDigits,
@@ -166,6 +169,7 @@ class DailyMorningHistoryController extends Controller
             'displayTwoDigits_baht' => $twoDigits_baht,
             'totalSubAmount_baht' => $totalSubAmount_baht,
             'twod_limits_baht' => $twod_limits_baht,
+            'currencies' => $currencies,
             
         ]);
     }

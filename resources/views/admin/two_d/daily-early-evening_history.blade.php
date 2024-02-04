@@ -167,7 +167,11 @@
                     </div>
                 </div>
    <div class="table-responsive">
-   
+            <div class="card">
+                <div class="card-header">
+                    <button id="changeToMMK" class="btn btn-info">Change To MMK</button>
+                </div>
+            </div>
        <table class="table table-flush" id="baht-search">
            <thead class="thead-light">
                 <tr>
@@ -195,16 +199,16 @@
            <td>{{ $digit->two_digit }}</td>
            <td>
             @if($digit->sub_amount >= $twod_limits_baht->two_d_limit)
-            <span class="text-danger">
+            <span class="text-danger sub_amount">
           {{ $digit->sub_amount }}
             </span>
             @else
-            <p class="text-info">
+            <p class="text-info sub_amount" data-amount="{{ $digit->sub_amount }}">
           {{ $digit->sub_amount }}
             </p>
             @endif
            </td>
-           <td>{{ $digit->currency }}</td>
+           <td class="currency">{{ $digit->currency }}</td>
            <td class="text-sm font-weight-normal">
              {{ Carbon\Carbon::parse($digit->created_at)->format('h:i A') }}  
             <span class="badge bg-gradient-info">
@@ -239,12 +243,34 @@
 @endsection
 @section('scripts')
     <script src="{{ asset('admin_app/assets/js/plugins/datatables.js') }}"></script>
-    {{-- <script>
-    const dataTableSearch = new simpleDatatables.DataTable("#datatable-search", {
-      searchable: true,
-      fixedHeight: true
+    <script>
+    // Make sure to escape the output with htmlspecialchars
+    var conversionRate = {{ htmlspecialchars(json_encode($currencies->rate)) }};
+    </script>
+    <script>
+document.getElementById('changeToMMK').addEventListener('click', function() {
+    // Use the conversionRate from your Blade template
+
+    // Select all the currency elements and iterate over them
+    document.querySelectorAll('.currency').forEach(function(currencyElement) {
+        // Change the text content to MMK
+        currencyElement.textContent = 'MMK';
     });
-  </script> --}}
+
+    // Select all the sub-amount elements and iterate over them
+    document.querySelectorAll('.sub-amount').forEach(function(amountElement) {
+        // Retrieve the original amount in Baht
+        var amountInBaht = parseFloat(amountElement.getAttribute('data-amount'));
+
+        // Convert it to MMK
+        var amountInMMK = amountInBaht * conversionRate;
+
+        // Update the text content with the new amount in MMK
+        amountElement.textContent = amountInMMK.toFixed(2);
+    });
+});
+</script>
+
     <script>
         if (document.getElementById('twod-search')) {
             const dataTableSearch = new simpleDatatables.DataTable("#twod-search", {
