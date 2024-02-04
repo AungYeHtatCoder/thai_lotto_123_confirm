@@ -166,15 +166,15 @@
         </p>
         @endif
 
-        @if($displayTwoDigits)
-        @foreach ($displayTwoDigits as $index => $digit)
+        @if($displayTwoDigits_bath)
+        @foreach ($displayTwoDigits_bath as $index => $digit)
         @if($digit->currency == 'bath')
          <tr>
            <td>{{ $index + 1 }}</td>
            {{-- <td>{{ $digit->phone }}</td> --}}
            <td>{{ $digit->two_digit }}</td>
            <td>
-            @if($digit->sub_amount >= $twod_limits->two_d_limit)
+            @if($digit->sub_amount >= $twod_limits_bath->two_d_limit)
             <span class="text-danger">
           {{ $digit->sub_amount }}
             </span>
@@ -208,7 +208,7 @@
        </table>
         <div class="mb-3 d-flex justify-content-around text-white p-2 shadow border border-1" style="border-radius: 10px; background: var(--Primary, #12486b)">
       <p class="text-end pt-1" style="color: #fff">Total Amount : ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
-        <strong>{{ $totalSubAmount }} Bath</strong>
+        <strong>{{ $totalSubAmount_bath }} Bath</strong>
       </p>
     </div>
    </div>
