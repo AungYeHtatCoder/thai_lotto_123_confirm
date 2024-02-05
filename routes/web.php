@@ -37,7 +37,6 @@ use App\Http\Controllers\Home\CashOutRequestController;
 use App\Http\Controllers\Admin\ThreedMatchTimeController;
 use App\Http\Controllers\Admin\FillBalanceReplyController;
 use App\Http\Controllers\Admin\Jackpot\JackpotOverLimitController;
-use App\Http\Controllers\Admin\Jackpot\JackpotWeeklyOverHistoryController;
 
 Auth::routes();
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
