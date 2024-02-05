@@ -154,7 +154,7 @@ class ThreeDController extends Controller
 
         $totalAmount = $request->totalAmount;
         DB::beginTransaction(); 
-
+        $limitAmount = ThreeDDLimit::latest()->first()->three_d_limit;
         try {
             $user = Auth::user();
             $user->balance -= $totalAmount;
@@ -181,40 +181,73 @@ class ThreeDController extends Controller
                 $num = str_pad($amountInfo['num'], 3, '0', STR_PAD_LEFT);
                 $sub_amount = $amountInfo['amount'];
                 $three_digit = ThreeDigit::where('three_digit', $num)->firstOrFail();
+                $totalBetAmountForTwoDigit = DB::table('lotto_three_digit_copy')
+                ->where('three_digit_id', $three_digit->id)
+                ->sum('sub_amount');
 
-                LotteryThreeDigitPivot::create([
+            if ($totalBetAmountForTwoDigit + $sub_amount <= $limitAmount) {
+                $pivot = new LotteryThreeDigitPivot([
                     'lotto_id' => $lottery->id,
                     'three_digit_id' => $three_digit->id,
                     'sub_amount' => $sub_amount,
-                    'prize_sent' => false,
-                    'currency' => $request->currency,
+                    'prize_sent' => false
                 ]);
+                $pivot->save();
+            } else {
+                $withinLimit = $limitAmount - $totalBetAmountForTwoDigit;
+                $overLimit = $sub_amount - $withinLimit;
 
-                // Get the break limit for three digits
-                $break = ThreeDDLimit::latest()->first()->three_d_limit;
-
-                // Calculate the total bet amount for this three_digit so far, not including the current bet
-                $currentTotalBetAmount = DB::table('lotto_three_digit_pivot')
-                                        ->where('three_digit_id', $three_digit->id)
-                                        ->sum('sub_amount');
-
-                // Calculate the new total including the current bet
-                $newTotalBetAmount = $currentTotalBetAmount + $sub_amount;
-
-                // Calculate overLimit amount if any
-                $overLimit = $newTotalBetAmount > $break ? $newTotalBetAmount - $break : 0;
-
-                // Only store the over-limit amount
-                if ($overLimit > 0) {
-                    ThreeDigitOverLimit::create([
+                if ($withinLimit > 0) {
+                    $pivotWithin = new LotteryThreeDigitPivot([
                         'lotto_id' => $lottery->id,
                         'three_digit_id' => $three_digit->id,
-                        // Store only the over-limit part, not the entire new total
-                        'sub_amount' => $overLimit,
-                        'prize_sent' => false,
-                        'currency' => $request->currency,
+                        'sub_amount' => $sub_amount,
+                        'prize_sent' => false
                     ]);
+                    $pivotWithin->save();
                 }
+
+                if ($overLimit > 0) {
+                    $pivotOver = new ThreeDigitOverLimit([
+                        'lottery_id' => $lottery->id,
+                        'two_digit_id' => $three_digit->id,
+                        'sub_amount' => $overLimit,
+                        'prize_sent' => false
+                    ]);
+                    $pivotOver->save();
+                }
+            }
+                // LotteryThreeDigitPivot::create([
+                //     'lotto_id' => $lottery->id,
+                //     'three_digit_id' => $three_digit->id,
+                //     'sub_amount' => $sub_amount,
+                //     'prize_sent' => false,
+                //     'currency' => $request->currency,
+                // ]);
+
+                // // Get the break limit for three digits
+                // $break = ThreeDDLimit::latest()->first()->three_d_limit;
+                // $currentTotalBetAmount = DB::table('lotto_three_digit_pivot')
+                //                         ->where('three_digit_id', $three_digit->id)
+                //                         ->sum('sub_amount');
+
+                // // Calculate the new total including the current bet
+                // $newTotalBetAmount = $currentTotalBetAmount + $sub_amount;
+
+                // // Calculate overLimit amount if any
+                // $overLimit = $newTotalBetAmount > $break ? $newTotalBetAmount - $break : 0;
+
+                // // Only store the over-limit amount
+                // if ($overLimit > 0) {
+                //     ThreeDigitOverLimit::create([
+                //         'lotto_id' => $lottery->id,
+                //         'three_digit_id' => $three_digit->id,
+                //         // Store only the over-limit part, not the entire new total
+                //         'sub_amount' => $overLimit,
+                //         'prize_sent' => false,
+                //         'currency' => $request->currency,
+                //     ]);
+                // }
             }
 
             DB::commit();
