@@ -202,7 +202,7 @@
           {{ $digit->sub_amount }}
             </span>
             @else
-            <p class="text-info" sub_amount" data-amount="{{ $digit->sub_amount }}">
+            <p class="text-info sub_amount" data-amount="{{ $digit->sub_amount }}">
           {{ $digit->sub_amount }}
             </p>
             @endif
