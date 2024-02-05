@@ -28,6 +28,7 @@ class RegisterRequest extends FormRequest
             'country_code' => ['required', 'string', 'max:5'],
             'phone' => ['required', 'max:15', 'unique:users'],
             'password' => ['required', 'min:6'],
+            'user_currency' => ['required', 'string', 'max:4'],
         ];
     }
     protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
