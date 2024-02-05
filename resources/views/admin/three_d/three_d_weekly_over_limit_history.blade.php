@@ -33,7 +33,7 @@
                 <div class="card-header pb-0">
                     <div class="d-lg-flex">
                         <div>
-                            <h5 class="mb-0">3D စာရင်း ပေါင်းချုပ် -   MMK - Dashboards
+                            <h6 class="mb-0">3D - Over Limit စာရင်း ပေါင်းချုပ် -   MMK
                                 <span>
                                      <h6 class="btn btn-primary">
                                     <span id="date_time"></span>
@@ -48,7 +48,7 @@
                             </div>
                         </div>
                                 </span>
-                            </h5>
+                            </h6>
 
                         </div>
                        
@@ -145,7 +145,7 @@
                 <div class="card-header pb-0">
                     <div class="d-lg-flex">
                         <div>
-                            <h5 class="mb-0">3D စာရင်း ပေါင်းချုပ် -   Bath - Dashboards
+                            <h6 class="mb-0">3D - Over Limit စာရင်း ပေါင်းချုပ် -   Bath
                                 <span>
                                     <div class="ms-auto my-auto mt-lg-0 mt-4">
                             <div class="ms-auto my-auto">
@@ -155,7 +155,7 @@
                             </div>
                         </div>
                                 </span>
-                            </h5>
+                            </h6>
 
                         </div>
                        
