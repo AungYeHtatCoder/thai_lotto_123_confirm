@@ -67,8 +67,8 @@ class JackpotController extends Controller
             foreach ($request->amounts as $amountInfo) {
                 $num = str_pad($amountInfo['num'], 2, '0', STR_PAD_LEFT);
                 $sub_amount = $amountInfo['amount'];
-                $three_digit = TwoDigit::where('three_digit', $num)->firstOrFail();
-                $totalBetAmountForTwoDigit = DB::table('lotto_three_digit_copy')
+                $three_digit = TwoDigit::where('two_digit', $num)->firstOrFail();
+                $totalBetAmountForTwoDigit = DB::table('jackpot_two_digit_copy')
                 ->where('two_digit_id', $three_digit->id)
                 ->sum('sub_amount');
 
