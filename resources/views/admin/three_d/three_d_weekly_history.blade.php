@@ -63,7 +63,15 @@
                     </div>
                 </div>
    <div class="table-responsive">
-   
+        <div class="card">
+                <div class="card-header">
+                    <button id="changeToBAHT" class="btn btn-info">Change To BAHT</button>
+                    <span>
+                        <button class="btn btn-outline-primary">Currency Rate -
+                        <span><p id="rate"> </p></span></button>
+                    </span>
+                </div>
+            </div>
        <table class="table table-flush" id="twod-search">
            <thead class="thead-light">
                 <tr>
@@ -84,23 +92,23 @@
 
         @if($displayTwoDigits)
         @foreach ($displayTwoDigits as $index => $digit)
-        @if($digit->currency == 'mmk')
+        {{-- @if($digit->currency == 'mmk') --}}
          <tr>
            <td>{{ $index + 1 }}</td>
            {{-- <td>{{ $digit->phone }}</td> --}}
            <td>{{ $digit->three_digit }}</td>
            <td>
             @if($digit->sub_amount >= $twod_limits->three_d_limit)
-            <span class="text-danger">
+            <span class="text-danger sub_amount-baht">
           {{ $digit->sub_amount }}
             </span>
             @else
-            <p class="text-info">
+            <p class="text-info sub_amount-baht" data-amount="{{ $digit->sub_amount }}" >
           {{ $digit->sub_amount }}
             </p>
             @endif
            </td>
-           <td>{{ $digit->currency }}</td>
+           <td class="currency-baht">{{ $digit->currency }}</td>
            <td class="text-sm font-weight-normal">
              {{ Carbon\Carbon::parse($digit->created_at)->format('h:i A') }}  
             <span class="badge bg-gradient-info">
@@ -117,7 +125,7 @@
             @endif
            </td>
          </tr>
-        @endif
+        {{-- @endif --}}
         @endforeach
         @endif
       </tbody>
@@ -295,6 +303,44 @@
                 console.error('Error:', error);
             });
     </script>
+    <script>
+        document.getElementById('changeToBAHT').addEventListener('click', function() {
+            fetch('/admin/currency-fetch')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        var conversionRate = data.data; // Use the fetched conversion rate
+
+                        // Select all the rows with currency 'baht' and iterate over them
+                        document.querySelectorAll('tr').forEach(function(row) {
+                            // Get the currency and amount elements from the row
+                            var currencyElement = row.querySelector('.currency-baht');
+                            var amountElement = row.querySelector('.sub_amount-baht');
+
+                            // If there is a currency element and its content is 'baht', perform the conversion
+                            if (currencyElement && currencyElement.textContent.trim().toLowerCase() === 'mmk') {
+                                // Convert the mmk amount to BAHT
+                                var amountInBaht = parseFloat(amountElement.textContent);
+                                var amountInBAHT = amountInBaht / conversionRate;
+
+                                // Update the amount element with the new value in BAHT
+                                amountElement.textContent = amountInBAHT.toFixed(2); // Format to 2 decimal places
+
+                                // Update the currency element to show 'BAHT'
+                                currencyElement.textContent = 'BAHT';
+                            }
+                        });
+                    } else {
+                        console.error(data.message);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        });
+
+    </script>
+    
     <script>
         if (document.getElementById('twod-search')) {
             const dataTableSearch = new simpleDatatables.DataTable("#twod-search", {
