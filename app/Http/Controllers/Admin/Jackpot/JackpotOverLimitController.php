@@ -73,7 +73,7 @@ public function SameThreeDigitIDoverLimit()
     public function index()
     {
        $limits = JackpotLimit::all();
-        return view('admin.jackpot.jackpot_limit_index.', compact('limits'));
+        return view('admin.jackpot.jackpot_limit_index', compact('limits'));
     }
 
     public function store(Request $request)
