@@ -98,13 +98,13 @@
            {{-- <td>{{ $digit->phone }}</td> --}}
            <td>{{ $digit->three_digit }}</td>
            <td>
-            @if($digit->sub_amount >= $twod_limits->three_d_limit)
+            @if($digit->total_sub_amount >= $twod_limits->three_d_limit)
             <span class="text-danger sub_amount-baht">
-          {{ $digit->sub_amount }}
+          {{ $digit->total_sub_amount }}
             </span>
             @else
-            <p class="text-info sub_amount-baht" data-amount="{{ $digit->sub_amount }}" >
-          {{ $digit->sub_amount }}
+            <p class="text-info sub_amount-baht" data-amount="{{ $digit->total_sub_amount }}" >
+          {{ $digit->total_sub_amount }}
             </p>
             @endif
            </td>
@@ -205,13 +205,13 @@
            {{-- <td>{{ $digit->phone }}</td> --}}
            <td>{{ $digit->three_digit }}</td>
            <td>
-            @if($digit->sub_amount >= $twod_limits_baht->three_d_limit)
+            @if($digit->total_sub_amount >= $twod_limits_baht->three_d_limit)
             <span class="text-danger sub_amount">
-          {{ $digit->sub_amount }}
+          {{ $digit->total_sub_amount }}
             </span>
             @else
-            <p class="text-info sub_amount" data-amount="{{ $digit->sub_amount }}">
-          {{ $digit->sub_amount }}
+            <p class="text-info sub_amount" data-amount="{{ $digit->total_sub_amount }}">
+          {{ $digit->total_sub_amount }}
             </p>
             @endif
            </td>
