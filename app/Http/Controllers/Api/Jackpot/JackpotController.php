@@ -258,6 +258,15 @@ class JackpotController extends Controller
             'amounts.*.amount' => 'required|integer|min:1',
         ]);
 
+        // if($request->currency == 'baht'){
+        //     $user = Auth::user();
+        //     $totalAmount = $request->totalAmount ;
+        //    $user->balance-baht -= $totalAmount;
+        // }else{
+        //     $user->balance -= $totalAmount;
+        // }
+
+
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors()], 401);
         }
@@ -271,7 +280,7 @@ class JackpotController extends Controller
 
             $user = Auth::user();
             $user->balance -= $totalAmount;
-
+            // $user->balance-baht -= $totalAmount;
             if ($user->balance < 0) {
                 throw new \Exception('Insufficient balance');
             }

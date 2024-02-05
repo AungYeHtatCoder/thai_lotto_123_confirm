@@ -1,0 +1,450 @@
+@extends('layouts.admin_app')
+@section('styles')
+    <style>
+        .transparent-btn {
+            background: none;
+            border: none;
+            padding: 0;
+            outline: none;
+            cursor: pointer;
+            box-shadow: none;
+            appearance: none;
+            /* For some browsers */
+        }
+
+@font-face {
+    font-family: 'Myanmar Pyidaungsu';
+    src: url('{{ asset('assets/css/Pyidaungsu.ttf') }}') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.table-font-myanmar {
+    font-family: 'Pyidaungsu', sans-serif;
+}
+</style>
+
+@endsection
+@section('content')
+    <div class="row mt-4">
+        <div class="col-6">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header pb-0">
+                    <div class="d-lg-flex">
+                        <div>
+                            <h6 class="mb-0">3D - Over Limit စာရင်း ပေါင်းချုပ် -   MMK
+                                <span>
+                                     <h6 class="btn btn-primary">
+                                    <span id="date_time"></span>
+                                     </h6>
+                                </span>
+                                <span>
+                                    <div class="ms-auto my-auto mt-lg-0 mt-4">
+                            <div class="ms-auto my-auto">
+                                
+                                <a class="btn btn-outline-primary btn-sm export mb-0 mt-sm-0 mt-1"
+                                    href="{{ url('/admin/three-d-list-index') }}" >Back</a>
+                            </div>
+                        </div>
+                                </span>
+                            </h6>
+
+                        </div>
+                       
+                        <div class="ms-auto my-auto mt-lg-0 mt-4">
+                            <div class="ms-auto my-auto">
+                                 {{-- <a href="{{ url('/admin/twod-daily-early-morning-history') }}"
+                                    class="btn bg-gradient-primary btn-sm mb-0"> > &nbsp; 9:30 စာရင်း ပေါင်းချုပ်</a> --}}
+                                <button class="btn btn-outline-primary btn-sm export mb-0 mt-sm-0 mt-1" data-type="csv"
+                                    type="button" name="button">Export</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+   <div class="table-responsive">
+        <div class="card">
+                <div class="card-header">
+                    <button id="changeToBAHT" class="btn btn-info">Change To BAHT</button>
+                    <span>
+                        <button class="btn btn-outline-primary">Currency Rate -
+                        <span><p id="rate-mmk"> </p></span></button>
+                    </span>
+                </div>
+            </div>
+       <table class="table table-flush" id="twod-search">
+           <thead class="thead-light">
+                <tr>
+                <th>No</th>
+                <th>2D</th>
+                <th>ထိုးကြေး</th>
+                <th>Currency</th>
+                <th>ရက်စွဲ</th>
+                <th>Win/Lose</th>
+                </tr>
+           </thead>
+            <tbody>
+        @if(isset($displayTwoDigits) && count($displayTwoDigits) == 0)
+        <p class="text-center text-white px-3 py-2 mt-3" style="background-color: #c50408">
+        ကံစမ်းထားသော 3D ထီဂဏန်းများ မရှိသေးပါ
+        </p>
+        @endif
+
+        @if($displayTwoDigits)
+        @foreach ($displayTwoDigits as $index => $digit)
+        {{-- @if($digit->currency == 'mmk') --}}
+         <tr>
+           <td>{{ $index + 1 }}</td>
+           {{-- <td>{{ $digit->phone }}</td> --}}
+           <td>{{ $digit->three_digit }}</td>
+           <td>
+            @if($digit->total_sub_amount >= $twod_limits->three_d_limit)
+            <span class="text-danger sub_amount-baht">
+          {{ $digit->total_sub_amount }}
+            </span>
+            @else
+            <p class="text-info sub_amount-baht" data-amount="{{ $digit->total_sub_amount }}" >
+          {{ $digit->total_sub_amount }}
+            </p>
+            @endif
+           </td>
+           <td class="currency-baht">{{ $digit->currency }}</td>
+           <td class="text-sm font-weight-normal">
+             {{ Carbon\Carbon::parse($digit->created_at)->format('h:i A') }}  
+            <span class="badge bg-gradient-info">
+             {{ Carbon\Carbon::parse($digit->created_at)->format('d-m-Y') }}
+            </span>
+            {{-- <span
+             class="badge bg-gradient-info">{{ $digit->created_at->format('d-m-Y (l) (h:i a)') }}</span> --}}
+           </td>
+           <td>
+            @if ($digit->prize_sent == 1)
+             <span class="text-success">Win</span>
+            @else
+             <span class="text-danger">Pending</span>
+            @endif
+           </td>
+         </tr>
+        {{-- @endif --}}
+        @endforeach
+        @endif
+      </tbody>
+       </table>
+        <div class="mb-3 d-flex justify-content-around text-white p-2 shadow border border-1" style="border-radius: 10px; background: var(--Primary, #12486b)">
+      <p class="text-end pt-1" style="color: #fff">Total Amount : ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
+        <strong>{{ $totalSubAmount }} MMK</strong>
+      </p>
+    </div>
+   </div>
+        </div>
+        </div>
+
+        <div class="col-6">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header pb-0">
+                    <div class="d-lg-flex">
+                        <div>
+                            <h6 class="mb-0">3D - Over Limit စာရင်း ပေါင်းချုပ် -   Bath
+                                <span>
+                                    <div class="ms-auto my-auto mt-lg-0 mt-4">
+                            <div class="ms-auto my-auto">
+                                
+                                <a class="btn btn-outline-primary btn-sm export mb-0 mt-sm-0 mt-1"
+                                    href="{{ url('/admin/three-d-list-index') }}" >Back</a>
+                            </div>
+                        </div>
+                                </span>
+                            </h6>
+
+                        </div>
+                       
+                        <div class="ms-auto my-auto mt-lg-0 mt-4">
+                            <div class="ms-auto my-auto">
+                                 {{-- <a href="{{ url('/admin/twod-daily-early-morning-history') }}"
+                                    class="btn bg-gradient-primary btn-sm mb-0"> > &nbsp; 9:30 စာရင်း ပေါင်းချုပ်</a> --}}
+                                <button class="btn btn-outline-primary btn-sm export-baht mb-0 mt-sm-0 mt-1" data-type="csv"
+                                    type="button" name="button">Export</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+   <div class="table-responsive">
+        <div class="card">
+                <div class="card-header">
+                    <button id="changeToMMK" class="btn btn-info">Change To MMK</button>
+                    <span>
+                        <button class="btn btn-outline-primary">Currency Rate -
+                        <span><p id="rate"> </p></span></button>
+                    </span>
+                </div>
+            </div>
+       <table class="table table-flush" id="baht-search">
+           <thead class="thead-light">
+                <tr>
+                <th>No</th>
+                <th>2D</th>
+                <th>ထိုးကြေး</th>
+                <th>Currency</th>
+                <th>ရက်စွဲ</th>
+                <th>Win/Lose</th>
+                </tr>
+           </thead>
+            <tbody>
+        @if(isset($displayTwoDigits_baht) && count($displayTwoDigits_baht) == 0)
+        <p class="text-center text-white px-3 py-2 mt-3" style="background-color: #c50408">
+        ကံစမ်းထားသော 3D ထီဂဏန်းများ မရှိသေးပါ
+        </p>
+        @endif
+
+        @if($displayTwoDigits_baht)
+        @foreach ($displayTwoDigits_baht as $index => $digit)
+        {{-- @if($digit->currency == 'mmk') --}}
+         <tr>
+           <td>{{ $index + 1 }}</td>
+           {{-- <td>{{ $digit->phone }}</td> --}}
+           <td>{{ $digit->three_digit }}</td>
+           <td>
+            @if($digit->total_sub_amount >= $twod_limits_baht->three_d_limit)
+            <span class="text-danger sub_amount">
+          {{ $digit->total_sub_amount }}
+            </span>
+            @else
+            <p class="text-info sub_amount" data-amount="{{ $digit->total_sub_amount }}">
+          {{ $digit->total_sub_amount }}
+            </p>
+            @endif
+           </td>
+           <td class="currency">{{ $digit->currency }}</td>
+           <td class="text-sm font-weight-normal">
+             {{ Carbon\Carbon::parse($digit->created_at)->format('h:i A') }}  
+            <span class="badge bg-gradient-info">
+             {{ Carbon\Carbon::parse($digit->created_at)->format('d-m-Y') }}
+            </span>
+            {{-- <span
+             class="badge bg-gradient-info">{{ $digit->created_at->format('d-m-Y (l) (h:i a)') }}</span> --}}
+           </td>
+           <td>
+            @if ($digit->prize_sent == 1)
+             <span class="text-success">Win</span>
+            @else
+             <span class="text-danger">Pending</span>
+            @endif
+           </td>
+         </tr>
+        {{-- @endif --}}
+        @endforeach
+        @endif
+      </tbody>
+       </table>
+        <div class="mb-3 d-flex justify-content-around text-white p-2 shadow border border-1" style="border-radius: 10px; background: var(--Primary, #12486b)">
+      <p class="text-end pt-1" style="color: #fff">Total Amount : ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
+        <strong>{{ $totalSubAmount_baht }} Baht</strong>
+      </p>
+    </div>
+   </div>
+        </div>
+        </div>
+        
+    </div>
+@endsection
+@section('scripts')
+    <script src="{{ asset('admin_app/assets/js/plugins/datatables.js') }}"></script>
+    <script>
+        document.getElementById('changeToMMK').addEventListener('click', function() {
+            fetch('/admin/currency-fetch')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        var conversionRate = data.data; // Use the fetched conversion rate
+
+                        // Select all the rows with currency 'baht' and iterate over them
+                        document.querySelectorAll('tr').forEach(function(row) {
+                            // Get the currency and amount elements from the row
+                            var currencyElement = row.querySelector('.currency');
+                            var amountElement = row.querySelector('.sub_amount');
+
+                            // If there is a currency element and its content is 'baht', perform the conversion
+                            if (currencyElement && currencyElement.textContent.trim().toLowerCase() === 'baht') {
+                                // Convert the Baht amount to MMK
+                                var amountInBaht = parseFloat(amountElement.textContent);
+                                var amountInMMK = amountInBaht * conversionRate;
+
+                                // Update the amount element with the new value in MMK
+                                amountElement.textContent = amountInMMK.toFixed(2); // Format to 2 decimal places
+
+                                // Update the currency element to show 'MMK'
+                                currencyElement.textContent = 'MMK';
+                            }
+                        });
+                    } else {
+                        console.error(data.message);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        });
+
+    </script>
+    <script>
+        fetch('/admin/currency-fetch')
+            .then(response => response.json())
+            .then(data => {
+                //console.log(data);
+                // Display the rate in an HTML element with the id 'rate'
+                if (data.success) {
+                    document.getElementById('rate').textContent = data.data;
+                } else {
+                    console.error(data.message);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    </script>
+    <script>
+        fetch('/admin/currency-fetch')
+            .then(response => response.json())
+            .then(data => {
+                //console.log(data);
+                // Display the rate in an HTML element with the id 'rate'
+                if (data.success) {
+                    document.getElementById('rate-mmk').textContent = data.data;
+                } else {
+                    console.error(data.message);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    </script>
+    <script>
+        document.getElementById('changeToBAHT').addEventListener('click', function() {
+            fetch('/admin/currency-fetch')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        var conversionRate = data.data; // Use the fetched conversion rate
+
+                        // Select all the rows with currency 'baht' and iterate over them
+                        document.querySelectorAll('tr').forEach(function(row) {
+                            // Get the currency and amount elements from the row
+                            var currencyElement = row.querySelector('.currency-baht');
+                            var amountElement = row.querySelector('.sub_amount-baht');
+
+                            // If there is a currency element and its content is 'baht', perform the conversion
+                            if (currencyElement && currencyElement.textContent.trim().toLowerCase() === 'mmk') {
+                                // Convert the mmk amount to BAHT
+                                var amountInBaht = parseFloat(amountElement.textContent);
+                                var amountInBAHT = amountInBaht / conversionRate;
+
+                                // Update the amount element with the new value in BAHT
+                                amountElement.textContent = amountInBAHT.toFixed(2); // Format to 2 decimal places
+
+                                // Update the currency element to show 'BAHT'
+                                currencyElement.textContent = 'BAHT';
+                            }
+                        });
+                    } else {
+                        console.error(data.message);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        });
+
+    </script>
+    
+    <script>
+        if (document.getElementById('twod-search')) {
+            const dataTableSearch = new simpleDatatables.DataTable("#twod-search", {
+                searchable: true,
+                fixedHeight: false,
+                perPage: 7
+            });
+
+            document.querySelectorAll(".export").forEach(function(el) {
+                el.addEventListener("click", function(e) {
+                    var type = el.dataset.type;
+
+                    var data = {
+                        type: type,
+                        filename: "material-" + type,
+                    };
+
+                    if (type === "csv") {
+                        data.columnDelimiter = ",";
+                    }
+
+                    dataTableSearch.export(data);
+                });
+            });
+        };
+    </script>
+
+     <script>
+        if (document.getElementById('baht-search')) {
+            const dataTableSearch = new simpleDatatables.DataTable("#baht-search", {
+                searchable: true,
+                fixedHeight: false,
+                perPage: 7
+            });
+
+            document.querySelectorAll(".export-baht").forEach(function(el) {
+                el.addEventListener("click", function(e) {
+                    var type = el.dataset.type;
+
+                    var data = {
+                        type: type,
+                        filename: "material-" + type,
+                    };
+
+                    if (type === "csv") {
+                        data.columnDelimiter = ",";
+                    }
+
+                    dataTableSearch.export(data);
+                });
+            });
+        };
+    </script>
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
+    <script type="text/javascript">
+    function date_time(id) {
+        date = new Date;
+        year = date.getFullYear();
+        month = date.getMonth();
+        months = new Array('January', 'February', 'March', 'April', 'May', 'June', 'Jully', 'August', 'September', 'October', 'November', 'December');
+        d = date.getDate();
+        day = date.getDay();
+        days = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
+        h = date.getHours();
+        if(h<10) {
+                h = "0"+h;
+        }
+        m = date.getMinutes();
+        if(m<10) {
+                m = "0"+m;
+        }
+        s = date.getSeconds();
+        if(s<10) {
+                s = "0"+s;
+        }
+        result = ''+days[day]+' '+months[month]+' '+d+' '+year+' '+h+':'+m+':'+s;
+        document.getElementById(id).innerHTML = result;
+        setTimeout('date_time("' + id + '");', '1000');
+        return true;
+    }
+
+    // Call the function immediately after defining to set the initial date and time
+    date_time('date_time');
+</script>
+
+@endsection
