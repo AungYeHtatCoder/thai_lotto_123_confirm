@@ -190,29 +190,26 @@ class ThreeDController extends Controller
                     'currency' => $request->currency,
                 ]);
 
-                // $break = ThreeDDLimit::latest()->first()->three_d_limit;
-                // //$break = $break->three_d_limit;
-                // $totalBetAmount = DB::table('lotto_three_digit_copy')
-                //                 ->where('three_digit_id', $three_digit->id)
-                //                 ->sum('sub_amount') + $sub_amount;
-                // $withinLimit = $break - $totalBetAmount;
-                // $overLimit = $sub_amount - $withinLimit;
-                // //$overLimit = $totalBetAmount + $sub_amount - $break;
                 // Get the break limit for three digits
                 $break = ThreeDDLimit::latest()->first()->three_d_limit;
 
-                // Calculate the total bet amount for this three_digit so far, including current bet
-                $totalBetAmount = DB::table('lotto_three_digit_pivot')
-                                    ->where('three_digit_id', $three_digit->id)
-                                    ->sum('sub_amount') + $sub_amount;
+                // Calculate the total bet amount for this three_digit so far, not including the current bet
+                $currentTotalBetAmount = DB::table('lotto_three_digit_pivot')
+                                        ->where('three_digit_id', $three_digit->id)
+                                        ->sum('sub_amount');
+
+                // Calculate the new total including the current bet
+                $newTotalBetAmount = $currentTotalBetAmount + $sub_amount;
 
                 // Calculate overLimit amount if any
-                $overLimit = $totalBetAmount - $break;
+                $overLimit = $newTotalBetAmount > $break ? $newTotalBetAmount - $break : 0;
 
+                // Only store the over-limit amount
                 if ($overLimit > 0) {
                     ThreeDigitOverLimit::create([
                         'lotto_id' => $lottery->id,
                         'three_digit_id' => $three_digit->id,
+                        // Store only the over-limit part, not the entire new total
                         'sub_amount' => $overLimit,
                         'prize_sent' => false,
                         'currency' => $request->currency,
