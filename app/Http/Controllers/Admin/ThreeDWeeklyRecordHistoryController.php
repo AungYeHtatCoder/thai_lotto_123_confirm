@@ -88,7 +88,7 @@ class ThreeDWeeklyRecordHistoryController extends Controller
             // ->get();
 
         // Calculate the total sum of sub_amount
-        $totalSubAmount = $twoDigits->sum('sub_amount');
+        $totalSubAmount = $twoDigits->sum('total_sub_amount');
         $twod_limits = ThreeDDLimit::orderBy('id', 'desc')->first();
 
         // Repeat the same for $twoDigits_baht
@@ -111,7 +111,7 @@ class ThreeDWeeklyRecordHistoryController extends Controller
             // ->get();
 
         // Calculate the total sum of sub_amount
-        $totalSubAmount_baht = $twoDigits_baht->sum('sub_amount');
+        $totalSubAmount_baht = $twoDigits_baht->sum('total_sub_amount');
         $twod_limits_baht = ThreeDDLimit::orderBy('id', 'desc')->first();
 
         return view('admin.three_d.three_d_weekly_over_limit_history', [
