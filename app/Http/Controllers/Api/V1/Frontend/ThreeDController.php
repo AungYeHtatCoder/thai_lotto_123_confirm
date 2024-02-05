@@ -191,6 +191,7 @@ class ThreeDController extends Controller
                 ]);
 
                 $break = ThreeDDLimit::latest()->first();
+                $break = $break->three_d_limit;
                 $totalBetAmount = DB::table('lotto_three_digit_copy')
                                 ->where('three_digit_id', $three_digit->id)
                                 ->sum('sub_amount');
