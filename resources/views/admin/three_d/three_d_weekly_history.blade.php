@@ -68,7 +68,7 @@
                     <button id="changeToBAHT" class="btn btn-info">Change To BAHT</button>
                     <span>
                         <button class="btn btn-outline-primary">Currency Rate -
-                        <span><p id="rate"> </p></span></button>
+                        <span><p id="rate-mmk"> </p></span></button>
                     </span>
                 </div>
             </div>
@@ -291,10 +291,26 @@
         fetch('/admin/currency-fetch')
             .then(response => response.json())
             .then(data => {
-                console.log(data);
+                //console.log(data);
                 // Display the rate in an HTML element with the id 'rate'
                 if (data.success) {
                     document.getElementById('rate').textContent = data.data;
+                } else {
+                    console.error(data.message);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    </script>
+    <script>
+        fetch('/admin/currency-fetch')
+            .then(response => response.json())
+            .then(data => {
+                //console.log(data);
+                // Display the rate in an HTML element with the id 'rate'
+                if (data.success) {
+                    document.getElementById('rate-mmk').textContent = data.data;
                 } else {
                     console.error(data.message);
                 }
