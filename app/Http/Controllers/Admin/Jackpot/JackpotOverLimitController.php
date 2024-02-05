@@ -7,7 +7,9 @@ use App\Models\User\Jackpot;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Jackpot\JackpotLimit;
 use App\Models\Jackpot\JackpotWinner;
+use Illuminate\Support\Facades\Validator;
 
 class JackpotOverLimitController extends Controller
 {
@@ -67,5 +69,39 @@ public function SameThreeDigitIDoverLimit()
 
     return view('admin.jackpot.same_jackpot_over', compact('lotteries', 'prize_no', 'matchTime', 'aggregatedData'));
 }
+
+public function index()
+    {
+       $limits = JackpotLimit::all();
+        return view('admin.jackpot.jackpot_limit.index', compact('limits'));
+    }
+
+    public function store(Request $request)
+    {
+       //dd($request->all());
+        $validator = Validator::make($request->all(), [
+        'three_d_limit' => 'required',
+
+        //'body' => 'required|min:3'
+    ]);
+
+    if ($validator->fails()) {
+        return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
+    }
+
+        // store
+        JackpotLimit::create([
+            'three_d_limit' => $request->three_d_limit
+        ]);
+        // redirect
+        return redirect()->route('admin.jackpot-limit.index')->with('toast_success', 'three d limit created successfully.');
+    }
+
+    public function destroy($id)
+    {
+        $limit = JackpotLimit::findOrFail($id);
+        $limit->delete();
+        return redirect()->route('admin.jackpot-limit.index')->with('toast_success', 'Limit deleted successfully.');
+    }
 
 }

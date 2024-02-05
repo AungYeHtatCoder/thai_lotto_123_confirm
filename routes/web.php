@@ -36,6 +36,8 @@ use App\Http\Controllers\Admin\ThreedHistoryController;
 use App\Http\Controllers\Home\CashOutRequestController;
 use App\Http\Controllers\Admin\ThreedMatchTimeController;
 use App\Http\Controllers\Admin\FillBalanceReplyController;
+use App\Http\Controllers\Admin\Jackpot\JackpotOverLimitController;
+use App\Http\Controllers\Admin\Jackpot\JackpotWeeklyOverHistoryController;
 
 Auth::routes();
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -69,6 +71,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
     Route::resource('/two-digit-limit', TwoDLimitController::class);
     // three Ditgit Limit
     Route::resource('/three-digit-limit', ThreeDLimitController::class);
+    // jackpot limit
+    Route::resource('/jackpot-limit', JackpotOverLimitController::class);
     // display limit 
     Route::get('/three-d-display-limit-amount', [App\Http\Controllers\Admin\ThreeDLimitController::class, 'overLimit'])->name('three-d-display-limit-amount');
     Route::get('/three-d-same-id-display-limit-amount', [App\Http\Controllers\Admin\ThreeDLimitController::class, 'SameThreeDigitIDoverLimit'])->name('three-d-display-same-id-limit-amount');

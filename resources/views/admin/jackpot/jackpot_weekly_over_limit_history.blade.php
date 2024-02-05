@@ -33,7 +33,7 @@
                 <div class="card-header pb-0">
                     <div class="d-lg-flex">
                         <div>
-                            <h6 class="mb-0">3D - Over Limit စာရင်း ပေါင်းချုပ် -   MMK
+                            <h6 class="mb-0">အောက်နှစ်လုံးထီ - Over Limit စာရင်း ပေါင်းချုပ် -   MMK
                                 <span>
                                      <h6 class="btn btn-primary">
                                     <span id="date_time"></span>
@@ -44,7 +44,7 @@
                             <div class="ms-auto my-auto">
                                 
                                 <a class="btn btn-outline-primary btn-sm export mb-0 mt-sm-0 mt-1"
-                                    href="{{ url('/admin/three-d-list-index') }}" >Back</a>
+                                    href="{{ url('/admin/jackpot-over-same-id') }}" >Back</a>
                             </div>
                         </div>
                                 </span>
@@ -86,7 +86,7 @@
             <tbody>
         @if(isset($displayTwoDigits) && count($displayTwoDigits) == 0)
         <p class="text-center text-white px-3 py-2 mt-3" style="background-color: #c50408">
-        ကံစမ်းထားသော 3D ထီဂဏန်းများ မရှိသေးပါ
+        ကံစမ်းထားသော အောက်နှစ်လုံးထီ ထီဂဏန်းများ မရှိသေးပါ
         </p>
         @endif
 
@@ -145,7 +145,7 @@
                 <div class="card-header pb-0">
                     <div class="d-lg-flex">
                         <div>
-                            <h6 class="mb-0">3D - Over Limit စာရင်း ပေါင်းချုပ် -   Bath
+                            <h6 class="mb-0">အောက်နှစ်လုံးထီ - Over Limit စာရင်း ပေါင်းချုပ် -   Bath
                                 <span>
                                     <div class="ms-auto my-auto mt-lg-0 mt-4">
                             <div class="ms-auto my-auto">
@@ -193,7 +193,7 @@
             <tbody>
         @if(isset($displayTwoDigits_baht) && count($displayTwoDigits_baht) == 0)
         <p class="text-center text-white px-3 py-2 mt-3" style="background-color: #c50408">
-        ကံစမ်းထားသော 3D ထီဂဏန်းများ မရှိသေးပါ
+        ကံစမ်းထားသော အောက်နှစ်လုံးထီ ထီဂဏန်းများ မရှိသေးပါ
         </p>
         @endif
 
