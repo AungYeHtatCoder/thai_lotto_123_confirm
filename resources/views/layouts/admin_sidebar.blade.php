@@ -445,7 +445,7 @@
           <span class="sidenav-normal  ms-2  ps-1"> တလစာရင်း </span>
          </a>
         </li>
-        {{-- <li class="nav-item">
+        <li class="nav-item">
          <a class="nav-link text-white " href="{{ url('/admin/jackpot-over-same-id') }}">
           <span class="sidenav-mini-icon"> O </span>
           <span class="sidenav-normal  ms-2  ps-1"> OverList </span>
@@ -456,7 +456,7 @@
           <span class="sidenav-mini-icon"> O </span>
           <span class="sidenav-normal  ms-2  ps-1"> OverListDetail </span>
          </a>
-        </li> --}}
+        </li>
        </ul>
       </div> 
      </li>
