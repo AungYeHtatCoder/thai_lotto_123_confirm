@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('type');
             $table->tinyInteger('status')->default(0); //0-pending, 1-accept, 2-reject
             $table->string('amount');
+            $table->string('currency');
             $table->unsignedBigInteger('created_by')->nullable();
             $table->timestamps();
 

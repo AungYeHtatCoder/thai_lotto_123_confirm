@@ -39,7 +39,6 @@ class WalletController extends Controller
     public function deposit(DepositRequest $request)
     {
         $request->validated($request->all());
-        $rate = Currency::latest()->first()->rate;
 
         CashInRequest::create([
             'payment_method' => $request->payment_method,
@@ -51,7 +50,8 @@ class WalletController extends Controller
         ]);
         TransferLog::create([
             'user_id' => auth()->user()->id,
-            'amount' => $request->currency == "baht" ? $request->amount * $rate : $request->amount,
+            'amount' => $request->amount,
+            'currency' => $request->currency,
             'type' => 'Deposit',
             'created_by' => null
         ]);
@@ -67,7 +67,6 @@ class WalletController extends Controller
             'amount' => $request->amount,
             'last_6_num' => $request->last_6_num,
             'currency' => $request->currency,
-            'rate' => $rate,
         ];
         Mail::to($toMail)->send(new CashRequest($mail));
         return $this->success([
@@ -102,20 +101,14 @@ class WalletController extends Controller
         ]);
         TransferLog::create([
             'user_id' => auth()->user()->id,
-            'amount' => $request->currency == "baht" ? $request->amount * $rate : $request->amount,
+            'amount' => $request->amount,
+            'currency' => $request->currency,
             'type' => 'Withdraw',
             'created_by' => null
         ]);
         $user = User::find(auth()->id());
-        $rate = Currency::latest()->first()->rate;
-
-        if($request->currency == "baht"){
-            $user->balance -= $request->amount * $rate;
-            $user->save();
-        }else{
-            $user->balance -= $request->amount;
-            $user->save();
-        }
+        $user->balance -= $request->amount;
+        $user->save();
 
         $toMail = "mobiledeveloper117@gmail.com";
         $mail = [
@@ -127,7 +120,6 @@ class WalletController extends Controller
             'phone' => $request->phone,
             'amount' => $request->amount,
             'currency' => $request->currency,
-            'rate' => $rate,
         ];
         Mail::to($toMail)->send(new CashRequest($mail));
         return $this->success([

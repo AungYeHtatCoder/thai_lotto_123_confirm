@@ -33,47 +33,46 @@ class CashInRequestController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        $rate = Currency::latest()->first()->rate;
-        $request->validate([
-            'payment_method' => 'required',
-            'last_6_num' => 'required',
-            'amount' => 'required|numeric',
-            'phone' => 'required|numeric',
-            'currency' => 'required|string',
-        ]);
-        CashInRequest::create([
-            'payment_method' => $request->payment_method,
-            'last_6_num' => $request->last_6_num,
-            'amount' => $request->amount,
-            'phone' => $request->phone,
-            'currency' => $request->currency,
-            'user_id' => auth()->user()->id,
-        ]);
-        TransferLog::create([
-            'user_id' => auth()->user()->id,
-            'amount' => $request->currency == "baht" ? $request->amount * $rate : $request->amount,
-            'type' => 'Deposit',
-            'created_by' => null
-        ]);
-        $user = User::find(auth()->id());
+    // public function store(Request $request)
+    // {
+    //     $request->validate([
+    //         'payment_method' => 'required',
+    //         'last_6_num' => 'required',
+    //         'amount' => 'required|numeric',
+    //         'phone' => 'required|numeric',
+    //         'currency' => 'required|string',
+    //     ]);
+    //     CashInRequest::create([
+    //         'payment_method' => $request->payment_method,
+    //         'last_6_num' => $request->last_6_num,
+    //         'amount' => $request->amount,
+    //         'phone' => $request->phone,
+    //         'currency' => $request->currency,
+    //         'user_id' => auth()->user()->id,
+    //     ]);
+    //     TransferLog::create([
+    //         'user_id' => auth()->user()->id,
+    //         'amount' => $request->currency == "baht" ? $request->amount * $rate : $request->amount,
+    //         'type' => 'Deposit',
+    //         'created_by' => null
+    //     ]);
+    //     $user = User::find(auth()->id());
        
-        $toMail = "delightdeveloper4@gmail.com";
-        $mail = [
-            'status' => "Deposit",
-            'name' => $user->name,
-            'balance' => $user->balance,
-            'payment_method'=> $request->payment_method,
-            'phone' => $request->phone,
-            'amount' => $request->amount,
-            'last_6_num' => $request->last_6_num,
-            'currency' => $request->currency,
-            'rate' => $rate,
-        ];
-        Mail::to($toMail)->send(new CashRequest($mail));
-        return redirect()->back()->with('success', 'Cash In Request Submitted Successfully');
-    }
+    //     $toMail = "delightdeveloper4@gmail.com";
+    //     $mail = [
+    //         'status' => "Deposit",
+    //         'name' => $user->name,
+    //         'balance' => $user->balance,
+    //         'payment_method'=> $request->payment_method,
+    //         'phone' => $request->phone,
+    //         'amount' => $request->amount,
+    //         'last_6_num' => $request->last_6_num,
+    //         'currency' => $request->currency,
+    //         'rate' => $rate,
+    //     ];
+    //     Mail::to($toMail)->send(new CashRequest($mail));
+    //     return redirect()->back()->with('success', 'Cash In Request Submitted Successfully');
+    // }
 
     // public function show($id)
     // {
@@ -86,12 +85,8 @@ class CashInRequestController extends Controller
         $cash = CashInRequest::find($id);
         $currency = $cash->currency;
         $amount = $cash->amount;
-        $rate = Currency::latest()->first()->rate;
-        if($currency == 'baht'){
-            User::where('id', $cash->user_id)->increment('balance', $amount * $rate);
-        }else{
-            User::where('id', $cash->user_id)->increment('balance', $amount);
-        }
+        User::where('id', $cash->user_id)->increment('balance', $amount);
+        
         $cash->status = 1;
         $cash->save();
 
