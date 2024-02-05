@@ -190,7 +190,8 @@ class ThreeDController extends Controller
                     'lotto_id' => $lottery->id,
                     'three_digit_id' => $three_digit->id,
                     'sub_amount' => $sub_amount,
-                    'prize_sent' => false
+                    'prize_sent' => false,
+                    'currency' => $request->currency,
                 ]);
                 $pivot->save();
             } else {
@@ -202,17 +203,19 @@ class ThreeDController extends Controller
                         'lotto_id' => $lottery->id,
                         'three_digit_id' => $three_digit->id,
                         'sub_amount' => $sub_amount,
-                        'prize_sent' => false
+                        'prize_sent' => false,
+                        'currency' => $request->currency,
                     ]);
                     $pivotWithin->save();
                 }
 
                 if ($overLimit > 0) {
                     $pivotOver = new ThreeDigitOverLimit([
-                        'lottery_id' => $lottery->id,
-                        'two_digit_id' => $three_digit->id,
+                        'lotto_id' => $lottery->id,
+                        'three_digit_id' => $three_digit->id,
                         'sub_amount' => $overLimit,
-                        'prize_sent' => false
+                        'prize_sent' => false,
+                        'currency' => $request->currency,
                     ]);
                     $pivotOver->save();
                 }
