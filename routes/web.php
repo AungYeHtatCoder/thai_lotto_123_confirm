@@ -311,6 +311,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
     Route::get('/jackpot-weekly-record-history', [App\Http\Controllers\Admin\Jackpot\JackpotWeeklyRecordController::class, 'WeeklyJackpotHistory'])->name('JackpotWeeklyRecordHistory');
     // three-d-weekly-history
     Route::get('/three-d-weekly-history', [App\Http\Controllers\Admin\ThreeDWeeklyRecordHistoryController::class, 'WeeklyThreedHistory'])->name('WeeklyThreedHistoryRecord');
+    // three-d-weekly-over-limit-history
+    Route::get('/three-d-weekly-over-limit-history', [App\Http\Controllers\Admin\ThreeDWeeklyRecordHistoryController::class, 'WeeklyThreedOverLimitHistory'])->name('WeeklyThreedOverLimitHistoryRecord');
     // currency fetch
     Route::get('/currency-fetch', [App\Http\Controllers\Admin\DailyMorningHistoryController::class, 'GetCurrency'])->name('currency-fetch');
     
