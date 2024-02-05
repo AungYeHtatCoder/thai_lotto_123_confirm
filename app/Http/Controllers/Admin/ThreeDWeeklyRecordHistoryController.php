@@ -105,8 +105,8 @@ class ThreeDWeeklyRecordHistoryController extends Controller
             ->whereBetween('lotto_three_digit_over.created_at', [$startTime_baht, $endTime_baht])
             ->where('lotto_three_digit_over.currency', 'baht')
             ->selectRaw('lotto_three_digit_over.three_digit_id, three_digits.three_digit, SUM(lotto_three_digit_over.sub_amount) as total_sub_amount, lotto_three_digit_over.prize_sent, lotto_three_digit_over.currency, lotto_three_digit_over.created_at')
-        ->groupBy('lotto_three_digit_over.three_digit_id', 'three_digits.three_digit', 'lotto_three_digit_over.prize_sent', 'lotto_three_digit_over.currency', 'lotto_three_digit_over.created_at')
-        ->get();
+            ->groupBy('lotto_three_digit_over.three_digit_id', 'three_digits.three_digit', 'lotto_three_digit_over.prize_sent', 'lotto_three_digit_over.currency', 'lotto_three_digit_over.created_at')
+            ->get();
             // ->select('three_digits.three_digit', 'lotto_three_digit_over.sub_amount', 'lotto_three_digit_over.prize_sent', 'lotto_three_digit_over.currency', 'lotto_three_digit_over.created_at')
             // ->get();
 
