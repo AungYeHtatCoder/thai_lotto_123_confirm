@@ -399,18 +399,18 @@
           <span class="sidenav-normal  ms-2  ps-1">  တပါတ်စာရင်း </span>
          </a>
         </li>
-        {{-- <li class="nav-item">
+        <li class="nav-item">
          <a class="nav-link text-white " href="{{ url('/admin/three-d-same-id-display-limit-amount') }}">
           <span class="sidenav-mini-icon"> 3D </span>
           <span class="sidenav-normal  ms-2  ps-1">  OverList </span>
          </a>
-        </li> --}}
-        {{-- <li class="nav-item">
+        </li>
+        <li class="nav-item">
          <a class="nav-link text-white " href="{{ url('/admin/three-d-display-limit-amount') }}">
           <span class="sidenav-mini-icon"> 3D </span>
           <span class="sidenav-normal  ms-2  ps-1">Over Detail</span>
          </a>
-        </li> --}}
+        </li>
         <li class="nav-item">
          <a class="nav-link text-white " href="{{ url('/admin/three-d-winner') }}">
           <span class="sidenav-mini-icon"> 3D </span>

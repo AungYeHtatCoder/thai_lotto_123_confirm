@@ -138,11 +138,7 @@
                     <div class="d-lg-flex">
                         <div>
                             <h5 class="mb-0">2D - 9:30 စာရင်း ပေါင်းချုပ် -   Bath - Dashboards
-                                <span>
-                                     <h6 class="btn btn-primary">
-                                    <span id="date_time"></span>
-                                     </h6>
-                                </span>
+                                
                                 <span>
                                     <div class="ms-auto my-auto mt-lg-0 mt-4">
                             <div class="ms-auto my-auto">
@@ -167,7 +163,15 @@
                     </div>
                 </div>
    <div class="table-responsive">
-   
+            <div class="card">
+                <div class="card-header">
+                    <button id="changeToMMK" class="btn btn-info">Change To MMK</button>
+                    <span>
+                        <button class="btn btn-outline-primary">Currency Rate -
+                        <span><p id="rate"> </p></span></button>
+                    </span>
+                </div>
+            </div>
        <table class="table table-flush" id="baht-search">
            <thead class="thead-light">
                 <tr>
@@ -195,16 +199,16 @@
            <td>{{ $digit->two_digit }}</td>
            <td>
             @if($digit->sub_amount >= $twod_limits_baht->two_d_limit)
-            <span class="text-danger">
+            <span class="text-danger sub_amount">
           {{ $digit->sub_amount }}
             </span>
             @else
-            <p class="text-info">
+            <p class="text-info sub_amount" data-amount="{{ $digit->sub_amount }}">
           {{ $digit->sub_amount }}
             </p>
             @endif
            </td>
-           <td>{{ $digit->currency }}</td>
+           <td class="currency">{{ $digit->currency }}</td>
            <td class="text-sm font-weight-normal">
              {{ Carbon\Carbon::parse($digit->created_at)->format('h:i A') }}  
             <span class="badge bg-gradient-info">
@@ -228,7 +232,8 @@
        </table>
         <div class="mb-3 d-flex justify-content-around text-white p-2 shadow border border-1" style="border-radius: 10px; background: var(--Primary, #12486b)">
       <p class="text-end pt-1" style="color: #fff">Total Amount : ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
-        <strong>{{ $totalSubAmount_baht }} Baht</strong>
+        <strong>{{ $totalSubAmount_baht }} Baht
+        </strong>
       </p>
     </div>
    </div>
@@ -239,12 +244,60 @@
 @endsection
 @section('scripts')
     <script src="{{ asset('admin_app/assets/js/plugins/datatables.js') }}"></script>
-    {{-- <script>
-    const dataTableSearch = new simpleDatatables.DataTable("#datatable-search", {
-      searchable: true,
-      fixedHeight: true
-    });
-  </script> --}}
+    <script>
+        document.getElementById('changeToMMK').addEventListener('click', function() {
+            fetch('/admin/currency-fetch')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        var conversionRate = data.data; // Use the fetched conversion rate
+
+                        // Select all the rows with currency 'baht' and iterate over them
+                        document.querySelectorAll('tr').forEach(function(row) {
+                            // Get the currency and amount elements from the row
+                            var currencyElement = row.querySelector('.currency');
+                            var amountElement = row.querySelector('.sub_amount');
+
+                            // If there is a currency element and its content is 'baht', perform the conversion
+                            if (currencyElement && currencyElement.textContent.trim().toLowerCase() === 'baht') {
+                                // Convert the Baht amount to MMK
+                                var amountInBaht = parseFloat(amountElement.textContent);
+                                var amountInMMK = amountInBaht * conversionRate;
+
+                                // Update the amount element with the new value in MMK
+                                amountElement.textContent = amountInMMK.toFixed(2); // Format to 2 decimal places
+
+                                // Update the currency element to show 'MMK'
+                                currencyElement.textContent = 'MMK';
+                            }
+                        });
+                    } else {
+                        console.error(data.message);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        });
+
+    </script>
+    <script>
+        fetch('/admin/currency-fetch')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                // Display the rate in an HTML element with the id 'rate'
+                if (data.success) {
+                    document.getElementById('rate').textContent = data.data;
+                } else {
+                    console.error(data.message);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    </script>
+    
     <script>
         if (document.getElementById('twod-search')) {
             const dataTableSearch = new simpleDatatables.DataTable("#twod-search", {
