@@ -34,65 +34,64 @@ class CashOutRequestController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        $rate = Currency::latest()->first()->rate;
-        $request->validate([
-            'payment_method' => 'required',
-            'amount' => 'required|numeric',
-            'phone' => 'required|numeric',
-            'name' => 'required|string',
-            'currency' => 'required'
-        ]);
-        if($request->currency == "baht"){
-            $balance = auth()->user()->balance / $rate;
-            if($request->amount > $balance){
-                return redirect()->back()->with('error', 'Insufficient balance');
-            }
-        }
-        if($request->amount > auth()->user()->balance){
-            return redirect()->back()->with('error', 'Insufficient balance');
-        }
-        CashOutRequest::create([
-            'payment_method' => $request->payment_method,
-            'amount' => $request->amount,
-            'phone' => $request->phone,
-            'name' => $request->name,
-            'user_id' => auth()->id(),
-            'currency' => $request->currency,
-        ]);
-        TransferLog::create([
-            'user_id' => auth()->user()->id,
-            'amount' => $request->currency == "baht" ? $request->amount * $rate : $request->amount,
-            'type' => 'Withdraw',
-            'created_by' => null
-        ]);
-        $user = User::find(auth()->id());
-        if($request->currency == "baht"){
-            $user->balance -= $request->amount * $rate;
-            $user->save();
-        }else{
-            $user->balance -= $request->amount;
-            $user->save();
-        }
+    // public function store(Request $request)
+    // {
+    //     $request->validate([
+    //         'payment_method' => 'required',
+    //         'amount' => 'required|numeric',
+    //         'phone' => 'required|numeric',
+    //         'name' => 'required|string',
+    //         'currency' => 'required'
+    //     ]);
+    //     if($request->currency == "baht"){
+    //         $balance = auth()->user()->balance / $rate;
+    //         if($request->amount > $balance){
+    //             return redirect()->back()->with('error', 'Insufficient balance');
+    //         }
+    //     }
+    //     if($request->amount > auth()->user()->balance){
+    //         return redirect()->back()->with('error', 'Insufficient balance');
+    //     }
+    //     CashOutRequest::create([
+    //         'payment_method' => $request->payment_method,
+    //         'amount' => $request->amount,
+    //         'phone' => $request->phone,
+    //         'name' => $request->name,
+    //         'user_id' => auth()->id(),
+    //         'currency' => $request->currency,
+    //     ]);
+    //     TransferLog::create([
+    //         'user_id' => auth()->user()->id,
+    //         'amount' => $request->currency == "baht" ? $request->amount * $rate : $request->amount,
+    //         'type' => 'Withdraw',
+    //         'created_by' => null
+    //     ]);
+    //     $user = User::find(auth()->id());
+    //     if($request->currency == "baht"){
+    //         $user->balance -= $request->amount * $rate;
+    //         $user->save();
+    //     }else{
+    //         $user->balance -= $request->amount;
+    //         $user->save();
+    //     }
         
-        $toMail = "delightdeveloper4@gmail.com";
+    //     $toMail = "delightdeveloper4@gmail.com";
         
-        $mail = [
-            'status' => "Withdraw",
-            'name' => $user->name,
-            'receiver' => $request->name,
-            'balance' => $user->balance,
-            'payment_method'=> $request->payment_method,
-            'phone' => $request->phone,
-            'amount' => $request->amount,
-            'currency' => $request->currency,
-            'rate' => $rate,
-        ];
-        // return $message;
-        Mail::to($toMail)->send(new CashRequest($mail));
-        return redirect()->back()->with('success', 'Withdraw request submitted successfully');
-    }
+    //     $mail = [
+    //         'status' => "Withdraw",
+    //         'name' => $user->name,
+    //         'receiver' => $request->name,
+    //         'balance' => $user->balance,
+    //         'payment_method'=> $request->payment_method,
+    //         'phone' => $request->phone,
+    //         'amount' => $request->amount,
+    //         'currency' => $request->currency,
+    //         'rate' => $rate,
+    //     ];
+    //     // return $message;
+    //     Mail::to($toMail)->send(new CashRequest($mail));
+    //     return redirect()->back()->with('success', 'Withdraw request submitted successfully');
+    // }
 
     /**
      * Display the specified resource.
@@ -126,13 +125,7 @@ class CashOutRequestController extends Controller
         $cash = CashOutRequest::find($id);
         $currency = $cash->currency;
         $amount = $cash->amount;
-        $rate = Currency::latest()->first()->rate;
-        
-        if($currency == 'baht'){
-            User::where('id', $cash->user_id)->increment('balance', $amount * $rate);
-        }else{
-            User::where('id', $cash->user_id)->increment('balance', $amount);
-        }
+        User::where('id', $cash->user_id)->increment('balance', $amount);
 
         $cash->status = 2;
         $cash->save();

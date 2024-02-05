@@ -46,7 +46,7 @@
                 <span class="d-block">{{ $log->user->name }}</span>
                 </td>
             <td>{{ $log->user->phone }}</td>
-            <td>{{ number_format($log->amount) }} MMK</td>
+            <td>{{ number_format($log->amount)." ".$log->currency }}</td>
             <td>{{ $log->type }}</td>
             <td>
                 <span class="badge badge-{{ $log->status == 0 ? "warning" : ($log->status == 1 ? "success" : ($log->status == 2 ? "danger" : "")) }}">

@@ -25,6 +25,7 @@ class LoginRequest extends FormRequest
             'country_code' => ['required', 'string', 'max:5'],
             'phone' => ['required'],
             'password' => ['required', 'string', 'min:6'],
+            'user_currency' => ['required', 'string', 'max:4'],
         ];
     }
 }
