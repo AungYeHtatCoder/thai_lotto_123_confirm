@@ -24,7 +24,7 @@ class JackpotWeeklyOverHistoryController extends Controller
 
         // Fetch the two digits within the specified time range
         $twoDigits = DB::table('jackpot_over')
-            ->join('two_digits', 'lotto_three_digit_over.two_digit_id', '=', 'two_digits.id')
+            ->join('two_digits', 'jackpot_over.two_digit_id', '=', 'two_digits.id')
             ->whereBetween('jackpot_over.created_at', [$startTime, $endTime])
             ->where('jackpot_over.currency', 'mmk')
             ->selectRaw('jackpot_over.two_digit_id, two_digits.two_digit, SUM(jackpot_over.sub_amount) as total_sub_amount, jackpot_over.prize_sent, jackpot_over.currency, jackpot_over.created_at')
