@@ -162,7 +162,15 @@
                     </div>
                 </div>
    <div class="table-responsive">
-   
+        <div class="card">
+                <div class="card-header">
+                    <button id="changeToMMK" class="btn btn-info">Change To MMK</button>
+                    <span>
+                        <button class="btn btn-outline-primary">Currency Rate -
+                        <span><p id="rate"> </p></span></button>
+                    </span>
+                </div>
+            </div>
        <table class="table table-flush" id="baht-search">
            <thead class="thead-light">
                 <tr>
@@ -177,7 +185,7 @@
             <tbody>
         @if(isset($displayTwoDigits_baht) && count($displayTwoDigits_baht) == 0)
         <p class="text-center text-white px-3 py-2 mt-3" style="background-color: #c50408">
-        ကံစမ်းထားသော အောက်နှစ်လုံးထီ ထီဂဏန်းများ မရှိသေးပါ
+        ကံစမ်းထားသော 3D ထီဂဏန်းများ မရှိသေးပါ
         </p>
         @endif
 
@@ -190,16 +198,16 @@
            <td>{{ $digit->three_digit }}</td>
            <td>
             @if($digit->sub_amount >= $twod_limits_baht->three_d_limit)
-            <span class="text-danger">
+            <span class="text-danger sub_amount">
           {{ $digit->sub_amount }}
             </span>
             @else
-            <p class="text-info">
+            <p class="text-info" sub_amount" data-amount="{{ $digit->sub_amount }}">
           {{ $digit->sub_amount }}
             </p>
             @endif
            </td>
-           <td>{{ $digit->currency }}</td>
+           <td class="currency">{{ $digit->currency }}</td>
            <td class="text-sm font-weight-normal">
              {{ Carbon\Carbon::parse($digit->created_at)->format('h:i A') }}  
             <span class="badge bg-gradient-info">
@@ -234,12 +242,59 @@
 @endsection
 @section('scripts')
     <script src="{{ asset('admin_app/assets/js/plugins/datatables.js') }}"></script>
-    {{-- <script>
-    const dataTableSearch = new simpleDatatables.DataTable("#datatable-search", {
-      searchable: true,
-      fixedHeight: true
-    });
-  </script> --}}
+    <script>
+        document.getElementById('changeToMMK').addEventListener('click', function() {
+            fetch('/admin/currency-fetch')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        var conversionRate = data.data; // Use the fetched conversion rate
+
+                        // Select all the rows with currency 'baht' and iterate over them
+                        document.querySelectorAll('tr').forEach(function(row) {
+                            // Get the currency and amount elements from the row
+                            var currencyElement = row.querySelector('.currency');
+                            var amountElement = row.querySelector('.sub_amount');
+
+                            // If there is a currency element and its content is 'baht', perform the conversion
+                            if (currencyElement && currencyElement.textContent.trim().toLowerCase() === 'baht') {
+                                // Convert the Baht amount to MMK
+                                var amountInBaht = parseFloat(amountElement.textContent);
+                                var amountInMMK = amountInBaht * conversionRate;
+
+                                // Update the amount element with the new value in MMK
+                                amountElement.textContent = amountInMMK.toFixed(2); // Format to 2 decimal places
+
+                                // Update the currency element to show 'MMK'
+                                currencyElement.textContent = 'MMK';
+                            }
+                        });
+                    } else {
+                        console.error(data.message);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        });
+
+    </script>
+    <script>
+        fetch('/admin/currency-fetch')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                // Display the rate in an HTML element with the id 'rate'
+                if (data.success) {
+                    document.getElementById('rate').textContent = data.data;
+                } else {
+                    console.error(data.message);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    </script>
     <script>
         if (document.getElementById('twod-search')) {
             const dataTableSearch = new simpleDatatables.DataTable("#twod-search", {
