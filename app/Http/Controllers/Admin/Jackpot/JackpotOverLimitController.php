@@ -91,7 +91,7 @@ public function SameThreeDigitIDoverLimit()
 
         // store
         JackpotLimit::create([
-            'three_d_limit' => $request->three_d_limit
+            'jackpot_limit' => $request->three_d_limit
         ]);
         // redirect
         return redirect()->route('admin.jackpot-limit.index')->with('toast_success', 'three d limit created successfully.');
