@@ -71,7 +71,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
     // three Ditgit Limit
     Route::resource('/three-digit-limit', ThreeDLimitController::class);
     // jackpot limit
-    Route::get('/jackpot-limit', [App\Http\Controllers\Admin\Jackpot\JackpotOverLimitController::class, 'index'])->name('jackpot-limit');
+    Route::resource('/jackpot-limit', JackpotOverLimitController::class);
     // display limit 
     Route::get('/three-d-display-limit-amount', [App\Http\Controllers\Admin\ThreeDLimitController::class, 'overLimit'])->name('three-d-display-limit-amount');
     Route::get('/three-d-same-id-display-limit-amount', [App\Http\Controllers\Admin\ThreeDLimitController::class, 'SameThreeDigitIDoverLimit'])->name('three-d-display-same-id-limit-amount');
