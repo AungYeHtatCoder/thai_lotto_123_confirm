@@ -71,7 +71,7 @@
      <thead class="thead-light">
       <tr>
        <th>#</th>
-       <th>ThreeDLimit</th>
+       <th>JackpotLimit</th>
        <th>Created At</th>
        <th>Updated At</th>
        <th>Action</th>
@@ -81,12 +81,12 @@
       @foreach($limits as $key => $limit)
       <tr>
        <td class="text-sm font-weight-normal">{{ ++$key }}</td>
-       <td class="text-sm font-weight-normal">{{ $limit->three_d_limit }} </td>
+       <td class="text-sm font-weight-normal">{{ $limit->jack_limit }} </td>
        <td class="text-sm font-weight-normal">{{ $limit->created_at->format('F j, Y') }}</td>
        <td class="text-sm font-weight-normal">{{ $limit->updated_at->format('F j, Y') }}</td>
        <td>
       
-        <form class="d-inline" action="{{ route('admin.three-digit-limit.destroy', $limit->id) }}" method="POST">
+        <form class="d-inline" action="{{ route('admin.jackpot-limit.destroy', $limit->id) }}" method="POST">
          @csrf
          @method('DELETE')
          <button type="submit" class="transparent-btn" data-bs-toggle="tooltip"
