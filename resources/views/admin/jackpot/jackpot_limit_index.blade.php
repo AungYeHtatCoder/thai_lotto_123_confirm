@@ -47,7 +47,7 @@
             @csrf
             <div class="input-group input-group-dynamic mb-3">
              <label class="form-label">Jackpot Limit </label>
-             <input type="text" class="form-control" name="three_d_limit" onfocus="focused(this)" onfocusout="defocused(this)">
+             <input type="text" class="form-control" name="jack_limit" onfocus="focused(this)" onfocusout="defocused(this)">
             </div>
             <div class="modal-footer">
              <button type="button" class="btn bg-gradient-secondary btn-sm" data-bs-dismiss="modal">Close</button>

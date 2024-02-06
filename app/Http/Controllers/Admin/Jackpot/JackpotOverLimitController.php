@@ -80,7 +80,7 @@ public function SameThreeDigitIDoverLimit()
     {
        //dd($request->all());
         $validator = Validator::make($request->all(), [
-        'three_d_limit' => 'required',
+        'jack_limit' => 'required',
 
         //'body' => 'required|min:3'
     ]);
@@ -91,7 +91,7 @@ public function SameThreeDigitIDoverLimit()
 
         // store
         JackpotLimit::create([
-            'jackpot_limit' => $request->three_d_limit
+            'jack_limit' => $request->jack_limit
         ]);
         // redirect
         return redirect()->route('admin.jackpot-limit.index')->with('toast_success', 'three d limit created successfully.');
