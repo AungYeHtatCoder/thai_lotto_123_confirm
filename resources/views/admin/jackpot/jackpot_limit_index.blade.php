@@ -21,7 +21,7 @@
    <div class="card-header pb-0">
     <div class="d-lg-flex">
      <div>
-      <h5 class="mb-0">ThreeDLimit Dashboards</h5>
+      <h5 class="mb-0">Jackpot Limit Dashboards</h5>
       {{-- <p class="text-sm mb-0">
                     A lightweight, extendable, dependency-free javascript HTML table plugin.
                   </p> --}}
@@ -31,27 +31,27 @@
        {{-- <a href="" class="btn bg-gradient-primary btn-sm mb-0">+&nbsp; New Product</a> --}}
        <button type="button" class="btn btn-outline-primary btn-sm mb-0" data-bs-toggle="modal"
         data-bs-target="#import">
-        +&nbsp; New ThreeDLimit
+        +&nbsp; New Jackpot Limit Create
        </button>
        <div class="modal fade" id="import" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog mt-lg-10">
          <div class="modal-content">
           <div class="modal-header">
-           <h5 class="modal-title" id="ModalLabel">Create New Commission</h5>
+           <h5 class="modal-title" id="ModalLabel">Create New Jackpot Limit</h5>
            <i class="material-icons ms-3">file_upload</i>
            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-           <p>You can create new ThreeDLimit.</p>
-           <form class="multisteps-form__form" action="{{ route('admin.three-digit-limit.store') }}" method="post">
+           <p>You can create new Jackpot Limit.</p>
+           <form class="multisteps-form__form" action="{{ route('admin.jackpot-limit.store') }}" method="post">
             @csrf
             <div class="input-group input-group-dynamic mb-3">
-             <label class="form-label">ThreeDLimit </label>
+             <label class="form-label">Jackpot Limit </label>
              <input type="text" class="form-control" name="three_d_limit" onfocus="focused(this)" onfocusout="defocused(this)">
             </div>
             <div class="modal-footer">
              <button type="button" class="btn bg-gradient-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-             <button type="submit" class="btn bg-gradient-primary btn-sm">Save ThreeDLimit<button>
+             <button type="submit" class="btn bg-gradient-primary btn-sm">Save Jackpot Limit<button>
             </div>
            </form>
 
