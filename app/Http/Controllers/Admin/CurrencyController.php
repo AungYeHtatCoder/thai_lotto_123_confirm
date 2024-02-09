@@ -13,8 +13,8 @@ class CurrencyController extends Controller
      */
     public function index()
     {
-        $currencies = Currency::latest()->get();
-        return view('admin.currency.index', compact('currencies'));
+        $currency = Currency::latest()->first();
+        return view('admin.currency.index', compact('currency'));
     }
 
     /**
@@ -34,7 +34,11 @@ class CurrencyController extends Controller
             'name' => 'required',
             'rate' => 'required',
         ]);
-        Currency::create($request->all());
+        Currency::create([
+            'name' => $request->name,
+            'rate' => $request->rate,
+            'user_id' => auth()->user()->id,
+        ]);
         return redirect()->route('admin.currency.index')->with('success', 'Currency created successfully.');
     }
 

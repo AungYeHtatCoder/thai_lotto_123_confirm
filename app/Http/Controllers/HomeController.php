@@ -33,6 +33,7 @@ class HomeController extends Controller
     {
             /** @var bool $isAdmin */
              $isAdmin = auth()->user()->hasRole('Admin');
+             $rate = Currency::latest()->first()->rate;
             if ($isAdmin) {
             // Daily Total
             $dailyTotal = Lottery::whereDate('created_at', '=', now()->today())->sum('total_amount');
@@ -52,32 +53,42 @@ class HomeController extends Controller
 
             // 3D Daily Total
             $three_d_dailyTotal = Lotto::whereDate('created_at', '=', now()->today())->sum('total_amount');
+            $three_d_dailyTotal = $three_d_dailyTotal / $rate;
 
             // 3D Weekly Total
             $startOfWeek = now()->startOfWeek();
             $endOfWeek = now()->endOfWeek();
             $three_d_weeklyTotal = Lotto::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('total_amount');
+            $three_d_weeklyTotal = $three_d_weeklyTotal / $rate;
 
             // 3D Monthly Total
             $three_d_monthlyTotal = Lotto::whereMonth('created_at', '=', now()->month)
                 ->whereYear('created_at', '=', now()->year)
                 ->sum('total_amount');
+            $three_d_monthlyTotal = $three_d_monthlyTotal / $rate;
 
             // 3D Yearly Total
             $three_d_yearlyTotal = Lotto::whereYear('created_at', '=', now()->year)->sum('total_amount');
+            $three_d_yearlyTotal = $three_d_yearlyTotal / $rate;
 
             // Jackpot Daily Total
             $jackpot_dailyTotal = Jackpot::whereDate('created_at', '=', now()->today())->sum('total_amount');
+            $jackpot_dailyTotal = $jackpot_dailyTotal / $rate;
+
             // Jackpot Weekly Total
             $startOfWeek = now()->startOfWeek();
             $endOfWeek = now()->endOfWeek();
             $jackpot_weeklyTotal = Jackpot::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('total_amount');
+            $jackpot_weeklyTotal = $jackpot_weeklyTotal / $rate;
+
             // Jackpot Monthly Total
             $jackpot_monthlyTotal = Jackpot::whereMonth('created_at', '=', now()->month)
                 ->whereYear('created_at', '=', now()->year)
                 ->sum('total_amount');
+            $jackpot_monthlyTotal = $jackpot_monthlyTotal / $rate;
             // Jackpot Yearly Total
             $jackpot_yearlyTotal = Jackpot::whereYear('created_at', '=', now()->year)->sum('total_amount');
+            $jackpot_yearlyTotal = $jackpot_yearlyTotal / $rate;
 
 
             $lottery_matches = LotteryMatch::where('id', 1)->whereNotNull('is_active')->first();
