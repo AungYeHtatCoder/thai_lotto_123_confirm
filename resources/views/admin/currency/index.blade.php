@@ -34,21 +34,18 @@
         </div>
       </div>
       <div class="table-responsive">
-        <table class="table table-flush" id="banners-search">
-          <thead class="thead-light">
+        <table class="table table-flush text-center" id="banners-search">
+          <thead class="thead-light text-center">
             <tr>
-              <th>#</th>
-              <th>Currency Name</th>
-              <th>Currency Rate</th>
-              <th>Created At</th>
-              <th>Action</th>
+              <th class=" text-center">Currency Name</th>
+              <th class=" text-center">Currency Rate</th>
+              <th class=" text-center">Created At</th>
+              <th class=" text-center">Action</th>
             </tr>
           </thead>
           <tbody>
-            @foreach($currencies as $key => $currency)
             <tr>
-              <td class="text-sm font-weight-normal">{{ ++$key }}</td>
-              <td class="text-sm font-weight-normal">{{ $currency->name }}</td>
+              <td class="text-sm font-weight-normal">{{ ucfirst($currency->name) }}</td>
               <td class="text-sm font-weight-normal">1 Baht - {{ $currency->rate }} MMK</td>
               
               <td class="text-sm font-weight-normal">{{ optional($currency->created_at)->format('F j, Y') }}</td>
@@ -66,7 +63,6 @@
                 </form>
               </td>
             </tr>
-            @endforeach
           </tbody>
         </table>
       </div>

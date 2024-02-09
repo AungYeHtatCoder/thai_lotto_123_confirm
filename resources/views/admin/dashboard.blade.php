@@ -157,7 +157,7 @@
                   </div>
                   <div class="text-end pt-1">
                     <p class="text-sm mb-0 text-capitalize">3D Daily Income</p>
-                    <h4 class="mb-0">{{ number_format($three_d_dailyTotal) }} <small>MMK</small></h4>
+                    <h4 class="mb-0">{{ number_format($three_d_dailyTotal) }} <small>BHT</small></h4>
                   </div>
                 </div>
               </div>
@@ -170,7 +170,7 @@
                   </div>
                   <div class="text-end pt-1">
                     <p class="text-sm mb-0 text-capitalize">3D Weekly Income</p>
-                    <h4 class="mb-0">{{ number_format($three_d_weeklyTotal) }} <small>MMK</small></h4>
+                    <h4 class="mb-0">{{ number_format($three_d_weeklyTotal) }} <small>BHT</small></h4>
                   </div>
                 </div>
               </div>
@@ -183,7 +183,7 @@
                   </div>
                   <div class="text-end pt-1">
                     <p class="text-sm mb-0 text-capitalize ">3D Monthly Income</p>
-                    <h4 class="mb-0 ">{{ number_format($three_d_monthlyTotal) }} <small>MMK</small></h4>
+                    <h4 class="mb-0 ">{{ number_format($three_d_monthlyTotal) }} <small>BHT</small></h4>
                   </div>
                 </div>
               </div>
@@ -196,7 +196,7 @@
                   </div>
                   <div class="text-end pt-1">
                     <p class="text-sm mb-0 text-capitalize ">3D Yearly Income </p>
-                    <h4 class="mb-0 "> {{ number_format($three_d_yearlyTotal) }} <small>MMK</small></h4>
+                    <h4 class="mb-0 "> {{ number_format($three_d_yearlyTotal) }} <small>BHT</small></h4>
                   </div>
                 </div>
               </div>
@@ -213,7 +213,7 @@
                   </div>
                   <div class="text-end pt-1">
                     <p class="text-sm mb-0 text-capitalize">Jackpot Daily Income</p>
-                    <h4 class="mb-0">{{ number_format($jackpot_dailyTotal) }} <small>MMK</small></h4>
+                    <h4 class="mb-0">{{ number_format($jackpot_dailyTotal) }} <small>BHT</small></h4>
                   </div>
                 </div>
               </div>
@@ -226,7 +226,7 @@
                   </div>
                   <div class="text-end pt-1">
                     <p class="text-sm mb-0 text-capitalize">Jackpot Weekly Income</p>
-                    <h4 class="mb-0">{{ number_format($jackpot_weeklyTotal) }} <small>MMK</small></h4>
+                    <h4 class="mb-0">{{ number_format($jackpot_weeklyTotal) }} <small>BHT</small></h4>
                   </div>
                 </div>
               </div>
@@ -239,7 +239,7 @@
                   </div>
                   <div class="text-end pt-1">
                     <p class="text-sm mb-0 text-capitalize ">Jackpot Monthly Income</p>
-                    <h4 class="mb-0 ">{{ number_format($jackpot_monthlyTotal) }} <small>MMK</small></h4>
+                    <h4 class="mb-0 ">{{ number_format($jackpot_monthlyTotal) }} <small>BHT</small></h4>
                   </div>
                 </div>
               </div>
@@ -252,7 +252,7 @@
                   </div>
                   <div class="text-end pt-1">
                     <p class="text-sm mb-0 text-capitalize ">Jackpot Yearly Income </p>
-                    <h4 class="mb-0 ">{{ number_format($jackpot_yearlyTotal) }} <small>MMK</small></h4>
+                    <h4 class="mb-0 ">{{ number_format($jackpot_yearlyTotal) }} <small>BHT</small></h4>
                   </div>
                 </div>
               </div>

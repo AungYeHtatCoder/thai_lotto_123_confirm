@@ -16,7 +16,7 @@ class CurrencySeeder extends Seeder
         Currency::insert([
             [
                 'id'=>1, 
-                'name'=>'bath', 
+                'name'=>'baht', 
                 'rate'=>100, 
                 'user_id'=>1
             ],
