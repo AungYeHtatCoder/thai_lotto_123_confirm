@@ -99,24 +99,45 @@ class HomeController extends Controller
             $three_d_yearlyTotal = ($mmkAmountYear / $rate) + $bahtAmountYear;
 
             // Jackpot Daily Total
-            $jackpot_dailyTotal = Jackpot::whereDate('created_at', '=', now()->today())->sum('total_amount');
-            $jackpot_dailyTotal = $jackpot_dailyTotal / $rate;
+            $jackpotBahtDaily = Jackpot::with('users')->whereHas('users', function ($query) {
+                $query->where('user_currency', 'baht');  
+            })->whereDate('created_at', '=', now()->today())->sum('total_amount');
+            $jackpotMmkDaily = Jackpot::with('users')->whereHas('users', function ($query) {
+                $query->where('user_currency', 'mmk');  
+            })->whereDate('created_at', '=', now()->today())->sum('total_amount');
+
+            $jackpot_dailyTotal = ($jackpotMmkDaily / $rate) + $jackpotBahtDaily;
 
             // Jackpot Weekly Total
             $startOfWeek = now()->startOfWeek();
             $endOfWeek = now()->endOfWeek();
-            $jackpot_weeklyTotal = Jackpot::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('total_amount');
-            $jackpot_weeklyTotal = $jackpot_weeklyTotal / $rate;
+            $jackpotBahtWeekly = Jackpot::with('users')->whereHas('users', function ($query) {
+                $query->where('user_currency', 'baht');  
+            })->whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('total_amount');
+            $jackpotMmkWeekly = Jackpot::with('users')->whereHas('users', function ($query) {
+                $query->where('user_currency', 'mmk');  
+            })->whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('total_amount');
+
+            $jackpot_weeklyTotal = ($jackpotMmkWeekly / $rate) + $jackpotBahtWeekly;
 
             // Jackpot Monthly Total
-            $jackpot_monthlyTotal = Jackpot::whereMonth('created_at', '=', now()->month)
-                ->whereYear('created_at', '=', now()->year)
-                ->sum('total_amount');
-            $jackpot_monthlyTotal = $jackpot_monthlyTotal / $rate;
-            // Jackpot Yearly Total
-            $jackpot_yearlyTotal = Jackpot::whereYear('created_at', '=', now()->year)->sum('total_amount');
-            $jackpot_yearlyTotal = $jackpot_yearlyTotal / $rate;
+            $jackpotBahtMonthly = Jackpot::with('users')->whereHas('users', function ($query) {
+                $query->where('user_currency', 'baht');  
+            })->whereMonth('created_at', '=', now()->month)->whereYear('created_at', '=', now()->year)->sum('total_amount');
+            $jackpotMmkMonthly = Jackpot::with('users')->whereHas('users', function ($query) {
+                $query->where('user_currency', 'mmk');  
+            })->whereMonth('created_at', '=', now()->month)->whereYear('created_at', '=', now()->year)->sum('total_amount');
 
+            $jackpot_monthlyTotal = ($jackpotMmkMonthly / $rate) + $jackpotBahtMonthly;
+
+            // Jackpot Yearly Total
+            $jackpotBahtYearly = Jackpot::with('users')->whereHas('users', function ($query) {
+                $query->where('user_currency', 'baht');  
+            })->whereYear('created_at', '=', now()->year)->sum('total_amount');
+            $jackpotMmkYearly = Jackpot::with('users')->whereHas('users', function ($query) {
+                $query->where('user_currency', 'baht');  
+            })->whereYear('created_at', '=', now()->year)->sum('total_amount');
+            $jackpot_yearlyTotal = ($jackpotMmkYearly / $rate) + $jackpotBahtYearly;
 
             $lottery_matches = LotteryMatch::where('id', 1)->whereNotNull('is_active')->first();
             $three_d_matches = LotteryMatch::where('id', 2)->whereNotNull('is_active')->first();
