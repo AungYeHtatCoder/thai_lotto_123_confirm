@@ -71,18 +71,32 @@ class HomeController extends Controller
             // 3D Weekly Total
             $startOfWeek = now()->startOfWeek();
             $endOfWeek = now()->endOfWeek();
-            $three_d_weeklyTotal = Lotto::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('total_amount');
-            $three_d_weeklyTotal = $three_d_weeklyTotal / $rate;
+            $bahtAmountWeek = Lotto::with('users')->whereHas('users', function ($query) {
+                            $query->where('user_currency', 'baht');
+                        })->whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('total_amount');
+            $mmkAmountWeek = Lotto::with('users')->whereHas('users', function ($query) {
+                            $query->where('user_currency', 'baht');
+                        })->whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('total_amount');
+            $three_d_weeklyTotal = ($mmkAmountWeek / $rate) + $bahtAmountWeek;
+
 
             // 3D Monthly Total
-            $three_d_monthlyTotal = Lotto::whereMonth('created_at', '=', now()->month)
-                ->whereYear('created_at', '=', now()->year)
-                ->sum('total_amount');
-            $three_d_monthlyTotal = $three_d_monthlyTotal / $rate;
+            $bahtAmountMonth = Lotto::with('users')->whereHas('users', function ($query) {
+                $query->where('user_currency', 'baht');
+            })->whereMonth('created_at', '=', now()->month)->whereYear('created_at', '=', now()->year)->sum('total_amount');
+            $mmkAmountMonth = Lotto::with('users')->whereHas('users', function ($query) {
+                $query->where('user_currency', 'mmk');
+            })->whereMonth('created_at', '=', now()->month)->whereYear('created_at', '=', now()->year)->sum('total_amount');
+            $three_d_monthlyTotal = ($mmkAmountMonth / $rate) + $bahtAmountMonth;
 
             // 3D Yearly Total
-            $three_d_yearlyTotal = Lotto::whereYear('created_at', '=', now()->year)->sum('total_amount');
-            $three_d_yearlyTotal = $three_d_yearlyTotal / $rate;
+            $bahtAmountYear = Lotto::with('users')->whereHas('users', function ($query) {
+                $query->where('user_currency', 'baht');
+            })->whereYear('created_at', '=', now()->year)->sum('total_amount');
+            $mmkAmountYear = Lotto::with('users')->whereHas('users', function ($query) {
+                $query->where('user_currency', 'mmk');
+            })->whereYear('created_at', '=', now()->year)->sum('total_amount');
+            $three_d_yearlyTotal = ($mmkAmountYear / $rate) + $bahtAmountYear;
 
             // Jackpot Daily Total
             $jackpot_dailyTotal = Jackpot::whereDate('created_at', '=', now()->today())->sum('total_amount');
