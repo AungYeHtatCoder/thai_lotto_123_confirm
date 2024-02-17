@@ -55,14 +55,14 @@ class HomeController extends Controller
             $three_d_dailyTotal = Lotto::whereDate('created_at', '=', now()->today())->sum('total_amount');
             $bahtAmount = Lotto::with('users.user_currency')
                         ->whereHas('users.user_currency', function ($query) {
-                            $query->where('currency', 'baht');
+                            $query->where('user_currency', 'baht');
                         })
                         ->whereDate('created_at', '=', now()->today())
                         ->sum('total_amount');
 
             $mmkAmount = Lotto::with('users.user_currency')
                         ->whereHas('users.user_currency', function ($query) {
-                            $query->where('currency', 'mmk');
+                            $query->where('user_currency', 'mmk');
                         })
                         ->whereDate('created_at', '=', now()->today())
                         ->sum('total_amount');
