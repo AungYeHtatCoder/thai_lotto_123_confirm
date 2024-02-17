@@ -5,19 +5,21 @@ namespace App\Http\Controllers\Api\Jackpot;
 use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Traits\HttpResponses;
 use App\Models\Admin\Currency;
+use App\Models\Admin\TwoDigit;
+use App\Models\Admin\TwoDLimit;
 use App\Models\Jackpot\Jackpot;
 use App\Models\Admin\Commission;
+use App\Models\Admin\LotteryMatch;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use App\Models\Admin\TwoDigit;
 use App\Models\Jackpot\JackpotLimit;
 use App\Models\User\JackpotTwoDigit;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User\JackpotTwoDigitCopy;
 use App\Models\User\JackpotTwoDigitOver;
-use App\Traits\HttpResponses;
 use Illuminate\Support\Facades\Validator;
 
 class JackpotController extends Controller
@@ -241,6 +243,23 @@ class JackpotController extends Controller
     //         return response()->json(['message' => $e->getMessage()], 401);
     //     }
     // }
+     public function index()
+    {
+        $digits = TwoDigit::all();
+        $break = TwoDLimit::latest()->first()->two_d_limit;
+        foreach($digits as $digit)
+        {
+            $totalAmount = JackpotTwoDigitCopy::where('two_digit_id	', $digit->id)->sum('sub_amount');
+            $remaining = $break-$totalAmount;
+            $digit->remaining = $remaining;
+        }
+        $lottery_matches = LotteryMatch::where('id', 3)->whereNotNull('is_active')->first(['id', 'match_name', 'is_active']);
+        return $this->success([
+            'digits', $digits,
+            'break', $break,
+            'lottery_matches', $lottery_matches
+        ]);
+    }
     public function store(Request $request)
     {
         $limitAmount = JackpotLimit::latest()->first();

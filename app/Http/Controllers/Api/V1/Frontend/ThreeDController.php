@@ -9,6 +9,7 @@ use App\Traits\HttpResponses;
 use App\Models\Admin\Currency;
 use App\Models\Admin\Commission;
 use App\Models\ThreeDigit\Lotto;
+use App\Models\Admin\LotteryMatch;
 use App\Models\Admin\ThreeDDLimit;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -32,9 +33,11 @@ class ThreeDController extends Controller
             $remaining = $break-$totalAmount;
             $digit->remaining = $remaining;
         }
+        $lottery_matches = LotteryMatch::where('id', 2)->whereNotNull('is_active')->first(['id', 'match_name', 'is_active']);
         return $this->success([
             'digits', $digits,
-            'break', $break
+            'break', $break,
+            'lottery_matches', $lottery_matches
         ]);
     }
     //  limit version
@@ -220,39 +223,7 @@ class ThreeDController extends Controller
                     $pivotOver->save();
                 }
             }
-                // LotteryThreeDigitPivot::create([
-                //     'lotto_id' => $lottery->id,
-                //     'three_digit_id' => $three_digit->id,
-                //     'sub_amount' => $sub_amount,
-                //     'prize_sent' => false,
-                //     'currency' => $request->currency,
-                // ]);
-
-                // // Get the break limit for three digits
-                // $break = ThreeDDLimit::latest()->first()->three_d_limit;
-                // $currentTotalBetAmount = DB::table('lotto_three_digit_pivot')
-                //                         ->where('three_digit_id', $three_digit->id)
-                //                         ->sum('sub_amount');
-
-                // // Calculate the new total including the current bet
-                // $newTotalBetAmount = $currentTotalBetAmount + $sub_amount;
-
-                // // Calculate overLimit amount if any
-                // $overLimit = $newTotalBetAmount > $break ? $newTotalBetAmount - $break : 0;
-
-                // // Only store the over-limit amount
-                // if ($overLimit > 0) {
-                //     ThreeDigitOverLimit::create([
-                //         'lotto_id' => $lottery->id,
-                //         'three_digit_id' => $three_digit->id,
-                //         // Store only the over-limit part, not the entire new total
-                //         'sub_amount' => $overLimit,
-                //         'prize_sent' => false,
-                //         'currency' => $request->currency,
-                //     ]);
-                // }
-            }
-
+        }
             DB::commit();
             return $this->success([
                 'message' => 'Bet placed successfully.'

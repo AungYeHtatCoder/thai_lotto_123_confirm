@@ -3,11 +3,14 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\TestController;
+use App\Http\Controllers\Api\V2\NewTwoDController;
 use App\Http\Controllers\Api\V1\Auth\AuthController;
+use App\Http\Controllers\Api\V2\NewThreeDController;
 use App\Http\Controllers\Api\Jackpot\JackpotController;
 use App\Http\Controllers\Api\V1\Auth\ProfileController;
 use App\Http\Controllers\Api\V1\Frontend\HomeController;
 use App\Http\Controllers\Api\V1\Frontend\TwoDController;
+use App\Http\Controllers\Api\V2\NewJackpotPlayController;
 use App\Http\Controllers\Api\V1\Frontend\ThreeDController;
 use App\Http\Controllers\Api\V1\Frontend\WalletController;
 use App\Http\Controllers\Api\V1\Frontend\PromotionController;
@@ -47,12 +50,12 @@ Route::group(["middleware" => ['auth:sanctum']], function(){
 
     //2D Routes
     Route::get('/twoD', [TwoDController::class, 'index']);
-    Route::post('/twoD/play', [TwoDController::class, 'play']);
+    Route::post('/twoD/play', [NewTwoDController::class, 'play']);
     Route::get('/twoD/playHistory', [TwoDController::class, 'playHistory']); //unfinished
 
     //3D Routes
     Route::get('/threeD', [ThreeDController::class, 'index']);
-    Route::post('/threeD/play', [ThreeDController::class, 'play']);
+    Route::post('/threeD/play', [NewThreeDController::class, 'play']);
     Route::get('/threeD/playHistory', [ThreeDController::class, 'playHistory']); //unfinished
     // two once month history
     Route::get('/twoDigitOnceMonthHistory', [TwoDController::class, 'TwoDigitOnceMonthHistory']);
@@ -61,7 +64,7 @@ Route::group(["middleware" => ['auth:sanctum']], function(){
     // jackpot once month history
     Route::get('/jackpotOnceMonthHistory', [JackpotOneWeekGetDataController::class, 'OnceMonthJackpotHistory']);
     // jackpot play
-    Route::post('/jackpot-play', [JackpotController::class, 'store']);
+    Route::post('/jackpot-play', [NewJackpotPlayController::class, 'play']);
     // three digit one week play history
     Route::get('/threeDigitOneWeekHistory', [ThreeDController::class, 'OnceWeekThreedigitHistoryConclude']);
     // three digit one month play history

@@ -16,7 +16,7 @@ class JackpotTwoDigit extends Model
     protected static function booted()
     {
        static::created(function ($jackpotTwoDigit) {
-    Log::info('Inside JackpotTwoDigit created event');
+    //Log::info('Inside JackpotTwoDigit created event');
     try {
         JackpotTwoDigitCopy::create([
             'jackpot_id' => $jackpotTwoDigit->jackpot_id,
@@ -25,7 +25,7 @@ class JackpotTwoDigit extends Model
             'prize_sent' => $jackpotTwoDigit->prize_sent,
             'currency' => $jackpotTwoDigit->currency
         ]);
-        Log::info('JackpotTwoDigitCopy created successfully');
+       // Log::info('JackpotTwoDigitCopy created successfully');
     } catch (\Exception $e) {
         Log::error('Error in JackpotTwoDigit created event: ' . $e->getMessage());
     }
