@@ -53,8 +53,19 @@ class HomeController extends Controller
 
             // 3D Daily Total
             $three_d_dailyTotal = Lotto::whereDate('created_at', '=', now()->today())->sum('total_amount');
-            $bahtAmount = Lotto::with('users')->whereHas('user_currency', 'baht')->whereDate('created_at', '=', now()->today())->sum('total_amount');
-            $mmkAmount = Lotto::with('users')->whereHas('user_currency', 'mmk')->whereDate('created_at', '=', now()->today())->sum('total_amount');
+            $bahtAmount = Lotto::with('users.user_currency')
+                        ->whereHas('users.user_currency', function ($query) {
+                            $query->where('currency', 'baht');
+                        })
+                        ->whereDate('created_at', '=', now()->today())
+                        ->sum('total_amount');
+
+            $mmkAmount = Lotto::with('users.user_currency')
+                        ->whereHas('users.user_currency', function ($query) {
+                            $query->where('currency', 'mmk');
+                        })
+                        ->whereDate('created_at', '=', now()->today())
+                        ->sum('total_amount');
             $three_d_dailyTotal = ($mmkAmount / $rate) + $bahtAmount;
 
             // 3D Weekly Total
