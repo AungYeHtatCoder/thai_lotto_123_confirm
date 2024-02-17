@@ -30,7 +30,4 @@ class TwoDigit extends Model
     {
         return $this->belongsToThrough(User::class, Jackpot::class);
     }
-
-
-
 }

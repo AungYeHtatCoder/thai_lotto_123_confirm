@@ -125,11 +125,6 @@ class Jackpot extends Model
     { 
         return $this->belongsToMany(TwoDigit::class, 'jackpot_two_digit', 'jackpot_id', 'two_digit_id')->withPivot('sub_amount', 'prize_sent', 'created_at')->orderBy('created_at', 'desc');
     }
-
-    public function users()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
     
 
 }

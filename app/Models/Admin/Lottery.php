@@ -22,7 +22,7 @@ class Lottery extends Model
     ];
     protected $dates = ['created_at', 'updated_at'];
 
-        public function user()
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
@@ -81,5 +81,6 @@ class Lottery extends Model
         return $this->belongsToMany(TwoDigit::class, 'lottery_two_digit_pivot', 'lottery_id', 'two_digit_id')->withPivot('sub_amount', 'prize_sent', 'created_at')
                     ->wherePivotBetween('created_at', [$onceMonthStart, $onceMonthEnd]);
     }
+    
     
 }

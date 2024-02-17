@@ -130,9 +130,4 @@ class Lotto extends Model
         return $this->belongsToMany(ThreeDigit::class, 'lotto_three_digit_pivot', 'lotto_id', 'three_digit_id')->withPivot('sub_amount', 'prize_sent', 'created_at')
                     ->wherePivotBetween('created_at', [$onceMonthStart, $onceMonthEnd]);               
     }
-
-    public function users()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
 }
