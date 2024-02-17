@@ -33,4 +33,38 @@ class CloseTwodController extends Controller
 
     return redirect()->back()->with('message', 'Match status updated successfully!');
 }
+// 3d close
+ public function threedupdate(Request $request)
+{
+    //dd($request->all());
+    $isActive = $request->has('flexSwitchCheckDefault'); // This will return true if checkbox is checked, false otherwise
+
+    // Assuming you want to update a specific match by id
+    $matchId = $request->input('is_active'); // You'll need to send this as a hidden field in the form
+
+    $match = LotteryMatch::find($matchId);
+    if($match) {
+        $match->is_active = $isActive;
+        $match->save();
+    }
+
+    return redirect()->back()->with('message', 'Match status updated successfully!');
+}
+
+public function JackpotUpdate(Request $request)
+{
+    //dd($request->all());
+    $isActive = $request->has('flexSwitchCheckDefault'); // This will return true if checkbox is checked, false otherwise
+
+    // Assuming you want to update a specific match by id
+    $matchId = $request->input('is_active'); // You'll need to send this as a hidden field in the form
+
+    $match = LotteryMatch::find($matchId);
+    if($match) {
+        $match->is_active = $isActive;
+        $match->save();
+    }
+
+    return redirect()->back()->with('message', 'Match status updated successfully!');
+}
 }

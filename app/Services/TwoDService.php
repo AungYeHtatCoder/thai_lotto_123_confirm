@@ -8,6 +8,7 @@ use App\Models\Admin\TwoDLimit;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Models\LotteryTwoDigitPivot;
+use App\Models\ThreeDigit\BahtBreak;
 use Illuminate\Support\Facades\Auth;
 
 class TwoDService
@@ -76,6 +77,7 @@ class TwoDService
     {
         $twoDigit = TwoDigit::where('two_digit', sprintf('%02d', $amount['num']))->firstOrFail();
         $break = TwoDLimit::latest()->first()->two_d_limit;
+        // $break = $currency == 'mmk' ? TwoDLimit::latest()->first()->two_d_limit : BahtBreak::latest()->first()->baht_limit;
         $totalBetAmountForTwoDigit = DB::table('lottery_two_digit_copy')
                                        ->where('two_digit_id', $twoDigit->id)
                                        ->sum('sub_amount');

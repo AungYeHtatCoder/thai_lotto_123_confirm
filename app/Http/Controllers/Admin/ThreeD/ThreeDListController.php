@@ -34,9 +34,9 @@ class ThreeDListController extends Controller
         $lotteries = Lotto::with(['DisplayThreeDigits', 'lotteryMatch.threedMatchTime'])->orderBy('id', 'desc')->get();
         $prize_no = ThreeWinner::whereDate('created_at', Carbon::today())->orderBy('id', 'desc')->first();
 
-        $currencies = Currency::latest()->first();
-    
-        return view('admin.three_d.three_d_list_index', compact('lotteries', 'prize_no', 'matchTime', 'currencies'));
+        //$currency = Currency::latest()->first()->rate;
+        $currency = Currency::where('name', 'mmk')->latest()->first()->rate;
+        return view('admin.three_d.three_d_list_index', compact('lotteries', 'prize_no', 'matchTime', 'currency'));
     }
     
     public function show(string $id)

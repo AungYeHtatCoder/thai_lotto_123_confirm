@@ -8,6 +8,7 @@ use App\Models\Admin\TwoDLimit;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Models\Jackpot\JackpotLimit;
+use App\Models\ThreeDigit\BahtBreak;
 use App\Models\User\JackpotTwoDigit;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User\JackpotTwoDigitCopy;
@@ -29,7 +30,7 @@ class JackpotService
 
             $preOver = [];
             foreach ($amounts as $amount) {
-                $preCheck = $this->preProcessAmountCheck($amount);
+                $preCheck = $this->preProcessAmountCheck($amount, $currency);
                 if(is_array($preCheck)){
                     $preOver[] = $preCheck[0];
                 }
@@ -74,10 +75,11 @@ class JackpotService
         }
     }
 
-     protected function preProcessAmountCheck($amount)
+     protected function preProcessAmountCheck($amount, $currency)
     {
         $twoDigit = TwoDigit::where('two_digit', sprintf('%02d', $amount['num']))->firstOrFail();
-        $break = TwoDLimit::latest()->first()->two_d_limit;
+        //$break = JackpotLimit::latest()->first()->jack_limit;
+        $break = $currency == 'mmk' ? JackpotLimit::latest()->first()->jack_limit : BahtBreak::latest()->first()->baht_limit;
         $totalBetAmountForTwoDigit = DB::table('jackpot_two_digit_copy')
                                        ->where('two_digit_id', $twoDigit->id)
                                        ->sum('sub_amount');
@@ -91,9 +93,10 @@ class JackpotService
 
     protected function processAmount($amount, $lotteryId, $currency)
     {
-         $this->preProcessAmountCheck($amount);
+         $this->preProcessAmountCheck($amount, $currency);
         $twoDigit = TwoDigit::where('two_digit', sprintf('%02d', $amount['num']))->firstOrFail();
-        $break = JackpotLimit::latest()->first()->jack_limit;
+        //$break = JackpotLimit::latest()->first()->jack_limit;
+         $break = $currency == 'mmk' ? JackpotLimit::latest()->first()->jack_limit : BahtBreak::latest()->first()->baht_limit;
         $totalBetAmountForTwoDigit = DB::table('jackpot_two_digit_copy')
                                        ->where('two_digit_id', $twoDigit->id)
                                        ->sum('sub_amount');

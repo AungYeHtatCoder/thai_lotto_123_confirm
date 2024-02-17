@@ -390,7 +390,13 @@
          <li class="nav-item">
          <a class="nav-link text-white " href="{{ route('admin.three-digit-limit.index') }}">
           <span class="sidenav-mini-icon"> 3D </span>
-          <span class="sidenav-normal  ms-2  ps-1"> ဘရိတ်သတ်မှတ်ရန် </span>
+          <span class="sidenav-normal  ms-2  ps-1">အောက်နှစ်လုံး -MMK ဘရိတ်သတ်မှတ်ရန် </span>
+         </a>
+        </li>
+        <li class="nav-item">
+         <a class="nav-link text-white " href="{{ route('admin.baht-break-limit.index') }}">
+          <span class="sidenav-mini-icon"> 3D  </span>
+          <span class="sidenav-normal  ms-2  ps-1">အောက်နှစ်လုံး - Baht ဘရိတ်သတ်မှတ်ရန် </span>
          </a>
         </li>
         <li class="nav-item">

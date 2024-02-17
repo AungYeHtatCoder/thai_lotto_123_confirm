@@ -16,11 +16,12 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\PlayTwoDController;
 use App\Http\Controllers\Admin\TwoDigitController;
+use App\Http\Controllers\Admin\BahtLimitController;
+
 use App\Http\Controllers\Admin\PromotionController;
 
+
 use App\Http\Controllers\Admin\TwoDLimitController;
-
-
 use App\Http\Controllers\Admin\BannerTextController;
 use App\Http\Controllers\Admin\CommissionController;
 use App\Http\Controllers\Admin\PermissionController;
@@ -28,8 +29,8 @@ use App\Http\Controllers\Admin\ThreeDListController;
 use App\Http\Controllers\Admin\TwoDWinnerController;
 use App\Http\Controllers\Admin\ThreeDLimitController;
 use App\Http\Controllers\Admin\TransferLogController;
-use App\Http\Controllers\Admin\TwoDLotteryController;
 
+use App\Http\Controllers\Admin\TwoDLotteryController;
 use App\Http\Controllers\Admin\TwoDMorningController;
 use App\Http\Controllers\Home\CashInRequestController;
 use App\Http\Controllers\Admin\ThreedHistoryController;
@@ -125,6 +126,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
     Route::post('/two-d-session-reset', [App\Http\Controllers\Admin\SessionResetControlller::class, 'SessionReset'])->name('SessionReset');
     Route::get('/close-two-d', [App\Http\Controllers\Admin\CloseTwodController::class, 'index'])->name('CloseTwoD');
     Route::put('/update-open-close-two-d', [App\Http\Controllers\Admin\CloseTwodController::class, 'update'])->name('OpenCloseTwoD');
+     Route::put('/update-open-close-three-d', [App\Http\Controllers\Admin\CloseTwodController::class, 'threedupdate'])->name('ThreedOpenCloseTwoD');
+     Route::put('/update-open-close-jackpot', [App\Http\Controllers\Admin\CloseTwodController::class, 'JackpotUpdate'])->name('JackpotOpenCloseTwoD');
     Route::resource('twod-records', TwoDLotteryController::class);
     Route::resource('tow-d-win-number', TwoDWinnerController::class);
     Route::resource('tow-d-morning-number', TwoDMorningController::class);
@@ -320,5 +323,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
     Route::get('/jackpot-weekly-over-limit-history', [App\Http\Controllers\Admin\Jackpot\JackpotWeeklyOverHistoryController::class, 'WeeklyThreeDOverLimitHistory'])->name('WeeklyThreeDOverLimitHistory');
     // currency fetch
     Route::get('/currency-fetch', [App\Http\Controllers\Admin\DailyMorningHistoryController::class, 'GetCurrency'])->name('currency-fetch');
+    // baht break limit
+    Route::resource('baht-break-limit', BahtLimitController::class);
     
 });

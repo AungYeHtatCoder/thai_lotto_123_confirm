@@ -17,14 +17,14 @@ class CurrencySeeder extends Seeder
             [
                 'id'=>1, 
                 'name'=>'baht', 
-                'rate'=>100, 
+                'rate'=>1, 
                 'user_id'=>1
             ],
             [
                 'id'=>2, 
                 'name' => 'mmk', 
-                'rate' => 1,
-                'user_id' => 2
+                'rate' => 100,
+                'user_id' => 1
             ]
         ]);
     }

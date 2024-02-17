@@ -43,7 +43,7 @@
                             <div class="ms-auto my-auto">
                                 
                                 <a class="btn btn-outline-primary btn-sm export mb-0 mt-sm-0 mt-1"
-                                    href="{{ url('/admin/three-digit-history-conclude') }}" >တပါတ်အတွင်းထိုးထားသောစာရင်းချုပ်ကြည့်ရန်</a>
+                                    href="{{ url('/admin/three-digit-history-conclude') }}" >တပါတ်အတွင်းထိုးထားသောစာရင်းချုပ်ကြည့်ရန် </a>
                             </div>
                         </div>
                                 </span>
@@ -89,13 +89,19 @@
                                 <span class="badge badge-pill badge-lg bg-gradient-success table-font-myanmar">
                                     Amount &nbsp; &nbsp; - 
                                     @if($threeDigit->pivot->currency == 'mmk')
-                                        {{ $threeDigit->pivot->sub_amount / $currencies->rate }} bath
+                                    {{ $threeDigit->pivot->sub_amount / $currency }} bath
                                     @else
-                                        {{ $threeDigit->pivot->sub_amount }} bath
+                                    {{ $threeDigit->pivot->sub_amount }} bath
                                     @endif
+
                                     || &nbsp; &nbsp;
                                 </span>
                             </button>
+                            {{-- <p>
+                                 Currency: {{ $threeDigit->pivot->currency }} 
+    Rate: {{ $currency }} 
+    Amount: {{ $threeDigit->pivot->sub_amount }} 
+                            </p> --}}
                         </li>
                     @endforeach
                      {{-- @foreach ($lottery->DisplayThreeDigits as $threeDigit)

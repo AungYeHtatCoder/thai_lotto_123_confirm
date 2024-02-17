@@ -294,21 +294,17 @@
             </div>
             {{-- session reset 1 end --}}
             {{-- session reset 2 start --}}
-            <div class="col-lg-6 col-md-6 col-sm-6 mb-5">
+            {{-- <div class="col-lg-6 col-md-6 col-sm-6 mb-5">
               <div class="card  mb-2 p-3">
                 <div class="d-flex mt-n2">
                             <div class="avatar avatar-xl bg-danger border-radius-xl p-2 mt-n4">
                               <i class="fas fa-rotate fa-2x"></i>
-                                {{-- <img src="{{ asset('admin_app/assets/img/small-logos/logo-slack.svg') }}" alt="slack_logo"> --}}
+
                             </div>
                             <div class="ms-3 my-auto">
                                 <h6 class="mb-0"> 2D Over Amount Limit Reset</h6>
                                 <div class="avatar-group mt-4">
-                                    {{-- <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip"
-                                        data-original-title="Jessica Rowland">
-                                        <img alt="Image placeholder" src="{{ asset('admin_app/assets/img/team-3.jpg') }}"
-                                            class="">
-                                    </a> --}}
+                                    
                                     <form action="{{ route('admin.OverAmountLimitSessionReset') }}" method="POST">
                                       @csrf
                                       <button class="btn btn-primary" type="submit">OverAmountLimitReset</button>
@@ -321,7 +317,7 @@
                           <p class="mb-0"><span class="text-success text-sm font-weight-bolder">ပွဲချိန်ပြီး တခုပြီးတိုင်း  </span>၁၅ မိနစ်အတွင်း လုပ်ပေးရပါမည်။</p>
                         </div>
                     </div>
-            </div>
+            </div> --}}
             {{-- session reset 2 --}}
             <div class="col-lg-6 col-md-6 col-sm-6 mb-2 mt-lg-0 mt-4">
               <div class="card  mb-2 p-3">
@@ -331,7 +327,7 @@
                                 {{-- <img src="{{ asset('admin_app/assets/img/small-logos/logo-slack.svg') }}" alt="slack_logo"> --}}
                             </div>
                             <div class="ms-3 my-auto">
-                                <h6 class="mb-0">Morning Session</h6>
+                                <h6 class="mb-0">2D Session</h6>
                                 <div class="avatar-group mt-2">
                                     {{-- <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip"
                                         data-original-title="Jessica Rowland">
@@ -363,7 +359,85 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 mb-2">
+            {{-- three open / close --}}
+            <div class="col-lg-6 col-md-6 col-sm-6 mb-2 mt-lg-0 mt-4">
+              <div class="card  mb-2 p-3">
+                <div class="d-flex mt-n2">
+                            <div class="avatar avatar-xl bg-{{ $three_d_matches->is_active ? 'success' : 'danger' }} border-radius-xl p-2 mt-n4">
+                              <i class="fas fa-door-{{ $three_d_matches->is_active ? 'open' : 'closed' }} fa-2x"></i>
+                                {{-- <img src="{{ asset('admin_app/assets/img/small-logos/logo-slack.svg') }}" alt="slack_logo"> --}}
+                            </div>
+                            <div class="ms-3 my-auto">
+                                <h6 class="mb-0">3D Session</h6>
+                                <div class="avatar-group mt-2">
+                                    {{-- <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip"
+                                        data-original-title="Jessica Rowland">
+                                        <img alt="Image placeholder" src="{{ asset('admin_app/assets/img/team-3.jpg') }}"
+                                            class="">
+                                    </a> --}}
+
+                                        <form action="{{ route('admin.ThreedOpenCloseTwoD' , $three_d_matches->id) }}" method="post">
+                                            @csrf
+                                            @method('PUT')
+                                            <input type="hidden" name="is_active" value="{{ $three_d_matches->id }}">
+                                            <div class="form-check form-switch ps-0">
+                                              <div class="d-flex">
+                                                <input class="form-check-input ms-auto d-block" type="checkbox"
+                                                    id="flexSwitchCheckDefault" name="flexSwitchCheckDefault"
+                                                    {{ $three_d_matches->is_active ? 'checked' : '' }}>
+                                                <label class="form-check-label text-body ms-3 d-block text-truncate w-80 mb-0"
+                                                    for="flexSwitchCheckDefault">Close For 3D Session</label>
+                                              </div>
+                                            </div>
+                                            <button class="btn btn-primary mt-2" type="submit">Open / Close</button>
+                                        </form>
+                                </div>
+                            </div>
+                        </div>
+                <hr class="horizontal my-0 dark">
+                <div class="card-footer p-3">
+                  <p class="mb-0 "><span class="text-success text-sm font-weight-bolder">3D Session </span>အဖွင့်အပိတ်ကို ဤနေရာမှ လုပ်ပေးရပါမည်။</p>
+                </div>
+              </div>
+            </div>
+            {{-- three open/ close --}}
+            {{-- jackpot open / close  --}}
+
+            <div class="col-lg-6 col-md-6 col-sm-6 mb-2 mt-lg-0 mt-4">
+              <div class="card  mb-2 p-3">
+                <div class="d-flex mt-n2">
+                            <div class="avatar avatar-xl bg-{{ $jackpot_matches->is_active ? 'success' : 'danger' }} border-radius-xl p-2 mt-n4">
+                              <i class="fas fa-door-{{ $jackpot_matches->is_active ? 'open' : 'closed' }} fa-2x"></i>
+                            </div>
+                            <div class="ms-3 my-auto">
+                                <h6 class="mb-0">အောက်နှစ်လုံး Session</h6>
+                                <div class="avatar-group mt-2">
+                                        <form action="{{ route('admin.JackpotOpenCloseTwoD' , $jackpot_matches->id) }}" method="post">
+                                            @csrf
+                                            @method('PUT')
+                                            <input type="hidden" name="is_active" value="{{ $jackpot_matches->id }}">
+                                            <div class="form-check form-switch ps-0">
+                                              <div class="d-flex">
+                                                <input class="form-check-input ms-auto d-block" type="checkbox"
+                                                    id="flexSwitchCheckDefault" name="flexSwitchCheckDefault"
+                                                    {{ $jackpot_matches->is_active ? 'checked' : '' }}>
+                                                <label class="form-check-label text-body ms-3 d-block text-truncate w-80 mb-0"
+                                                    for="flexSwitchCheckDefault">Close For အောက်နှစ်လုံး Session</label>
+                                              </div>
+                                            </div>
+                                            <button class="btn btn-primary mt-2" type="submit">Open / Close</button>
+                                        </form>
+                                </div>
+                            </div>
+                        </div>
+                <hr class="horizontal my-0 dark">
+                <div class="card-footer p-3">
+                  <p class="mb-0 "><span class="text-success text-sm font-weight-bolder">အောက်နှစ်လုံး Session </span>အဖွင့်အပိတ်ကို ဤနေရာမှ လုပ်ပေးရပါမည်။</p>
+                </div>
+              </div>
+            </div>
+            {{-- jackpot open / close --}}
+            <div class="col-lg-6 col-md-6 col-sm-6 mb-2 mt-3">
               <div class="card p-3">
                 {{-- 3d reset --}}
                 <div class="d-flex mt-n2">
@@ -426,13 +500,13 @@
             </div>
             {{-- jackpot end --}}
             {{-- jackpot over  --}}
-            <div class="col-lg-6 col-md-6 col-sm-6 mb-2 mt-3">
+            {{-- <div class="col-lg-6 col-md-6 col-sm-6 mb-2 mt-3">
               <div class="card p-3">
-                {{-- 3d reset --}}
+               
                 <div class="d-flex mt-n2">
                             <div class="avatar avatar-xl bg-warning border-radius-xl p-2 mt-n4">
                               <i class="fas fa-rotate fa-2x"></i>
-                                {{-- <img src="{{ asset('admin_app/assets/img/small-logos/logo-slack.svg') }}" alt="slack_logo"> --}}
+                               
                             </div>
                             <div class="ms-3 my-auto">
                                 <h6 class="mb-0"> အောက်နှစ်လုံး Reset</h6>
@@ -450,7 +524,7 @@
                   <p class="mb-0"><span class="text-success text-sm font-weight-bolder">အောက်နှစ်လုံး ထွက်ပြီး </span>၁၀ နာရီအတွင်း လုပ်ဆောင်ပေးရပါမည်။</p>
                 </div>
               </div>
-            </div>
+            </div> --}}
             {{-- jackpot over --}}
           </div>
           {{-- second row end --}}

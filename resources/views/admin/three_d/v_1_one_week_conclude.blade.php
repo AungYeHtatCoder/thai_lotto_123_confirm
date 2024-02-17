@@ -35,7 +35,7 @@
                         <div>
                             <h5 class="mb-0">3D တပါတ်အတွင်းထိုးထားသော စာရင်း ပေါင်းချုပ် -   Dashboards
                                 <span>
-                                     {{-- <h6></h6> --}}
+                                     <h6>3D  Lottery Match Times for {{ Carbon\Carbon::now()->format('F Y') }}</h6>
                                 </span>
                                 <span>
                                     <div class="ms-auto my-auto mt-lg-0 mt-4">
@@ -72,9 +72,9 @@
                 </tr>
            </thead>
             <tbody>
-        @if(isset($lotteries))
+        @if(isset($displayThreeDigits['threeDigit']) && count($displayThreeDigits['threeDigit']) == 0)
         <p class="text-center text-white px-3 py-2 mt-3" style="background-color: #c50408">
-          ကံစမ်းထားသော 3D ထီဂဏန်းများ -  3D  Lottery Match Times for {{ Carbon\Carbon::now()->format('F Y') }}
+          ကံစမ်းထားသော 3D ထီဂဏန်းများ မရှိသေးပါ
           {{-- <span>
             <a href="{{ url('/user/jackport-play')}}" style="color: #f5bd02; text-decoration:none">
               <strong>ထီးထိုးရန် နိုပ်ပါ</strong></a>
@@ -82,29 +82,43 @@
         </p>
         @endif
 
-       @foreach ($lotteries as $lottery)
-    <tr>
-        <td>{{ $lottery->lotto_id }}</td>
-        <td>{{ $lottery->three_digit }}</td>
-        <td>
-            @if($lottery->currency == 'mmk')
-                {{ $lottery->sub_amount / $currencyRate }} bath
-            @else
-                {{ $lottery->sub_amount }} bath
-            @endif
-        </td>
-        <td>{{ \Carbon\Carbon::parse($lottery->lotto_created_at)->format('d-m-Y (l) (h:i a)') }}</td>
-        <td>{{ $lottery->prize_sent ? 'Win' : 'Pending' }}</td>
-    </tr>
-@endforeach
+        @if($displayThreeDigits)
+        @foreach ($displayThreeDigits['threeDigit'] as $index => $digit)
+        <tr>
+          <td>{{ $index + 1 }}</td>
+          <td>{{ $digit->three_digit }}</td>
+          <td>
+           @if($digit->pivot->sub_amount >= $three_limits->three_d_limit)
+           <span class="text-danger">
+            {{ $digit->pivot->sub_amount }} - {{ $digit->currency }}
+           </span>
+           @else
+           <p class="text-info">
+            {{ $digit->pivot->sub_amount }}
+           </p>
+           @endif
+          </td>
+          <td class="text-sm font-weight-normal">
 
+                 <span
+                     class="badge bg-gradient-info">{{ $digit->created_at->format('d-m-Y (l) (h:i a)') }}</span>
+             </td>
+             <td>
+                 @if ($digit->pivot->prize_sent == 1)
+                     <span class="text-success">Win</span>
+                 @else
+                     <span class="text-danger">Pending</span>
+                 @endif
+             </td>
+        </tr>
+        @endforeach
+        @endif
       </tbody>
        </table>
         <div class="mb-3 d-flex justify-content-around text-white p-2 shadow border border-1" style="border-radius: 10px; background: var(--Primary, #12486b)">
-      <p class="text-end pt-1" style="color: #fff">Total Amount in Baht: ||&nbsp; &nbsp; 
-    <strong>{{ number_format($totalSubAmountBaht, 2) }} Baht</strong>
-</p>
-
+      <p class="text-end pt-1" style="color: #fff">Total Amount : ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
+        <strong>{{ $displayThreeDigits['total_amount'] }} MMK</strong>
+      </p>
     </div>
    </div>
             </div>

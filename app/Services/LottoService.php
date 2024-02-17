@@ -7,6 +7,7 @@ use App\Models\ThreeDigit;
 use App\Models\Admin\ThreeDDLimit;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Models\ThreeDigit\BahtBreak;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ThreeDigit\LotteryThreeDigitPivot;
 
@@ -75,7 +76,7 @@ class LottoService
 
             $preOver = [];
             foreach ($amounts as $amount) {
-                $preCheck = $this->preProcessAmountCheck($amount);
+                $preCheck = $this->preProcessAmountCheck($amount, $currency);
                 if(is_array($preCheck)){
                     $preOver[] = $preCheck[0];
                 }
@@ -116,14 +117,18 @@ class LottoService
     }
 
 
-    protected function preProcessAmountCheck($item)
+    protected function preProcessAmountCheck($item, $currency)
 {
     $num = str_pad($item['num'], 3, '0', STR_PAD_LEFT);
     $sub_amount = $item['amount'];
     $three_digit = ThreeDigit::where('three_digit', $num)->firstOrFail();
     $totalBetAmount = DB::table('lotto_three_digit_copy')->where('three_digit_id', $three_digit->id)->sum('sub_amount');
-    $break = ThreeDDLimit::latest()->first()->three_d_limit;
-
+    // for mmk break (currency will be mmk)
+    //$break = ThreeDDLimit::latest()->first()->three_d_limit;
+    // for baht break (currency will be baht)
+    //$baht_break = BahtBreak::latest()->first()->baht_limit;
+        // Determine the limit based on the currency again
+   $break = $currency == 'mmk' ? ThreeDDLimit::latest()->first()->three_d_limit : BahtBreak::latest()->first()->baht_limit;
     if ($totalBetAmount + $sub_amount > $break) {
         // throw new \Exception("The bet amount for number $num exceeds the limit.");
         return [$item['num']];
@@ -136,8 +141,12 @@ class LottoService
     $sub_amount = $item['amount'];
     $three_digit = ThreeDigit::where('three_digit', $num)->firstOrFail();
     $totalBetAmount = DB::table('lotto_three_digit_copy')->where('three_digit_id', $three_digit->id)->sum('sub_amount');
-    $break = ThreeDDLimit::latest()->first()->three_d_limit;
-
+    // for mmk break (currency will be mmk)
+    //$break = ThreeDDLimit::latest()->first()->three_d_limit;
+    // for baht break (currency will be baht)
+    //$baht_break = BahtBreak::latest()->first()->baht_limit;
+     // Determine the limit based on the currency again
+    $break = $currency == 'mmk' ? ThreeDDLimit::latest()->first()->three_d_limit : BahtBreak::latest()->first()->baht_limit;
     if ($totalBetAmount + $sub_amount <= $break) {
         $pivot = new LotteryThreeDigitPivot([
             'lotto_id' => $lotteryId,
