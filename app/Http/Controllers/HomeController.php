@@ -36,32 +36,54 @@ class HomeController extends Controller
              $rate = Currency::latest()->first()->rate;
             if ($isAdmin) {
             // Daily Total
-            $dailyTotal = Lottery::whereDate('created_at', '=', now()->today())->sum('total_amount');
+            $twoDBahtDaily = Lottery::with('user')->whereHas('user', function ($query) {
+                $query->where('user_currency', 'baht');
+            })->whereDate('created_at', '=', now()->today())->sum('total_amount');
+            $twoDMmkDaily = Lottery::with('user')->whereHas('user', function ($query) {
+                $query->where('user_currency', 'mmk');
+            })->whereDate('created_at', '=', now()->today())->sum('total_amount');
+            $dailyTotal = ($twoDBahtDaily * $rate) + $twoDMmkDaily;
 
             // Weekly Total
             $startOfWeek = now()->startOfWeek();
             $endOfWeek = now()->endOfWeek();
-            $weeklyTotal = Lottery::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('total_amount');
+            $twoDMmkWeekly = Lottery::with('user')->whereHas('user', function ($query) {
+                $query->where('user_currency', 'mmk');
+            })->whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('total_amount');
+            $twoDBahtWeekly = Lottery::with('user')->whereHas('user', function ($query) {
+                $query->where('user_currency', 'baht');
+            })->whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('total_amount');
+            $weeklyTotal = ($twoDBahtWeekly * $rate) + $twoDMmkWeekly;
 
             // Monthly Total
-            $monthlyTotal = Lottery::whereMonth('created_at', '=', now()->month)
-                ->whereYear('created_at', '=', now()->year)
-                ->sum('total_amount');
+            $twoDMmkMonthly = Lottery::with('user')->whereHas('user', function ($query) {
+                $query->where('user_currency', 'mmk');
+            })->whereMonth('created_at', '=', now()->month)->whereYear('created_at', '=', now()->year)->sum('total_amount');
+            $twoDBahtMonthly = Lottery::with('user')->whereHas('user', function ($query) {
+                $query->where('user_currency', 'baht');
+            })->whereMonth('created_at', '=', now()->month)->whereYear('created_at', '=', now()->year)->sum('total_amount');
+            $monthlyTotal = ($twoDBahtMonthly * $rate) + $twoDMmkMonthly;
 
             // Yearly Total
-            $yearlyTotal = Lottery::whereYear('created_at', '=', now()->year)->sum('total_amount');
+            $twoDMmkYearly = Lottery::with('user')->whereHas('user', function ($query) {
+                $query->where('user_currency', 'mmk');
+            })->whereYear('created_at', '=', now()->year)->sum('total_amount');
+            $twoDBahtYearly = Lottery::with('user')->whereHas('user', function ($query) {
+                $query->where('user_currency', 'baht');
+            })->whereYear('created_at', '=', now()->year)->sum('total_amount');
+            $yearlyTotal = ($twoDBahtYearly * $rate) + $twoDMmkYearly;
 
             // 3D Daily Total
             $three_d_dailyTotal = Lotto::whereDate('created_at', '=', now()->today())->sum('total_amount');
-            $bahtAmount = Lotto::with('users')
-                        ->whereHas('users', function ($query) {
+            $bahtAmount = Lotto::with('user')
+                        ->whereHas('user', function ($query) {
                             $query->where('user_currency', 'baht');
                         })
                         ->whereDate('created_at', '=', now()->today())
                         ->sum('total_amount');
 
-            $mmkAmount = Lotto::with('users')
-                        ->whereHas('users', function ($query) {
+            $mmkAmount = Lotto::with('user')
+                        ->whereHas('user', function ($query) {
                             $query->where('user_currency', 'mmk');
                         })
                         ->whereDate('created_at', '=', now()->today())
@@ -71,38 +93,38 @@ class HomeController extends Controller
             // 3D Weekly Total
             $startOfWeek = now()->startOfWeek();
             $endOfWeek = now()->endOfWeek();
-            $bahtAmountWeek = Lotto::with('users')->whereHas('users', function ($query) {
+            $bahtAmountWeek = Lotto::with('user')->whereHas('user', function ($query) {
                             $query->where('user_currency', 'baht');
                         })->whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('total_amount');
-            $mmkAmountWeek = Lotto::with('users')->whereHas('users', function ($query) {
+            $mmkAmountWeek = Lotto::with('user')->whereHas('user', function ($query) {
                             $query->where('user_currency', 'baht');
                         })->whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('total_amount');
             $three_d_weeklyTotal = ($mmkAmountWeek / $rate) + $bahtAmountWeek;
 
 
             // 3D Monthly Total
-            $bahtAmountMonth = Lotto::with('users')->whereHas('users', function ($query) {
+            $bahtAmountMonth = Lotto::with('user')->whereHas('user', function ($query) {
                 $query->where('user_currency', 'baht');
             })->whereMonth('created_at', '=', now()->month)->whereYear('created_at', '=', now()->year)->sum('total_amount');
-            $mmkAmountMonth = Lotto::with('users')->whereHas('users', function ($query) {
+            $mmkAmountMonth = Lotto::with('user')->whereHas('user', function ($query) {
                 $query->where('user_currency', 'mmk');
             })->whereMonth('created_at', '=', now()->month)->whereYear('created_at', '=', now()->year)->sum('total_amount');
             $three_d_monthlyTotal = ($mmkAmountMonth / $rate) + $bahtAmountMonth;
 
             // 3D Yearly Total
-            $bahtAmountYear = Lotto::with('users')->whereHas('users', function ($query) {
+            $bahtAmountYear = Lotto::with('user')->whereHas('user', function ($query) {
                 $query->where('user_currency', 'baht');
             })->whereYear('created_at', '=', now()->year)->sum('total_amount');
-            $mmkAmountYear = Lotto::with('users')->whereHas('users', function ($query) {
+            $mmkAmountYear = Lotto::with('user')->whereHas('user', function ($query) {
                 $query->where('user_currency', 'mmk');
             })->whereYear('created_at', '=', now()->year)->sum('total_amount');
             $three_d_yearlyTotal = ($mmkAmountYear / $rate) + $bahtAmountYear;
 
             // Jackpot Daily Total
-            $jackpotBahtDaily = Jackpot::with('users')->whereHas('users', function ($query) {
+            $jackpotBahtDaily = Jackpot::with('user')->whereHas('user', function ($query) {
                 $query->where('user_currency', 'baht');  
             })->whereDate('created_at', '=', now()->today())->sum('total_amount');
-            $jackpotMmkDaily = Jackpot::with('users')->whereHas('users', function ($query) {
+            $jackpotMmkDaily = Jackpot::with('user')->whereHas('user', function ($query) {
                 $query->where('user_currency', 'mmk');  
             })->whereDate('created_at', '=', now()->today())->sum('total_amount');
 
@@ -111,30 +133,30 @@ class HomeController extends Controller
             // Jackpot Weekly Total
             $startOfWeek = now()->startOfWeek();
             $endOfWeek = now()->endOfWeek();
-            $jackpotBahtWeekly = Jackpot::with('users')->whereHas('users', function ($query) {
+            $jackpotBahtWeekly = Jackpot::with('user')->whereHas('user', function ($query) {
                 $query->where('user_currency', 'baht');  
             })->whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('total_amount');
-            $jackpotMmkWeekly = Jackpot::with('users')->whereHas('users', function ($query) {
+            $jackpotMmkWeekly = Jackpot::with('user')->whereHas('user', function ($query) {
                 $query->where('user_currency', 'mmk');  
             })->whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('total_amount');
 
             $jackpot_weeklyTotal = ($jackpotMmkWeekly / $rate) + $jackpotBahtWeekly;
 
             // Jackpot Monthly Total
-            $jackpotBahtMonthly = Jackpot::with('users')->whereHas('users', function ($query) {
+            $jackpotBahtMonthly = Jackpot::with('user')->whereHas('user', function ($query) {
                 $query->where('user_currency', 'baht');  
             })->whereMonth('created_at', '=', now()->month)->whereYear('created_at', '=', now()->year)->sum('total_amount');
-            $jackpotMmkMonthly = Jackpot::with('users')->whereHas('users', function ($query) {
+            $jackpotMmkMonthly = Jackpot::with('user')->whereHas('user', function ($query) {
                 $query->where('user_currency', 'mmk');  
             })->whereMonth('created_at', '=', now()->month)->whereYear('created_at', '=', now()->year)->sum('total_amount');
 
             $jackpot_monthlyTotal = ($jackpotMmkMonthly / $rate) + $jackpotBahtMonthly;
 
             // Jackpot Yearly Total
-            $jackpotBahtYearly = Jackpot::with('users')->whereHas('users', function ($query) {
+            $jackpotBahtYearly = Jackpot::with('user')->whereHas('user', function ($query) {
                 $query->where('user_currency', 'baht');  
             })->whereYear('created_at', '=', now()->year)->sum('total_amount');
-            $jackpotMmkYearly = Jackpot::with('users')->whereHas('users', function ($query) {
+            $jackpotMmkYearly = Jackpot::with('user')->whereHas('user', function ($query) {
                 $query->where('user_currency', 'baht');  
             })->whereYear('created_at', '=', now()->year)->sum('total_amount');
             $jackpot_yearlyTotal = ($jackpotMmkYearly / $rate) + $jackpotBahtYearly;
