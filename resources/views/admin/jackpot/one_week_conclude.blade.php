@@ -84,8 +84,8 @@
 
        @foreach ($lotteries as $lottery)
     <tr>
-        <td>{{ $lottery->lotto_id }}</td>
-        <td>{{ $lottery->three_digit }}</td>
+        <td>{{ $lottery->jackpot_id }}</td>
+        <td>{{ $lottery->two_digit }}</td>
         <td>
             @if($lottery->currency == 'mmk')
                 {{ $lottery->sub_amount / $currencyRate }} bath
