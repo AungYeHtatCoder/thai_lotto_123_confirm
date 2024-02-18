@@ -281,11 +281,11 @@ class JackpotController extends Controller
     $currencyRate = Currency::where('name', 'mmk')->latest()->first()->rate;
 
     $lotteries = DB::table('jackpots')
-        ->join('jackpot_two_digit', 'jackpots.id', '=', 'jackpot_two_digit.lotto_id')
+        ->join('jackpot_two_digit', 'jackpots.id', '=', 'jackpot_two_digit.jackpot_id')
         ->join('two_digits', 'jackpot_two_digit.two_digit_id', '=', 'two_digits.id')
         ->join('lottery_matches', 'jackpots.lottery_match_id', '=', 'lottery_matches.id')
         ->select(
-            'jackpots.id as lotto_id',
+            'jackpots.id as jackpot_id',
             'jackpots.total_amount',
             'jackpots.created_at as lotto_created_at',
             'jackpot_two_digit.sub_amount',
