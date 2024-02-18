@@ -75,10 +75,7 @@
         @if(isset($lotteries))
         <p class="text-center text-white px-3 py-2 mt-3" style="background-color: #c50408">
           ကံစမ်းထားသော အောက်နှစ်လုံးထီဂဏန်းများ -    Lottery Match Times for {{ Carbon\Carbon::now()->format('F Y') }}
-          {{-- <span>
-            <a href="{{ url('/user/jackport-play')}}" style="color: #f5bd02; text-decoration:none">
-              <strong>ထီးထိုးရန် နိုပ်ပါ</strong></a>
-          </span> --}}
+          
         </p>
         @endif
 
