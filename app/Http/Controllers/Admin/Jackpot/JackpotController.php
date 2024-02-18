@@ -307,7 +307,7 @@ class JackpotController extends Controller
             return $carry + $lottery->sub_amount;
         }
     }, 0);
-    return view('admin.three_d.one_week_conclude', compact('lotteries', 'prize_no', 'matchTime', 'currencyRate', 'totalSubAmountBaht'));
+    return view('admin.jackpot.one_week_conclude', compact('lotteries', 'prize_no', 'matchTime', 'currencyRate', 'totalSubAmountBaht'));
 }
 
 
