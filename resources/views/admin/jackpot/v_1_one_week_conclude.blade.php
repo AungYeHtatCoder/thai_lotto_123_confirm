@@ -33,9 +33,9 @@
                 <div class="card-header pb-0">
                     <div class="d-lg-flex">
                         <div>
-                            <h5 class="mb-0">အောက်နှစ်လုံးထီ တပါတ်အတွင်းထိုးထားသော စာရင်း ပေါင်းချုပ် -   Dashboards
+                            <h5 class="mb-0">အောက်နှစ်လုံးထီ တပါတ်အတွင်းထိုးထားသော စာရင်း  Dashboards
                                 <span>
-                                     {{-- <h6></h6> --}}
+                                     <h6>အောက်နှစ်လုံးထီ  Lottery Match Times for {{ Carbon\Carbon::now()->format('F Y') }}</h6>
                                 </span>
                                 <span>
                                     <div class="ms-auto my-auto mt-lg-0 mt-4">
@@ -65,16 +65,16 @@
            <thead class="thead-light">
                 <tr>
                 <th>No</th>
-                <th>အောက်နှစ်လုံးထီ</th>
+                <th>အောက်နှစ်လုံး</th>
                 <th>ထိုးကြေး</th>
+                {{-- <th>Name</th> --}}
                 <th>ရက်စွဲ</th>
-                <th>Win/Lose</th>
                 </tr>
            </thead>
             <tbody>
-        @if(isset($lotteries))
+        @if(isset($displayThreeDigits['jackpotDigit']) && count($displayThreeDigits['jackpotDigit']) == 0)
         <p class="text-center text-white px-3 py-2 mt-3" style="background-color: #c50408">
-          ကံစမ်းထားသော အောက်နှစ်လုံးထီဂဏန်းများ -    Lottery Match Times for {{ Carbon\Carbon::now()->format('F Y') }}
+          ကံစမ်းထားသော အောက်နှစ်လုံး ထီဂဏန်းများ မရှိသေးပါ
           {{-- <span>
             <a href="{{ url('/user/jackport-play')}}" style="color: #f5bd02; text-decoration:none">
               <strong>ထီးထိုးရန် နိုပ်ပါ</strong></a>
@@ -82,29 +82,49 @@
         </p>
         @endif
 
-       @foreach ($lotteries as $lottery)
-    <tr>
-        <td>{{ $lottery->lotto_id }}</td>
-        <td>{{ $lottery->three_digit }}</td>
-        <td>
-            @if($lottery->currency == 'mmk')
-                {{ $lottery->sub_amount / $currencyRate }} bath
+        @if($displayThreeDigits)
+        @foreach ($displayThreeDigits['jackpotDigit'] as $index => $digit)
+        <tr>
+          <td>{{ $index + 1 }}</td>
+          <td>{{ $digit->two_digit }}</td>
+          <td>
+           @if($digit->pivot->sub_amount >= $jackpot_limits->jack_limit)
+           <span class="text-danger">
+            {{ $digit->pivot->sub_amount }}
+           </span>
+           @else
+           <p class="text-info">
+            {{ $digit->pivot->sub_amount }}
+           </p>
+           @endif
+          </td>
+          {{-- <td>
+            
+            @if($digit->user)
+            <p class="text-info">
+            {{ $digit->user->name }}
+            </p>
             @else
-                {{ $lottery->sub_amount }} bath
+            <p class="text-danger">
+            No user associated
+            </p>
             @endif
-        </td>
-        <td>{{ \Carbon\Carbon::parse($lottery->lotto_created_at)->format('d-m-Y (l) (h:i a)') }}</td>
-        <td>{{ $lottery->prize_sent ? 'Win' : 'Pending' }}</td>
-    </tr>
-@endforeach
+           
+          </td> --}}
+          <td class="text-sm font-weight-normal">
 
+                 <span
+                     class="badge bg-gradient-info">{{ $digit->pivot->created_at->format('d-m-Y (l) (h:i a)') }}</span>
+             </td>
+        </tr>
+        @endforeach
+        @endif
       </tbody>
        </table>
         <div class="mb-3 d-flex justify-content-around text-white p-2 shadow border border-1" style="border-radius: 10px; background: var(--Primary, #12486b)">
-      <p class="text-end pt-1" style="color: #fff">Total Amount in Baht: ||&nbsp; &nbsp; 
-    <strong>{{ number_format($totalSubAmountBaht, 2) }} Baht</strong>
-</p>
-
+      <p class="text-end pt-1" style="color: #fff">Total Amount : ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
+        <strong>{{ $displayThreeDigits['total_amount'] }} MMK</strong>
+      </p>
     </div>
    </div>
             </div>

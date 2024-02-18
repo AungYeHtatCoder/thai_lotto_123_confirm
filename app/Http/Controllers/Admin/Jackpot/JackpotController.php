@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Admin\Jackpot;
 
 use Carbon\Carbon;
 use App\Models\User;
-use App\Models\Jackpot\Jackpot;
 use Illuminate\Http\Request;
+use App\Models\Admin\Currency;
+use App\Models\Jackpot\Jackpot;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Jackpot\JackpotLimit;
@@ -246,16 +247,68 @@ class JackpotController extends Controller
         return redirect()->back()->with('success', 'Three Digit Lottery Prize Number Created Successfully');
     }
 
+    // public function OnceWeekJackpotHistoryConclude()
+    // {
+    //     $userId = auth()->id(); // Get logged in user's ID
+    //     $displayJackpotDigit = User::getAdminJackpotDigitsHistory();
+    //     $jackpot_limits = JackpotLimit::orderBy('id', 'desc')->first();
+    //     return view('admin.jackpot.one_week_conclude', [
+    //         'displayThreeDigits' => $displayJackpotDigit,
+    //         'jackpot_limits' => $jackpot_limits,
+    //     ]);
+    // }
+
     public function OnceWeekJackpotHistoryConclude()
-    {
-        $userId = auth()->id(); // Get logged in user's ID
-        $displayJackpotDigit = User::getAdminJackpotDigitsHistory();
-        $jackpot_limits = JackpotLimit::orderBy('id', 'desc')->first();
-        return view('admin.jackpot.one_week_conclude', [
-            'displayThreeDigits' => $displayJackpotDigit,
-            'jackpot_limits' => $jackpot_limits,
-        ]);
+{
+    $today = Carbon::now();
+    $startDate = $today->copy()->startOfMonth();
+    $endDate = $today->copy()->endOfMonth();
+
+    if ($today->day <= 16) {
+        $endDate = $today->copy()->startOfMonth()->addDays(15)->endOfDay();
+    } else {
+        $startDate = $today->copy()->startOfMonth()->addDays(16)->startOfDay();
     }
+
+    $matchTime = DB::table('threed_match_times')
+        ->whereMonth('match_time', '=', $today->month)
+        ->whereYear('match_time', '=', $today->year)
+        ->whereDay('match_time', '=', $today->day <= 1 ? 1 : 16)
+        ->first();
+
+    $prize_no = JackpotWinner::whereDate('created_at', Carbon::today())->orderBy('id', 'desc')->first();
+
+    $currencyRate = Currency::where('name', 'mmk')->latest()->first()->rate;
+
+    $lotteries = DB::table('jackpots')
+        ->join('jackpot_two_digit', 'jackpots.id', '=', 'jackpot_two_digit.lotto_id')
+        ->join('two_digits', 'jackpot_two_digit.two_digit_id', '=', 'two_digits.id')
+        ->join('lottery_matches', 'jackpots.lottery_match_id', '=', 'lottery_matches.id')
+        ->select(
+            'jackpots.id as lotto_id',
+            'jackpots.total_amount',
+            'jackpots.created_at as lotto_created_at',
+            'jackpot_two_digit.sub_amount',
+            'jackpot_two_digit.currency',
+            'jackpot_two_digit.prize_sent',
+            'jackpot_two_digit.created_at as pivot_created_at',
+            'two_digits.two_digit',
+            'lottery_matches.match_name'
+        )
+        ->whereBetween('jackpot_two_digit.created_at', [$startDate, $endDate])
+        ->orderBy('jackpot_two_digit.created_at', 'desc')
+        ->get();
+            // Clone the query to get the total sub_amount separately
+     //$totalSubAmountQuery = $lotteries->sum('sub_amount');
+      $totalSubAmountBaht = $lotteries->reduce(function ($carry, $lottery) use ($currencyRate) {
+        if ($lottery->currency == 'mmk') {
+            return $carry + ($lottery->sub_amount / $currencyRate);
+        } else {
+            return $carry + $lottery->sub_amount;
+        }
+    }, 0);
+    return view('admin.three_d.one_week_conclude', compact('lotteries', 'prize_no', 'matchTime', 'currencyRate', 'totalSubAmountBaht'));
+}
 
 
 }
