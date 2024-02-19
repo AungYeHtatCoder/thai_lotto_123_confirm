@@ -52,7 +52,7 @@ class CheckForJackpotWinner implements ShouldQueue
             $user->save();
 
             // Update prize_sent to true for the winning entry in the jackpot_two_digit_copy table
-            $lottery->twoDigitsCopy()->updateExistingPivot($entry->two_digit_id, ['prize_sent' => 1]);
+            $lottery->twoDigitsCopy()->updateExistingPivot($entry->two_digit_id, ['prize_sent' => true]);
         });
     }
 }

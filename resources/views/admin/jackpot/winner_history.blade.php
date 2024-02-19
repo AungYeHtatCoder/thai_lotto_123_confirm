@@ -93,7 +93,7 @@
       </p>
      </td>
      <td>
-        <p>
+        {{-- <p>
             @php 
             var_dump($winner->prize_sent);
             echo "<br>";
@@ -104,8 +104,8 @@
                 echo "မလျော်ရသေးပါ";
             }
             @endphp
-        </p>
-        {{-- @if($winner->prize_sent == true)
+        </p> --}}
+        @if($winner->prize_sent == true)
             <span>
                 <p class="text-primary">
                     လျော်ပြီး
@@ -117,7 +117,7 @@
                     မလျော်ရသေးပါ
                 </p>
             </span> 
-        @endif --}}
+        @endif
 
      </td>
     </tr>
