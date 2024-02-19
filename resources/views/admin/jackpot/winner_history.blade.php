@@ -116,12 +116,19 @@
 
    </table>
    @endif
+
+   <div class="mb-3 d-flex justify-content-around text-white p-2 shadow border border-1" style="border-radius: 10px; background: var(--Primary, #12486b)">
+      <p class="text-end pt-1" style="color: #fff">ထီပေါက်ငွေစုစုပေါင်း: ||&nbsp; &nbsp; 
+    <strong>{{ number_format($totalPrizeAmount, 2) }} Baht</strong>
+</p>
+
+    </div>
                 </div>
             </div>
-        <p>
+        {{-- <p>
             <span style="font-size: 20px">ထီပေါက်ငွေစုစုပေါင်း</span>
             <span style="font-size: 20px" class="text-primary">{{ $totalPrizeAmount }}</span>
-        </p>
+        </p> --}}
         </div>
     </div>
 @endsection
