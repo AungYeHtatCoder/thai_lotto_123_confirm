@@ -93,7 +93,18 @@
       </p>
      </td>
      <td>
-        @if($winner->prize_sent == true)
+        <p>
+            @php 
+
+            $prizeSent = $winner->prize_sent;
+            if($prizeSent == true) {
+                echo "လျော်ပြီး";
+            } else {
+                echo "မလျော်ရသေးပါ";
+            }
+            @endphp
+        </p>
+        {{-- @if($winner->prize_sent == true)
             <span>
                 <p class="text-primary">
                     လျော်ပြီး
@@ -105,7 +116,7 @@
                     မလျော်ရသေးပါ
                 </p>
             </span> 
-        @endif
+        @endif --}}
 
      </td>
     </tr>
