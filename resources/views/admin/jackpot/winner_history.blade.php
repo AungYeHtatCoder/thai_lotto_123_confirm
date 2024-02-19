@@ -93,7 +93,7 @@
       </p>
      </td>
      <td>
-        @if($winner->prize_sent == 1)
+        @if($winner->prize_sent === 1)
             <span>
                 <p class="text-primary">
                     လျော်ပြီး
