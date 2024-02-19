@@ -95,7 +95,8 @@
      <td>
         <p>
             @php 
-
+            var_dump($winner->prize_sent);
+            echo "<br>";
             $prizeSent = $winner->prize_sent;
             if($prizeSent == true) {
                 echo "လျော်ပြီး";
