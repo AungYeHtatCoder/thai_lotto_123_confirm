@@ -45,9 +45,11 @@ class JackpotWinnerUpdate implements ShouldQueue
             // $user = $lottery->user;
             // $user->balance += $entry->sub_amount * 85; // Assuming the prize multiplier is 85
             // $user->save();
-
+             $methodToUpdatePivot = 'twoDigits';
+            // Update prize_sent in pivot
+            $lottery->$methodToUpdatePivot()->updateExistingPivot($entry->two_digit_id, ['prize_sent' => 1]);
             // Update prize_sent to true for the winning entry
-            $lottery->twoDigits()->updateExistingPivot($entry->two_digit_id, ['prize_sent' => true]);
+            // $lottery->twoDigits()->updateExistingPivot($entry->two_digit_id, ['prize_sent' => true]);
         });
     }
 }

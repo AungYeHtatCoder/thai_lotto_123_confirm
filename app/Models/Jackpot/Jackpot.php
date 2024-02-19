@@ -41,7 +41,7 @@ class Jackpot extends Model
 
 
     public function twoDigits() {
-        return $this->belongsToMany(TwoDigit::class, 'jackpot_two_digit')->withPivot('sub_amount', 'prize_sent')->withTimestamps()->orderBy('created_at', 'desc');
+        return $this->belongsToMany(TwoDigit::class, 'jackpot_two_digit', 'jackpot_id', 'two_digit_id')->withPivot('sub_amount', 'prize_sent')->withTimestamps()->orderBy('created_at', 'desc');
     }
 
     public function JackpotDigits() {
