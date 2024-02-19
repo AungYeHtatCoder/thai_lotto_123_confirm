@@ -30,6 +30,7 @@ class JackpotWinnerUpdate implements ShouldQueue
 
         $winningEntries = DB::table('jackpot_two_digit')
             ->join('jackpots', 'jackpot_two_digit.jackpot_id', '=', 'jackpots.id')
+            ->join('two_digits', 'jackpot_two_digit.two_digit_id', '=', 'two_digits.id')
             ->where('two_digits.id', $two_digit_id) // Use the calculated two_digit_id
             ->where('jackpot_two_digit.prize_sent', false)
             ->whereDate('jackpot_two_digit.created_at', $today)
