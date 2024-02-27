@@ -66,7 +66,7 @@
                 <tr>
                 <th>No</th>
                 <th>3D</th>
-                <th>ထိုးကြေး</th>
+                <th>ထိုးကြေး (ဘတ်)</th>
                 <th>ရက်စွဲ</th>
                 <th>Win/Lose</th>
                 </tr>
@@ -88,9 +88,9 @@
         <td>{{ $lottery->three_digit }}</td>
         <td>
             @if($lottery->currency == 'mmk')
-                {{ $lottery->sub_amount / $currencyRate }} bath
+                {{ $lottery->sub_amount / $currencyRate }}
             @else
-                {{ $lottery->sub_amount }} bath
+                {{ $lottery->sub_amount }}
             @endif
         </td>
         <td>{{ \Carbon\Carbon::parse($lottery->lotto_created_at)->format('d-m-Y (l) (h:i a)') }}</td>
